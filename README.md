@@ -3,9 +3,6 @@
 
 Provides QA checks for NIEM data, based on NIEM NDR rules and modeling best practices.
 
-## Features
-
-
 ## Installation
 
 ```sh
@@ -42,3 +39,4 @@ npm i cdmgtri/niem-qa
 - [ ] Format results
 - [ ] Download results spreadsheet
 - [ ] Add usage section to README
+- [ ] Add project testing (jest)
