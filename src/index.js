@@ -1,28 +1,28 @@
 
-let NIEM = require("niem");
+let TestSuite = require("niem-test-suite");
 
-let Test = require("./test/index");
-let Issue = require("./issue/index");
-let checkTypes = require("./checks/type/index");
-let checkFacets = require("./checks/facet/index");
+let { Test, Issue } = TestSuite;
 
-let { Release } = NIEM.ModelObjects;
+let TypeQA = require("./type/index");
 
-/**
- * @param {Test[]} tests
- * @param {Release} release
- */
-async function checkRelease(tests, release) {
+class NIEMModelQA {
 
-  // let tests = await Test.loadTestSuite();
+  constructor() {
 
-  await checkTypes(tests, release);
-  await checkFacets(tests, release);
+    this.testSuite = new TestSuite();
+    this.testSuite.loggingEnabled = true;
+
+    this.typeQA = new TypeQA(this.testSuite);
+
+  }
+
+  async loadTests() {
+    await this.testSuite.loadTests("niem-model-qa-tests.xlsx");
+  }
 
 }
 
-module.exports = {
-  checkRelease,
-  Test,
-  Issue
-};
+NIEMModelQA.Test = Test;
+NIEMModelQA.Issue = Issue;
+
+module.exports = NIEMModelQA;

@@ -24,6 +24,13 @@ npm i cdmgtri/niem-qa
 - [ ] Local terminology tests
 - [ ] Metadata tests
 
+## Planning
+
+- QA.runLocalTests() - NIEM model source
+  - PropertyQA.runLocalTests() - array of NIEM properties
+- QA.runRelationalTests() - NIEM model source
+- QA.runAllTests() - NIEM model source
+
 ## To Do
 
 - [ ] Update test suite

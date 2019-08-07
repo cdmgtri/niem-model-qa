@@ -1,11 +1,129 @@
 
-let NIEM = require("niem");
-let Test = require("../../test/index");
-let Issue = require("../../issue/index");
+let ComponentQA = require("../component/index");
 
-let { Release, Type, Namespace } = NIEM.ModelObjects;
-let { logResults } = Test;
+let { Test, Issue } = ComponentQA;
+let { Release, Type } = ComponentQA.ModelObjects;
 
+class TypeQA extends ComponentQA {
+
+  constructor(testSuite) {
+    super(testSuite)
+  }
+
+  /**
+   * @param {Release} release
+   * @param {Type[]} types
+   */
+  async run(release, types) {
+    return super.run(release, types);
+  }
+
+  /**
+   * Type unit tests.
+   *
+   * Checks type information locally, without following any references to
+   * other related types, namespaces, sub-properties, or facets.
+   *
+   * @example Checks that a type's definition begins with the correct opening phrase.
+   *
+   * @param {Type[]} types
+   */
+  unitTests(types) {
+    return [
+      ...this.unitTests_names(types)
+    ]
+
+  }
+
+  /**
+   * @param {Type[]} types
+   */
+  unitTests_names(types) {
+    return [
+      this.checkNames_missing_simple(types),
+      this.checkNames_missing_complex(types),
+      this.checkNames_invalidChar(types),
+
+      ...this.unitTests_names_repTerms(types),
+
+    ];
+  }
+
+  /**
+   * @param {Type[]} types
+   */
+  unitTests_names_repTerms(types) {
+    return [
+      this.checkNames_repTerms_all(types)
+    ]
+  }
+
+  /**
+   * @param {Type[]} types
+   */
+  checkNames_missing_simple(types) {
+    let simpleTypes = types.filter( type => type.isSimpleType );
+    return this.checkNames_missing(simpleTypes, "type-name-missing-simple");
+  }
+
+  /**
+   * @param {Type[]} types
+   */
+  checkNames_missing_complex(types) {
+    let complexTypes = types.filter( type => type.isComplexType );
+    return this.checkNames_missing(complexTypes, "type-name-missing-complex");
+  }
+
+  /**
+   * @param {Type[]} types
+   */
+  checkNames_invalidChar(types) {
+    return super.checkNames_invalidChar(types, "type-name-invalidChar");
+  }
+
+  // **************************************************************************
+
+  /**
+   * Check that all type names end with the term "Type"
+   * @param {Type[]} types
+   */
+  checkNames_repTerms_all(types) {
+    let problemTypes = types.filter( type => type.name && ! type.name.endsWith("Type") );
+    return this.logIssues("type-name-repTerm", problemTypes, "name");
+  }
+
+
+  // **************************************************************************
+  // **************************************************************************
+
+
+
+  /**
+   * Type integration tests.
+   *
+   * Checks type information locally, without following any references to
+   * other related types, namespaces, sub-properties, or facets.
+   *
+   * @example Checks that a type has an appropriate parent type.
+   *
+   * @param {Release} release
+   * @param {Type[]} types
+   * @returns {Test[]}
+   */
+  async referenceTests(release, types) {
+
+  }
+
+  /**
+   * @todo Reference check names
+   * @param {Release} release
+   * @param {Type[]} types
+   */
+  referenceCheckNames(release, types) {
+
+  }
+
+}
 
 /**
  * @todo Handle XS simple types better
@@ -37,15 +155,7 @@ async function checkTypes(tests, release) {
  */
 async function checkNames(tests, types) {
 
-  // Missing type names
-  problemTypes = types.filter( type => ! type.name );
-  logResults(tests, problemTypes, "type-name-all-missing");
-
   let namedTypes = types.filter( type => type.name );
-
-  // Invalid characters
-  problemTypes = types.filter( type => type.name.match(/[^A-Za-z0-9_\-.]/) );
-  logResults(tests, problemTypes, "type-name-all-invalidChars", "name");
 
   await checkRepTerms(tests, namedTypes);
   checkDuplicates(tests, namedTypes);
@@ -71,9 +181,6 @@ async function checkRepTerms(tests, types) {
   let codeTypes = complexTypes.filter( type => type.name.endsWith("CodeType") );
   let codeSimpleTypes = simpleTypes.filter( type => type.name.endsWith("CodeSimpleType") );
 
-  // Check that all type names end with "Type"
-  let problemTypes = typesWithNames.filter( type => ! type.name.endsWith("Type") );
-  logResults(tests, problemTypes, "type-name-all-repTerm", "name");
 
   // Check that simple type names end with "SimpleType"
   problemTypes = simpleTypes.filter( type => ! type.name.endsWith("SimpleType"));
@@ -286,4 +393,4 @@ function checkPatterns(tests, types) {
 }
 
 
-module.exports = checkTypes;
+module.exports = TypeQA;

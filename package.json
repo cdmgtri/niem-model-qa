@@ -1,16 +1,28 @@
 {
-  "name": "niem-qa",
+  "name": "niem-model-qa",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "docs": "jsdoc -r src -d docs -R README.md -t node_modules/docdash",
+    "test": "jest",
+    "test:cov": "jest --coverage"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "niem": "github:cdmgtri/niem",
-    "xlsx": "^0.14.3"
+    "niem-model-objects": "github:cdmgtri/niem-model-objects",
+    "niem-model-source": "github:cdmgtri/niem-model-source#dev",
+    "niem-test-suite": "github:cdmgtri/niem-test-suite",
+    "xlsx-populate": "^1.20.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.16",
+    "coveralls": "^3.0.6",
+    "docdash": "^1.1.1",
+    "jest": "^24.8.0",
+    "jsdoc": "^3.6.3",
+    "niem-model-source-memory": "github:cdmgtri/niem-model-source-memory"
   }
 }
