@@ -1,5 +1,5 @@
 
-let TestSuite = require("niem-test-suite");
+let TestSuite = require("./test-suite/index");
 
 let { Test, Issue } = TestSuite;
 
@@ -10,9 +10,8 @@ class NIEMModelQA {
   constructor() {
 
     this.testSuite = new TestSuite();
-    this.testSuite.loggingEnabled = true;
 
-    this.typeQA = new TypeQA(this.testSuite);
+    this.type = new TypeQA(this.testSuite);
 
   }
 

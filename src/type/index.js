@@ -1,13 +1,21 @@
 
 let ComponentQA = require("../component/index");
 
+let TypeUnitTests = require("./unit/index");
+let TypeFieldTests = require("./field/index");
+
 let { Test, Issue } = ComponentQA;
 let { Release, Type } = ComponentQA.ModelObjects;
 
+/**
+ * @todo Refactor
+ */
 class TypeQA extends ComponentQA {
 
   constructor(testSuite) {
-    super(testSuite)
+    super(testSuite);
+    this.test = new TypeUnitTests(testSuite);
+    this.field = new TypeFieldTests(this.test);
   }
 
   /**
@@ -40,9 +48,9 @@ class TypeQA extends ComponentQA {
    */
   unitTests_names(types) {
     return [
-      this.checkNames_missing_simple(types),
-      this.checkNames_missing_complex(types),
-      this.checkNames_invalidChar(types),
+      this.test_name_missing_simple(types),
+      this.test_name_missing_complex(types),
+      this.test_name_invalidChar(types),
 
       ...this.unitTests_names_repTerms(types),
 
@@ -54,42 +62,8 @@ class TypeQA extends ComponentQA {
    */
   unitTests_names_repTerms(types) {
     return [
-      this.checkNames_repTerms_all(types)
+      this.test_name_repTerm_all(types)
     ]
-  }
-
-  /**
-   * @param {Type[]} types
-   */
-  checkNames_missing_simple(types) {
-    let simpleTypes = types.filter( type => type.isSimpleType );
-    return this.checkNames_missing(simpleTypes, "type-name-missing-simple");
-  }
-
-  /**
-   * @param {Type[]} types
-   */
-  checkNames_missing_complex(types) {
-    let complexTypes = types.filter( type => type.isComplexType );
-    return this.checkNames_missing(complexTypes, "type-name-missing-complex");
-  }
-
-  /**
-   * @param {Type[]} types
-   */
-  checkNames_invalidChar(types) {
-    return super.checkNames_invalidChar(types, "type-name-invalidChar");
-  }
-
-  // **************************************************************************
-
-  /**
-   * Check that all type names end with the term "Type"
-   * @param {Type[]} types
-   */
-  checkNames_repTerms_all(types) {
-    let problemTypes = types.filter( type => type.name && ! type.name.endsWith("Type") );
-    return this.logIssues("type-name-repTerm", problemTypes, "name");
   }
 
 
@@ -177,22 +151,8 @@ async function checkRepTerms(tests, types) {
   let typesWithNames = types.filter( type => type.name );
 
   let simpleTypes = typesWithNames.filter( type => ! type.isComplexType );
-  let complexTypes = typesWithNames.filter( type => type.isComplexType );
-  let codeTypes = complexTypes.filter( type => type.name.endsWith("CodeType") );
   let codeSimpleTypes = simpleTypes.filter( type => type.name.endsWith("CodeSimpleType") );
 
-
-  // Check that simple type names end with "SimpleType"
-  problemTypes = simpleTypes.filter( type => ! type.name.endsWith("SimpleType"));
-  logResults(tests, problemTypes, "type-name-simple-repTerm", "name");
-
-  // Check that complex type names do no end with "SimpleType"
-  problemTypes = complexTypes.filter( type => type.name.endsWith("SimpleType"));
-  logResults(tests, problemTypes, "type-name-complex-repTerm", "name");
-
-  // Check that "CodeType" types have a "CodeSimpleType" base
-  problemTypes = codeTypes.filter( type => ! type.baseQName.endsWith("CodeSimpleType") );
-  logResults(tests, problemTypes, "type-name-codeType-invalid", "base");
 
   // Check that "CodeSimpleType" types have enumerations
   let test = Test.run(tests, "type-name-codeSimpleType-invalid");
