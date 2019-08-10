@@ -1,12 +1,15 @@
 
+let NIEMModelQA = require("../../src/index");
+
 let classUnitTestSets = [
   require("./type")
 ];
 
-function unitTests(qa, niem) {
+/**
+ * @param {NIEMModelQA} qa
+ */
+module.exports = (qa, niem) => {
 
   classUnitTestSets.forEach( unitTestSet => unitTestSet(qa, niem) );
 
 }
-
-module.exports = unitTests;

@@ -275,7 +275,7 @@
   },
   {
     "id": "type_name_duplicate",
-    "description": "Type names must not overlap in a namespace.",
+    "description": "Type names must not occur more than once in a single namespace.",
     "severity": "error",
     "spec": "",
     "rule": "",

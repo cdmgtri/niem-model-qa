@@ -24,6 +24,81 @@ function typeTests(qa, niem) {
 
     describe("Unit tests", () => {
 
+      test("#name_camelCase", async () => {
+
+        let types = [
+          new Type(release, "ext", "string"), // invalid
+          new Type(release, "ext", "LocationType"),
+          new Type(release, "xs", "string"),
+          new Type(release, "niem-xs", "string")
+        ];
+
+        nameTypes.push(...types);
+
+        let test = await qa.type.test.name_camelCase(types);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].label).toBe("ext:string");
+        expect(test.issues().length).toBe(1);
+      });
+
+      test("#name_duplicate", async () => {
+
+        let types = [
+          new Type(release, "ext", "LocationType"), // invalid
+          new Type(release, "ext", "LocationType"), // invalid
+          new Type(release, "nc", "LocationType"),
+          new Type(release, "nc", "PersonType")
+        ];
+
+        nameTypes.push(...types);
+
+        let test = await qa.type.test.name_duplicate(types);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].label).toBe("ext:LocationType");
+        expect(test.issues()[1].label).toBe("ext:LocationType");
+        expect(test.issues().length).toBe(2);
+      });
+
+      test("#name_inconsistent_codeType", async () => {
+
+        let types = [
+          new Type(release, "ext", "EyeColorCodeType", null, "CSC", "ext:EyeColorCodeSimpleType"),
+          new Type(release, "ext", "HairColorCodeType", null, "CSC", "ext:EyeColorCodeSimpleType"), // invalid
+          new Type(release, "ext", "TextType", null, "CSC", "xs:string")
+        ];
+
+        nameTypes.push(...types);
+
+        let test = await qa.type.test.name_inconsistent_codeType(types);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].problemValue).toBe("HairColorCodeType");
+        expect(test.issues().length).toBe(1);
+      });
+
+      /**
+       * Checks type names for invalid characters.
+       */
+      test("#name_invalidChar", async () => {
+
+        let types = [
+          new Type(release, "ext", "NameType"),
+          new Type(release, "ext", "CarType "), // invalid
+          new Type(release, "ext", "ID#") // invalid
+        ];
+
+        nameTypes.push(...types);
+
+        let test = await qa.type.test.name_invalidChar(types);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].problemValue).toBe("CarType ");
+        expect(test.issues()[1].problemValue).toBe("ID#");
+        expect(test.issues().length).toBe(2);
+      });
+
       /**
        * Checks simple types for missing names.
        */
@@ -61,27 +136,6 @@ function typeTests(qa, niem) {
 
         expect(test.failed()).toBeTruthy();
         expect(test.issues().length).toBe(1);
-      });
-
-      /**
-       * Checks type names for invalid characters.
-       */
-      test("#name_invalidChar", async () => {
-
-        let types = [
-          new Type(release, "ext", "NameType"),
-          new Type(release, "ext", "CarType "), // invalid
-          new Type(release, "ext", "ID#") // invalid
-        ];
-
-        nameTypes.push(...types);
-
-        let test = await qa.type.test.name_invalidChar(types);
-
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].problemValue).toBe("CarType ");
-        expect(test.issues()[1].problemValue).toBe("ID#");
-        expect(test.issues().length).toBe(2);
       });
 
       test("#name_repTerm_type", async () => {
@@ -156,23 +210,6 @@ function typeTests(qa, niem) {
         expect(test.issues().length).toBe(1);
       });
 
-      test("#name_inconsistent_codeType", async () => {
-
-        let types = [
-          new Type(release, "ext", "EyeColorCodeType", null, "CSC", "ext:EyeColorCodeSimpleType"),
-          new Type(release, "ext", "HairColorCodeType", null, "CSC", "ext:EyeColorCodeSimpleType"), // invalid
-          new Type(release, "ext", "TextType", null, "CSC", "xs:string")
-        ];
-
-        nameTypes.push(...types);
-
-        let test = await qa.type.test.name_inconsistent_codeType(types);
-
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].problemValue).toBe("HairColorCodeType");
-        expect(test.issues().length).toBe(1);
-      });
-
       test("#name_repTerm_codeSimpleType", async () => {
 
         let types = [
@@ -195,6 +232,25 @@ function typeTests(qa, niem) {
         expect(test.failed()).toBeTruthy();
         expect(test.issues()[0].problemValue).toBe("MonthCodeSimpleType");
         expect(test.issues().length).toBe(1);
+      });
+
+      test("#name_reservedTerm_type", async () => {
+
+        let types = [
+          new Type(release, "ext", "IDTypeCodeType"), // invalid
+          new Type(release, "ext", "TypeCodeType"), // invalid
+          new Type(release, "nc", "LocationType"),
+          new Type(release, "xs", "PersonType")
+        ];
+
+        nameTypes.push(...types);
+
+        let test = await qa.type.test.name_reservedTerm_type(types);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].label).toBe("ext:IDTypeCodeType");
+        expect(test.issues()[1].label).toBe("ext:TypeCodeType");
+        expect(test.issues().length).toBe(2);
       });
 
     });

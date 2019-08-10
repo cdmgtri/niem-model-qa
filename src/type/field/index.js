@@ -19,6 +19,8 @@ class TypeQA_FieldTestSuites {
   async name(types) {
 
     let tests = [
+      (await this.unitTests.name_camelCase(types)),
+      (await this.unitTests.name_duplicate(types)),
       (await this.unitTests.name_missing_complex(types)),
       (await this.unitTests.name_missing_simple(types)),
       (await this.unitTests.name_invalidChar(types)),
@@ -28,6 +30,7 @@ class TypeQA_FieldTestSuites {
       (await this.unitTests.name_repTerm_codeType(types)),
       (await this.unitTests.name_inconsistent_codeType(types)),
       (await this.unitTests.name_repTerm_codeSimpleType(types)),
+      (await this.unitTests.name_reservedTerm_type(types)),
     ];
 
     return TestSuite.init(tests);

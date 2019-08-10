@@ -26,7 +26,7 @@ describe("Check test suite", () => {
   });
 
   test("#test metadata", () => {
-    qa.saveTestSuiteMetadata("niem-model-qa-tests.json");
+    qa.saveTestSuiteMetadata("niem-model-qa-tests.json")
   });
 
 });

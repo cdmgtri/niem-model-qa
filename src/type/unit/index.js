@@ -8,6 +8,34 @@ let { Release, Type } = require("niem-model-source").ModelObjects;
 class TypeQA_UnitTests extends ComponentUnitTests {
 
   /**
+   * Check that a type name begins with an upper case letter.
+   *
+   * NDR exceptions:
+   * - XML schema types (xs:string)
+   * - Proxy XML schema types (niem-xs:string)
+
+   * @param {Type[]} types
+   */
+  async name_camelCase(types) {
+
+    let problemTypes = types
+    .filter( type => type.name )
+    .filter( type => type.prefix != "xs" && type.prefix != "niem-xs" )
+    .filter( type => type.name[0] == type.name[0].toLowerCase() );
+
+    return this.testSuite.log("type_name_camelCase", problemTypes, "name");
+  }
+
+  /**
+   * Check that type names are not repeated in a namespace.
+   *
+   * @param {Type[]} types
+   */
+  async name_duplicate(types) {
+    return this.name_duplicate__helper("type_name_duplicate", types);
+  }
+
+  /**
    * Check that a type using representation term "CodeType" follows the same
    * naming pattern as its simple base type.
    *
@@ -28,7 +56,7 @@ class TypeQA_UnitTests extends ComponentUnitTests {
    * @param {Type[]} types
    */
   async name_invalidChar(types) {
-    return this.name_invalidChar__helper(types, "type_name_invalidChar");
+    return this.name_invalidChar__helper("type_name_invalidChar", types);
   }
 
   /**
@@ -37,7 +65,7 @@ class TypeQA_UnitTests extends ComponentUnitTests {
    */
   async name_missing_complex(types) {
     let complexTypes = types.filter( type => type.isComplexType );
-    return this.name_missing__helper(complexTypes, "type_name_missing_complex");
+    return this.name_missing__helper("type_name_missing_complex", complexTypes);
   }
 
   /**
@@ -46,7 +74,7 @@ class TypeQA_UnitTests extends ComponentUnitTests {
    */
   async name_missing_simple(types) {
     let simpleTypes = types.filter( type => type.isSimpleType );
-    return this.name_missing__helper(simpleTypes, "type_name_missing_simple");
+    return this.name_missing__helper("type_name_missing_simple", simpleTypes);
   }
 
   /**
@@ -137,6 +165,16 @@ class TypeQA_UnitTests extends ComponentUnitTests {
     .filter( type => ! type.name.endsWith("Type") );
 
     return this.testSuite.log("type_name_repTerm_type", problemTypes, "name");
+  }
+
+  /**
+   * Check that all type names do not use the term "Type" other than as the
+   * final representation term.
+   * @param {Type[]} types
+   */
+  async name_reservedTerm_type(types) {
+    let problemTypes = types.filter( type => type.name.match(/Type.*Type/) );
+    return this.testSuite.log("type_name_reservedTerm_type", problemTypes, "name");
   }
 
 }

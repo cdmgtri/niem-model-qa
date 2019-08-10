@@ -23,12 +23,12 @@ class NIEMModelQA {
 
   }
 
-  async loadTests() {
-    await this.testSuite.loadTestSpreadsheet("niem-model-qa-tests.xlsx");
-  }
-
   get testSuiteMetadata() {
     return this.testSuite.testSuiteMetadata;
+  }
+
+  async loadTests() {
+    await this.testSuite.loadTestSpreadsheet("niem-model-qa-tests.xlsx");
   }
 
   saveTestSuiteMetadata(filePath) {

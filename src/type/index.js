@@ -50,89 +50,11 @@ async function checkTypes(tests, release) {
   let types = await release.types.find();
   let nonXSTypes = types.filter( type => type.prefix != "xs" && type.prefix != "niem-xs");
 
-  await checkNames(tests, nonXSTypes);
   checkDefinitions(tests, nonXSTypes);
   checkBases(tests, types);
   await checkPrefixes(tests, nonXSTypes, release);
   checkPatterns(tests, nonXSTypes);
 
-}
-
-/**
- * Check type names for NDR and QA issues
- *
- * @param {Test[]} tests
- * @param {Type[]} types
- */
-async function checkNames(tests, types) {
-
-  let namedTypes = types.filter( type => type.name );
-
-  checkDuplicates(tests, namedTypes);
-  checkTermType(tests, namedTypes);
-  checkCamelCase(tests, namedTypes);
-}
-
-/**
- * @todo Abstract as a component test
- * @param {Test[]} tests
- * @param {Type[]} types
- */
-function checkDuplicates(tests, types) {
-
-  let test = Test.run(tests, "type-name-all-duplicate");
-
-  // Create an object with qnames (keys) and qname counts (values)
-  let typeCounts = {};
-  types.forEach( type => {
-    let qname = type.qname;
-    typeCounts[qname] = qname in typeCounts ? typeCounts[qname] + 1 : 1;
-  });
-
-  // Create an issue for each duplicated qname
-  for (let [qname, count] of Object.entries(typeCounts)) {
-    if (count > 1) {
-      types
-        .filter( type => type.qname == qname )
-        .forEach( type => {
-          let issue = new Issue(type.label, type.source.location, type.source.line, "", qname);
-          test.issues.push(issue);
-        });
-    }
-
-  }
-}
-
-/**
- * Find types that use the reserved term "Type" as other than the final
- * representation term.
- *
- * @param {Test[]} tests
- * @param {Type[]} types
- */
-function checkTermType(tests, types) {
-
-  let problemTypes = types.filter( type => type.name.match(/Type.*Type/) );
-  return logResults(tests, problemTypes, "type-name-term-type", "qname");
-
-}
-
-/**
- * Check that type names are UpperCamelCase.
- *
- * @param {Test[]} tests
- * @param {Type[]} types
- */
-function checkCamelCase(tests, types) {
-  let problemTypes = types.filter( type => {
-    if (! type.name) {
-      return false;
-    }
-
-    let firstChar = type.name[0];
-    return firstChar == firstChar.toLowerCase();
-  });
-  return logResults(tests, problemTypes, "type-name-all-camelCase", "name");
 }
 
 /**
