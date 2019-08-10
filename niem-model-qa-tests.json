@@ -213,6 +213,7 @@
     ]
   },
   {
+    "id": "type_name_repTerm_aug",
     "description": "Augmentation type names must end with the representation term \"AugmentationType\".",
     "severity": "error",
     "spec": "",
@@ -222,6 +223,7 @@
     ]
   },
   {
+    "id": "type_name_repTerm_assn",
     "description": "Association type names must end with the representation term \"AssociationType\".",
     "severity": "error",
     "spec": "",
@@ -231,6 +233,7 @@
     ]
   },
   {
+    "id": "type_name_repTerm_metadata",
     "description": "Metadata type names must end with the representation term \"MetadataType\".",
     "severity": "error",
     "spec": "",
@@ -240,6 +243,7 @@
     ]
   },
   {
+    "id": "type_name_repTerm_list",
     "description": "Simple list type names must end with the representation term \"ListSimpleType\".",
     "severity": "error",
     "spec": "",
@@ -305,7 +309,7 @@
     ]
   },
   {
-    "id": "type_name_term_undefined",
+    "id": "type_name_spellcheck",
     "description": "Type names must use terms that either have standard dictionary entries or are custom defined as Local Terminology.",
     "severity": "error",
     "spec": "",

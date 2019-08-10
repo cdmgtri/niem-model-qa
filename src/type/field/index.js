@@ -1,5 +1,5 @@
 
-let { Type } = require("niem-model-source").ModelObjects;
+let { Release, Type } = require("niem-model-source").ModelObjects;
 
 let TypeUnitTests = require("../unit/index");
 let TestSuite = require("../../test-suite/index");
@@ -15,8 +15,9 @@ class TypeQA_FieldTestSuites {
 
   /**
    * @param {Type[]} types
+   * @param {Release} release
    */
-  async name(types) {
+  async name(types, release) {
 
     let tests = [
       (await this.unitTests.name_camelCase(types)),
@@ -31,6 +32,7 @@ class TypeQA_FieldTestSuites {
       (await this.unitTests.name_inconsistent_codeType(types)),
       (await this.unitTests.name_repTerm_codeSimpleType(types)),
       (await this.unitTests.name_reservedTerm_type(types)),
+      (await this.unitTests.name_spellcheck(types, release)),
     ];
 
     return TestSuite.init(tests);

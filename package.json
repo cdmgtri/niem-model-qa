@@ -15,6 +15,7 @@
     "niem-model-objects": "github:cdmgtri/niem-model-objects",
     "niem-model-source": "github:cdmgtri/niem-model-source#dev",
     "niem-test-suite": "github:cdmgtri/niem-test-suite",
+    "spellchecker": "^3.7.0",
     "xlsx-populate": "^1.20.0"
   },
   "devDependencies": {

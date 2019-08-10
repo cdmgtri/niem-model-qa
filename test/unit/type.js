@@ -2,7 +2,7 @@
 let NIEMModelQA = require("../../src/index");
 
 let NIEM = require("niem-model-source");
-let { Release, Type, Facet } = NIEM.ModelObjects;
+let { Release, Type, Facet, LocalTerm } = NIEM.ModelObjects;
 
 /** @type {Release} */
 let release;
@@ -239,8 +239,7 @@ function typeTests(qa, niem) {
         let types = [
           new Type(release, "ext", "IDTypeCodeType"), // invalid
           new Type(release, "ext", "TypeCodeType"), // invalid
-          new Type(release, "nc", "LocationType"),
-          new Type(release, "xs", "PersonType")
+          new Type(release, "nc", "LocationType")
         ];
 
         nameTypes.push(...types);
@@ -253,12 +252,41 @@ function typeTests(qa, niem) {
         expect(test.issues().length).toBe(2);
       });
 
+      test("#name_spellcheck", async () => {
+
+        let types = [
+          new Type(release, "ext", "OrganizatoinType"), // invalid
+          new Type(release, "nc", "DestinationLocationzType"), // invalid
+          new Type(release, "nc", "NIEMCountryCodeType"),
+          new Type(release, "ext", "NIEMCountryCodeType"), // invalid
+          new Type(release, "nc", "PersonType")
+        ];
+
+        let term = new LocalTerm(null, "nc", "NIEM", "National Information Exchange Model");
+        await release.localTerms.add(term);
+
+        nameTypes.push(...types);
+
+        let test = await qa.type.test.name_spellcheck(types, release);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].label).toBe("ext:OrganizatoinType");
+        expect(test.issues()[0].problemValue).toBe("Organizatoin");
+
+        expect(test.issues()[1].label).toBe("nc:DestinationLocationzType");
+        expect(test.issues()[1].problemValue).toBe("Locationz");
+
+        expect(test.issues()[2].label).toBe("ext:NIEMCountryCodeType");
+        expect(test.issues()[2].problemValue).toBe("NIEM");
+        expect(test.issues().length).toBe(3);
+      });
+
     });
 
     describe("Field tests", () => {
 
       test("#name", async () => {
-        let nameTestSuite = await qa.type.field.name(nameTypes);
+        let nameTestSuite = await qa.type.field.name(nameTypes, release);
         expect(nameTestSuite.status()).toBe("fail");
 
         let nameTestIDs = Object

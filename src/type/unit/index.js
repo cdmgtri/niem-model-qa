@@ -177,6 +177,17 @@ class TypeQA_UnitTests extends ComponentUnitTests {
     return this.testSuite.log("type_name_reservedTerm_type", problemTypes, "name");
   }
 
+  /**
+   * Check that type name terms are either in the dictionary or defined in
+   * Local Terminology.
+   *
+   * @param {Type[]} types
+   * @param {Release} release
+   */
+  async name_spellcheck(types, release) {
+    return this.name_spellcheck__helper("type_name_spellcheck", types, release);
+  }
+
 }
 
 module.exports = TypeQA_UnitTests;

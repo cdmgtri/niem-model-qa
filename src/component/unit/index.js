@@ -1,6 +1,11 @@
 
-let NIEMObjectUnitTests = require("../../niem-object/unit/index");
+let SpellChecker = require("spellchecker");
+
+let { Issue } = require("niem-test-suite");
+let { Release } = require("niem-model-source").ModelObjects;
 let { Component } = require("niem-model-objects");
+
+let NIEMObjectUnitTests = require("../../niem-object/unit/index");
 
 class ComponentUnitTests extends NIEMObjectUnitTests {
 
@@ -51,6 +56,46 @@ class ComponentUnitTests extends NIEMObjectUnitTests {
   name_missing__helper(testID, components) {
     let problemComponents = components.filter( component => ! component.name );
     return this.testSuite.log(testID, problemComponents, "name");
+  }
+
+  /**
+   * Check the spelling of each term in a component name.  Check Local Terminology
+   * if not found in dictionary.
+   *
+   * @private
+   * @param {String} testID
+   * @param {Component[]} components
+   * @param {Release} release
+   */
+  async name_spellcheck__helper(testID, components, release) {
+
+    /** @type {Issue[]} */
+    let issues = [];
+
+    for (let component of components) {
+      for (let term of component.terms) {
+
+        // Check for component term in dictionary
+        if (SpellChecker.isMisspelled(term)) {
+
+          // Check for component term in Local Terminology
+          let localTerm = await release.localTerms.get(component.prefix, term);
+
+          if (!localTerm) {
+            let issue = new Issue(component.prefix, component.label, component.source_location, component.source_line, component.source_position, term);
+
+            issues.push(issue);
+          }
+        }
+      }
+    }
+
+    let test = this.testSuite.find(testID);
+
+    test.ran = true;
+    test._issues = issues;
+
+    return test;
   }
 
 }
