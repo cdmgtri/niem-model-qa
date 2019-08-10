@@ -1,106 +1,43 @@
 
 let ComponentQA = require("../component/index");
 
-let TypeUnitTests = require("./unit/index");
-let TypeFieldTests = require("./field/index");
+let TypeQA_UnitTests = require("./unit/index");
+let TypeQA_FieldTestSuites = require("./field/index");
 
 let { Test, Issue } = ComponentQA;
 let { Release, Type } = ComponentQA.ModelObjects;
 
-/**
- * @todo Refactor
- */
 class TypeQA extends ComponentQA {
 
   constructor(testSuite) {
     super(testSuite);
-    this.test = new TypeUnitTests(testSuite);
-    this.field = new TypeFieldTests(this.test);
+
+    /** @private */
+    this.unitTests = new TypeQA_UnitTests(testSuite);
+
+    /** @private */
+    this.fieldTestSuites = new TypeQA_FieldTestSuites(this.test);
   }
 
   /**
-   * @param {Release} release
-   * @param {Type[]} types
+   * Individual Type unit tests
+   * @type {TypeQA_UnitTests}
    */
-  async run(release, types) {
-    return super.run(release, types);
+  get test() {
+    return this.unitTests;
   }
 
   /**
-   * Type unit tests.
-   *
-   * Checks type information locally, without following any references to
-   * other related types, namespaces, sub-properties, or facets.
-   *
-   * @example Checks that a type's definition begins with the correct opening phrase.
-   *
-   * @param {Type[]} types
+   * A Type test suite made up of unit tests related to a particular Type field.
+   * @type {TypeQA_FieldTestSuites}
    */
-  unitTests(types) {
-    return [
-      ...this.unitTests_names(types)
-    ]
-
-  }
-
-  /**
-   * @param {Type[]} types
-   */
-  unitTests_names(types) {
-    return [
-      this.test_name_missing_simple(types),
-      this.test_name_missing_complex(types),
-      this.test_name_invalidChar(types),
-
-      ...this.unitTests_names_repTerms(types),
-
-    ];
-  }
-
-  /**
-   * @param {Type[]} types
-   */
-  unitTests_names_repTerms(types) {
-    return [
-      this.test_name_repTerm_all(types)
-    ]
-  }
-
-
-  // **************************************************************************
-  // **************************************************************************
-
-
-
-  /**
-   * Type integration tests.
-   *
-   * Checks type information locally, without following any references to
-   * other related types, namespaces, sub-properties, or facets.
-   *
-   * @example Checks that a type has an appropriate parent type.
-   *
-   * @param {Release} release
-   * @param {Type[]} types
-   * @returns {Test[]}
-   */
-  async referenceTests(release, types) {
-
-  }
-
-  /**
-   * @todo Reference check names
-   * @param {Release} release
-   * @param {Type[]} types
-   */
-  referenceCheckNames(release, types) {
-
+  get field() {
+    return this.fieldTestSuites;
   }
 
 }
 
 /**
- * @todo Handle XS simple types better
  * @param {Test[]} tests
  * @param {Release} release
  */
@@ -131,39 +68,9 @@ async function checkNames(tests, types) {
 
   let namedTypes = types.filter( type => type.name );
 
-  await checkRepTerms(tests, namedTypes);
   checkDuplicates(tests, namedTypes);
   checkTermType(tests, namedTypes);
   checkCamelCase(tests, namedTypes);
-}
-
-/**
- * Check that types have the appropriate representation term.
- *
- * @todo QA check for components with missing names
- *
- * @param {Test[]} tests
- * @param {Type[]} types
- */
-async function checkRepTerms(tests, types) {
-
-  // Do not return hits on types with missing names.  Other QA checks will flag those.
-  let typesWithNames = types.filter( type => type.name );
-
-  let simpleTypes = typesWithNames.filter( type => ! type.isComplexType );
-  let codeSimpleTypes = simpleTypes.filter( type => type.name.endsWith("CodeSimpleType") );
-
-
-  // Check that "CodeSimpleType" types have enumerations
-  let test = Test.run(tests, "type-name-codeSimpleType-invalid");
-  for (let type of codeSimpleTypes) {
-    let facets = await type.facets.find();
-    if (facets.length == 0) {
-      let issue = new Issue(type.label, type.source.location, type.source.line, "name", type.name);
-      test.issues.push(issue);
-    }
-  }
-
 }
 
 /**

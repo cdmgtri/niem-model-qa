@@ -1,31 +1,33 @@
 
 let NIEMModelQA = require("../../src/index");
 
-let NIEM = require("niem-model-objects");
-let { Release, Type } = NIEM;
+let NIEM = require("niem-model-source");
+let { Release, Type, Facet } = NIEM.ModelObjects;
 
-
-let cscType = new Type(null, "usps", "StateCodeType", "A data type for a state code.", "", "usps:StateCodeSimpleType");
-
-let simpleType = new Type(null, "usps", "StateCodeType", "A data type for a state code.", "", "usps:StateCodeSimpleType");
+/** @type {Release} */
+let release;
 
 /** @type {Type[]} */
 let nameTypes = [];
 
 /**
  * @param {NIEMModelQA} qa
- * @param {Release} release
+ * @param {NIEM} niem
  */
-function typeTests(qa, release) {
+function typeTests(qa, niem) {
 
-  describe("Type local tests", () => {
+  describe("Type", () => {
+
+    beforeAll( async () => {
+      release = (await niem.releases.find())[0];
+    });
 
     describe("Unit tests", () => {
 
       /**
        * Checks simple types for missing names.
        */
-      test("#name_missing_simple", () => {
+      test("#name_missing_simple", async () => {
 
         let types = [
           new Type(release, "ext", "NameType", "", "simple"),
@@ -35,7 +37,7 @@ function typeTests(qa, release) {
 
         nameTypes.push(...types);
 
-        let test = qa.type.test.name_missing_simple(types);
+        let test = await qa.type.test.name_missing_simple(types);
 
         expect(test.failed()).toBeTruthy();
         expect(test.issues().length).toBe(1);
@@ -45,7 +47,7 @@ function typeTests(qa, release) {
       /**
        * Checks complex types for missing names.
        */
-      test("#name_missing_complex", () => {
+      test("#name_missing_complex", async () => {
 
         let types = [
           new Type(release, "ext", "NameType", "", "object"),
@@ -55,7 +57,7 @@ function typeTests(qa, release) {
 
         nameTypes.push(...types);
 
-        let test = qa.type.test.name_missing_complex(types);
+        let test = await qa.type.test.name_missing_complex(types);
 
         expect(test.failed()).toBeTruthy();
         expect(test.issues().length).toBe(1);
@@ -64,7 +66,7 @@ function typeTests(qa, release) {
       /**
        * Checks type names for invalid characters.
        */
-      test("#name_invalidChar", () => {
+      test("#name_invalidChar", async () => {
 
         let types = [
           new Type(release, "ext", "NameType"),
@@ -74,7 +76,7 @@ function typeTests(qa, release) {
 
         nameTypes.push(...types);
 
-        let test = qa.type.test.name_invalidChar(types);
+        let test = await qa.type.test.name_invalidChar(types);
 
         expect(test.failed()).toBeTruthy();
         expect(test.issues()[0].problemValue).toBe("CarType ");
@@ -82,7 +84,7 @@ function typeTests(qa, release) {
         expect(test.issues().length).toBe(2);
       });
 
-      test("#name_repTerm_type", () => {
+      test("#name_repTerm_type", async () => {
 
         let types = [
           new Type(release, "ext", "NameType"),
@@ -92,7 +94,7 @@ function typeTests(qa, release) {
 
         nameTypes.push(...types);
 
-        let test = qa.type.test.name_repTerm_type(types);
+        let test = await qa.type.test.name_repTerm_type(types);
 
         expect(test.failed()).toBeTruthy();
         expect(test.issues()[0].problemValue).toBe("Car_type ");
@@ -100,7 +102,7 @@ function typeTests(qa, release) {
         expect(test.issues().length).toBe(2);
       });
 
-      test("#name_repTerm_simple", () => {
+      test("#name_repTerm_simple", async () => {
 
         let types = [
           new Type(release, "ext", "NameSimpleType", null, "object"),
@@ -112,7 +114,7 @@ function typeTests(qa, release) {
 
         nameTypes.push(...types);
 
-        let test = qa.type.test.name_repTerm_simple(types);
+        let test = await qa.type.test.name_repTerm_simple(types);
 
         expect(test.failed()).toBeTruthy();
         expect(test.issues()[0].problemValue).toBe("CarType");
@@ -120,7 +122,7 @@ function typeTests(qa, release) {
         expect(test.issues().length).toBe(2);
       });
 
-      test("#name_repTerm_complex", () => {
+      test("#name_repTerm_complex", async () => {
 
         let types = [
           new Type(release, "ext", "NameSimpleType", null, "simple"),
@@ -130,14 +132,14 @@ function typeTests(qa, release) {
 
         nameTypes.push(...types);
 
-        let test = qa.type.test.name_repTerm_complex(types);
+        let test = await qa.type.test.name_repTerm_complex(types);
 
         expect(test.failed()).toBeTruthy();
         expect(test.issues()[0].problemValue).toBe("CarSimpleType");
         expect(test.issues().length).toBe(1);
       });
 
-      test("#name_repTerm_codeType", () => {
+      test("#name_repTerm_codeType", async () => {
 
         let types = [
           new Type(release, "ext", "IDCodeType", null, "CSC", "ext:IDCodeSimpleType"),
@@ -147,14 +149,14 @@ function typeTests(qa, release) {
 
         nameTypes.push(...types);
 
-        let test = qa.type.test.name_repTerm_codeType(types);
+        let test = await qa.type.test.name_repTerm_codeType(types);
 
         expect(test.failed()).toBeTruthy();
         expect(test.issues()[0].problemValue).toBe("MonthCodeType");
         expect(test.issues().length).toBe(1);
       });
 
-      test("#name_inconsistent_codeType", () => {
+      test("#name_inconsistent_codeType", async () => {
 
         let types = [
           new Type(release, "ext", "EyeColorCodeType", null, "CSC", "ext:EyeColorCodeSimpleType"),
@@ -164,10 +166,34 @@ function typeTests(qa, release) {
 
         nameTypes.push(...types);
 
-        let test = qa.type.test.name_inconsistent_codeType(types);
+        let test = await qa.type.test.name_inconsistent_codeType(types);
 
         expect(test.failed()).toBeTruthy();
         expect(test.issues()[0].problemValue).toBe("HairColorCodeType");
+        expect(test.issues().length).toBe(1);
+      });
+
+      test("#name_repTerm_codeSimpleType", async () => {
+
+        let types = [
+          new Type(release, "ext", "WeekdayCodeSimpleType", null, "simple", "xs:token"),
+
+          // invalid (CodeSimpleType name; no facets)
+          new Type(release, "ext", "MonthCodeSimpleType", null, "simple", "xs:string"),
+
+          new Type(release, "ext", "TextType", null, "CSC", "xs:string")
+        ];
+
+        await types[0].facets.add( new Facet(null, null, "MON") );
+        await types[0].facets.add( new Facet(null, null, "TUE") );
+        await types[0].facets.add( new Facet(null, null, "WED") );
+
+        nameTypes.push(...types);
+
+        let test = await qa.type.test.name_repTerm_codeSimpleType(types);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].problemValue).toBe("MonthCodeSimpleType");
         expect(test.issues().length).toBe(1);
       });
 
@@ -175,8 +201,8 @@ function typeTests(qa, release) {
 
     describe("Field tests", () => {
 
-      test("#name", () => {
-        let nameTestSuite = qa.type.field.name(nameTypes);
+      test("#name", async () => {
+        let nameTestSuite = await qa.type.field.name(nameTypes);
         expect(nameTestSuite.status()).toBe("fail");
       });
 

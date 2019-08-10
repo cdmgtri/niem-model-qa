@@ -1,6 +1,9 @@
 
 let TestSuite = require("../../test-suite/index");
 
+/**
+ * @private
+ */
 class NIEMObjectUnitTests {
 
   /**
