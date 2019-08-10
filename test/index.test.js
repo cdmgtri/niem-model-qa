@@ -25,6 +25,10 @@ describe("Check test suite", () => {
     expect(test).toBeDefined();
   });
 
+  test("#test metadata", () => {
+    qa.saveTestSuiteMetadata("niem-model-qa-tests.json");
+  });
+
 });
 
 describe("Class tests", () => {

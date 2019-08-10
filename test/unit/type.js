@@ -204,6 +204,15 @@ function typeTests(qa, niem) {
       test("#name", async () => {
         let nameTestSuite = await qa.type.field.name(nameTypes);
         expect(nameTestSuite.status()).toBe("fail");
+
+        let nameTestIDs = Object
+        .getOwnPropertyNames(Object.getPrototypeOf(qa.type.test))
+        .filter( property => property.includes("name") );
+
+        nameTestIDs.forEach( nameTestID => {
+          expect(nameTestSuite.find("type_" + nameTestID)).toBeDefined();
+        });
+
       });
 
     });

@@ -11,10 +11,6 @@ class TypeQA_UnitTests extends ComponentUnitTests {
    * Check that a type using representation term "CodeType" follows the same
    * naming pattern as its simple base type.
    *
-   * @example // Type name "HairColorCodeType" is valid with base type "HairColorCodeSimpleType".
-   *
-   * @example // Type name "HairColorCodeType" is not recommended with base type "EyeColorCodeSimpleType".
-   *
    * @param {Type[]} types
    */
   async name_inconsistent_codeType(types) {
@@ -28,9 +24,6 @@ class TypeQA_UnitTests extends ComponentUnitTests {
 
   /**
    * Check that all type names use valid characters.
-   *
-   * @example Type name "PersonType" uses valid characters.
-   * @example Type name "ID#Type" does not use valid characters.
    *
    * @param {Type[]} types
    */
@@ -57,11 +50,7 @@ class TypeQA_UnitTests extends ComponentUnitTests {
   }
 
   /**
-   * @example Type name "WeekdayCodeSimpleType" is valid if the type declares codes.
-   *
-   * @example Type name "WeekdayCodeSimpleType" is not valid if the type does not declare codes.
-   *
-   * @param {Release} release
+   * Check that a type with representation term "CodeSimpleType" declares codes.
    * @param {Type[]} types
    */
   async name_repTerm_codeSimpleType(types) {
@@ -72,6 +61,12 @@ class TypeQA_UnitTests extends ComponentUnitTests {
     let problemTypes = [];
 
     for (let type of codeSimpleTypes) {
+
+      if (!type.facets) {
+        // No facets getter on the type - return un-ran test
+        return this.testSuite.find("type_name_repTerm_codeSimpleType");
+      }
+
       let facets = await type.facets.find();
       if (facets.length == 0) {
         problemTypes.push(type);
@@ -84,10 +79,6 @@ class TypeQA_UnitTests extends ComponentUnitTests {
   /**
    * Check that a type using representation term "CodeType" has a base type
    * with representation term "CodeSimpleType".
-   *
-   * @example Type name "WeekdayCodeType" is valid with base type "WeekdayCodeSimpleType"
-   *
-   * @example Type name "WeekdayCodeType" is not valid with base type "string"
    *
    * @param {Type[]} types
    */
@@ -102,9 +93,6 @@ class TypeQA_UnitTests extends ComponentUnitTests {
 
   /**
    * Check that complex type names do not end with "SimpleType"
-   *
-   * @example Type name "IDSimpleType" is valid if the type is simple.
-   * @example Type name "IDSimpleType" is not valid if the type is complex.
    *
    * @param {Type[]} types
    */
@@ -121,9 +109,6 @@ class TypeQA_UnitTests extends ComponentUnitTests {
    * Check that simple type names end with "SimpleType"
    *
    * NDR exceptions: XML schema types (xs:string)
-   *
-   * @example Type name "IDSimpleType" is valid if the type is simple.
-   * @example Type name "IDType" is not valid if the type is simple.
    *
    * @param {Type[]} types
    */
@@ -143,9 +128,6 @@ class TypeQA_UnitTests extends ComponentUnitTests {
    * - XML schema types (xs:string)
    * - Proxy XML schema types (niem-xs:string)
    *
-   * @example Type name "PersonType" is valid.
-   * @example Type name "Person" is not valid.
-   *
    * @param {Type[]} types
    */
   async name_repTerm_type(types) {
@@ -154,7 +136,7 @@ class TypeQA_UnitTests extends ComponentUnitTests {
     .filter( type => type.prefix != "xs" && type.prefix != "niem-xs" && type.name )
     .filter( type => ! type.name.endsWith("Type") );
 
-    return this.testSuite.log("type_name_repTerm", problemTypes, "name");
+    return this.testSuite.log("type_name_repTerm_type", problemTypes, "name");
   }
 
 }

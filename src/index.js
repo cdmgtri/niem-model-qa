@@ -6,15 +6,12 @@ let { Test, Issue } = TestSuite;
 let TypeQA = require("./type/index");
 
 /**
- * @todo Add link to relevant niem.github.io concept
- * @todo Add docs search box
- * @todo Figure out where to put examples
- * @todo Create a NDR 3.0 version and implementation
- * @todo Export spreadsheet test suite info to JSON file for easy reuse
- * @todo JSDoc link to JSON property?
  * @todo Check that field tests include all relevant unit tests
  * @todo Full test suite for classes
  * @todo Full test suite for a release
+ *
+ * @todo Add link test info in QA app
+ * @todo Create a NDR 3.0 version and implementation
  */
 class NIEMModelQA {
 
@@ -27,7 +24,17 @@ class NIEMModelQA {
   }
 
   async loadTests() {
-    await this.testSuite.loadTests("niem-model-qa-tests.xlsx");
+    await this.testSuite.loadTestSpreadsheet("niem-model-qa-tests.xlsx");
+  }
+
+  get testSuiteMetadata() {
+    return this.testSuite.testSuiteMetadata;
+  }
+
+  saveTestSuiteMetadata(filePath) {
+    let fs = require("fs");
+    let json = JSON.stringify(this.testSuiteMetadata, null, 2);
+    fs.writeFileSync(filePath, json);
   }
 
 }

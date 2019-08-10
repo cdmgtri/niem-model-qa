@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "docs": "jsdoc -r src -d docs -R README.md -t node_modules/docdash",
+    "docs": "jsdoc -r src -d docs -c jsdoc.json -R README.md -t node_modules/docdash",
     "test": "jest",
     "test:cov": "jest --coverage"
   },

@@ -1,0 +1,606 @@
+[
+  {
+    "description": "A property must have a unique name in its namespace.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "An element name must begin with an upper case letter.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "An attribute name must begin with a lower case letter.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "A term in a property name that does not exist in the dictionary must be defined as Local Terminology.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "An abstract element should probably not have a data type.",
+    "severity": "warning",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "An element that is not abstract must have a complex data type.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "An attribute must have a simple data type.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "A property's data type must exist.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "A term in a property definition that does not exist in the dictionary should be defined as \"Local Terminology\".",
+    "severity": "warning",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "A property's substitution group must exist.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "A property's substitution group must be valid (element and has a compatible type).",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "An abstract property must be an element.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "A property with a substitution group must be an element.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type-prefix-all-invalid",
+    "description": "A type must have a valid namespace prefix.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type_name_missing_simple",
+    "description": "Simple types must have a name.",
+    "severity": "error",
+    "spec": "NDR",
+    "rule": "9-10",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_9-10",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type_name_missing_complex",
+    "description": "Complex types must have a name.",
+    "severity": "error",
+    "spec": "NDR",
+    "rule": "9-25",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_9-25",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type_name_invalidChar",
+    "description": "Type names must use valid characters.",
+    "severity": "error",
+    "spec": "NDR",
+    "rule": "10-45",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_10-45",
+    "validExample": "Type name \"PersonType\" uses valid characters.",
+    "invalidExample": "Type name \"ID#Type\" does not use valid characters.",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type_name_repTerm_type",
+    "description": "Type names must end with the representation term \"Type\".",
+    "severity": "error",
+    "spec": "NDR",
+    "rule": "11-1",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_11-1",
+    "validExample": "Type name 'PersonType' is valid.",
+    "invalidExample": "Type name 'Person' is not valid.",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type_name_repTerm_simple",
+    "description": "Simple type names must end with the representation term \"SimpleType\".",
+    "severity": "error",
+    "spec": "NDR",
+    "rule": "11-3",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_11-3",
+    "validExample": "Type name 'IDSimpleType' is valid if the type is simple.",
+    "invalidExample": "Type name 'IDType' is not valid if the type is simple.",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type_name_repTerm_complex",
+    "description": "Complex type names must not end with the representation term \"SimpleType\".",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "validExample": "Type name 'IDSimpleType' is valid if the type is simple.",
+    "invalidExample": "Type name 'IDSimpleType' is not valid if the type is complex.",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type_name_repTerm_codeSimpleType",
+    "description": "Simple types that use the representation term \"CodeSimpleType\" must declare codes.",
+    "severity": "error",
+    "spec": "NDR",
+    "rule": "11-8",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_11-8",
+    "validExample": "Type name 'WeekdayCodeSimpleType' is valid if the type declares codes.",
+    "invalidExample": "Type name 'WeekdayCodeSimpleType' is not valid if the type does not declare codes.",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "Augmentation type names must end with the representation term \"AugmentationType\".",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "Association type names must end with the representation term \"AssociationType\".",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "Metadata type names must end with the representation term \"MetadataType\".",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "Simple list type names must end with the representation term \"ListSimpleType\".",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type_name_repTerm_codeType",
+    "description": "Complex types that use the representation term \"CodeType\" must have a base type that uses the representation term \"CodeSimpleType\".",
+    "severity": "warning",
+    "spec": "NDR",
+    "rule": "10-18",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_10-18",
+    "validExample": "Type name 'WeekdayCodeSimpleType' is not valid if the type does not declare codes.",
+    "invalidExample": "Type name 'WeekdayCodeType' is not valid with base type 'string'",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type_name_inconsistent_codeType",
+    "description": "Complex types that use the representation term \"CodeType\" should be named similarly to their base type.",
+    "severity": "warning",
+    "spec": "",
+    "rule": "",
+    "validExample": "Type name 'HairColorCodeType' is valid with base type 'HairColorCodeSimpleType'.",
+    "invalidExample": "Type name 'HairColorCodeType' is not recommended with base type 'EyeColorCodeSimpleType'.",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type_name_duplicate",
+    "description": "Type names must not overlap in a namespace.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type_name_reservedTerm_type",
+    "description": "Type names should not use the term \"Type\" in the name other than as the final representation term.",
+    "severity": "warning",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type_name_camelCase",
+    "description": "Type names must begin with an upper case letter.",
+    "severity": "error",
+    "spec": "NDR",
+    "rule": "10-49",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_10-49",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type_name_term_undefined",
+    "description": "Type names must use terms that either have standard dictionary entries or are custom defined as Local Terminology.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type-def-simple-missing",
+    "description": "A simple type must have a definition.",
+    "severity": "error",
+    "spec": "NDR",
+    "rule": "9-12",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/undefined/niem-ndr-undefined.html#rule_9-12",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type-def-complex-missing",
+    "description": "A complex type must have a definition.",
+    "severity": "error",
+    "spec": "NDR",
+    "rule": "9-26",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/undefined/niem-ndr-undefined.html#rule_9-26",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type-def-complex-phrase",
+    "description": "A complex type definition must begin with the standard opening phrase \"A data type\".",
+    "severity": "warning",
+    "spec": "NDR",
+    "rule": "11-44",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/undefined/niem-ndr-undefined.html#rule_11-44",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type-def-simple-phrase",
+    "description": "A simple type definition must begin with the standard opening phrase \"A data type\".",
+    "severity": "warning",
+    "spec": "NDR",
+    "rule": "11-45",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/undefined/niem-ndr-undefined.html#rule_11-45",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type-def-term-defined",
+    "description": "A term in a type definition that does not exist in the dictionary should be defined as \"Local Terminology\".",
+    "severity": "warning",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type-style-all-missing",
+    "description": "A type must have a style.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type-style-all-invalid",
+    "description": "A type style should be one of the following: object, adapter, association, augmentation, CSC, simple, list, union, or blank (defaults to \"object\").",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "A type with a name that ends with \"AugmentationType\" must have style \"augmentation\".",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "A type with a name that ends with \"AssociationType\" must have style \"association\".",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "A type with a name that ends with \"MetadataType\" must have style \"metadata\".",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type-base-simpleContent-missing",
+    "description": "A CSC or simple type must declare a base type.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type-base-csc-invalid",
+    "description": "A CSC type must have a simple or CSC base type.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type-base-simple-invalid",
+    "description": "A simple type must use a XML schema simple type as its base type.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "type-base-all-invalid",
+    "description": "A type's base type must exist.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "An augmentation type must extend structures:AugmentationType.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "An association type must extend another association type.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "A metadata type must extend structures:MetadataType",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "description": "A simple union type must not have a base type",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "facet-prefix-all-missing",
+    "description": "A facet must have a type namespace prefix.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "facet-prefix-all-invalid",
+    "description": "A facet must have a valid type namespace prefix.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "facet-name-all-missing",
+    "description": "A facet must have a type name.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "facet-name-all-invalid",
+    "description": "A facet must have a valid type name.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "facet-name-all-complex",
+    "description": "A facet must belong to a simple type.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "facet-name-code-invalid",
+    "description": "An enumeration must belong to type with a name that ends in \"CodeSimpleType\"",
+    "severity": "error",
+    "spec": "NDR",
+    "rule": "11-7",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/undefined/niem-ndr-undefined.html#rule_11-7",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "facet-value-all-missing",
+    "description": "A facet must have a value (e.g., code value, pattern value, etc).",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "facet-value-code-duplicate",
+    "description": "A facet value should probably be unique within its type.",
+    "severity": "warning",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "facet-def-code-missing",
+    "description": "An enumeration must have a definition.",
+    "severity": "error",
+    "spec": "NDR",
+    "rule": "9-14",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/undefined/niem-ndr-undefined.html#rule_9-14",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "facet-def-pattern-missing",
+    "description": "A pattern should probably have a definition.",
+    "severity": "info",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "facet-kind-all-invalid",
+    "description": "A facet must have a valid style (e.g., enumeration, pattern, etc.).",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  }
+]
