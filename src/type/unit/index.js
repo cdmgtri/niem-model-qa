@@ -108,8 +108,8 @@ class TypeUnitTests extends ComponentUnitTests {
   name_inconsistent_codeType(types) {
 
     let problemTypes = types
-    .filter( type => type.name && type.name.endsWith("CodeType") && type.baseQName )
-    .filter( type => type.name.replace("CodeType", "CodeSimpleType") != type.baseQName );
+    .filter( type => type.name && type.name.endsWith("CodeType") && type.baseName )
+    .filter( type => type.name.replace("CodeType", "CodeSimpleType") != type.baseName );
 
     return this.testSuite.log("type-name-inconsistent-codeType", problemTypes, "name");
   }
