@@ -442,7 +442,7 @@
     "spec": "",
     "rule": "",
     "validExample": "Types 'justice:CaseType' and 'logistics:CaseType' are valid because even though they use the same name, they are defined in different namespaces.",
-    "invalidExample": "Type name 'CaseType' cannot be defined twice in the same namespace.",
+    "invalidExample": "Type name 'CaseType' cannot be defined twice in the justice namespace.",
     "exceptionIDs": [
       ""
     ]
@@ -694,7 +694,7 @@
     "spec": "",
     "rule": "",
     "validExample": "Type PersonType has style 'object'.",
-    "invalidExample": "Type PersonType cannot have a missing style.",
+    "invalidExample": "Type PersonType does not have a style.",
     "exceptionIDs": [
       ""
     ]
