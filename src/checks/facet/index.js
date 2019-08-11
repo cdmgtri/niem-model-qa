@@ -15,37 +15,9 @@ async function checkFacets(tests, release) {
 
   let facets = await release.facets.find();
 
-  await checkPrefixes(tests, facets, release);
   await checkNames(tests, facets, release);
   checkValues(tests, facets);
   checkDefs(tests, facets);
-
-}
-
-/**
- * @param {Test[]} tests
- * @param {Facet[]} facets
- * @param {Release} release
- */
-async function checkPrefixes(tests, facets, release) {
-
-  // Check that a prefix is provided
-  let problems = facets.filter( facet => ! facet.typePrefix );
-  logResults(tests, problems, "facet-prefix-all-missing");
-
-  // Check that a prefix exists
-  let prefixes = new Set( facets.map( facet => facet.typePrefix) );
-
-  let unknownPrefixes = [];
-  for (let prefix of prefixes) {
-    let ns = await release.namespaces.get(prefix);
-    if (! ns) {
-      unknownPrefixes.push(prefix);
-    }
-  }
-
-  problems = facets.filter( facet => facet.typePrefix && unknownPrefixes.includes(facet.typePrefix) );
-  logResults(tests, problems, "facet-prefix-all-invalid");
 
 }
 

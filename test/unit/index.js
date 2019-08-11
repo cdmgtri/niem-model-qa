@@ -2,7 +2,8 @@
 let NIEMModelQA = require("../../src/index");
 
 let classUnitTestSets = [
-  require("./type")
+  require("./type"),
+  require("./facet")
 ];
 
 /**

@@ -137,41 +137,38 @@ class ComponentUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Check that types have a namespace prefix that has been defined in the release.
+   * @param {String} testID
    * @param {Component[]} components
    * @param {Release} release
    */
-  async prefix_unknown__helper(components, release) {
+  async prefix_unknown__helper(testID, components, release) {
 
-    /** @type {Issue[]} */
-    let issues = [];
+    /** @type {Component[]} */
+    let problemComponents = [];
 
     /** @type {String[]} */
     let undefinedPrefixes = [];
 
-    // Components with prefixes
-    let prefixedComponents = components.filter( type => type.prefix );
+    let uniquePrefixes = new Set( components.map( component => component.prefix) );
 
-    // Unique prefixes
-    let prefixes = new Set( prefixedComponents.map( component => component.prefix) );
+    // Another test will check for missing prefixes
+    uniquePrefixes.delete("");
+    uniquePrefixes.delete(null);
+    uniquePrefixes.delete(undefined);
 
-    for (let prefix of prefixes) {
+    // Do lookups on the unique prefix set; add to undefinedPrefixes if not found
+    for (let prefix of uniquePrefixes) {
       let ns = await release.namespaces.get(prefix);
-      if (!ns) {
-        undefinedPrefixes.push(prefix);
-      }
+      if (!ns) undefinedPrefixes.push(prefix);
     }
 
+    // Add components with undefined prefixes to problemComponents array
     undefinedPrefixes.forEach( prefix => {
-      prefixedComponents
-      .filter( component => component.prefix == prefix )
-      .forEach( component => {
-        let issue = new Issue(component.prefix, component.label, component.source_location, component.source_line, component.source_position, component.prefix);
-
-        issues.push(issue);
-      });
+      let matches = components.filter( component => component.prefix == prefix );
+      problemComponents.push(...matches);
     });
 
-    return this.testSuite.log("type_prefix_unknown", issues);
+    return this.testSuite.post(testID, problemComponents, "prefix");
   }
 
 }

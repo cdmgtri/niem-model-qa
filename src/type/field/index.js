@@ -1,20 +1,15 @@
 
+let NIEMObjectFieldTests = require("../../niem-object/field/index");
+let TypeUnitTests = require("../unit/index");
 let { Release, Type } = require("niem-model-source").ModelObjects;
 
-let TypeQA_UnitTests = require("../unit/index");
-let QATestSuite = require("../../test-suite/index");
-
-let { Test } = QATestSuite;
-
-/**
- * @todo Refactor common functionality into a parent type
- */
-class TypeQA_FieldTestSuites {
+class TypeFieldTests extends NIEMObjectFieldTests {
 
   /**
-   * @param {TypeQA_UnitTests} unitTests
+   * @param {TypeUnitTests} unitTests
    */
   constructor(unitTests) {
+    super(unitTests);
     this.unitTests = unitTests;
   }
 
@@ -23,7 +18,7 @@ class TypeQA_FieldTestSuites {
    * @param {Release} release
    */
   async base(types, release) {
-    return runFieldTestSuite(this.unitTests, types, release, "base");
+    return this.testSuite(types, release, "base");
   }
 
   /**
@@ -31,7 +26,7 @@ class TypeQA_FieldTestSuites {
    * @param {Release} release
    */
   async definition(types, release) {
-    return runFieldTestSuite(this.unitTests, types, release, "definition");
+    return this.testSuite(types, release, "definition");
   }
 
   /**
@@ -39,7 +34,7 @@ class TypeQA_FieldTestSuites {
    * @param {Release} release
    */
   async name(types, release) {
-    return runFieldTestSuite(this.unitTests, types, release, "name");
+    return this.testSuite(types, release, "name");
   }
 
   /**
@@ -47,7 +42,7 @@ class TypeQA_FieldTestSuites {
    * @param {Release} release
    */
   async prefix(types, release) {
-    return runFieldTestSuite(this.unitTests, types, release, "prefix");
+    return this.testSuite(types, release, "prefix");
   }
 
   /**
@@ -55,7 +50,7 @@ class TypeQA_FieldTestSuites {
    * @param {Release} release
    */
   async style(types, release) {
-    return runFieldTestSuite(this.unitTests, types, release, "style");
+    return this.testSuite(types, release, "style");
   }
 
   /**
@@ -63,74 +58,9 @@ class TypeQA_FieldTestSuites {
    * @param {Release} release
    */
   async all(types, release) {
-    return runFieldTestSuite(this.unitTests, types, release);
-  }
-
-  /**
-   * @private
-   * @param {Type[]} types
-   * @param {Release} release
-   * @param {String} field
-   * @returns {Promise<QATestSuite>}
-   */
-  async getTestSuite(types, release, field) {
-
-    if (field && this[field]) {
-      // Return test suite with unit tests for the given field
-      return this[field](types, release);
-    }
-
-    // Return test suite with all unit tests
-    return this.all(types, release);
+    return super.all(types, release);
   }
 
 }
 
-/**
- * Find all unit tests for the given field.
- *
- * @private
- * @param {TypeQA_UnitTests} unitTests
- * @param {String} field
- */
-function getFieldTests(unitTests, field) {
-
-  // Get all properties and methods from the unit test class
-  let fieldTests = Object.getOwnPropertyNames(Object.getPrototypeOf(unitTests));
-
-  if (!field) {
-    // Return all unit tests, minus the constructor
-    return fieldTests.filter( property => property != "constructor" );
-  }
-
-  // Return unit tests filtered on given field
-  return fieldTests.filter( property => property.includes(field + "_") );
-
-}
-
-/**
- * Run all unit tests for the given field.
- *
- * @private
- * @param {TypeQA_UnitTests} unitTests
- * @param {Type[]} types
- * @param {Release} release
- * @param {String} field
- */
-async function runFieldTestSuite(unitTests, types, release, field) {
-
-  let testFunctions = getFieldTests(unitTests, field);
-
-  /** @type {Test[]} */
-  let tests = [];
-
-  for (let fn of testFunctions) {
-    let test = await unitTests[fn](types, release);
-    tests.push(test);
-  }
-
-  return QATestSuite.init(tests);
-
-}
-
-module.exports = TypeQA_FieldTestSuites;
+module.exports = TypeFieldTests;

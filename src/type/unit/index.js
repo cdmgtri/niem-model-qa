@@ -5,7 +5,7 @@ let { Release, Type } = require("niem-model-source").ModelObjects;
 /**
  * Type Unit Tests
  */
-class TypeQA_UnitTests extends ComponentUnitTests {
+class TypeUnitTests extends ComponentUnitTests {
 
   /**
    * Check that complex types with simple content (CSC) have a CSC or a simple
@@ -333,7 +333,7 @@ class TypeQA_UnitTests extends ComponentUnitTests {
    * @param {Release} release
    */
   async prefix_unknown(types, release) {
-    return this.prefix_unknown__helper(types, release);
+    return this.prefix_unknown__helper("type_prefix_unknown", types, release);
   }
 
   /**
@@ -368,4 +368,4 @@ class TypeQA_UnitTests extends ComponentUnitTests {
 
 }
 
-module.exports = TypeQA_UnitTests;
+module.exports = TypeUnitTests;

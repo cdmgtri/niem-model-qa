@@ -1,10 +1,10 @@
 
-let ComponentQA = require("../component/index");
+let NIEMObjectQA = require("../niem-object/index");
 
 let TypeQA_UnitTests = require("./unit/index");
 let TypeQA_FieldTestSuites = require("./field/index");
 
-class TypeQA extends ComponentQA {
+class TypeQA extends NIEMObjectQA {
 
   constructor(testSuite) {
 

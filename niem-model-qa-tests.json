@@ -1,7 +1,27 @@
 [
   {
+    "id": "facet_definition_duplicate",
+    "description": "Facets should probably have unique definitions within their type.",
+    "severity": "warning",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "facet_definition_escaped",
+    "description": "Facet definitions should not contain escaped apostrophes.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
     "id": "facet_definition_missing_code",
-    "description": "An enumeration must have a definition.",
+    "description": "Codes (enumerations) must have definitions.",
     "severity": "error",
     "spec": "NDR",
     "rule": "9-14",
@@ -12,7 +32,7 @@
   },
   {
     "id": "facet_definition_missing_pattern",
-    "description": "A pattern should probably have a definition.",
+    "description": "Pattern should probably have a definition to make it easier for other users to understand the intended values.",
     "severity": "info",
     "spec": "",
     "rule": "",
@@ -21,28 +41,18 @@
     ]
   },
   {
+    "id": "facet_definition_formatting",
+    "description": "Facet definitions should not contain tabs, new lines, or carriage returns.",
+    "severity": "warning",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
     "id": "facet_kind_invalid",
-    "description": "A facet must have a valid style (e.g., enumeration, pattern, etc.).",
-    "severity": "error",
-    "spec": "",
-    "rule": "",
-    "exceptionIDs": [
-      ""
-    ]
-  },
-  {
-    "id": "facet_prefix_missing",
-    "description": "A facet must have a type namespace prefix.",
-    "severity": "error",
-    "spec": "",
-    "rule": "",
-    "exceptionIDs": [
-      ""
-    ]
-  },
-  {
-    "id": "facet_prefix_unknown",
-    "description": "A facet must have a valid type namespace prefix.",
+    "description": "Facets must have a valid style (e.g., enumeration, pattern, etc.).",
     "severity": "error",
     "spec": "",
     "rule": "",
@@ -52,17 +62,7 @@
   },
   {
     "id": "facet_type_complex",
-    "description": "A facet must belong to a simple type.",
-    "severity": "error",
-    "spec": "",
-    "rule": "",
-    "exceptionIDs": [
-      ""
-    ]
-  },
-  {
-    "id": "facet_type_missing",
-    "description": "A facet must have a type name.",
+    "description": "Facets cannot belong to a complex type.",
     "severity": "error",
     "spec": "",
     "rule": "",
@@ -72,7 +72,7 @@
   },
   {
     "id": "facet_type_repTerm",
-    "description": "An enumeration must belong to type with a name that ends in \"CodeSimpleType\"",
+    "description": "Codes must belong to types whose names end with \"CodeSimpleType\"",
     "severity": "error",
     "spec": "NDR",
     "rule": "11-7",
@@ -83,7 +83,7 @@
   },
   {
     "id": "facet_type_unknown",
-    "description": "A facet must have a valid type name.",
+    "description": "Facets must belong to an existing type.",
     "severity": "error",
     "spec": "",
     "rule": "",
@@ -93,7 +93,7 @@
   },
   {
     "id": "facet_value_duplicate",
-    "description": "A facet value should probably be unique within its type.",
+    "description": "It is recommended that codes should be unique within their type.",
     "severity": "warning",
     "spec": "",
     "rule": "",
@@ -103,8 +103,18 @@
   },
   {
     "id": "facet_value_missing",
-    "description": "A facet must have a value (e.g., code value, pattern value, etc).",
+    "description": "Facets must have a value (e.g., a code value or a pattern value, etc).",
     "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "facet_value_spaces",
+    "description": "Facet values should not contain leading or trailing spaces.",
+    "severity": "warning",
     "spec": "",
     "rule": "",
     "exceptionIDs": [

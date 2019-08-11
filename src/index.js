@@ -4,6 +4,7 @@ let TestSuite = require("./test-suite/index");
 let { Test, Issue } = TestSuite;
 
 let TypeQA = require("./type/index");
+let FacetQA = require("./facet/index");
 
 /**
  * @todo Full test suite for classes
@@ -19,6 +20,7 @@ class NIEMModelQA {
     this.testSuite = new TestSuite();
 
     this.type = new TypeQA(this.testSuite);
+    this.facet = new FacetQA(this.testSuite);
 
   }
 

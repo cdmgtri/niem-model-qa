@@ -1,8 +1,11 @@
 
-let NIEMTestSuite = require("niem-test-suite");
+let QATestSuite = require("../test-suite");
 let { ModelObjects } = require("niem-model-source");
 
-let { Test, Issue } = NIEMTestSuite;
+let NIEMObjectUnitTests = require("./unit/index");
+let NIEMObjectFieldTestSuites = require("./field/index");
+
+let { Test, Issue } = QATestSuite;
 
 /**
  * @private
@@ -10,16 +13,30 @@ let { Test, Issue } = NIEMTestSuite;
 class NIEMObjectQA {
 
   /**
-   * @param {NIEMTestSuite} testSuite
+   * @param {QATestSuite} testSuite
    */
   constructor(testSuite) {
     this.testSuite = testSuite;
   }
 
+  /**
+   * @type {NIEMObjectUnitTests}
+   */
+  get test() {
+    return undefined;
+  }
+
+  /**
+   * @type {NIEMObjectFieldTestSuites}
+   */
+  get field() {
+    return undefined;
+  }
+
 }
 
 NIEMObjectQA.ModelObjects = ModelObjects;
-NIEMObjectQA.TestSuite = NIEMTestSuite;
+NIEMObjectQA.TestSuite = QATestSuite;
 NIEMObjectQA.Test = Test;
 NIEMObjectQA.Issue = Issue;
 

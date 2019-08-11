@@ -10,6 +10,8 @@ let release;
 /** @type {Type[]} */
 let fieldTypes = [];
 
+let FieldTest = require("./field");
+
 /**
  * @param {NIEMModelQA} qa
  * @param {NIEM} niem
@@ -22,7 +24,7 @@ function typeTests(qa, niem) {
       release = (await niem.releases.find())[0];
     });
 
-    describe("Unit tests", () => {
+    describe("Type unit tests", () => {
 
       test("#base_invalid_csc", async () => {
 
@@ -538,35 +540,38 @@ function typeTests(qa, niem) {
 
     });
 
-    describe("Field tests", () => {
+    describe("Type field tests", () => {
 
-      let fieldStats = {
-        count: 0
-      };
+      /** @type {FieldTest} */
+      let fieldTest;
+
+      beforeAll( async () => {
+        fieldTest = new FieldTest(qa.type, fieldTypes, release);
+      });
 
       test("#base", async () => {
-        testField(qa, fieldTypes, release, fieldStats, "base");
+        await fieldTest.run("base");
       });
 
       test("#definition", async () => {
-        testField(qa, fieldTypes, release, fieldStats, "definition");
+        await fieldTest.run("definition");
       });
 
       test("#name", async () => {
-        testField(qa, fieldTypes, release, fieldStats, "name");
+        await fieldTest.run("name");
       });
 
       test("#prefix", async () => {
-        testField(qa, fieldTypes, release, fieldStats, "prefix");
+        await fieldTest.run("prefix");
       });
 
       test("#style", async () => {
-        testField(qa, fieldTypes, release, fieldStats, "style");
+        await fieldTest.run("style");
       });
 
       test("#all fields", async () => {
-        let testSuite = await qa.type.field.all(fieldTypes, release);
-        expect(testSuite.tests.length).toBe(fieldStats.count);
+        let testSuite = await fieldTest.run();
+        expect(testSuite.tests.length).toBe(fieldTest.fieldTestCount);
       });
 
     });
@@ -575,37 +580,5 @@ function typeTests(qa, niem) {
 
 }
 
-/**
- * @param {NIEMModelQA} qa
- * @param {Type[]} types
- * @param {Release} release
- * @param {{count: number}} fieldStats
- * @param {String} field
- */
-async function testField(qa, types, release, fieldStats, field) {
-  let testSuite = await runTestSuite(qa, types, release, fieldStats, field);
-  expect(testSuite.status()).toBe("fail");
-  return testSuite;
-}
-
-/**
- * @param {NIEMModelQA} qa
- * @param {Type[]} types
- * @param {Release} release
- * @param {{count: number}} fieldStats
- * @param {String} field
- */
-async function runTestSuite(qa, types, release, fieldStats, field) {
-
-  let testSuite = await qa.type.field.getTestSuite(types, release, field);
-  expect(testSuite.status()).toBe("fail");
-
-  if (field) {
-    fieldStats.count += testSuite.tests.length;
-  }
-
-  return testSuite;
-
-}
 
 module.exports = typeTests;
