@@ -26,6 +26,8 @@
     "spec": "NDR",
     "rule": "9-14",
     "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/undefined/niem-ndr-undefined.html#rule_9-14",
+    "validExample": "Code facet 'MON' must have a definition (e.g., 'Monday').",
+    "invalidExample": "Length facet '10' is not required to have a definition.",
     "exceptionIDs": [
       ""
     ]
@@ -36,6 +38,8 @@
     "severity": "info",
     "spec": "",
     "rule": "",
+    "validExample": "Pattern facet '\\d{3}-\\d{3}-\\d{4}' should have a definition (e.g., 'Telephone number format matching the pattern ###-###-####').",
+    "invalidExample": "Length facet '10' is not required to have a definition.",
     "exceptionIDs": [
       ""
     ]
@@ -66,17 +70,21 @@
     "severity": "error",
     "spec": "",
     "rule": "",
+    "validExample": "Code 'MON' can belong to simple type 'WeekdayCodeSimpleType'.",
+    "invalidExample": "Code 'MON' cannot belong to complex object type 'nc:PersonType'.",
     "exceptionIDs": [
       ""
     ]
   },
   {
-    "id": "facet_type_repTerm",
+    "id": "facet_type_repTerm_code",
     "description": "Codes must belong to types whose names end with \"CodeSimpleType\"",
     "severity": "error",
     "spec": "NDR",
     "rule": "11-7",
     "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/undefined/niem-ndr-undefined.html#rule_11-7",
+    "validExample": "Code 'MON' can belong to a type named 'WeekdayCodeSimpleType'.",
+    "invalidExample": "Code 'MON' cannot belong to a type named 'WeekdaySimpleType'.",
     "exceptionIDs": [
       ""
     ]
@@ -92,11 +100,13 @@
     ]
   },
   {
-    "id": "facet_value_duplicate",
+    "id": "facet_value_duplicate_code",
     "description": "It is recommended that codes should be unique within their type.",
     "severity": "warning",
     "spec": "",
     "rule": "",
+    "validExample": "Type 'WeekdayCodeSimpleType' with codes 'MON', 'TUE', 'WED', ...",
+    "invalidExample": "Type 'WeekdayCodeSimpleType' with codes 'MON', 'MON', 'MON', ...",
     "exceptionIDs": [
       ""
     ]
