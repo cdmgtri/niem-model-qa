@@ -15,7 +15,7 @@ class QATestSuite extends NIEMTestSuite {
    * @param {CommentFunction} commentFunction
    * @param {Boolean} [reset=true] Replaces any previous issues with new issues
    */
-  log(testID, problemObjects, problemField, commentFunction, reset=true) {
+  post(testID, problemObjects, problemField, commentFunction, reset=true) {
 
     let test = this.find(testID);
 
@@ -43,15 +43,6 @@ class QATestSuite extends NIEMTestSuite {
 
     return test;
 
-  }
-
-  /**
-   * @param {Test[]} tests
-   */
-  static init(tests) {
-    let testSuite = new QATestSuite();
-    testSuite.tests.push(...tests);
-    return testSuite;
   }
 
 }

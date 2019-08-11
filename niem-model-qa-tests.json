@@ -117,8 +117,8 @@
     ]
   },
   {
-    "id": "type-prefix-all-invalid",
-    "description": "A type must have a valid namespace prefix.",
+    "id": "type_prefix_unknown",
+    "description": "Type namespace prefixes must be defined.",
     "severity": "error",
     "spec": "",
     "rule": "",
@@ -216,8 +216,11 @@
     "id": "type_name_repTerm_aug",
     "description": "Augmentation type names must end with the representation term \"AugmentationType\".",
     "severity": "error",
-    "spec": "",
-    "rule": "",
+    "spec": "NDR",
+    "rule": "10-34",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_10-34",
+    "validExample": "Type name 'PersonAugmentationType' is a valid augmentation type name.",
+    "invalidExample": "Type name 'PersonType' is not a valid augmentation type name.",
     "exceptionIDs": [
       ""
     ]
@@ -228,6 +231,8 @@
     "severity": "error",
     "spec": "",
     "rule": "",
+    "validExample": "Type name 'PersonLocationAssociationType' is a valid association type name.",
+    "invalidExample": "Type name 'PersonLocationType' is not a valid association type name.",
     "exceptionIDs": [
       ""
     ]
@@ -238,6 +243,8 @@
     "severity": "error",
     "spec": "",
     "rule": "",
+    "validExample": "Type name 'SourceMetadataType' is a valid metadata type name.",
+    "invalidExample": "Type name 'SourceType' is not a valid metadata type name.",
     "exceptionIDs": [
       ""
     ]
@@ -248,6 +255,8 @@
     "severity": "error",
     "spec": "",
     "rule": "",
+    "validExample": "Type name 'DecimalListSimpleType' is a valid list type name.",
+    "invalidExample": "Type name 'DecimalValuesSimpleType' is not a valid list type name.",
     "exceptionIDs": [
       ""
     ]
@@ -283,6 +292,8 @@
     "severity": "error",
     "spec": "",
     "rule": "",
+    "validExample": "Types 'justice:CaseType' and 'logistics:CaseType' are valid because even though they use the same name, they are defined in different namespaces.",
+    "invalidExample": "Type name 'CaseType' cannot be defined twice in the same namespace.",
     "exceptionIDs": [
       ""
     ]
@@ -293,6 +304,8 @@
     "severity": "warning",
     "spec": "",
     "rule": "",
+    "validExample": "Type name 'IDCategoryCodeType' is valid because the term 'Type' only appears at the end of the name.",
+    "invalidExample": "Type name 'IDTypeCodeType' is not valid because the term 'Type' is used in the middle of the name.",
     "exceptionIDs": [
       ""
     ]
@@ -304,6 +317,8 @@
     "spec": "NDR",
     "rule": "10-49",
     "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_10-49",
+    "validExample": "Type name 'PersonType' is valid because it begins with an upper case letter.",
+    "invalidExample": "Type name 'personType' is not valid because it begins with a lower case letter.",
     "exceptionIDs": [
       ""
     ]
@@ -312,15 +327,19 @@
     "id": "type_name_spellcheck",
     "description": "Type names must use terms that either have standard dictionary entries or are custom defined as Local Terminology.",
     "severity": "error",
-    "spec": "",
-    "rule": "",
+    "spec": "NDR",
+    "rule": "10-44",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_10-44",
+    "validExample": "Type name 'ncic:VMOCodeType' is valid if the ncic namespace defines the meaning of 'VMO' in its Local Terminology section.",
+    "invalidExample": "Type name 'ncic:VMOCodeType' is not valid if the ncic namespace does not defined 'VMO' in its Local Terminology section.",
     "exceptionIDs": [
       ""
-    ]
+    ],
+    "notes": "NDR rule does not mention local terminology."
   },
   {
-    "id": "type-def-simple-missing",
-    "description": "A simple type must have a definition.",
+    "id": "type_def_missing_simple",
+    "description": "Simple types must have a definition.",
     "severity": "error",
     "spec": "NDR",
     "rule": "9-12",
@@ -330,8 +349,8 @@
     ]
   },
   {
-    "id": "type-def-complex-missing",
-    "description": "A complex type must have a definition.",
+    "id": "type_def_missing_complex",
+    "description": "Complex types must have a definition.",
     "severity": "error",
     "spec": "NDR",
     "rule": "9-26",
@@ -341,40 +360,46 @@
     ]
   },
   {
-    "id": "type-def-complex-phrase",
-    "description": "A complex type definition must begin with the standard opening phrase \"A data type\".",
+    "id": "type_def_phrase_complex",
+    "description": "Complex type definitions must begin with the standard opening phrase \"A data type\".",
     "severity": "warning",
     "spec": "NDR",
     "rule": "11-44",
     "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/undefined/niem-ndr-undefined.html#rule_11-44",
+    "validExample": "Definition 'A data type for a human being' is valid for type 'PersonType'.",
+    "invalidExample": "Definition 'A human being' is not valid for type 'PersonType'.",
     "exceptionIDs": [
       ""
     ]
   },
   {
-    "id": "type-def-simple-phrase",
-    "description": "A simple type definition must begin with the standard opening phrase \"A data type\".",
+    "id": "type_def_phrase_simple",
+    "description": "Simple type definitions must begin with the standard opening phrase \"A data type\".",
     "severity": "warning",
     "spec": "NDR",
     "rule": "11-45",
     "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/undefined/niem-ndr-undefined.html#rule_11-45",
+    "validExample": "Definition 'A data type for United States state codes' is valid for type usps:StateCodeSimpleType.",
+    "invalidExample": "Definition 'United States state codes' is not valid for type usps:StateCodeSimpleType.",
     "exceptionIDs": [
       ""
     ]
   },
   {
-    "id": "type-def-term-defined",
-    "description": "A term in a type definition that does not exist in the dictionary should be defined as \"Local Terminology\".",
+    "id": "type_def_spellcheck",
+    "description": "Type definitions should use words and terms that are either defined in the dictionary or as \"Local Terminology\".",
     "severity": "warning",
     "spec": "",
     "rule": "",
+    "validExample": "Definition 'A data type for FIPS state codes\" is valid if the term 'FIPS' is defined as Local Terminology in that namespace.",
+    "invalidExample": "Definition 'A data type for FIPS state codes\" is not recommended if the term 'FIPS' is not defined as Local Terminology in that namespace.",
     "exceptionIDs": [
       ""
     ]
   },
   {
-    "id": "type-style-all-missing",
-    "description": "A type must have a style.",
+    "id": "type_style_missing",
+    "description": "Types must have a style.",
     "severity": "error",
     "spec": "",
     "rule": "",
@@ -383,8 +408,8 @@
     ]
   },
   {
-    "id": "type-style-all-invalid",
-    "description": "A type style should be one of the following: object, adapter, association, augmentation, CSC, simple, list, union, or blank (defaults to \"object\").",
+    "id": "type_style_unknown",
+    "description": "Type styles should be one of the following: object, adapter, association, augmentation, CSC, simple, list, union, or blank (defaults to \"object\").",
     "severity": "error",
     "spec": "",
     "rule": "",
@@ -393,7 +418,8 @@
     ]
   },
   {
-    "description": "A type with a name that ends with \"AugmentationType\" must have style \"augmentation\".",
+    "id": "type_style_aug",
+    "description": "Types with names that end with \"AugmentationType\" must have style \"augmentation\".",
     "severity": "error",
     "spec": "",
     "rule": "",
@@ -402,7 +428,8 @@
     ]
   },
   {
-    "description": "A type with a name that ends with \"AssociationType\" must have style \"association\".",
+    "id": "type_style_assn",
+    "description": "Types with names that end with \"AssociationType\" must have style \"association\".",
     "severity": "error",
     "spec": "",
     "rule": "",
@@ -411,7 +438,8 @@
     ]
   },
   {
-    "description": "A type with a name that ends with \"MetadataType\" must have style \"metadata\".",
+    "id": "type_style_metadata",
+    "description": "Types with names that end with \"MetadataType\" must have style \"metadata\".",
     "severity": "error",
     "spec": "",
     "rule": "",
@@ -420,8 +448,8 @@
     ]
   },
   {
-    "id": "type-base-simpleContent-missing",
-    "description": "A CSC or simple type must declare a base type.",
+    "id": "type_base_missing_simpleContent",
+    "description": "Types that represent a value (simple content) must declare a base type.",
     "severity": "error",
     "spec": "",
     "rule": "",
@@ -430,8 +458,8 @@
     ]
   },
   {
-    "id": "type-base-csc-invalid",
-    "description": "A CSC type must have a simple or CSC base type.",
+    "id": "type_base_invalid_csc",
+    "description": "Complex types with simple content (CSC) must have a simple or CSC base type.",
     "severity": "error",
     "spec": "",
     "rule": "",
@@ -440,8 +468,8 @@
     ]
   },
   {
-    "id": "type-base-simple-invalid",
-    "description": "A simple type must use a XML schema simple type as its base type.",
+    "id": "type_base_invalid_simple",
+    "description": "Simple types must use a XML schema simple type as its base type.",
     "severity": "error",
     "spec": "",
     "rule": "",
@@ -450,8 +478,8 @@
     ]
   },
   {
-    "id": "type-base-all-invalid",
-    "description": "A type's base type must exist.",
+    "id": "type_base_unknown",
+    "description": "Types must have bases that are defined.",
     "severity": "error",
     "spec": "",
     "rule": "",
@@ -460,34 +488,41 @@
     ]
   },
   {
-    "description": "An augmentation type must extend structures:AugmentationType.",
+    "id": "type_base_aug",
+    "description": "Augmentation types must extend structures:AugmentationType.",
     "severity": "error",
-    "spec": "",
-    "rule": "",
+    "spec": "NDR",
+    "rule": "10-35",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_10-35",
     "exceptionIDs": [
       ""
     ]
   },
   {
-    "description": "An association type must extend another association type.",
+    "id": "type_base_assn",
+    "description": "Association types must extend another association type.",
     "severity": "error",
-    "spec": "",
-    "rule": "",
+    "spec": "NDR",
+    "rule": "10-21",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_10-21",
     "exceptionIDs": [
       ""
     ]
   },
   {
-    "description": "A metadata type must extend structures:MetadataType",
+    "id": "type_base_metadata",
+    "description": "Metadata types must extend structures:MetadataType",
     "severity": "error",
-    "spec": "",
-    "rule": "",
+    "spec": "NDR",
+    "rule": "10-39",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_10-39",
     "exceptionIDs": [
       ""
     ]
   },
   {
-    "description": "A simple union type must not have a base type",
+    "id": "type_base_union",
+    "description": "Simple union types must not have a base type",
     "severity": "error",
     "spec": "",
     "rule": "",

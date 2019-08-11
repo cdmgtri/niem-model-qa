@@ -34,7 +34,7 @@ class ComponentUnitTests extends NIEMObjectUnitTests {
       }
     }
 
-    return this.testSuite.log(testID, problemComponents, "name");
+    return this.testSuite.post(testID, problemComponents, "name");
   }
 
   /**
@@ -45,7 +45,7 @@ class ComponentUnitTests extends NIEMObjectUnitTests {
   name_invalidChar__helper(testID, components) {
     let regex = /[^A-Za-z0-9_\-.]/;
     let problemComponents = components.filter( component => component.name.match(regex) );
-    return this.testSuite.log(testID, problemComponents, "name");
+    return this.testSuite.post(testID, problemComponents, "name");
   }
 
   /**
@@ -55,7 +55,49 @@ class ComponentUnitTests extends NIEMObjectUnitTests {
    */
   name_missing__helper(testID, components) {
     let problemComponents = components.filter( component => ! component.name );
-    return this.testSuite.log(testID, problemComponents, "name");
+    return this.testSuite.post(testID, problemComponents, "name");
+  }
+
+  /**
+   * Check the spelling of each term in a component name.  Check Local Terminology
+   * if not found in dictionary.
+   *
+   * @private
+   * @param {String} testID
+   * @param {Component[]} components
+   * @param {Release} release
+   */
+  async def_spellcheck__helper(testID, components, release) {
+
+    /** @type {Issue[]} */
+    let issues = [];
+
+    for (let component of components) {
+
+      let definition = component.definition || "";
+
+      // Get start and end positions for each misspelled word in the definition
+      let misspelledRanges = await SpellChecker.checkSpellingAsync(definition);
+
+      // Translate the misspelled position ranges to misspelled terms
+      let misspelledTerms = misspelledRanges.map( range => {
+        return component.definition.slice(range.start, range.end);
+      });
+
+      for (let term of misspelledTerms) {
+
+        // Check local terminology for the misspelled term
+        let localTerm = await release.localTerms.get(component.prefix, term);
+
+        if (! localTerm) {
+          let issue = new Issue(component.prefix, component.label, component.source_location, component.source_line, component.source_position, term);
+
+          issues.push(issue);
+        }
+      }
+    }
+
+    return this.testSuite.log(testID, issues);
   }
 
   /**
@@ -90,12 +132,7 @@ class ComponentUnitTests extends NIEMObjectUnitTests {
       }
     }
 
-    let test = this.testSuite.find(testID);
-
-    test.ran = true;
-    test._issues = issues;
-
-    return test;
+    return this.testSuite.log(testID, issues);
   }
 
 }

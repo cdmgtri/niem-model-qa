@@ -10,6 +10,9 @@ let release;
 /** @type {Type[]} */
 let nameTypes = [];
 
+/** @type {Type[]} */
+let defTypes = [];
+
 /**
  * @param {NIEMModelQA} qa
  * @param {NIEM} niem
@@ -23,6 +26,101 @@ function typeTests(qa, niem) {
     });
 
     describe("Unit tests", () => {
+
+      test("#def_missing_complex", async () => {
+
+        let types = [
+          new Type(release, "ext", "IDType", "An ID", "object"),
+          new Type(release, "nc", "PersonType", null, "object"), // invalid
+          new Type(release, "xs", "string", null, "simple")
+        ];
+
+        defTypes.push(...types);
+
+        let test = await qa.type.test.def_missing_simple(types);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].label).toBe("xs:string");
+        expect(test.issues().length).toBe(1);
+      });
+
+      test("#def_missing_simple", async () => {
+
+        let types = [
+          new Type(release, "ext", "IDSimpleType", "An ID", "simple"),
+          new Type(release, "nc", "PersonType", null, "object"),
+          new Type(release, "xs", "string", null, "simple") // invalid
+        ];
+
+        defTypes.push(...types);
+
+        let test = await qa.type.test.def_missing_simple(types);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].label).toBe("xs:string");
+        expect(test.issues().length).toBe(1);
+      });
+
+      test("#def_phrase_complex", async () => {
+
+        let types = [
+          new Type(release, "ext", "IDType", "A data type for an ID", "object"),
+          new Type(release, "nc", "PersonType", "A person", "object"), // invalid
+          new Type(release, "xs", "string", "A string", "simple")
+        ];
+
+        defTypes.push(...types);
+
+        let test = await qa.type.test.def_phrase_complex(types);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].label).toBe("nc:PersonType");
+        expect(test.issues().length).toBe(1);
+      });
+
+      test("#def_phrase_simple", async () => {
+
+        let types = [
+          new Type(release, "ext", "IDSimpleType", "An ID", "simple"), // invalid
+          new Type(release, "nc", "PersonType", "A person", "object"),
+          new Type(release, "xs", "string", "A data type for a string", "simple")
+        ];
+
+        defTypes.push(...types);
+
+        let test = await qa.type.test.def_phrase_simple(types);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].label).toBe("ext:IDSimpleType");
+        expect(test.issues().length).toBe(1);
+      });
+
+      test("#def_spellcheck", async () => {
+
+        let types = [
+          new Type(release, "ext", "IDSimpleType", "An ID", "simple"),
+
+          // invalid
+          new Type(release, "nc", "PersonType", "A persom or a hooman being.", "object"),
+
+          new Type(release, "ncic", "VMOCodeType", "A data type for VMO codes", "simple")
+        ];
+
+        let localTerm = new LocalTerm(release, "ncic", "VMO", "vehicle model");
+        await release.localTerms.add(localTerm);
+
+        defTypes.push(...types);
+
+        let test = await qa.type.test.def_spellcheck(types, release);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].label).toBe("nc:PersonType");
+        expect(test.issues()[0].problemValue).toBe("persom");
+
+        expect(test.issues()[1].label).toBe("nc:PersonType");
+        expect(test.issues()[1].problemValue).toBe("hooman");
+        expect(test.issues().length).toBe(2);
+      });
 
       test("#name_camelCase", async () => {
 
@@ -295,6 +393,21 @@ function typeTests(qa, niem) {
 
         nameTestIDs.forEach( nameTestID => {
           expect(nameTestSuite.find("type_" + nameTestID)).toBeDefined();
+        });
+
+      });
+
+      test("#definition", async () => {
+
+        let defTestSuite = await qa.type.field.definition(defTypes, release);
+        expect(defTestSuite.status()).toBe("fail");
+
+        let defTestIDs = Object
+        .getOwnPropertyNames(Object.getPrototypeOf(qa.type.test))
+        .filter( property => property.includes("def") );
+
+        defTestIDs.forEach( defTestID => {
+          expect(defTestSuite.find("type_" + defTestID)).toBeDefined();
         });
 
       });

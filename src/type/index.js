@@ -50,30 +50,9 @@ async function checkTypes(tests, release) {
   let types = await release.types.find();
   let nonXSTypes = types.filter( type => type.prefix != "xs" && type.prefix != "niem-xs");
 
-  checkDefinitions(tests, nonXSTypes);
   checkBases(tests, types);
   await checkPrefixes(tests, nonXSTypes, release);
   checkPatterns(tests, nonXSTypes);
-
-}
-
-/**
- * Check type definitions.
- *
- * @param {Test[]} tests
- * @param {Type[]} types
- */
-function checkDefinitions(tests, types) {
-
-  // Missing definitions
-  problemTypes = types.filter( type => ! type.definition );
-  logResults(tests, problemTypes, "type-def-all-missing");
-
-  let defTypes = types.filter( type => type.definition );
-
-  // All types that do not start with "A data type "
-  problemTypes = defTypes.filter( type => ! type.definition.startsWith("A data type "));
-  logResults(tests, problemTypes, "type-def-all-phrase", "definition");
 
 }
 

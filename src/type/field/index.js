@@ -17,6 +17,23 @@ class TypeQA_FieldTestSuites {
    * @param {Type[]} types
    * @param {Release} release
    */
+  async definition(types, release) {
+
+    let tests = [
+      (await this.unitTests.def_missing_complex(types)),
+      (await this.unitTests.def_missing_simple(types)),
+      (await this.unitTests.def_phrase_complex(types)),
+      (await this.unitTests.def_phrase_simple(types)),
+      (await this.unitTests.def_spellcheck(types, release)),
+    ];
+
+    return TestSuite.init(tests);
+  }
+
+  /**
+   * @param {Type[]} types
+   * @param {Release} release
+   */
   async name(types, release) {
 
     let tests = [

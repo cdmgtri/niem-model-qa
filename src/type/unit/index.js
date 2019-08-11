@@ -8,6 +8,60 @@ let { Release, Type } = require("niem-model-source").ModelObjects;
 class TypeQA_UnitTests extends ComponentUnitTests {
 
   /**
+   * Check that a complex type has a definition.
+   * @param {Type[]} types
+   */
+  async def_missing_complex(types) {
+    let problemTypes = types
+    .filter( type => type.isComplexType )
+    .filter( type => ! type.definition );
+    return this.testSuite.post("type_def_missing_complex", problemTypes, "definition");
+  }
+
+  /**
+   * Check that a simple type has a definition.
+   * @param {Type[]} types
+   */
+  async def_missing_simple(types) {
+    let problemTypes = types
+    .filter( type => type.isSimpleType )
+    .filter( type => ! type.definition );
+    return this.testSuite.post("type_def_missing_simple", problemTypes, "definition");
+  }
+
+  /**
+   * Check that a complex type definition begins with the opening phrase 'A data type '.
+   * @param {Type[]} types
+   */
+  async def_phrase_complex(types) {
+    let problemTypes = types
+    .filter( type => type.isComplexType && type.definition )
+    .filter( type => ! type.definition.startsWith("A data type ") );
+    return this.testSuite.post("type_def_phrase_complex", problemTypes, "definition");
+  }
+
+  /**
+   * Check that a simple type definition begins with the opening phrase 'A data type '.
+   * @param {Type[]} types
+   */
+  async def_phrase_simple(types) {
+    let problemTypes = types
+    .filter( type => type.isSimpleType && type.definition )
+    .filter( type => ! type.definition.startsWith("A data type ") );
+    return this.testSuite.post("type_def_phrase_simple", problemTypes, "definition");
+  }
+
+  /**
+   * Check that words in a type definition are either in the dictionary or defined
+   * as Local Terminology.
+   * @param {Type[]} types
+   * @param {Release} release
+   */
+  async def_spellcheck(types, release) {
+    return this.def_spellcheck__helper("type_def_spellcheck", types, release);
+  }
+
+  /**
    * Check that a type name begins with an upper case letter.
    *
    * NDR exceptions:
@@ -23,7 +77,7 @@ class TypeQA_UnitTests extends ComponentUnitTests {
     .filter( type => type.prefix != "xs" && type.prefix != "niem-xs" )
     .filter( type => type.name[0] == type.name[0].toLowerCase() );
 
-    return this.testSuite.log("type_name_camelCase", problemTypes, "name");
+    return this.testSuite.post("type_name_camelCase", problemTypes, "name");
   }
 
   /**
@@ -47,7 +101,7 @@ class TypeQA_UnitTests extends ComponentUnitTests {
     .filter( type => type.name && type.name.endsWith("CodeType") && type.baseName )
     .filter( type => type.name.replace("CodeType", "CodeSimpleType") != type.baseName );
 
-    return this.testSuite.log("type_name_inconsistent_codeType", problemTypes, "name");
+    return this.testSuite.post("type_name_inconsistent_codeType", problemTypes, "name");
   }
 
   /**
@@ -101,7 +155,7 @@ class TypeQA_UnitTests extends ComponentUnitTests {
       }
     }
 
-    return this.testSuite.log("type_name_repTerm_codeSimpleType", problemTypes, "name");
+    return this.testSuite.post("type_name_repTerm_codeSimpleType", problemTypes, "name");
   }
 
   /**
@@ -116,7 +170,7 @@ class TypeQA_UnitTests extends ComponentUnitTests {
     .filter( type => type.isComplexType && type.name && type.name.endsWith("CodeType") )
     .filter( type => ! type.baseQName || ! type.baseQName.endsWith("CodeSimpleType") );
 
-    return this.testSuite.log("type_name_repTerm_codeType", problemTypes, "name");
+    return this.testSuite.post("type_name_repTerm_codeType", problemTypes, "name");
   }
 
   /**
@@ -130,7 +184,7 @@ class TypeQA_UnitTests extends ComponentUnitTests {
     .filter( type => type.isComplexType && type.name )
     .filter( type => type.name.endsWith("SimpleType") );
 
-    return this.testSuite.log("type_name_repTerm_complex", problemTypes, "name");
+    return this.testSuite.post("type_name_repTerm_complex", problemTypes, "name");
   }
 
   /**
@@ -146,7 +200,7 @@ class TypeQA_UnitTests extends ComponentUnitTests {
     .filter( type => type.prefix != "xs" && type.isSimpleType && type.name )
     .filter( type => ! type.name.endsWith("SimpleType") );
 
-    return this.testSuite.log("type_name_repTerm_simple", problemTypes, "name");
+    return this.testSuite.post("type_name_repTerm_simple", problemTypes, "name");
   }
 
   /**
@@ -164,7 +218,7 @@ class TypeQA_UnitTests extends ComponentUnitTests {
     .filter( type => type.prefix != "xs" && type.prefix != "niem-xs" && type.name )
     .filter( type => ! type.name.endsWith("Type") );
 
-    return this.testSuite.log("type_name_repTerm_type", problemTypes, "name");
+    return this.testSuite.post("type_name_repTerm_type", problemTypes, "name");
   }
 
   /**
@@ -174,7 +228,7 @@ class TypeQA_UnitTests extends ComponentUnitTests {
    */
   async name_reservedTerm_type(types) {
     let problemTypes = types.filter( type => type.name.match(/Type.*Type/) );
-    return this.testSuite.log("type_name_reservedTerm_type", problemTypes, "name");
+    return this.testSuite.post("type_name_reservedTerm_type", problemTypes, "name");
   }
 
   /**
