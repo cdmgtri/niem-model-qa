@@ -91,40 +91,40 @@ class TypeQA_UnitTests extends ComponentUnitTests {
    * Check that a complex type has a definition.
    * @param {Type[]} types
    */
-  async def_missing_complex(types) {
+  async definition_missing_complex(types) {
     let problemTypes = types.filter( type => type.isComplexType && ! type.definition )
-    return this.testSuite.post("type_def_missing_complex", problemTypes, "definition");
+    return this.testSuite.post("type_definition_missing_complex", problemTypes, "definition");
   }
 
   /**
    * Check that a simple type has a definition.
    * @param {Type[]} types
    */
-  async def_missing_simple(types) {
+  async definition_missing_simple(types) {
     let problemTypes = types.filter( type => type.isSimpleType && ! type.definition )
-    return this.testSuite.post("type_def_missing_simple", problemTypes, "definition");
+    return this.testSuite.post("type_definition_missing_simple", problemTypes, "definition");
   }
 
   /**
    * Check that a complex type definition begins with the opening phrase 'A data type '.
    * @param {Type[]} types
    */
-  async def_phrase_complex(types) {
+  async definition_phrase_complex(types) {
     let problemTypes = types
     .filter( type => type.isComplexType && type.definition )
     .filter( type => ! type.definition.startsWith("A data type ") );
-    return this.testSuite.post("type_def_phrase_complex", problemTypes, "definition");
+    return this.testSuite.post("type_definition_phrase_complex", problemTypes, "definition");
   }
 
   /**
    * Check that a simple type definition begins with the opening phrase 'A data type '.
    * @param {Type[]} types
    */
-  async def_phrase_simple(types) {
+  async definition_phrase_simple(types) {
     let problemTypes = types
     .filter( type => type.isSimpleType && type.definition )
     .filter( type => ! type.definition.startsWith("A data type ") );
-    return this.testSuite.post("type_def_phrase_simple", problemTypes, "definition");
+    return this.testSuite.post("type_definition_phrase_simple", problemTypes, "definition");
   }
 
   /**
@@ -133,8 +133,8 @@ class TypeQA_UnitTests extends ComponentUnitTests {
    * @param {Type[]} types
    * @param {Release} release
    */
-  async def_spellcheck(types, release) {
-    return this.def_spellcheck__helper("type_def_spellcheck", types, release);
+  async definition_spellcheck(types, release) {
+    return this.definition_spellcheck__helper("type_definition_spellcheck", types, release);
   }
 
   /**

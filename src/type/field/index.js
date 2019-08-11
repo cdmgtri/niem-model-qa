@@ -6,8 +6,6 @@ let QATestSuite = require("../../test-suite/index");
 
 let { Test } = QATestSuite;
 
-let fields = ["base", "definition", "name", "prefix", "s"]
-
 /**
  * @todo Refactor common functionality into a parent type
  */
@@ -32,8 +30,8 @@ class TypeQA_FieldTestSuites {
    * @param {Type[]} types
    * @param {Release} release
    */
-  async def(types, release) {
-    return runFieldTestSuite(this.unitTests, types, release, "def");
+  async definition(types, release) {
+    return runFieldTestSuite(this.unitTests, types, release, "definition");
   }
 
   /**
@@ -69,10 +67,11 @@ class TypeQA_FieldTestSuites {
   }
 
   /**
+   * @private
    * @param {Type[]} types
    * @param {Release} release
    * @param {String} field
-   * @returns {Promise<QATestSuite></QATestSuite>}
+   * @returns {Promise<QATestSuite>}
    */
   async getTestSuite(types, release, field) {
 

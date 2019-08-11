@@ -111,7 +111,7 @@ function typeTests(qa, niem) {
         expect(test.issues().length).toBe(1);
       });
 
-      test("#def_missing_complex", async () => {
+      test("#definition_missing_complex", async () => {
 
         let types = [
           new Type(release, "ext", "IDType", "An ID", "object"),
@@ -121,14 +121,14 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.def_missing_simple(types);
+        let test = await qa.type.test.definition_missing_simple(types);
 
         expect(test.failed()).toBeTruthy();
         expect(test.issues()[0].label).toBe("xs:string");
         expect(test.issues().length).toBe(1);
       });
 
-      test("#def_missing_simple", async () => {
+      test("#definition_missing_simple", async () => {
 
         let types = [
           new Type(release, "ext", "IDSimpleType", "An ID", "simple"),
@@ -138,14 +138,14 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.def_missing_simple(types);
+        let test = await qa.type.test.definition_missing_simple(types);
 
         expect(test.failed()).toBeTruthy();
         expect(test.issues()[0].label).toBe("xs:string");
         expect(test.issues().length).toBe(1);
       });
 
-      test("#def_phrase_complex", async () => {
+      test("#definition_phrase_complex", async () => {
 
         let types = [
           new Type(release, "ext", "IDType", "A data type for an ID", "object"),
@@ -155,14 +155,14 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.def_phrase_complex(types);
+        let test = await qa.type.test.definition_phrase_complex(types);
 
         expect(test.failed()).toBeTruthy();
         expect(test.issues()[0].label).toBe("nc:PersonType");
         expect(test.issues().length).toBe(1);
       });
 
-      test("#def_phrase_simple", async () => {
+      test("#definition_phrase_simple", async () => {
 
         let types = [
           new Type(release, "ext", "IDSimpleType", "An ID", "simple"), // invalid
@@ -172,14 +172,14 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.def_phrase_simple(types);
+        let test = await qa.type.test.definition_phrase_simple(types);
 
         expect(test.failed()).toBeTruthy();
         expect(test.issues()[0].label).toBe("ext:IDSimpleType");
         expect(test.issues().length).toBe(1);
       });
 
-      test("#def_spellcheck", async () => {
+      test("#definition_spellcheck", async () => {
 
         let types = [
           new Type(release, "ext", "IDSimpleType", "An ID", "simple"),
@@ -195,7 +195,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.def_spellcheck(types, release);
+        let test = await qa.type.test.definition_spellcheck(types, release);
 
         expect(test.failed()).toBeTruthy();
         expect(test.issues()[0].label).toBe("nc:PersonType");
@@ -548,8 +548,8 @@ function typeTests(qa, niem) {
         testField(qa, fieldTypes, release, fieldStats, "base");
       });
 
-      test("#def", async () => {
-        testField(qa, fieldTypes, release, fieldStats, "def");
+      test("#definition", async () => {
+        testField(qa, fieldTypes, release, fieldStats, "definition");
       });
 
       test("#name", async () => {

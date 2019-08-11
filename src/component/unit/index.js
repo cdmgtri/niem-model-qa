@@ -67,7 +67,7 @@ class ComponentUnitTests extends NIEMObjectUnitTests {
    * @param {Component[]} components
    * @param {Release} release
    */
-  async def_spellcheck__helper(testID, components, release) {
+  async definition_spellcheck__helper(testID, components, release) {
 
     /** @type {Issue[]} */
     let issues = [];

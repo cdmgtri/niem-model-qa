@@ -1,6 +1,6 @@
 [
   {
-    "id": "facet_def_missing_code",
+    "id": "facet_definition_missing_code",
     "description": "An enumeration must have a definition.",
     "severity": "error",
     "spec": "NDR",
@@ -11,7 +11,7 @@
     ]
   },
   {
-    "id": "facet_def_missing_pattern",
+    "id": "facet_definition_missing_pattern",
     "description": "A pattern should probably have a definition.",
     "severity": "info",
     "spec": "",
@@ -112,7 +112,7 @@
     ]
   },
   {
-    "id": "property_def_spellcheck",
+    "id": "property_definition_spellcheck",
     "description": "A term in a property definition that does not exist in the dictionary should be defined as \"Local Terminology\".",
     "severity": "warning",
     "spec": "",
@@ -343,7 +343,7 @@
     ]
   },
   {
-    "id": "type_def_missing_complex",
+    "id": "type_definition_missing_complex",
     "description": "Complex types must have a definition.",
     "severity": "error",
     "spec": "NDR",
@@ -354,7 +354,7 @@
     ]
   },
   {
-    "id": "type_def_missing_simple",
+    "id": "type_definition_missing_simple",
     "description": "Simple types must have a definition.",
     "severity": "error",
     "spec": "NDR",
@@ -365,7 +365,7 @@
     ]
   },
   {
-    "id": "type_def_phrase_complex",
+    "id": "type_definition_phrase_complex",
     "description": "Complex type definitions must begin with the standard opening phrase \"A data type\".",
     "severity": "warning",
     "spec": "NDR",
@@ -378,7 +378,7 @@
     ]
   },
   {
-    "id": "type_def_phrase_simple",
+    "id": "type_definition_phrase_simple",
     "description": "Simple type definitions must begin with the standard opening phrase \"A data type\".",
     "severity": "warning",
     "spec": "NDR",
@@ -391,7 +391,7 @@
     ]
   },
   {
-    "id": "type_def_spellcheck",
+    "id": "type_definition_spellcheck",
     "description": "Type definitions should use words and terms that are either defined in the dictionary or as \"Local Terminology\".",
     "severity": "warning",
     "spec": "",
