@@ -37,3 +37,9 @@ describe("Class tests", () => {
   unitTests(qa, niem);
 
 });
+
+afterAll( async() => {
+
+  await qa.testSuite.saveAsFile("test/test-results");
+
+});
