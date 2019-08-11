@@ -74,41 +74,6 @@ function checkBases(tests, types) {
   });
   logResults(tests, problemTypes, "type-base-all-invalid", "baseQName");
 
-  // Check that a CSC or simple type has a base
-  problemTypes = types.filter( type => {
-    return ! type.isComplexContent && ! type.baseQName  && type.prefix != "xs"
-  });
-  logResults(tests, problemTypes, "type-base-simpleContent-missing", "baseQName");
-
-  // Check that a CSC type has a CSC or simple base
-  problemTypes = basedTypes
-    .filter( basedType => basedType.pattern == "CSC" && basedType.baseQName )
-    .filter( basedType => {
-      let baseType = types.find( type => type.qname == basedType.baseQName );
-      return baseType && baseType.isComplexContent;
-    })
-  logResults(tests, problemTypes, "type-base-csc-invalid", "baseQName");
-
-  // Check that a simple type has a XML Schema simple base type
-  problemTypes = basedTypes.filter( type => {
-    let baseQName = type.baseQName;
-    if (! baseQName.includes(":")) {
-      return true;
-    }
-    return ! type.isComplexType && type.baseQName.split(":")[0] != "xs";
-  });
-  logResults(tests, problemTypes, "type-base-simple-invalid", "baseQName");
-
-  // A CSC type with a "CodeSimpleType" base must be named similarly
-  problemTypes = basedTypes
-    .filter( type => type.baseQName.includes(":") )
-    .filter( type => type.baseQName.endsWith("CodeSimpleType") )
-    .filter( type => {
-      let expectedName = type.baseQName.split(":")[1].replace("CodeSimpleType", "CodeType");
-      return type.name != expectedName;
-    });
-  logResults(tests, problemTypes, "type-name-codeType-inconsistent", "baseQName");
-
 }
 
 /**

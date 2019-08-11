@@ -17,6 +17,22 @@ class TypeQA_FieldTestSuites {
    * @param {Type[]} types
    * @param {Release} release
    */
+  async base(types, release) {
+
+    let tests = [
+      (await this.unitTests.base_invalid_csc(types, release)),
+      (await this.unitTests.base_invalid_simple(types, release)),
+      (await this.unitTests.base_missing_simpleContent(types)),
+      (await this.unitTests.base_unknown(types, release)),
+    ];
+
+    return TestSuite.init(tests);
+  }
+
+  /**
+   * @param {Type[]} types
+   * @param {Release} release
+   */
   async definition(types, release) {
 
     let tests = [

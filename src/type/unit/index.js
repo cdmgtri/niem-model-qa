@@ -8,13 +8,91 @@ let { Release, Type } = require("niem-model-source").ModelObjects;
 class TypeQA_UnitTests extends ComponentUnitTests {
 
   /**
+   * Check that complex types with simple content (CSC) have a CSC or a simple
+   * base type.
+   * @param {Type[]} types
+   * @param {Release} release
+   */
+  async base_invalid_csc(types, release) {
+
+    /** @type {Type[]} */
+    let problemTypes = [];
+
+    let cscTypes = types.filter( type => type.pattern == "CSC" && type.baseQName );
+
+    for (let cscType of cscTypes) {
+      let baseType = await release.types.get(cscType.baseQName);
+
+      if (baseType && baseType.isComplexContent) {
+        problemTypes.push(cscType);
+      }
+    }
+
+    return this.testSuite.post("type_base_invalid_csc", problemTypes, "baseQName");
+  }
+
+  /**
+   * Check that simple types have a XML schema base type.
+   * @param {Type[]} types
+   * @param {Release} release
+   */
+  async base_invalid_simple(types, release) {
+
+    /** @type {Type[]} */
+    let problemTypes = [];
+
+    let simpleTypes = types.filter( type => type.pattern == "simple" && type.baseQName );
+
+    for (let simpleType of simpleTypes) {
+      let baseType = await release.types.get(simpleType.baseQName);
+
+      if (baseType && baseType.prefix != "xs") {
+        problemTypes.push(simpleType);
+      }
+    }
+
+    return this.testSuite.post("type_base_invalid_simple", problemTypes, "baseQName");
+  }
+
+  /**
+   * Check that simple content types have a base.
+   * @param {Type[]} types
+   */
+  async base_missing_simpleContent(types) {
+    let problemTypes = types.filter( type => type.isSimpleContent && ! type.baseQName )
+    return this.testSuite.post("type_base_missing_simpleContent", problemTypes, "baseQName");
+  }
+
+  /**
+   * Check that type bases exist.
+   * @param {Type[]} types
+   * @param {Release} release
+   */
+  async base_unknown(types, release) {
+
+    /** @type {Type[]} */
+    let problemTypes = [];
+
+    // Get all types that have a base type
+    let basedTypes = types.filter( type => type.baseQName );
+
+    for (let type of basedTypes) {
+      let baseType = await release.types.get(type.baseQName);
+
+      if (! baseType) {
+        problemTypes.push(type);
+      }
+    }
+
+    return this.testSuite.post("type_base_unknown", problemTypes, "baseQName");
+  }
+
+  /**
    * Check that a complex type has a definition.
    * @param {Type[]} types
    */
   async def_missing_complex(types) {
-    let problemTypes = types
-    .filter( type => type.isComplexType )
-    .filter( type => ! type.definition );
+    let problemTypes = types.filter( type => type.isComplexType && ! type.definition )
     return this.testSuite.post("type_def_missing_complex", problemTypes, "definition");
   }
 
@@ -23,9 +101,7 @@ class TypeQA_UnitTests extends ComponentUnitTests {
    * @param {Type[]} types
    */
   async def_missing_simple(types) {
-    let problemTypes = types
-    .filter( type => type.isSimpleType )
-    .filter( type => ! type.definition );
+    let problemTypes = types.filter( type => type.isSimpleType && ! type.definition )
     return this.testSuite.post("type_def_missing_simple", problemTypes, "definition");
   }
 

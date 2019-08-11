@@ -453,6 +453,8 @@
     "severity": "error",
     "spec": "",
     "rule": "",
+    "validExample": "Type HairColorCodeSimpleType needs a base type like xs:string or xs:token.",
+    "invalidExample": "Type HairColorCodeSimpleType is not valid without a base type.",
     "exceptionIDs": [
       ""
     ]
@@ -463,16 +465,20 @@
     "severity": "error",
     "spec": "",
     "rule": "",
+    "validExample": "Simple content type HairColorCodeType can have a base type like HairColorCodeSimpleType (simple type).",
+    "invalidExample": "Simple content type HairColorCodeType cannot have a type like nc:PersonType (complex object type).",
     "exceptionIDs": [
       ""
     ]
   },
   {
     "id": "type_base_invalid_simple",
-    "description": "Simple types must use a XML schema simple type as its base type.",
-    "severity": "error",
+    "description": "Simple types should use a XML schema simple type as its base type.",
+    "severity": "warning",
     "spec": "",
     "rule": "",
+    "validExample": "Simple type ext:HairColorCodeSimpleType can have base type xs:token.",
+    "invalidExample": "Simple type ext:HairColorCodeSimpleType should not have base type ext:ColorCodeSimpleType.",
     "exceptionIDs": [
       ""
     ]
@@ -483,6 +489,8 @@
     "severity": "error",
     "spec": "",
     "rule": "",
+    "validExample": "Type PersonType can extend type structures:ObjectType (this type exists).",
+    "invalidExample": "Type PersonType cannot extend type structures:BogusType (this type does not exist).",
     "exceptionIDs": [
       ""
     ]

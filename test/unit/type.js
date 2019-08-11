@@ -13,6 +13,9 @@ let nameTypes = [];
 /** @type {Type[]} */
 let defTypes = [];
 
+/** @type {Type[]} */
+let baseTypes = [];
+
 /**
  * @param {NIEMModelQA} qa
  * @param {NIEM} niem
@@ -26,6 +29,93 @@ function typeTests(qa, niem) {
     });
 
     describe("Unit tests", () => {
+
+      test("#base_invalid_csc", async () => {
+
+        let types = [
+          new Type(release, "ext", "IDType", "An ID", "object", "ext:BogusType"),
+
+          // invalid
+          new Type(release, "ncic", "HairColorCodeType", null, "CSC", "nc:PersonType"),
+
+          new Type(release, "ncic", "HairColorCodeSimpleType", null, "simple", "xs:token"),
+          new Type(release, "nc", "TextType", null, "CSC", "niem-xs:token")
+        ];
+
+        baseTypes.push(...types);
+
+        await release.types.add( new Type(null, "xs", "token", null, "simple") );
+        await release.types.add( new Type(null, "niem-xs", "token", null, "CSC") );
+        await release.types.add( new Type(null, "nc", "PersonType", null, "object") );
+
+        let test = await qa.type.test.base_invalid_csc(types, release);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].label).toBe("ncic:HairColorCodeType");
+        expect(test.issues()[0].problemValue).toBe("nc:PersonType");
+        expect(test.issues().length).toBe(1);
+      });
+
+      test("#base_invalid_simple", async () => {
+
+        let types = [
+          new Type(release, "ext", "IDType", "An ID", "object", "ext:BogusType"),
+
+          // invalid
+          new Type(release, "ncic", "HairColorCodeSimpleType", null, "simple", "ncic:EyeColorCodeSimpleType"),
+
+          new Type(release, "ncic", "EyeColorCodeSimpleType", null, "simple", "xs:token")
+        ];
+
+        baseTypes.push(...types);
+
+        await release.types.add( new Type(null, "ncic", "EyeColorCodeSimpleType", null, "simple") );
+
+        let test = await qa.type.test.base_invalid_simple(types, release);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].label).toBe("ncic:HairColorCodeSimpleType");
+        expect(test.issues()[0].problemValue).toBe("ncic:EyeColorCodeSimpleType");
+        expect(test.issues().length).toBe(1);
+      });
+
+      test("#base_missing_simpleContent", async () => {
+
+        let types = [
+          new Type(release, "ext", "IDType", "An ID", "object"),
+          new Type(release, "ncic", "HairColorCodeType", null, "CSC"), // invalid
+          new Type(release, "ncic", "HairColorCodeSimpleType", null, "simple"), // invalid
+          new Type(release, "nc", "TextType", null, "CSC", "niem-xs:token")
+        ];
+
+        baseTypes.push(...types);
+
+        let test = await qa.type.test.base_missing_simpleContent(types);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].label).toBe("ncic:HairColorCodeType");
+        expect(test.issues()[1].label).toBe("ncic:HairColorCodeSimpleType");
+        expect(test.issues().length).toBe(2);
+      });
+
+      test("#base_unknown", async () => {
+
+        let types = [
+          new Type(release, "ext", "IDType", "An ID", "object"),
+          new Type(release, "nc", "TextType", null, "CSC", "niem-xs:token"),
+
+          // invalid
+          new Type(release, "nc", "LocationType", null, "object", "structures:BogusType")
+        ];
+
+        baseTypes.push(...types);
+
+        let test = await qa.type.test.base_unknown(types, release);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].label).toBe("nc:LocationType");
+        expect(test.issues().length).toBe(1);
+      });
 
       test("#def_missing_complex", async () => {
 
@@ -408,6 +498,21 @@ function typeTests(qa, niem) {
 
         defTestIDs.forEach( defTestID => {
           expect(defTestSuite.find("type_" + defTestID)).toBeDefined();
+        });
+
+      });
+
+      test("#base", async () => {
+
+        let baseTestSuite = await qa.type.field.base(defTypes, release);
+        expect(baseTestSuite.status()).toBe("fail");
+
+        let baseTestIDs = Object
+        .getOwnPropertyNames(Object.getPrototypeOf(qa.type.test))
+        .filter( property => property.includes("base") );
+
+        baseTestIDs.forEach( baseTestID => {
+          expect(baseTestSuite.find("type_" + baseTestID)).toBeDefined();
         });
 
       });
