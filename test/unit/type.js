@@ -2,7 +2,7 @@
 let NIEMModelQA = require("../../src/index");
 
 let NIEM = require("niem-model-source");
-let { Release, Type, Facet, LocalTerm } = NIEM.ModelObjects;
+let { Release, Namespace, Type, Facet, LocalTerm } = NIEM.ModelObjects;
 
 /** @type {Release} */
 let release;
@@ -15,6 +15,9 @@ let defTypes = [];
 
 /** @type {Type[]} */
 let baseTypes = [];
+
+/** @type {Type[]} */
+let prefixTypes = [];
 
 /**
  * @param {NIEMModelQA} qa
@@ -469,6 +472,44 @@ function typeTests(qa, niem) {
         expect(test.issues().length).toBe(3);
       });
 
+      test("#prefix_missing", async () => {
+
+        let types = [
+          new Type(release, null, "IDTypeCodeType"), // invalid
+          new Type(release, "", "TypeCodeType"), // invalid
+          new Type(release, "nc", "LocationType")
+        ];
+
+        prefixTypes.push(...types);
+
+        let test = await qa.type.test.prefix_missing(types);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].label).toBe("null:IDTypeCodeType");
+        expect(test.issues()[1].label).toBe(":TypeCodeType");
+        expect(test.issues().length).toBe(2);
+      });
+
+      test("#prefix_unknown", async () => {
+
+        let types = [
+          new Type(release, "ext", "IDTypeCodeType"), // invalid
+          new Type(release, "", "TypeCodeType"),
+          new Type(release, "nc", "LocationType")
+        ];
+
+        prefixTypes.push(...types);
+
+        await release.namespaces.add( new Namespace(release, "nc") );
+
+        let test = await qa.type.test.prefix_unknown(types, release);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].label).toBe("ext:IDTypeCodeType");
+        expect(test.issues()[0].problemValue).toBe("ext");
+        expect(test.issues().length).toBe(1);
+      });
+
     });
 
     describe("Field tests", () => {
@@ -513,6 +554,21 @@ function typeTests(qa, niem) {
 
         baseTestIDs.forEach( baseTestID => {
           expect(baseTestSuite.find("type_" + baseTestID)).toBeDefined();
+        });
+
+      });
+
+      test("#prefix", async () => {
+
+        let prefixTestSuite = await qa.type.field.prefix(prefixTypes, release);
+        expect(prefixTestSuite.status()).toBe("fail");
+
+        let prefixTestIDs = Object
+        .getOwnPropertyNames(Object.getPrototypeOf(qa.type.test))
+        .filter( property => property.includes("prefix") );
+
+        prefixTestIDs.forEach( prefixTestID => {
+          expect(prefixTestSuite.find("type_" + prefixTestID)).toBeDefined();
         });
 
       });

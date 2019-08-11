@@ -71,6 +71,20 @@ class TypeQA_FieldTestSuites {
     return TestSuite.init(tests);
   }
 
+  /**
+   * @param {Type[]} types
+   * @param {Release} release
+   */
+  async prefix(types, release) {
+
+    let tests = [
+      (await this.unitTests.prefix_missing(types)),
+      (await this.unitTests.prefix_unknown(types, release)),
+    ];
+
+    return TestSuite.init(tests);
+  }
+
 }
 
 module.exports = TypeQA_FieldTestSuites;

@@ -135,6 +135,45 @@ class ComponentUnitTests extends NIEMObjectUnitTests {
     return this.testSuite.log(testID, issues);
   }
 
+  /**
+   * Check that types have a namespace prefix that has been defined in the release.
+   * @param {Component[]} components
+   * @param {Release} release
+   */
+  async prefix_unknown__helper(components, release) {
+
+    /** @type {Issue[]} */
+    let issues = [];
+
+    /** @type {String[]} */
+    let undefinedPrefixes = [];
+
+    // Components with prefixes
+    let prefixedComponents = components.filter( type => type.prefix );
+
+    // Unique prefixes
+    let prefixes = new Set( prefixedComponents.map( component => component.prefix) );
+
+    for (let prefix of prefixes) {
+      let ns = await release.namespaces.get(prefix);
+      if (!ns) {
+        undefinedPrefixes.push(prefix);
+      }
+    }
+
+    undefinedPrefixes.forEach( prefix => {
+      prefixedComponents
+      .filter( component => component.prefix == prefix )
+      .forEach( component => {
+        let issue = new Issue(component.prefix, component.label, component.source_location, component.source_line, component.source_position, component.prefix);
+
+        issues.push(issue);
+      });
+    });
+
+    return this.testSuite.log("type_prefix_unknown", issues);
+  }
+
 }
 
 module.exports = ComponentUnitTests;

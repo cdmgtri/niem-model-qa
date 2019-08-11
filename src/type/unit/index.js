@@ -318,6 +318,24 @@ class TypeQA_UnitTests extends ComponentUnitTests {
     return this.name_spellcheck__helper("type_name_spellcheck", types, release);
   }
 
+  /**
+   * Check that types have a namespace prefix.
+   * @param {Type[]} types
+   */
+  async prefix_missing(types) {
+    let problemTypes = types.filter( type => ! type.prefix );
+    return this.testSuite.post("type_prefix_missing", problemTypes, "prefix");
+  }
+
+  /**
+   * Check that types have a namespace prefix that has been defined in the release.
+   * @param {Type[]} types
+   * @param {Release} release
+   */
+  async prefix_unknown(types, release) {
+    return this.prefix_unknown__helper(types, release);
+  }
+
 }
 
 module.exports = TypeQA_UnitTests;
