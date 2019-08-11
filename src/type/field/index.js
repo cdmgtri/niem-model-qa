@@ -1,13 +1,20 @@
 
 let { Release, Type } = require("niem-model-source").ModelObjects;
 
-let TypeUnitTests = require("../unit/index");
-let TestSuite = require("../../test-suite/index");
+let TypeQA_UnitTests = require("../unit/index");
+let QATestSuite = require("../../test-suite/index");
 
+let { Test } = QATestSuite;
+
+let fields = ["base", "definition", "name", "prefix", "s"]
+
+/**
+ * @todo Refactor common functionality into a parent type
+ */
 class TypeQA_FieldTestSuites {
 
   /**
-   * @param {TypeUnitTests} unitTests
+   * @param {TypeQA_UnitTests} unitTests
    */
   constructor(unitTests) {
     this.unitTests = unitTests;
@@ -18,32 +25,15 @@ class TypeQA_FieldTestSuites {
    * @param {Release} release
    */
   async base(types, release) {
-
-    let tests = [
-      (await this.unitTests.base_invalid_csc(types, release)),
-      (await this.unitTests.base_invalid_simple(types, release)),
-      (await this.unitTests.base_missing_simpleContent(types)),
-      (await this.unitTests.base_unknown(types, release)),
-    ];
-
-    return TestSuite.init(tests);
+    return runFieldTestSuite(this.unitTests, types, release, "base");
   }
 
   /**
    * @param {Type[]} types
    * @param {Release} release
    */
-  async definition(types, release) {
-
-    let tests = [
-      (await this.unitTests.def_missing_complex(types)),
-      (await this.unitTests.def_missing_simple(types)),
-      (await this.unitTests.def_phrase_complex(types)),
-      (await this.unitTests.def_phrase_simple(types)),
-      (await this.unitTests.def_spellcheck(types, release)),
-    ];
-
-    return TestSuite.init(tests);
+  async def(types, release) {
+    return runFieldTestSuite(this.unitTests, types, release, "def");
   }
 
   /**
@@ -51,24 +41,7 @@ class TypeQA_FieldTestSuites {
    * @param {Release} release
    */
   async name(types, release) {
-
-    let tests = [
-      (await this.unitTests.name_camelCase(types)),
-      (await this.unitTests.name_duplicate(types)),
-      (await this.unitTests.name_missing_complex(types)),
-      (await this.unitTests.name_missing_simple(types)),
-      (await this.unitTests.name_invalidChar(types)),
-      (await this.unitTests.name_repTerm_type(types)),
-      (await this.unitTests.name_repTerm_simple(types)),
-      (await this.unitTests.name_repTerm_complex(types)),
-      (await this.unitTests.name_repTerm_codeType(types)),
-      (await this.unitTests.name_inconsistent_codeType(types)),
-      (await this.unitTests.name_repTerm_codeSimpleType(types)),
-      (await this.unitTests.name_reservedTerm_type(types)),
-      (await this.unitTests.name_spellcheck(types, release)),
-    ];
-
-    return TestSuite.init(tests);
+    return runFieldTestSuite(this.unitTests, types, release, "name");
   }
 
   /**
@@ -76,13 +49,7 @@ class TypeQA_FieldTestSuites {
    * @param {Release} release
    */
   async prefix(types, release) {
-
-    let tests = [
-      (await this.unitTests.prefix_missing(types)),
-      (await this.unitTests.prefix_unknown(types, release)),
-    ];
-
-    return TestSuite.init(tests);
+    return runFieldTestSuite(this.unitTests, types, release, "prefix");
   }
 
   /**
@@ -90,14 +57,80 @@ class TypeQA_FieldTestSuites {
    * @param {Release} release
    */
   async style(types, release) {
-
-    let tests = [
-      (await this.unitTests.style_missing(types)),
-      (await this.unitTests.style_unknown(types)),
-    ];
-
-    return TestSuite.init(tests);
+    return runFieldTestSuite(this.unitTests, types, release, "style");
   }
+
+  /**
+   * @param {Type[]} types
+   * @param {Release} release
+   */
+  async all(types, release) {
+    return runFieldTestSuite(this.unitTests, types, release);
+  }
+
+  /**
+   * @param {Type[]} types
+   * @param {Release} release
+   * @param {String} field
+   * @returns {Promise<QATestSuite></QATestSuite>}
+   */
+  async getTestSuite(types, release, field) {
+
+    if (field && this[field]) {
+      // Return test suite with unit tests for the given field
+      return this[field](types, release);
+    }
+
+    // Return test suite with all unit tests
+    return this.all(types, release);
+  }
+
+}
+
+/**
+ * Find all unit tests for the given field.
+ *
+ * @private
+ * @param {TypeQA_UnitTests} unitTests
+ * @param {String} field
+ */
+function getFieldTests(unitTests, field) {
+
+  // Get all properties and methods from the unit test class
+  let fieldTests = Object.getOwnPropertyNames(Object.getPrototypeOf(unitTests));
+
+  if (!field) {
+    // Return all unit tests, minus the constructor
+    return fieldTests.filter( property => property != "constructor" );
+  }
+
+  // Return unit tests filtered on given field
+  return fieldTests.filter( property => property.includes(field + "_") );
+
+}
+
+/**
+ * Run all unit tests for the given field.
+ *
+ * @private
+ * @param {TypeQA_UnitTests} unitTests
+ * @param {Type[]} types
+ * @param {Release} release
+ * @param {String} field
+ */
+async function runFieldTestSuite(unitTests, types, release, field) {
+
+  let testFunctions = getFieldTests(unitTests, field);
+
+  /** @type {Test[]} */
+  let tests = [];
+
+  for (let fn of testFunctions) {
+    let test = await unitTests[fn](types, release);
+    tests.push(test);
+  }
+
+  return QATestSuite.init(tests);
 
 }
 

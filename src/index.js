@@ -6,7 +6,6 @@ let { Test, Issue } = TestSuite;
 let TypeQA = require("./type/index");
 
 /**
- * @todo Check that field tests include all relevant unit tests
  * @todo Full test suite for classes
  * @todo Full test suite for a release
  *

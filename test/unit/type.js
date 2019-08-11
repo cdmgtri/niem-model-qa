@@ -538,87 +538,73 @@ function typeTests(qa, niem) {
 
     });
 
-    /**
-     * @todo Refactor field tests
-     */
     describe("Field tests", () => {
 
-      test("#name", async () => {
-        let nameTestSuite = await qa.type.field.name(fieldTypes, release);
-        expect(nameTestSuite.status()).toBe("fail");
-
-        let nameTestIDs = Object
-        .getOwnPropertyNames(Object.getPrototypeOf(qa.type.test))
-        .filter( property => property.includes("name") );
-
-        nameTestIDs.forEach( nameTestID => {
-          expect(nameTestSuite.find("type_" + nameTestID)).toBeDefined();
-        });
-
-      });
-
-      test("#definition", async () => {
-
-        let defTestSuite = await qa.type.field.definition(fieldTypes, release);
-        expect(defTestSuite.status()).toBe("fail");
-
-        let defTestIDs = Object
-        .getOwnPropertyNames(Object.getPrototypeOf(qa.type.test))
-        .filter( property => property.includes("def") );
-
-        defTestIDs.forEach( defTestID => {
-          expect(defTestSuite.find("type_" + defTestID)).toBeDefined();
-        });
-
-      });
+      let fieldStats = {
+        count: 0
+      };
 
       test("#base", async () => {
+        testField(qa, fieldTypes, release, fieldStats, "base");
+      });
 
-        let baseTestSuite = await qa.type.field.base(fieldTypes, release);
-        expect(baseTestSuite.status()).toBe("fail");
+      test("#def", async () => {
+        testField(qa, fieldTypes, release, fieldStats, "def");
+      });
 
-        let baseTestIDs = Object
-        .getOwnPropertyNames(Object.getPrototypeOf(qa.type.test))
-        .filter( property => property.includes("base") );
-
-        baseTestIDs.forEach( baseTestID => {
-          expect(baseTestSuite.find("type_" + baseTestID)).toBeDefined();
-        });
-
+      test("#name", async () => {
+        testField(qa, fieldTypes, release, fieldStats, "name");
       });
 
       test("#prefix", async () => {
-
-        let prefixTestSuite = await qa.type.field.prefix(fieldTypes, release);
-        expect(prefixTestSuite.status()).toBe("fail");
-
-        let prefixTestIDs = Object
-        .getOwnPropertyNames(Object.getPrototypeOf(qa.type.test))
-        .filter( property => property.includes("prefix") );
-
-        prefixTestIDs.forEach( prefixTestID => {
-          expect(prefixTestSuite.find("type_" + prefixTestID)).toBeDefined();
-        });
-
+        testField(qa, fieldTypes, release, fieldStats, "prefix");
       });
 
       test("#style", async () => {
+        testField(qa, fieldTypes, release, fieldStats, "style");
+      });
 
-        let styleTestSuite = await qa.type.field.style(fieldTypes, release);
-
-        let styleTestIDs = Object
-        .getOwnPropertyNames(Object.getPrototypeOf(qa.type.test))
-        .filter( property => property.includes("style") );
-
-        styleTestIDs.forEach( styleTestID => {
-          expect(styleTestSuite.find("type_" + styleTestID)).toBeDefined();
-        });
-
+      test("#all fields", async () => {
+        let testSuite = await qa.type.field.all(fieldTypes, release);
+        expect(testSuite.tests.length).toBe(fieldStats.count);
       });
 
     });
 
   });
+
+}
+
+/**
+ * @param {NIEMModelQA} qa
+ * @param {Type[]} types
+ * @param {Release} release
+ * @param {{count: number}} fieldStats
+ * @param {String} field
+ */
+async function testField(qa, types, release, fieldStats, field) {
+  let testSuite = await runTestSuite(qa, types, release, fieldStats, field);
+  expect(testSuite.status()).toBe("fail");
+  return testSuite;
+}
+
+/**
+ * @param {NIEMModelQA} qa
+ * @param {Type[]} types
+ * @param {Release} release
+ * @param {{count: number}} fieldStats
+ * @param {String} field
+ */
+async function runTestSuite(qa, types, release, fieldStats, field) {
+
+  let testSuite = await qa.type.field.getTestSuite(types, release, field);
+  expect(testSuite.status()).toBe("fail");
+
+  if (field) {
+    fieldStats.count += testSuite.tests.length;
+  }
+
+  return testSuite;
 
 }
 
