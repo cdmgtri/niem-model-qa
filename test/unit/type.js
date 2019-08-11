@@ -8,16 +8,7 @@ let { Release, Namespace, Type, Facet, LocalTerm } = NIEM.ModelObjects;
 let release;
 
 /** @type {Type[]} */
-let nameTypes = [];
-
-/** @type {Type[]} */
-let defTypes = [];
-
-/** @type {Type[]} */
-let baseTypes = [];
-
-/** @type {Type[]} */
-let prefixTypes = [];
+let fieldTypes = [];
 
 /**
  * @param {NIEMModelQA} qa
@@ -45,7 +36,7 @@ function typeTests(qa, niem) {
           new Type(release, "nc", "TextType", null, "CSC", "niem-xs:token")
         ];
 
-        baseTypes.push(...types);
+        fieldTypes.push(...types);
 
         await release.types.add( new Type(null, "xs", "token", null, "simple") );
         await release.types.add( new Type(null, "niem-xs", "token", null, "CSC") );
@@ -70,7 +61,7 @@ function typeTests(qa, niem) {
           new Type(release, "ncic", "EyeColorCodeSimpleType", null, "simple", "xs:token")
         ];
 
-        baseTypes.push(...types);
+        fieldTypes.push(...types);
 
         await release.types.add( new Type(null, "ncic", "EyeColorCodeSimpleType", null, "simple") );
 
@@ -91,7 +82,7 @@ function typeTests(qa, niem) {
           new Type(release, "nc", "TextType", null, "CSC", "niem-xs:token")
         ];
 
-        baseTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.base_missing_simpleContent(types);
 
@@ -111,7 +102,7 @@ function typeTests(qa, niem) {
           new Type(release, "nc", "LocationType", null, "object", "structures:BogusType")
         ];
 
-        baseTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.base_unknown(types, release);
 
@@ -128,7 +119,7 @@ function typeTests(qa, niem) {
           new Type(release, "xs", "string", null, "simple")
         ];
 
-        defTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.def_missing_simple(types);
 
@@ -145,7 +136,7 @@ function typeTests(qa, niem) {
           new Type(release, "xs", "string", null, "simple") // invalid
         ];
 
-        defTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.def_missing_simple(types);
 
@@ -162,7 +153,7 @@ function typeTests(qa, niem) {
           new Type(release, "xs", "string", "A string", "simple")
         ];
 
-        defTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.def_phrase_complex(types);
 
@@ -179,7 +170,7 @@ function typeTests(qa, niem) {
           new Type(release, "xs", "string", "A data type for a string", "simple")
         ];
 
-        defTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.def_phrase_simple(types);
 
@@ -202,7 +193,7 @@ function typeTests(qa, niem) {
         let localTerm = new LocalTerm(release, "ncic", "VMO", "vehicle model");
         await release.localTerms.add(localTerm);
 
-        defTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.def_spellcheck(types, release);
 
@@ -224,7 +215,7 @@ function typeTests(qa, niem) {
           new Type(release, "niem-xs", "string")
         ];
 
-        nameTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.name_camelCase(types);
 
@@ -242,7 +233,7 @@ function typeTests(qa, niem) {
           new Type(release, "nc", "PersonType")
         ];
 
-        nameTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.name_duplicate(types);
 
@@ -260,7 +251,7 @@ function typeTests(qa, niem) {
           new Type(release, "ext", "TextType", null, "CSC", "xs:string")
         ];
 
-        nameTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.name_inconsistent_codeType(types);
 
@@ -280,7 +271,7 @@ function typeTests(qa, niem) {
           new Type(release, "ext", "ID#") // invalid
         ];
 
-        nameTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.name_invalidChar(types);
 
@@ -301,7 +292,7 @@ function typeTests(qa, niem) {
           new Type(release, "ext", "", null, "association"),
         ];
 
-        nameTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.name_missing_simple(types);
 
@@ -321,7 +312,7 @@ function typeTests(qa, niem) {
           new Type(release, "ext", "", null , "simple")
         ];
 
-        nameTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.name_missing_complex(types);
 
@@ -337,7 +328,7 @@ function typeTests(qa, niem) {
           new Type(release, "ext", "ID#") // invalid
         ];
 
-        nameTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.name_repTerm_type(types);
 
@@ -357,7 +348,7 @@ function typeTests(qa, niem) {
           new Type(release, "ext", "weekdaySimpleType", null, "simple")
         ];
 
-        nameTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.name_repTerm_simple(types);
 
@@ -375,7 +366,7 @@ function typeTests(qa, niem) {
           new Type(release, "ext", "IDSimpleType", null, "simple")
         ];
 
-        nameTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.name_repTerm_complex(types);
 
@@ -392,7 +383,7 @@ function typeTests(qa, niem) {
           new Type(release, "ext", "TextType", null, "CSC", "xs:string")
         ];
 
-        nameTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.name_repTerm_codeType(types);
 
@@ -416,7 +407,7 @@ function typeTests(qa, niem) {
         await types[0].facets.add( new Facet(null, null, "TUE") );
         await types[0].facets.add( new Facet(null, null, "WED") );
 
-        nameTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.name_repTerm_codeSimpleType(types);
 
@@ -433,7 +424,7 @@ function typeTests(qa, niem) {
           new Type(release, "nc", "LocationType")
         ];
 
-        nameTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.name_reservedTerm_type(types);
 
@@ -456,7 +447,7 @@ function typeTests(qa, niem) {
         let term = new LocalTerm(null, "nc", "NIEM", "National Information Exchange Model");
         await release.localTerms.add(term);
 
-        nameTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.name_spellcheck(types, release);
 
@@ -480,7 +471,7 @@ function typeTests(qa, niem) {
           new Type(release, "nc", "LocationType")
         ];
 
-        prefixTypes.push(...types);
+        fieldTypes.push(...types);
 
         let test = await qa.type.test.prefix_missing(types);
 
@@ -498,7 +489,7 @@ function typeTests(qa, niem) {
           new Type(release, "nc", "LocationType")
         ];
 
-        prefixTypes.push(...types);
+        fieldTypes.push(...types);
 
         await release.namespaces.add( new Namespace(release, "nc") );
 
@@ -510,12 +501,50 @@ function typeTests(qa, niem) {
         expect(test.issues().length).toBe(1);
       });
 
+      test("#style_missing", async () => {
+
+        let types = [
+          new Type(release, "ext", "IDTypeCodeType"), // invalid
+          new Type(release, "ext", "TypeCodeType", null, "object"),
+          new Type(release, "nc", "LocationType", null, "simple")
+        ];
+
+        let test = await qa.type.test.style_missing(types);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].label).toBe("ext:IDTypeCodeType");
+        expect(test.issues().length).toBe(1);
+      });
+
+      test("#style_unknown", async () => {
+
+        let types = [
+          new Type(release, "ext", "IDTypeCodeType", null, "CSC"),
+          new Type(release, "nc", "LocationType", null, "object"),
+          new Type(release, "nc", "LocationType", null, "bogus"), // invalid
+          new Type(release, "nc", "ActivityType", null) // invalid
+        ];
+
+        let test = await qa.type.test.style_unknown(types);
+
+        expect(test.failed()).toBeTruthy();
+        expect(test.issues()[0].label).toBe("nc:LocationType");
+        expect(test.issues()[0].problemValue).toBe("bogus");
+
+        expect(test.issues()[1].label).toBe("nc:ActivityType");
+        expect(test.issues()[1].problemValue).toBe(undefined);
+        expect(test.issues().length).toBe(2);
+      });
+
     });
 
+    /**
+     * @todo Refactor field tests
+     */
     describe("Field tests", () => {
 
       test("#name", async () => {
-        let nameTestSuite = await qa.type.field.name(nameTypes, release);
+        let nameTestSuite = await qa.type.field.name(fieldTypes, release);
         expect(nameTestSuite.status()).toBe("fail");
 
         let nameTestIDs = Object
@@ -530,7 +559,7 @@ function typeTests(qa, niem) {
 
       test("#definition", async () => {
 
-        let defTestSuite = await qa.type.field.definition(defTypes, release);
+        let defTestSuite = await qa.type.field.definition(fieldTypes, release);
         expect(defTestSuite.status()).toBe("fail");
 
         let defTestIDs = Object
@@ -545,7 +574,7 @@ function typeTests(qa, niem) {
 
       test("#base", async () => {
 
-        let baseTestSuite = await qa.type.field.base(defTypes, release);
+        let baseTestSuite = await qa.type.field.base(fieldTypes, release);
         expect(baseTestSuite.status()).toBe("fail");
 
         let baseTestIDs = Object
@@ -560,7 +589,7 @@ function typeTests(qa, niem) {
 
       test("#prefix", async () => {
 
-        let prefixTestSuite = await qa.type.field.prefix(prefixTypes, release);
+        let prefixTestSuite = await qa.type.field.prefix(fieldTypes, release);
         expect(prefixTestSuite.status()).toBe("fail");
 
         let prefixTestIDs = Object
@@ -569,6 +598,20 @@ function typeTests(qa, niem) {
 
         prefixTestIDs.forEach( prefixTestID => {
           expect(prefixTestSuite.find("type_" + prefixTestID)).toBeDefined();
+        });
+
+      });
+
+      test("#style", async () => {
+
+        let styleTestSuite = await qa.type.field.style(fieldTypes, release);
+
+        let styleTestIDs = Object
+        .getOwnPropertyNames(Object.getPrototypeOf(qa.type.test))
+        .filter( property => property.includes("style") );
+
+        styleTestIDs.forEach( styleTestID => {
+          expect(styleTestSuite.find("type_" + styleTestID)).toBeDefined();
         });
 
       });

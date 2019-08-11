@@ -336,6 +336,36 @@ class TypeQA_UnitTests extends ComponentUnitTests {
     return this.prefix_unknown__helper(types, release);
   }
 
+  /**
+   * Check that types have a style.
+   * @param {Type[]} types
+   */
+  async style_missing(types) {
+    let problemTypes = types.filter( type => ! type.style );
+    return this.testSuite.post("type_style_missing", problemTypes, "style");
+  }
+
+  /**
+   * Check that types have a known style.
+   * @param {Type[]} types
+   */
+  async style_unknown(types) {
+
+    let uniqueStyles = new Set( types.map( type => type.style ) );
+
+    /** @type {String[]} */
+    let unknownStyles = [];
+
+    uniqueStyles.forEach( style => {
+      if (! Type.Patterns[style] ) {
+        unknownStyles.push(style);
+      }
+    });
+
+    let problemTypes = types.filter( type => unknownStyles.includes(type.style) );
+    return this.testSuite.post("type_style_unknown", problemTypes, "style");
+  }
+
 }
 
 module.exports = TypeQA_UnitTests;
