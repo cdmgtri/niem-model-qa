@@ -1,15 +1,20 @@
 
-# NIEM QA
+# NIEM Model QA
+
+[![Build Status](https://travis-ci.org/cdmgtri/niem-model-qa.svg)](https://travis-ci.org/cdmgtri/niem-model-qa)
+[![Coverage Status](https://coveralls.io/repos/github/cdmgtri/niem-model-qa/badge.svg)](https://coveralls.io/github/cdmgtri/niem-model-qa)
 
 Provides QA checks for NIEM data, based on NIEM NDR rules and modeling best practices.
 
 ## Installation
 
 ```sh
-npm i cdmgtri/niem-qa
+npm i cdmgtri/niem-model-qa
 ```
 
 ## Test Status
+
+Most CSC type, simple type, and facet tests have been implemented.
 
 - [ ] Property tests
 - [ ] Type tests
@@ -23,27 +28,3 @@ npm i cdmgtri/niem-qa
 - [ ] Namespace tests
 - [ ] Local terminology tests
 - [ ] Metadata tests
-
-## Planning
-
-- QA.runLocalTests() - NIEM model source
-  - PropertyQA.runLocalTests() - array of NIEM properties
-- QA.runRelationalTests() - NIEM model source
-- QA.runAllTests() - NIEM model source
-
-## To Do
-
-- [ ] Update test suite
-  - [ ] Split model tests out from the tests.xlsx spreadsheet in the niem-mapping project, leaving the mapping spreadsheet-specific tests in the other project.
-  - [ ] Add NDR rule numbers to existing tests
-  - [ ] Add missing NDR tests
-  - [ ] Add missing modeling QA tests
-- [ ] Add separate namespace field to results issue list for easy filtering
-- [ ] Refactor
-  - [ ] Return ran test(s) from functions
-  - [ ] Abstract reusable tests
-- [ ] Implement remaining tests
-- [ ] Format results
-- [ ] Download results spreadsheet
-- [ ] Add usage section to README
-- [ ] Add project testing (jest)

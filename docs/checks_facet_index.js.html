@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>checks/facet/index.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="NIEMModelQA.html">NIEMModelQA</a></li><li><a href="TypeQA_FieldTestSuites.html">TypeQA_FieldTestSuites</a><ul class='methods'><li data-type='method'><a href="TypeQA_FieldTestSuites.html#all">all</a></li><li data-type='method'><a href="TypeQA_FieldTestSuites.html#base">base</a></li><li data-type='method'><a href="TypeQA_FieldTestSuites.html#definition">definition</a></li><li data-type='method'><a href="TypeQA_FieldTestSuites.html#name">name</a></li><li data-type='method'><a href="TypeQA_FieldTestSuites.html#prefix">prefix</a></li><li data-type='method'><a href="TypeQA_FieldTestSuites.html#style">style</a></li></ul></li><li><a href="TypeQA_UnitTests.html">TypeQA_UnitTests</a><ul class='methods'><li data-type='method'><a href="TypeQA_UnitTests.html#base_invalid_csc">base_invalid_csc</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#base_invalid_simple">base_invalid_simple</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#base_missing_simpleContent">base_missing_simpleContent</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#base_unknown">base_unknown</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#definition_missing_complex">definition_missing_complex</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#definition_missing_simple">definition_missing_simple</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#definition_phrase_complex">definition_phrase_complex</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#definition_phrase_simple">definition_phrase_simple</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#definition_spellcheck">definition_spellcheck</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_camelCase">name_camelCase</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_duplicate">name_duplicate</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_inconsistent_codeType">name_inconsistent_codeType</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_invalidChar">name_invalidChar</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_missing_complex">name_missing_complex</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_missing_simple">name_missing_simple</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_repTerm_codeSimpleType">name_repTerm_codeSimpleType</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_repTerm_codeType">name_repTerm_codeType</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_repTerm_complex">name_repTerm_complex</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_repTerm_simple">name_repTerm_simple</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_repTerm_type">name_repTerm_type</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_reservedTerm_type">name_reservedTerm_type</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_spellcheck">name_spellcheck</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#prefix_missing">prefix_missing</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#prefix_unknown">prefix_unknown</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#style_missing">style_missing</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#style_unknown">style_unknown</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#checkDefs">checkDefs</a></li><li><a href="global.html#checkFacets">checkFacets</a></li><li><a href="global.html#checkNames">checkNames</a></li><li><a href="global.html#checkPrefixes">checkPrefixes</a></li><li><a href="global.html#checkValues">checkValues</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">checks/facet/index.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
+let NIEM = require("niem");
+let Test = require("../../test/index");
+let Issue = require("../../issue/index");
+
+let { Release, Facet, Type, Namespace } = NIEM.ModelObjects;
+let { logResults } = Test;
+
+
+/**
+ * @param {Test[]} tests
+ * @param {Release} release
+ */
+async function checkFacets(tests, release) {
+
+  let facets = await release.facets.find();
+
+  await checkPrefixes(tests, facets, release);
+  await checkNames(tests, facets, release);
+  checkValues(tests, facets);
+  checkDefs(tests, facets);
+
+}
+
+/**
+ * @param {Test[]} tests
+ * @param {Facet[]} facets
+ * @param {Release} release
+ */
+async function checkPrefixes(tests, facets, release) {
+
+  // Check that a prefix is provided
+  let problems = facets.filter( facet => ! facet.typePrefix );
+  logResults(tests, problems, "facet-prefix-all-missing");
+
+  // Check that a prefix exists
+  let prefixes = new Set( facets.map( facet => facet.typePrefix) );
+
+  let unknownPrefixes = [];
+  for (let prefix of prefixes) {
+    let ns = await release.namespaces.get(prefix);
+    if (! ns) {
+      unknownPrefixes.push(prefix);
+    }
+  }
+
+  problems = facets.filter( facet => facet.typePrefix &amp;&amp; unknownPrefixes.includes(facet.typePrefix) );
+  logResults(tests, problems, "facet-prefix-all-invalid");
+
+}
+
+/**
+ * @todo Abstract unknown reference test
+ *
+ * @param {Test[]} tests
+ * @param {Facet[]} facets
+ * @param {Release} release
+ */
+async function checkNames(tests, facets, release) {
+
+  let typedFacets = facets.filter( facet => facet.typePrefix &amp;&amp; facet.typeName );
+
+  // Check that a type name is provided
+  let problems = facets.filter( facet => ! facet.typeName );
+  logResults(tests, problems, "facet-name-all-missing");
+
+
+  // Check that the type name exists
+  let qnames = new Set( facets.map( facet => facet.typeQName) );
+
+  let unknownQNames = [];
+  for (let qname of qnames) {
+    let type = await release.types.get(qname);
+    if (!type) {
+      unknownQNames.push(qname);
+    }
+  }
+
+  problems = typedFacets.filter( facet => unknownQNames.includes(facet.typeQName) );
+  logResults(tests, problems, "facet-name-all-invalid", "typeQName");
+
+  // Check that codes belong to a "CodeSimpleType" type
+  problems = facets.filter( facet => facet.kind == "enumeration" &amp;&amp; ! facet.typeQName.endsWith("CodeSimpleType"));
+  logResults(tests, problems, "facet-name-code-invalid", "typeQName");
+
+  // Check that facets belong to a "SimpleType" type
+  problems = facets.filter( facet => ! facet.typeName.endsWith("SimpleType") );
+  logResults(tests, problems, "facet-name-all-complex", "typeQName");
+
+}
+
+/**
+ * @todo Abstract count check
+ *
+ * @param {Test[]} tests
+ * @param {Facet[]} facets
+ */
+function checkValues(tests, facets) {
+
+  let valueFacets = facets.filter( facet => facet.value );
+
+  // Check that facets have values
+  let problems = facets.filter( facet => ! facet.value );
+  logResults(tests, problems, "facet-value-all-missing");
+
+  // Check for types that have duplicate facets
+  let labelCounts = {};
+
+  valueFacets
+    .filter( facet => facet.kind == "enumeration" )
+    .forEach( facet => {
+      let label = facet.label;
+      labelCounts[label] = label in labelCounts ? labelCounts[label] + 1 : 1;
+    });
+
+  problems = valueFacets
+    .filter( facet => facet.kind == "enumeration" )
+    .filter( facet => labelCounts[facet.label] > 1 );
+
+  logResults(tests, problems, "facet-value-code-duplicate", "value");
+
+}
+
+/**
+ * @param {Test[]} tests
+ * @param {Facet[]} facets
+ */
+function checkDefs(tests, facets) {
+
+  let problems = facets.filter( facet => facet.kind == "enumeration" &amp;&amp; ! facet.definition );
+  logResults(tests, problems, "facet-def-code-missing");
+
+  problems = facets.filter( facet => facet.kind == "pattern" &amp;&amp; ! facet.definition );
+  logResults(tests, problems, "facet-def-pattern-missing");
+
+}
+
+module.exports = checkFacets;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Aug 11 2019 00:47:43 GMT-0400 (Eastern Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+</body>
+</html>

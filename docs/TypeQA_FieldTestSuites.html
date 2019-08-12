@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>TypeQA_FieldTestSuites - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="NIEMModelQA.html">NIEMModelQA</a></li><li><a href="TypeQA_FieldTestSuites.html">TypeQA_FieldTestSuites</a><ul class='methods'><li data-type='method'><a href="TypeQA_FieldTestSuites.html#all">all</a></li><li data-type='method'><a href="TypeQA_FieldTestSuites.html#base">base</a></li><li data-type='method'><a href="TypeQA_FieldTestSuites.html#definition">definition</a></li><li data-type='method'><a href="TypeQA_FieldTestSuites.html#name">name</a></li><li data-type='method'><a href="TypeQA_FieldTestSuites.html#prefix">prefix</a></li><li data-type='method'><a href="TypeQA_FieldTestSuites.html#style">style</a></li></ul></li><li><a href="TypeQA_UnitTests.html">TypeQA_UnitTests</a><ul class='methods'><li data-type='method'><a href="TypeQA_UnitTests.html#base_invalid_csc">base_invalid_csc</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#base_invalid_simple">base_invalid_simple</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#base_missing_simpleContent">base_missing_simpleContent</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#base_unknown">base_unknown</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#definition_missing_complex">definition_missing_complex</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#definition_missing_simple">definition_missing_simple</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#definition_phrase_complex">definition_phrase_complex</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#definition_phrase_simple">definition_phrase_simple</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#definition_spellcheck">definition_spellcheck</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_camelCase">name_camelCase</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_duplicate">name_duplicate</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_inconsistent_codeType">name_inconsistent_codeType</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_invalidChar">name_invalidChar</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_missing_complex">name_missing_complex</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_missing_simple">name_missing_simple</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_repTerm_codeSimpleType">name_repTerm_codeSimpleType</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_repTerm_codeType">name_repTerm_codeType</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_repTerm_complex">name_repTerm_complex</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_repTerm_simple">name_repTerm_simple</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_repTerm_type">name_repTerm_type</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_reservedTerm_type">name_reservedTerm_type</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#name_spellcheck">name_spellcheck</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#prefix_missing">prefix_missing</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#prefix_unknown">prefix_unknown</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#style_missing">style_missing</a></li><li data-type='method'><a href="TypeQA_UnitTests.html#style_unknown">style_unknown</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#checkDefs">checkDefs</a></li><li><a href="global.html#checkFacets">checkFacets</a></li><li><a href="global.html#checkNames">checkNames</a></li><li><a href="global.html#checkPrefixes">checkPrefixes</a></li><li><a href="global.html#checkValues">checkValues</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">TypeQA_FieldTestSuites</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        TypeQA_FieldTestSuites
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+    
+
+    <h4 class="name" id="TypeQA_FieldTestSuites"><span class="type-signature"></span>new TypeQA_FieldTestSuites<span class="signature">(unitTests)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="type_field_index.js.html">type/field/index.js</a>, <a href="type_field_index.js.html#line17">line 17</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-todo">To Do:</dt>
+    <dd class="tag-todo">
+        <ul>
+            <li>Refactor common functionality into a parent type</li>
+        </ul>
+    </dd>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>unitTests</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="TypeQA_UnitTests.html">TypeQA_UnitTests</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="all"><span class="type-signature">(async) </span>all<span class="signature">(types, release)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="type_field_index.js.html">type/field/index.js</a>, <a href="type_field_index.js.html#line65">line 65</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>types</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Type></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>release</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Release</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="base"><span class="type-signature">(async) </span>base<span class="signature">(types, release)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="type_field_index.js.html">type/field/index.js</a>, <a href="type_field_index.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>types</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Type></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>release</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Release</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="definition"><span class="type-signature">(async) </span>definition<span class="signature">(types, release)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="type_field_index.js.html">type/field/index.js</a>, <a href="type_field_index.js.html#line33">line 33</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>types</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Type></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>release</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Release</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="name"><span class="type-signature">(async) </span>name<span class="signature">(types, release)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="type_field_index.js.html">type/field/index.js</a>, <a href="type_field_index.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>types</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Type></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>release</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Release</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="prefix"><span class="type-signature">(async) </span>prefix<span class="signature">(types, release)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="type_field_index.js.html">type/field/index.js</a>, <a href="type_field_index.js.html#line49">line 49</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>types</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Type></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>release</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Release</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="style"><span class="type-signature">(async) </span>style<span class="signature">(types, release)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="type_field_index.js.html">type/field/index.js</a>, <a href="type_field_index.js.html#line57">line 57</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>types</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Type></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>release</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Release</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Aug 11 2019 00:47:43 GMT-0400 (Eastern Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+</body>
+</html>
