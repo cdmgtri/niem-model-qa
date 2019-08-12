@@ -1,10 +1,10 @@
 
-let TestSuite = require("./test-suite/index");
+let TestSuite = require("./src/test-suite/index");
 
 let { Test, Issue } = TestSuite;
 
-let TypeQA = require("./type/index");
-let FacetQA = require("./facet/index");
+let TypeQA = require("./src/type/index");
+let FacetQA = require("./src/facet/index");
 
 /**
  * @todo Full test suite for classes
@@ -29,7 +29,7 @@ class NIEMModelQA {
   }
 
   async loadTests() {
-    await this.testSuite.loadTestSpreadsheet("niem-model-qa-tests.xlsx");
+    await this.testSuite.loadTestSpreadsheet(__dirname + "/niem-model-qa-tests.xlsx");
   }
 
   saveTestSuiteMetadata(filePath) {

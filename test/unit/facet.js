@@ -1,5 +1,5 @@
 
-let NIEMModelQA = require("../../src/index");
+let NIEMModelQA = require("../../index");
 
 let NIEM = require("niem-model-source");
 let { Release, Namespace, Type, Facet, LocalTerm } = NIEM.ModelObjects;

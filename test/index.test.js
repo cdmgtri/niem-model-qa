@@ -2,7 +2,7 @@
 let NIEM = require("niem-model-source");
 let SourceImplementation = require("niem-model-source-memory");
 
-let NIEMModelQA = require("../src/index");
+let NIEMModelQA = require("../index");
 let unitTests = require("./unit/index");
 
 let qa = new NIEMModelQA();
