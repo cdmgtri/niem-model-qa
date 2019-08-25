@@ -25,7 +25,7 @@
     "severity": "error",
     "spec": "NDR",
     "rule": "9-14",
-    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/undefined/niem-ndr-undefined.html#rule_9-14",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_9-14",
     "validExample": "Code facet 'MON' must have a definition (e.g., 'Monday').",
     "invalidExample": "Length facet '10' is not required to have a definition.",
     "exceptionIDs": [
@@ -82,7 +82,7 @@
     "severity": "error",
     "spec": "NDR",
     "rule": "11-7",
-    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/undefined/niem-ndr-undefined.html#rule_11-7",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_11-7",
     "validExample": "Code 'MON' can belong to a type named 'WeekdayCodeSimpleType'.",
     "invalidExample": "Code 'MON' cannot belong to a type named 'WeekdaySimpleType'.",
     "exceptionIDs": [
@@ -368,7 +368,7 @@
     "severity": "error",
     "spec": "NDR",
     "rule": "9-26",
-    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/undefined/niem-ndr-undefined.html#rule_9-26",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_9-26",
     "exceptionIDs": [
       ""
     ]
@@ -379,7 +379,7 @@
     "severity": "error",
     "spec": "NDR",
     "rule": "9-12",
-    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/undefined/niem-ndr-undefined.html#rule_9-12",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_9-12",
     "exceptionIDs": [
       ""
     ]
@@ -390,7 +390,7 @@
     "severity": "warning",
     "spec": "NDR",
     "rule": "11-44",
-    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/undefined/niem-ndr-undefined.html#rule_11-44",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_11-44",
     "validExample": "Definition 'A data type for a human being' is valid for type 'PersonType'.",
     "invalidExample": "Definition 'A human being' is not valid for type 'PersonType'.",
     "exceptionIDs": [
@@ -403,7 +403,7 @@
     "severity": "warning",
     "spec": "NDR",
     "rule": "11-45",
-    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/undefined/niem-ndr-undefined.html#rule_11-45",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_11-45",
     "validExample": "Definition 'A data type for United States state codes' is valid for type usps:StateCodeSimpleType.",
     "invalidExample": "Definition 'United States state codes' is not valid for type usps:StateCodeSimpleType.",
     "exceptionIDs": [

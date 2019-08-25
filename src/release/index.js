@@ -1,5 +1,5 @@
 
-let { Release } = require("niem-model-source").ModelObjects;
+let { Release } = require("niem-model").ModelObjects;
 
 class ReleaseQA {
 

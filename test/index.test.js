@@ -1,16 +1,15 @@
 
-let NIEM = require("niem-model-source");
-let SourceImplementation = require("niem-model-source-memory");
+let NIEM = require("niem-model");
 
 let NIEMModelQA = require("../index");
 let unitTests = require("./unit/index");
 
 let qa = new NIEMModelQA();
-let niem = new NIEM( new SourceImplementation() );
+let niem = new NIEM();
 
 beforeAll( async () => {
   await qa.loadTests();
-  await niem.releases.sandbox("user", "model", "1.0");
+  await niem.releases.add("user", "model", "1.0");
 });
 
 describe("Check test suite", () => {

@@ -1,7 +1,7 @@
 
 let NIEMObjectFieldTests = require("../../niem-object/field/index");
 let TypeUnitTests = require("../unit/index");
-let { Release, Type } = require("niem-model-source").ModelObjects;
+let { Release, Type } = require("niem-model");
 
 class TypeFieldTests extends NIEMObjectFieldTests {
 

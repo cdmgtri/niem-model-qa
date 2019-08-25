@@ -3,8 +3,7 @@ let QATestSuite = require("../../test-suite/index");
 let NIEMObjectUnitTests = require("../unit/index");
 
 let { Test } = QATestSuite;
-let { NIEMObject } = require("niem-model-objects");
-let { Release } = require("niem-model-source").ModelObjects;
+let { Release, NIEMObject } = require("niem-model");
 
 class NIEMObjectFieldTests {
 

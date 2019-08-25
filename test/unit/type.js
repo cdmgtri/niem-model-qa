@@ -1,8 +1,8 @@
 
 let NIEMModelQA = require("../../index");
 
-let NIEM = require("niem-model-source");
-let { Release, Namespace, Type, Facet, LocalTerm } = NIEM.ModelObjects;
+let NIEM = require("niem-model");
+let { Release, Namespace, Type, Facet, LocalTerm } = NIEM;
 
 /** @type {Release} */
 let release;
@@ -29,20 +29,20 @@ function typeTests(qa, niem) {
       test("#base_invalid_csc", async () => {
 
         let types = [
-          new Type(release, "ext", "IDType", "An ID", "object", "ext:BogusType"),
+          (await release.types.add("ext", "IDType", "An ID", "object", "ext:BogusType")),
 
           // invalid
-          new Type(release, "ncic", "HairColorCodeType", null, "CSC", "nc:PersonType"),
+          (await release.types.add("ncic", "HairColorCodeType", null, "CSC", "nc:PersonType")),
 
-          new Type(release, "ncic", "HairColorCodeSimpleType", null, "simple", "xs:token"),
-          new Type(release, "nc", "TextType", null, "CSC", "niem-xs:token")
+          (await release.types.add("ncic", "HairColorCodeSimpleType", null, "simple", "xs:token")),
+          (await release.types.add("nc", "TextType", null, "CSC", "niem-xs:token"))
         ];
 
         fieldTypes.push(...types);
 
-        await release.types.add( new Type(null, "xs", "token", null, "simple") );
-        await release.types.add( new Type(null, "niem-xs", "token", null, "CSC") );
-        await release.types.add( new Type(null, "nc", "PersonType", null, "object") );
+        await release.types.add("xs", "token", null, "simple");
+        await release.types.add("niem-xs", "token", null, "CSC");
+        await release.types.add("nc", "PersonType", null, "object");
 
         let test = await qa.type.test.base_invalid_csc(types, release);
 
@@ -55,17 +55,17 @@ function typeTests(qa, niem) {
       test("#base_invalid_simple", async () => {
 
         let types = [
-          new Type(release, "ext", "IDType", "An ID", "object", "ext:BogusType"),
+          new Type("ext", "IDType", "An ID", "object", "ext:BogusType"),
 
           // invalid
-          new Type(release, "ncic", "HairColorCodeSimpleType", null, "simple", "ncic:EyeColorCodeSimpleType"),
+          new Type("ncic", "HairColorCodeSimpleType", null, "simple", "ncic:EyeColorCodeSimpleType"),
 
-          new Type(release, "ncic", "EyeColorCodeSimpleType", null, "simple", "xs:token")
+          new Type("ncic", "EyeColorCodeSimpleType", null, "simple", "xs:token")
         ];
 
         fieldTypes.push(...types);
 
-        await release.types.add( new Type(null, "ncic", "EyeColorCodeSimpleType", null, "simple") );
+        await release.types.add("ncic", "EyeColorCodeSimpleType", null, "simple");
 
         let test = await qa.type.test.base_invalid_simple(types, release);
 
@@ -78,10 +78,10 @@ function typeTests(qa, niem) {
       test("#base_missing_simpleContent", async () => {
 
         let types = [
-          new Type(release, "ext", "IDType", "An ID", "object"),
-          new Type(release, "ncic", "HairColorCodeType", null, "CSC"), // invalid
-          new Type(release, "ncic", "HairColorCodeSimpleType", null, "simple"), // invalid
-          new Type(release, "nc", "TextType", null, "CSC", "niem-xs:token")
+          new Type("ext", "IDType", "An ID", "object"),
+          new Type("ncic", "HairColorCodeType", null, "CSC"), // invalid
+          new Type("ncic", "HairColorCodeSimpleType", null, "simple"), // invalid
+          new Type("nc", "TextType", null, "CSC", "niem-xs:token")
         ];
 
         fieldTypes.push(...types);
@@ -97,11 +97,11 @@ function typeTests(qa, niem) {
       test("#base_unknown", async () => {
 
         let types = [
-          new Type(release, "ext", "IDType", "An ID", "object"),
-          new Type(release, "nc", "TextType", null, "CSC", "niem-xs:token"),
+          new Type("ext", "IDType", "An ID", "object"),
+          new Type("nc", "TextType", null, "CSC", "niem-xs:token"),
 
           // invalid
-          new Type(release, "nc", "LocationType", null, "object", "structures:BogusType")
+          new Type("nc", "LocationType", null, "object", "structures:BogusType")
         ];
 
         fieldTypes.push(...types);
@@ -116,9 +116,9 @@ function typeTests(qa, niem) {
       test("#definition_missing_complex", async () => {
 
         let types = [
-          new Type(release, "ext", "IDType", "An ID", "object"),
-          new Type(release, "nc", "PersonType", null, "object"), // invalid
-          new Type(release, "xs", "string", null, "simple")
+          new Type("ext", "IDType", "An ID", "object"),
+          new Type("nc", "PersonType", null, "object"), // invalid
+          new Type("xs", "string", null, "simple")
         ];
 
         fieldTypes.push(...types);
@@ -133,9 +133,9 @@ function typeTests(qa, niem) {
       test("#definition_missing_simple", async () => {
 
         let types = [
-          new Type(release, "ext", "IDSimpleType", "An ID", "simple"),
-          new Type(release, "nc", "PersonType", null, "object"),
-          new Type(release, "xs", "string", null, "simple") // invalid
+          new Type("ext", "IDSimpleType", "An ID", "simple"),
+          new Type("nc", "PersonType", null, "object"),
+          new Type("xs", "string", null, "simple") // invalid
         ];
 
         fieldTypes.push(...types);
@@ -150,9 +150,9 @@ function typeTests(qa, niem) {
       test("#definition_phrase_complex", async () => {
 
         let types = [
-          new Type(release, "ext", "IDType", "A data type for an ID", "object"),
-          new Type(release, "nc", "PersonType", "A person", "object"), // invalid
-          new Type(release, "xs", "string", "A string", "simple")
+          new Type("ext", "IDType", "A data type for an ID", "object"),
+          new Type("nc", "PersonType", "A person", "object"), // invalid
+          new Type("xs", "string", "A string", "simple")
         ];
 
         fieldTypes.push(...types);
@@ -167,9 +167,9 @@ function typeTests(qa, niem) {
       test("#definition_phrase_simple", async () => {
 
         let types = [
-          new Type(release, "ext", "IDSimpleType", "An ID", "simple"), // invalid
-          new Type(release, "nc", "PersonType", "A person", "object"),
-          new Type(release, "xs", "string", "A data type for a string", "simple")
+          new Type("ext", "IDSimpleType", "An ID", "simple"), // invalid
+          new Type("nc", "PersonType", "A person", "object"),
+          new Type("xs", "string", "A data type for a string", "simple")
         ];
 
         fieldTypes.push(...types);
@@ -184,20 +184,20 @@ function typeTests(qa, niem) {
       test("#definition_spellcheck", async () => {
 
         let types = [
-          new Type(release, "ext", "IDSimpleType", "An ID", "simple"),
+          new Type("ext", "IDSimpleType", "An ID", "simple"),
 
           // invalid
-          new Type(release, "nc", "PersonType", "A persom or a hooman being.", "object"),
+          new Type("nc", "PersonType", "A persom or a hooman being.", "object"),
 
-          new Type(release, "ncic", "VMOCodeType", "A data type for VMO codes", "simple")
+          new Type("ncic", "VMOCodeType", "A data type for VMO codes", "simple")
         ];
 
-        let localTerm = new LocalTerm(release, "ncic", "VMO", "vehicle model");
-        await release.localTerms.add(localTerm);
+        await release.localTerms.add("ncic", "VMO", "vehicle model");
 
         fieldTypes.push(...types);
 
         let test = await qa.type.test.definition_spellcheck(types, release);
+        let issues = test.issues();
 
         expect(test.failed()).toBeTruthy();
         expect(test.issues()[0].label).toBe("nc:PersonType");
@@ -211,10 +211,10 @@ function typeTests(qa, niem) {
       test("#name_camelCase", async () => {
 
         let types = [
-          new Type(release, "ext", "string"), // invalid
-          new Type(release, "ext", "LocationType"),
-          new Type(release, "xs", "string"),
-          new Type(release, "niem-xs", "string")
+          (await release.types.add("ext", "string")), // invalid
+          (await release.types.add("ext", "LocationType")),
+          (await release.types.add("xs", "string")),
+          (await release.types.add("niem-xs", "string"))
         ];
 
         fieldTypes.push(...types);
@@ -229,10 +229,10 @@ function typeTests(qa, niem) {
       test("#name_duplicate", async () => {
 
         let types = [
-          new Type(release, "ext", "LocationType"), // invalid
-          new Type(release, "ext", "LocationType"), // invalid
-          new Type(release, "nc", "LocationType"),
-          new Type(release, "nc", "PersonType")
+          new Type("ext", "LocationType"), // invalid
+          new Type("ext", "LocationType"), // invalid
+          new Type("nc", "LocationType"),
+          new Type("nc", "PersonType")
         ];
 
         fieldTypes.push(...types);
@@ -248,9 +248,9 @@ function typeTests(qa, niem) {
       test("#name_inconsistent_codeType", async () => {
 
         let types = [
-          new Type(release, "ext", "EyeColorCodeType", null, "CSC", "ext:EyeColorCodeSimpleType"),
-          new Type(release, "ext", "HairColorCodeType", null, "CSC", "ext:EyeColorCodeSimpleType"), // invalid
-          new Type(release, "ext", "TextType", null, "CSC", "xs:string")
+          new Type("ext", "EyeColorCodeType", null, "CSC", "ext:EyeColorCodeSimpleType"),
+          new Type("ext", "HairColorCodeType", null, "CSC", "ext:EyeColorCodeSimpleType"), // invalid
+          new Type("ext", "TextType", null, "CSC", "xs:string")
         ];
 
         fieldTypes.push(...types);
@@ -268,9 +268,9 @@ function typeTests(qa, niem) {
       test("#name_invalidChar", async () => {
 
         let types = [
-          new Type(release, "ext", "NameType"),
-          new Type(release, "ext", "CarType "), // invalid
-          new Type(release, "ext", "ID#") // invalid
+          new Type("ext", "NameType"),
+          new Type("ext", "CarType "), // invalid
+          new Type("ext", "ID#") // invalid
         ];
 
         fieldTypes.push(...types);
@@ -289,9 +289,9 @@ function typeTests(qa, niem) {
       test("#name_missing_simple", async () => {
 
         let types = [
-          new Type(release, "ext", "NameType", "", "simple"),
-          new Type(release, "ext", "", null , "simple"), // invalid
-          new Type(release, "ext", "", null, "association"),
+          new Type("ext", "NameType", "", "simple"),
+          new Type("ext", "", null , "simple"), // invalid
+          new Type("ext", "", null, "association"),
         ];
 
         fieldTypes.push(...types);
@@ -309,9 +309,9 @@ function typeTests(qa, niem) {
       test("#name_missing_complex", async () => {
 
         let types = [
-          new Type(release, "ext", "NameType", "", "object"),
-          new Type(release, "ext", "", null, "association"), // invalid
-          new Type(release, "ext", "", null , "simple")
+          new Type("ext", "NameType", "", "object"),
+          new Type("ext", "", null, "association"), // invalid
+          new Type("ext", "", null , "simple")
         ];
 
         fieldTypes.push(...types);
@@ -325,9 +325,9 @@ function typeTests(qa, niem) {
       test("#name_repTerm_type", async () => {
 
         let types = [
-          new Type(release, "ext", "NameType"),
-          new Type(release, "ext", "Car_type "), // invalid
-          new Type(release, "ext", "ID#") // invalid
+          new Type("ext", "NameType"),
+          new Type("ext", "Car_type "), // invalid
+          new Type("ext", "ID#") // invalid
         ];
 
         fieldTypes.push(...types);
@@ -343,11 +343,11 @@ function typeTests(qa, niem) {
       test("#name_repTerm_simple", async () => {
 
         let types = [
-          new Type(release, "ext", "NameSimpleType", null, "object"),
-          new Type(release, "xs", "token", null, "simple"),
-          new Type(release, "ext", "CarType", null, "simple"), // invalid
-          new Type(release, "ext", "IDsimpleType", null, "simple"), // invalid
-          new Type(release, "ext", "weekdaySimpleType", null, "simple")
+          new Type("ext", "NameSimpleType", null, "object"),
+          new Type("xs", "token", null, "simple"),
+          new Type("ext", "CarType", null, "simple"), // invalid
+          new Type("ext", "IDsimpleType", null, "simple"), // invalid
+          new Type("ext", "weekdaySimpleType", null, "simple")
         ];
 
         fieldTypes.push(...types);
@@ -363,9 +363,9 @@ function typeTests(qa, niem) {
       test("#name_repTerm_complex", async () => {
 
         let types = [
-          new Type(release, "ext", "NameSimpleType", null, "simple"),
-          new Type(release, "ext", "CarSimpleType", null, "object"), // invalid
-          new Type(release, "ext", "IDSimpleType", null, "simple")
+          new Type("ext", "NameSimpleType", null, "simple"),
+          new Type("ext", "CarSimpleType", null, "object"), // invalid
+          new Type("ext", "IDSimpleType", null, "simple")
         ];
 
         fieldTypes.push(...types);
@@ -380,9 +380,12 @@ function typeTests(qa, niem) {
       test("#name_repTerm_codeType", async () => {
 
         let types = [
-          new Type(release, "ext", "IDCodeType", null, "CSC", "ext:IDCodeSimpleType"),
-          new Type(release, "ext", "MonthCodeType", null, "CSC", "xs:string"), // invalid
-          new Type(release, "ext", "TextType", null, "CSC", "xs:string")
+          (await release.types.add("ext", "IDCodeType", null, "CSC", "ext:IDCodeSimpleType")),
+
+          // invalid
+          (await release.types.add("ext", "MonthCodeType", null, "CSC", "xs:string")),
+
+          (await release.types.add("ext", "TextType", null, "CSC", "xs:string"))
         ];
 
         fieldTypes.push(...types);
@@ -397,17 +400,17 @@ function typeTests(qa, niem) {
       test("#name_repTerm_codeSimpleType", async () => {
 
         let types = [
-          new Type(release, "ext", "WeekdayCodeSimpleType", null, "simple", "xs:token"),
+          (await release.types.add("ext", "DayCodeSimpleType", null, "simple", "xs:token")),
 
           // invalid (CodeSimpleType name; no facets)
-          new Type(release, "ext", "MonthCodeSimpleType", null, "simple", "xs:string"),
+          (await release.types.add("ext", "MonthCodeSimpleType", null, "simple", "xs:string")),
 
-          new Type(release, "ext", "TextType", null, "CSC", "xs:string")
+          (await release.types.add("ext", "StringType", null, "CSC", "xs:string"))
         ];
 
-        await types[0].facets.add( new Facet(null, null, "MON") );
-        await types[0].facets.add( new Facet(null, null, "TUE") );
-        await types[0].facets.add( new Facet(null, null, "WED") );
+        await types[0].facets.add("MON");
+        await types[0].facets.add("TUE");
+        await types[0].facets.add("WED");
 
         fieldTypes.push(...types);
 
@@ -421,9 +424,9 @@ function typeTests(qa, niem) {
       test("#name_reservedTerm_type", async () => {
 
         let types = [
-          new Type(release, "ext", "IDTypeCodeType"), // invalid
-          new Type(release, "ext", "TypeCodeType"), // invalid
-          new Type(release, "nc", "LocationType")
+          new Type("ext", "IDTypeCodeType"), // invalid
+          new Type("ext", "TypeCodeType"), // invalid
+          new Type("nc", "LocationType")
         ];
 
         fieldTypes.push(...types);
@@ -439,15 +442,14 @@ function typeTests(qa, niem) {
       test("#name_spellcheck", async () => {
 
         let types = [
-          new Type(release, "ext", "OrganizatoinType"), // invalid
-          new Type(release, "nc", "DestinationLocationzType"), // invalid
-          new Type(release, "nc", "NIEMCountryCodeType"),
-          new Type(release, "ext", "NIEMCountryCodeType"), // invalid
-          new Type(release, "nc", "PersonType")
+          new Type("ext", "OrganizatoinType"), // invalid
+          new Type("nc", "DestinationLocationzType"), // invalid
+          new Type("nc", "NIEMCountryCodeType"),
+          new Type("ext", "NIEMCountryCodeType"), // invalid
+          new Type("nc", "PersonType")
         ];
 
-        let term = new LocalTerm(null, "nc", "NIEM", "National Information Exchange Model");
-        await release.localTerms.add(term);
+        await release.localTerms.add("nc", "NIEM", "National Information Exchange Model");
 
         fieldTypes.push(...types);
 
@@ -468,27 +470,28 @@ function typeTests(qa, niem) {
       test("#prefix_missing", async () => {
 
         let types = [
-          new Type(release, null, "IDTypeCodeType"), // invalid
-          new Type(release, "", "TypeCodeType"), // invalid
-          new Type(release, "nc", "LocationType")
+          new Type(null, "IDTypeCodeType"), // invalid
+          new Type("", "TypeCodeType"), // invalid
+          new Type("nc", "LocationType")
         ];
 
         fieldTypes.push(...types);
 
         let test = await qa.type.test.prefix_missing(types);
+        let issues = test.issues();
 
         expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("null:IDTypeCodeType");
-        expect(test.issues()[1].label).toBe(":TypeCodeType");
-        expect(test.issues().length).toBe(2);
+        expect(issues[0].label).toBe("null:IDTypeCodeType");
+        expect(issues[1].label).toBe(":TypeCodeType");
+        expect(issues.length).toBe(2);
       });
 
       test("#prefix_unknown", async () => {
 
         let types = [
-          new Type(release, "ext", "IDTypeCodeType"), // invalid
-          new Type(release, "", "TypeCodeType"),
-          new Type(release, "nc", "LocationType")
+          new Type("ext", "IDTypeCodeType"), // invalid
+          new Type(null, "TypeCodeType"),
+          new Type("nc", "LocationType")
         ];
 
         fieldTypes.push(...types);
@@ -500,15 +503,15 @@ function typeTests(qa, niem) {
         expect(test.failed()).toBeTruthy();
         expect(test.issues()[0].label).toBe("ext:IDTypeCodeType");
         expect(test.issues()[0].problemValue).toBe("ext");
-        expect(test.issues().length).toBe(1);
+        expect(test.issues().length).toBe(2);
       });
 
       test("#style_missing", async () => {
 
         let types = [
-          new Type(release, "ext", "IDTypeCodeType"), // invalid
-          new Type(release, "ext", "TypeCodeType", null, "object"),
-          new Type(release, "nc", "LocationType", null, "simple")
+          new Type("ext", "IDTypeCodeType"), // invalid
+          new Type("ext", "TypeCodeType", null, "object"),
+          new Type("nc", "LocationType", null, "simple")
         ];
 
         let test = await qa.type.test.style_missing(types);
@@ -521,10 +524,10 @@ function typeTests(qa, niem) {
       test("#style_unknown", async () => {
 
         let types = [
-          new Type(release, "ext", "IDTypeCodeType", null, "CSC"),
-          new Type(release, "nc", "LocationType", null, "object"),
-          new Type(release, "nc", "LocationType", null, "bogus"), // invalid
-          new Type(release, "nc", "ActivityType", null) // invalid
+          new Type("ext", "IDTypeCodeType", null, "CSC"),
+          new Type("nc", "LocationType", null, "object"),
+          new Type("nc", "LocationType", null, "bogus"), // invalid
+          new Type("nc", "ActivityType", null) // invalid
         ];
 
         let test = await qa.type.test.style_unknown(types);

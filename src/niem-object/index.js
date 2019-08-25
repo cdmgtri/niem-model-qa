@@ -1,6 +1,6 @@
 
 let QATestSuite = require("../test-suite");
-let { ModelObjects } = require("niem-model-source");
+let { ModelObjects } = require("niem-model");
 
 let NIEMObjectUnitTests = require("./unit/index");
 let NIEMObjectFieldTestSuites = require("./field/index");

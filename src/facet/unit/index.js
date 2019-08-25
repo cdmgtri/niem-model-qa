@@ -1,7 +1,7 @@
 
 let NIEMObjectUnitTests = require("../../niem-object/unit/index");
 
-let { Release, Facet } = require("niem-model-source").ModelObjects;
+let { Release, Facet } = require("niem-model");
 
 /**
  * Facet unit tests
@@ -11,14 +11,14 @@ class FacetUnitTests extends NIEMObjectUnitTests {
   /**
    * Check that code facets have definitions.
    *
-   * @example // Code facet 'MON' should have a definition (e.g., 'Monday').
-   * @example // Length facet '10' is not required to have a definition.
+   * @example "Code facet 'MON' should have a definition (e.g., 'Monday')."
+   * @example "Length facet '10' is not required to have a definition."
    *
    * @param {Facet[]} facets
    */
   async definition_missing_code(facets) {
     let problemFacets = facets.filter( facet => {
-      return facet.kind == "enumeration" && ! facet.definition
+      return facet.style == "enumeration" && ! facet.definition
     });
     return this.testSuite.post("facet_definition_missing_code", problemFacets, "definition");
   }
@@ -26,14 +26,14 @@ class FacetUnitTests extends NIEMObjectUnitTests {
   /**
    * Check that code facets have definitions.
    *
-   * @example // Pattern facets should have definitions
-   * @example // Length facet '10' is not required to have a definition.
+   * @example "Pattern facets should have definitions"
+   * @example "Length facet '10' is not required to have a definition."
    *
    * @param {Facet[]} facets
    */
   async definition_missing_pattern(facets) {
     let problemFacets = facets.filter( facet => {
-      return facet.kind == "pattern" && ! facet.definition
+      return facet.style == "pattern" && ! facet.definition
     });
     return this.testSuite.post("facet_definition_missing_pattern", problemFacets, "definition");
   }
@@ -41,23 +41,23 @@ class FacetUnitTests extends NIEMObjectUnitTests {
   /**
    * Check that facet kinds match the list from XML schema.
    *
-   * @example // Facet 'MON' can have kind 'enumeration'.
-   * @example // Facet 'MON' cannot have kind 'code' or 'ENUM'.
+   * @example "Facet 'MON' can have kind 'enumeration'."
+   * @example "Facet 'MON' cannot have kind 'code' or 'ENUM'."
    *
    * @param {Facet[]} facets
    */
-  async kind_invalid(facets) {
+  async style_invalid(facets) {
     let problemFacets = facets.filter( facet => {
-      return ! facet.kind || ! Facet.KindValues.includes(facet.kind)
+      return ! facet.style || ! Facet.Styles.includes(facet.style)
     });
-    return this.testSuite.post("facet_kind_invalid", problemFacets, "kind");
+    return this.testSuite.post("facet_kind_invalid", problemFacets, "style");
   }
 
   /**
    * Check for facets on complex types.
    *
-   * @example // Code 'MON' can belong to simple type 'WeekdayCodeSimpleType'.
-   * @example // Code 'MON' cannot belong to complex object type 'nc:PersonType'.
+   * @example "Code 'MON' can belong to simple type 'WeekdayCodeSimpleType'."
+   * @example "Code 'MON' cannot belong to complex object type 'nc:PersonType'."
    *
    * @param {Facet[]} facets
    * @param {Release} release
@@ -89,15 +89,15 @@ class FacetUnitTests extends NIEMObjectUnitTests {
   /**
    * Check that code facets belong to a type with a name that ends with "CodeSimpleType".
    *
-   * @example // Code 'MON' can belong to a type named 'WeekdayCodeSimpleType'.
-   * @example // Code 'MON' cannot belong to a type named 'WeekdaySimpleType'.
+   * @example "Code 'MON' can belong to a type named 'WeekdayCodeSimpleType'."
+   * @example "Code 'MON' cannot belong to a type named 'WeekdaySimpleType'."
    *
    * @param {Facet[]} facets
    */
   async type_repTerm_code(facets) {
 
     let problemFacets = facets
-    .filter( facet => facet.typeName && facet.kind == "enumeration" )
+    .filter( facet => facet.typeName && facet.style == "enumeration" )
     .filter( facet => ! facet.typeName.endsWith("CodeSimpleType") );
 
     return this.testSuite.post("facet_type_repTerm_code", problemFacets, "typeQName");
@@ -116,8 +116,8 @@ class FacetUnitTests extends NIEMObjectUnitTests {
   /**
    * Check for duplicate code facets within a type.
    *
-   * @example // Type 'WeekdayCodeSimpleType' with codes 'MON', 'TUE', 'WED', ...
-   * @example // Type 'WeekdayCodeSimpleType' with codes 'MON', 'MON', 'MON', ...
+   * @example "Type 'WeekdayCodeSimpleType' with codes 'MON', 'TUE', 'WED', ..."
+   * @example "Type 'WeekdayCodeSimpleType' with codes 'MON', 'MON', 'MON', ..."
    *
    * @param {Facet[]} facets
    */
@@ -127,14 +127,14 @@ class FacetUnitTests extends NIEMObjectUnitTests {
     let labelCounts = {};
 
     facets
-    .filter( facet => facet.kind == "enumeration" )
+    .filter( facet => facet.style == "enumeration" )
     .forEach( facet => {
       let label = facet.label;
       labelCounts[label] = label in labelCounts ? labelCounts[label] + 1 : 1;
     });
 
     let problemFacets = facets
-    .filter( facet => facet.kind == "enumeration" )
+    .filter( facet => facet.style == "enumeration" )
     .filter( facet => labelCounts[facet.label] > 1 );
 
     return this.testSuite.post("facet_value_duplicate_code", problemFacets, "value");

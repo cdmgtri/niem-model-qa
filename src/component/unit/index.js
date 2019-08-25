@@ -2,8 +2,7 @@
 let SpellChecker = require("spellchecker");
 
 let { Issue } = require("niem-test-suite");
-let { Release } = require("niem-model-source").ModelObjects;
-let { Component } = require("niem-model-objects");
+let { Release, Component } = require("niem-model");
 
 let NIEMObjectUnitTests = require("../../niem-object/unit/index");
 

@@ -1,7 +1,7 @@
 
 let NIEMObjectFieldTests = require("../../niem-object/field/index");
 let FacetQAUnitTests = require("../unit/index");
-let { Release, Facet } = require("niem-model-source").ModelObjects;
+let { Release, Facet } = require("niem-model");
 
 class FacetFieldTests extends NIEMObjectFieldTests {
 
@@ -25,8 +25,8 @@ class FacetFieldTests extends NIEMObjectFieldTests {
    * @param {Facet[]} facets
    * @param {Release} release
    */
-  async kind(facets, release) {
-    return this.testSuite(facets, release, "kind");
+  async style(facets, release) {
+    return this.testSuite(facets, release, "style");
   }
 
   /**

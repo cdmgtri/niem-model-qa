@@ -1,6 +1,6 @@
 
 let NIEMTestSuite = require("niem-test-suite");
-let { NIEMObject } = require("niem-model-objects");
+let { NIEMObject } = require("niem-model");
 
 let { Test, Issue } = NIEMTestSuite;
 

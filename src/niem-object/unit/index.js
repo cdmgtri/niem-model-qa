@@ -1,8 +1,7 @@
 
 let TestSuite = require("../../test-suite/index");
 
-let { Release } = require("niem-model-source").ModelObjects;
-let { NIEMObject } = require("niem-model-objects");
+let { Release, NIEMObject } = require("niem-model");
 
 /**
  * @private
