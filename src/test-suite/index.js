@@ -7,21 +7,33 @@ let { Test, Issue } = NIEMTestSuite;
 class QATestSuite extends NIEMTestSuite {
 
   /**
+   * Starts the clock on a test or throws error if not found.
+   * @param {string} testID
+   */
+  start(testID) {
+    let test = super.start(testID);
+    if (! test) throw new Error(`Test ${testID} not found`);
+    return test;
+  }
+
+  /**
+   * @param {Test} test
+   * @param {Issue[]} issues
+   */
+  log(test, issues) {
+    return super.log(test.id, issues);
+  }
+
+  /**
    * Logs issues for the test.
    *
-   * @param {String} testID
+   * @param {Test} test
    * @param {NIEMObject[]} problemObjects
    * @param {String} problemField
    * @param {CommentFunction} commentFunction
    * @param {Boolean} [reset=true] Replaces any previous issues with new issues
    */
-  post(testID, problemObjects, problemField, commentFunction, reset=true) {
-
-    let test = this.find(testID);
-
-    if (!test) {
-      throw new Error(`Test ${testID} not found.`);
-    }
+  post(test, problemObjects, problemField, commentFunction, reset=true) {
 
     if (reset == true) {
       // Remove any existing issues on the test

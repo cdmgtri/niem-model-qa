@@ -1,7 +1,7 @@
 
 let SpellChecker = require("spellchecker");
 
-let { Issue } = require("niem-test-suite");
+let { Test, Issue } = require("niem-test-suite");
 let { Release, Component } = require("niem-model");
 
 let NIEMObjectUnitTests = require("../../niem-object/unit/index");
@@ -11,10 +11,10 @@ class ComponentUnitTests extends NIEMObjectUnitTests {
   /**
    * Checks that a component name is not repeated in a namespace.
    * @private
-   * @param {String} testID
+   * @param {Test} test
    * @param {Component[]} components
    */
-  async name_duplicate__helper(testID, components) {
+  async name_duplicate__helper(test, components) {
 
     /** @type {{String: number}} */
     let counts = {};
@@ -33,28 +33,28 @@ class ComponentUnitTests extends NIEMObjectUnitTests {
       }
     }
 
-    return this.testSuite.post(testID, problemComponents, "name");
+    return this.testSuite.post(test, problemComponents, "name");
   }
 
   /**
    * @private
-   * @param {String} testID
+   * @param {Test} test
    * @param {Component[]} components
    */
-  name_invalidChar__helper(testID, components) {
+  name_invalidChar__helper(test, components) {
     let regex = /[^A-Za-z0-9_\-.]/;
     let problemComponents = components.filter( component => component.name.match(regex) );
-    return this.testSuite.post(testID, problemComponents, "name");
+    return this.testSuite.post(test, problemComponents, "name");
   }
 
   /**
    * @private
-   * @param {String} testID
+   * @param {Test} test
    * @param {Component[]} components
    */
-  name_missing__helper(testID, components) {
+  name_missing__helper(test, components) {
     let problemComponents = components.filter( component => ! component.name );
-    return this.testSuite.post(testID, problemComponents, "name");
+    return this.testSuite.post(test, problemComponents, "name");
   }
 
   /**
@@ -62,11 +62,11 @@ class ComponentUnitTests extends NIEMObjectUnitTests {
    * if not found in dictionary.
    *
    * @private
-   * @param {String} testID
+   * @param {Test} test
    * @param {Component[]} components
    * @param {Release} release
    */
-  async definition_spellcheck__helper(testID, components, release) {
+  async definition_spellcheck__helper(test, components, release) {
 
     /** @type {Issue[]} */
     let issues = [];
@@ -96,7 +96,7 @@ class ComponentUnitTests extends NIEMObjectUnitTests {
       }
     }
 
-    return this.testSuite.log(testID, issues);
+    return this.testSuite.log(test, issues);
   }
 
   /**
@@ -104,11 +104,11 @@ class ComponentUnitTests extends NIEMObjectUnitTests {
    * if not found in dictionary.
    *
    * @private
-   * @param {String} testID
+   * @param {Test} test
    * @param {Component[]} components
    * @param {Release} release
    */
-  async name_spellcheck__helper(testID, components, release) {
+  async name_spellcheck__helper(test, components, release) {
 
     /** @type {Issue[]} */
     let issues = [];
@@ -131,16 +131,16 @@ class ComponentUnitTests extends NIEMObjectUnitTests {
       }
     }
 
-    return this.testSuite.log(testID, issues);
+    return this.testSuite.log(test, issues);
   }
 
   /**
    * Check that types have a namespace prefix that has been defined in the release.
-   * @param {String} testID
+   * @param {Test} test
    * @param {Component[]} components
    * @param {Release} release
    */
-  async prefix_unknown__helper(testID, components, release) {
+  async prefix_unknown__helper(test, components, release) {
 
     /** @type {Component[]} */
     let problemComponents = [];
@@ -167,7 +167,7 @@ class ComponentUnitTests extends NIEMObjectUnitTests {
       problemComponents.push(...matches);
     });
 
-    return this.testSuite.post(testID, problemComponents, "prefix");
+    return this.testSuite.post(test, problemComponents, "prefix");
   }
 
 }

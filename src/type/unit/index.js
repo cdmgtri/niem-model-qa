@@ -20,6 +20,8 @@ class TypeUnitTests extends ComponentUnitTests {
    */
   async base_invalid_csc(types, release) {
 
+    let test = this.testSuite.start("type_base_invalid_csc");
+
     /** @type {Type[]} */
     let problemTypes = [];
 
@@ -33,7 +35,7 @@ class TypeUnitTests extends ComponentUnitTests {
       }
     }
 
-    return this.testSuite.post("type_base_invalid_csc", problemTypes, "baseQName");
+    return this.testSuite.post(test, problemTypes, "baseQName");
   }
 
   /**
@@ -46,6 +48,8 @@ class TypeUnitTests extends ComponentUnitTests {
    * @param {Release} release
    */
   async base_invalid_simple(types, release) {
+
+    let test = this.testSuite.start("type_base_invalid_simple");
 
     /** @type {Type[]} */
     let problemTypes = [];
@@ -60,7 +64,7 @@ class TypeUnitTests extends ComponentUnitTests {
       }
     }
 
-    return this.testSuite.post("type_base_invalid_simple", problemTypes, "baseQName");
+    return this.testSuite.post(test, problemTypes, "baseQName");
   }
 
   /**
@@ -72,8 +76,9 @@ class TypeUnitTests extends ComponentUnitTests {
    * @param {Type[]} types
    */
   async base_missing_simpleContent(types) {
+    let test = this.testSuite.start("type_base_missing_simpleContent");
     let problemTypes = types.filter( type => type.isSimpleContent && ! type.baseQName )
-    return this.testSuite.post("type_base_missing_simpleContent", problemTypes, "baseQName");
+    return this.testSuite.post(test, problemTypes, "baseQName");
   }
 
   /**
@@ -86,6 +91,8 @@ class TypeUnitTests extends ComponentUnitTests {
    * @param {Release} release
    */
   async base_unknown(types, release) {
+
+    let test = this.testSuite.start("type_base_unknown");
 
     /** @type {Type[]} */
     let problemTypes = [];
@@ -101,7 +108,7 @@ class TypeUnitTests extends ComponentUnitTests {
       }
     }
 
-    return this.testSuite.post("type_base_unknown", problemTypes, "baseQName");
+    return this.testSuite.post(test, problemTypes, "baseQName");
   }
 
   /**
@@ -109,8 +116,9 @@ class TypeUnitTests extends ComponentUnitTests {
    * @param {Type[]} types
    */
   async definition_missing_complex(types) {
+    let test = this.testSuite.start("type_definition_missing_complex");
     let problemTypes = types.filter( type => type.isComplexType && ! type.definition )
-    return this.testSuite.post("type_definition_missing_complex", problemTypes, "definition");
+    return this.testSuite.post(test, problemTypes, "definition");
   }
 
   /**
@@ -118,8 +126,9 @@ class TypeUnitTests extends ComponentUnitTests {
    * @param {Type[]} types
    */
   async definition_missing_simple(types) {
+    let test = this.testSuite.start("type_definition_missing_simple");
     let problemTypes = types.filter( type => type.isSimpleType && ! type.definition )
-    return this.testSuite.post("type_definition_missing_simple", problemTypes, "definition");
+    return this.testSuite.post(test, problemTypes, "definition");
   }
 
   /**
@@ -131,10 +140,14 @@ class TypeUnitTests extends ComponentUnitTests {
    * @param {Type[]} types
    */
   async definition_phrase_complex(types) {
+
+    let test = this.testSuite.start("type_definition_phrase_complex");
+
     let problemTypes = types
     .filter( type => type.isComplexType && type.definition )
     .filter( type => ! type.definition.startsWith("A data type ") );
-    return this.testSuite.post("type_definition_phrase_complex", problemTypes, "definition");
+
+    return this.testSuite.post(test, problemTypes, "definition");
   }
 
   /**
@@ -147,10 +160,14 @@ class TypeUnitTests extends ComponentUnitTests {
    * @param {Type[]} types
    */
   async definition_phrase_simple(types) {
+
+    let test = this.testSuite.start("type_definition_phrase_simple");
+
     let problemTypes = types
     .filter( type => type.isSimpleType && type.definition )
     .filter( type => ! type.definition.startsWith("A data type ") );
-    return this.testSuite.post("type_definition_phrase_simple", problemTypes, "definition");
+
+    return this.testSuite.post(test, problemTypes, "definition");
   }
 
   /**
@@ -165,7 +182,8 @@ class TypeUnitTests extends ComponentUnitTests {
    * @param {Release} release
    */
   async definition_spellcheck(types, release) {
-    return this.definition_spellcheck__helper("type_definition_spellcheck", types, release);
+    let test = this.testSuite.start("type_definition_spellcheck");
+    return this.definition_spellcheck__helper(test, types, release);
   }
 
   /**
@@ -183,25 +201,27 @@ class TypeUnitTests extends ComponentUnitTests {
    */
   async name_camelCase(types) {
 
+    let test = this.testSuite.start("type_name_camelCase");
+
     let problemTypes = types
     .filter( type => type.name )
     .filter( type => type.prefix != "xs" && type.prefix != "niem-xs" )
     .filter( type => type.name[0] == type.name[0].toLowerCase() );
 
-    return this.testSuite.post("type_name_camelCase", problemTypes, "name");
+    return this.testSuite.post(test, problemTypes, "name");
   }
 
   /**
    * Check that type names are not repeated in a namespace.
    *
    * @example "Types 'justice:CaseType' and 'logistics:CaseType' are valid because even though they use the same name, they are defined in different namespaces."
-   *
    * @example "Type name 'CaseType' cannot be defined twice in the justice namespace."
    *
    * @param {Type[]} types
    */
   async name_duplicate(types) {
-    return this.name_duplicate__helper("type_name_duplicate", types);
+    let test = this.testSuite.start("type_name_duplicate");
+    return this.name_duplicate__helper(test, types);
   }
 
   /**
@@ -216,11 +236,13 @@ class TypeUnitTests extends ComponentUnitTests {
    */
   async name_inconsistent_codeType(types) {
 
+    let test = this.testSuite.start("type_name_inconsistent_codeType");
+
     let problemTypes = types
     .filter( type => type.name && type.name.endsWith("CodeType") && type.baseName )
     .filter( type => type.name.replace("CodeType", "CodeSimpleType") != type.baseName );
 
-    return this.testSuite.post("type_name_inconsistent_codeType", problemTypes, "name");
+    return this.testSuite.post(test, problemTypes, "name");
   }
 
   /**
@@ -232,7 +254,8 @@ class TypeUnitTests extends ComponentUnitTests {
    * @param {Type[]} types
    */
   async name_invalidChar(types) {
-    return this.name_invalidChar__helper("type_name_invalidChar", types);
+    let test = this.testSuite.start("type_name_invalidChar");
+    return this.name_invalidChar__helper(test, types);
   }
 
   /**
@@ -240,8 +263,9 @@ class TypeUnitTests extends ComponentUnitTests {
    * @param {Type[]} types
    */
   async name_missing_complex(types) {
+    let test = this.testSuite.start("type_name_missing_complex");
     let complexTypes = types.filter( type => type.isComplexType );
-    return this.name_missing__helper("type_name_missing_complex", complexTypes);
+    return this.name_missing__helper(test, complexTypes);
   }
 
   /**
@@ -249,8 +273,9 @@ class TypeUnitTests extends ComponentUnitTests {
    * @param {Type[]} types
    */
   async name_missing_simple(types) {
+    let test = this.testSuite.start("type_name_missing_simple");
     let simpleTypes = types.filter( type => type.isSimpleType );
-    return this.name_missing__helper("type_name_missing_simple", simpleTypes);
+    return this.name_missing__helper(test, simpleTypes);
   }
 
   /**
@@ -264,6 +289,8 @@ class TypeUnitTests extends ComponentUnitTests {
    */
   async name_repTerm_codeSimpleType(types) {
 
+    let test = this.testSuite.start("type_name_repTerm_codeSimpleType");
+
     let codeSimpleTypes = types.filter( type => type.name && type.name.endsWith("CodeSimpleType"));
 
     /** @type {Type[]} */
@@ -273,7 +300,7 @@ class TypeUnitTests extends ComponentUnitTests {
 
       if (!type.facets) {
         // No facets getter on the type - return un-ran test
-        return this.testSuite.find("type_name_repTerm_codeSimpleType");
+        return test;
       }
 
       let facets = await type.facets.find();
@@ -282,7 +309,7 @@ class TypeUnitTests extends ComponentUnitTests {
       }
     }
 
-    return this.testSuite.post("type_name_repTerm_codeSimpleType", problemTypes, "name");
+    return this.testSuite.post(test, problemTypes, "name");
   }
 
   /**
@@ -297,11 +324,13 @@ class TypeUnitTests extends ComponentUnitTests {
    */
   async name_repTerm_codeType(types) {
 
+    let test = this.testSuite.start("type_name_repTerm_codeType");
+
     let problemTypes = types
     .filter( type => type.isComplexType && type.name && type.name.endsWith("CodeType") )
     .filter( type => ! type.baseQName || ! type.baseQName.endsWith("CodeSimpleType") );
 
-    return this.testSuite.post("type_name_repTerm_codeType", problemTypes, "name");
+    return this.testSuite.post(test, problemTypes, "name");
   }
 
   /**
@@ -314,11 +343,13 @@ class TypeUnitTests extends ComponentUnitTests {
    */
   async name_repTerm_complex(types) {
 
+    let test = this.testSuite.start("type_name_repTerm_complex");
+
     let problemTypes = types
     .filter( type => type.isComplexType && type.name )
     .filter( type => type.name.endsWith("SimpleType") );
 
-    return this.testSuite.post("type_name_repTerm_complex", problemTypes, "name");
+    return this.testSuite.post(test, problemTypes, "name");
   }
 
   /**
@@ -333,11 +364,13 @@ class TypeUnitTests extends ComponentUnitTests {
    */
   async name_repTerm_simple(types) {
 
+    let test = this.testSuite.start("type_name_repTerm_simple");
+
     let problemTypes = types
     .filter( type => type.prefix != "xs" && type.isSimpleType && type.name )
     .filter( type => ! type.name.endsWith("SimpleType") );
 
-    return this.testSuite.post("type_name_repTerm_simple", problemTypes, "name");
+    return this.testSuite.post(test, problemTypes, "name");
   }
 
   /**
@@ -354,11 +387,13 @@ class TypeUnitTests extends ComponentUnitTests {
    */
   async name_repTerm_type(types) {
 
+    let test = this.testSuite.start("type_name_repTerm_type");
+
     let problemTypes = types
     .filter( type => type.prefix != "xs" && type.prefix != "niem-xs" && type.name )
     .filter( type => ! type.name.endsWith("Type") );
 
-    return this.testSuite.post("type_name_repTerm_type", problemTypes, "name");
+    return this.testSuite.post(test, problemTypes, "name");
   }
 
   /**
@@ -372,8 +407,9 @@ class TypeUnitTests extends ComponentUnitTests {
    * @param {Type[]} types
    */
   async name_reservedTerm_type(types) {
+    let test = this.testSuite.start("type_name_reservedTerm_type");
     let problemTypes = types.filter( type => type.name.match(/Type.*Type/) );
-    return this.testSuite.post("type_name_reservedTerm_type", problemTypes, "name");
+    return this.testSuite.post(test, problemTypes, "name");
   }
 
   /**
@@ -388,7 +424,8 @@ class TypeUnitTests extends ComponentUnitTests {
    * @param {Release} release
    */
   async name_spellcheck(types, release) {
-    return this.name_spellcheck__helper("type_name_spellcheck", types, release);
+    let test = this.testSuite.start("type_name_spellcheck");
+    return this.name_spellcheck__helper(test, types, release);
   }
 
   /**
@@ -396,8 +433,9 @@ class TypeUnitTests extends ComponentUnitTests {
    * @param {Type[]} types
    */
   async prefix_missing(types) {
+    let test = this.testSuite.start("type_prefix_missing");
     let problemTypes = types.filter( type => ! type.prefix );
-    return this.testSuite.post("type_prefix_missing", problemTypes, "prefix");
+    return this.testSuite.post(test, problemTypes, "prefix");
   }
 
   /**
@@ -406,7 +444,8 @@ class TypeUnitTests extends ComponentUnitTests {
    * @param {Release} release
    */
   async prefix_unknown(types, release) {
-    return this.prefix_unknown__helper("type_prefix_unknown", types, release);
+    let test = this.testSuite.start("type_prefix_unknown");
+    return this.prefix_unknown__helper(test, types, release);
   }
 
   /**
@@ -418,8 +457,9 @@ class TypeUnitTests extends ComponentUnitTests {
    * @param {Type[]} types
    */
   async style_missing(types) {
+    let test = this.testSuite.start("type_style_missing");
     let problemTypes = types.filter( type => ! type.style );
-    return this.testSuite.post("type_style_missing", problemTypes, "style");
+    return this.testSuite.post(test, problemTypes, "style");
   }
 
   /**
@@ -431,6 +471,8 @@ class TypeUnitTests extends ComponentUnitTests {
    * @param {Type[]} types
    */
   async style_unknown(types) {
+
+    let test = this.testSuite.start("type_style_unknown");
 
     let uniqueStyles = new Set( types.map( type => type.style ) );
 
@@ -444,7 +486,7 @@ class TypeUnitTests extends ComponentUnitTests {
     });
 
     let problemTypes = types.filter( type => unknownStyles.includes(type.style) );
-    return this.testSuite.post("type_style_unknown", problemTypes, "style");
+    return this.testSuite.post(test, problemTypes, "style");
   }
 
 }
