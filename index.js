@@ -3,6 +3,7 @@ let TestSuite = require("./src/test-suite/index");
 
 let { Test, Issue } = TestSuite;
 
+let PropertyQA = require("./src/property/index");
 let TypeQA = require("./src/type/index");
 let FacetQA = require("./src/facet/index");
 
@@ -19,6 +20,7 @@ class NIEMModelQA {
 
     this.testSuite = new TestSuite();
 
+    this.property = new PropertyQA(this.testSuite);
     this.type = new TypeQA(this.testSuite);
     this.facet = new FacetQA(this.testSuite);
 

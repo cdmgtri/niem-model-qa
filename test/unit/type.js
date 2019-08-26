@@ -449,7 +449,8 @@ function typeTests(qa, niem) {
           new Type("nc", "PersonType")
         ];
 
-        await release.localTerms.add("nc", "NIEM", "National Information Exchange Model");
+        // --Note: "NIEM" already added to local terms by property tests--
+        // await release.localTerms.add("nc", "NIEM", "National Information Exchange Model");
 
         fieldTypes.push(...types);
 
@@ -496,14 +497,15 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        await release.namespaces.add( new Namespace(release, "nc") );
+        // --Note: Namespace "nc" already added in property tests--
+        // await release.namespaces.add("nc");
 
         let test = await qa.type.test.prefix_unknown(types, release);
 
         expect(test.failed()).toBeTruthy();
         expect(test.issues()[0].label).toBe("ext:IDTypeCodeType");
         expect(test.issues()[0].problemValue).toBe("ext");
-        expect(test.issues().length).toBe(2);
+        expect(test.issues().length).toBe(1);
       });
 
       test("#style_missing", async () => {

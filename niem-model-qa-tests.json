@@ -133,17 +133,19 @@
   },
   {
     "id": "property_definition_spellcheck",
-    "description": "A term in a property definition that does not exist in the dictionary should be defined as \"Local Terminology\".",
+    "description": "Property definitions should use words and terms that are either defined in the dictionary or as \"Local Terminology\".",
     "severity": "warning",
     "spec": "",
     "rule": "",
+    "validExample": "Definition 'A FIPS state codes\" is valid if the term 'FIPS' is defined as Local Terminology in that namespace.",
+    "invalidExample": "A FIPS state codes\" is not recommended if the term 'FIPS' is not defined as Local Terminology in that namespace.",
     "exceptionIDs": [
       ""
     ]
   },
   {
     "id": "property_group_invalid",
-    "description": "A property's substitution group must be valid (element and has a compatible type).",
+    "description": "Property substitution groups must be valid (element and has a compatible type).",
     "severity": "error",
     "spec": "",
     "rule": "",
@@ -153,7 +155,7 @@
   },
   {
     "id": "property_group_unknown",
-    "description": "A property's substitution group must exist.",
+    "description": "Property substitution groups must exist.",
     "severity": "error",
     "spec": "",
     "rule": "",
@@ -163,17 +165,33 @@
   },
   {
     "id": "property_name_camelCase_attribute",
-    "description": "An attribute name must begin with a lower case letter.",
+    "description": "Attribute names must begin with a lower case letter.",
     "severity": "error",
-    "spec": "",
-    "rule": "",
+    "spec": "NDR",
+    "rule": "10-48",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_10-48",
+    "validExample": "Attribute name 'sequenceID' is valid because it begins with a lower case letter.",
+    "invalidExample": "Attribute name 'SequenceID' is not valid because it begins with an upper case letter.",
     "exceptionIDs": [
       ""
     ]
   },
   {
     "id": "property_name_camelCase_element",
-    "description": "An element name must begin with an upper case letter.",
+    "description": "Element names must begin with an upper case letter.",
+    "severity": "error",
+    "spec": "NDR",
+    "rule": "10-49",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_10-49",
+    "validExample": "Element name 'Person' is valid because it begins with an upper case letter.",
+    "invalidExample": "Element name 'person' is not valid because it begins with a lower case letter.",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "property_name_duplicate",
+    "description": "Properties must have unique names within their namespaces.",
     "severity": "error",
     "spec": "",
     "rule": "",
@@ -182,8 +200,21 @@
     ]
   },
   {
-    "id": "property_name_duplicate",
-    "description": "A property must have a unique name in its namespace.",
+    "id": "property_name_invalidChar",
+    "description": "Property names must use valid characters.",
+    "severity": "error",
+    "spec": "NDR",
+    "rule": "10-45",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_10-45",
+    "validExample": "Property name 'Person' uses valid characters.",
+    "invalidExample": "Property name 'PersonIsCitizen?' does not use valid characters.",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "property_name_missing",
+    "description": "Properties must have names.",
     "severity": "error",
     "spec": "",
     "rule": "",
@@ -193,7 +224,30 @@
   },
   {
     "id": "property_name_spellcheck",
-    "description": "A term in a property name that does not exist in the dictionary must be defined as Local Terminology.",
+    "description": "Property names must use terms that either have standard dictionary entries or are custom defined as Local Terminology.",
+    "severity": "error",
+    "spec": "NDR",
+    "rule": "10-44",
+    "ruleURL": "https://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/niem-ndr-4.0.html#rule_10-44",
+    "validExample": "Property name 'nc:StateFIPSCode' is valid if the nc namespace defines the meaning of 'FIPS' in its Local Terminology section.",
+    "invalidExample": "Property name 'nc:StateFIPSCode' is not valid if the nc namespace does not define 'FIPS' in its Local Terminology section.",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "property_prefix_missing",
+    "description": "Properties must have a namespace prefix.",
+    "severity": "error",
+    "spec": "",
+    "rule": "",
+    "exceptionIDs": [
+      ""
+    ]
+  },
+  {
+    "id": "property_prefix_unknown",
+    "description": "Property namespace prefixes must be defined.",
     "severity": "error",
     "spec": "",
     "rule": "",

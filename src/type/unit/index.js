@@ -3,7 +3,7 @@ let ComponentUnitTests = require("../../component/unit/index");
 let { Release, Type } = require("niem-model");
 
 /**
- * Type Unit Tests
+ * Type unit tests
  */
 class TypeUnitTests extends ComponentUnitTests {
 

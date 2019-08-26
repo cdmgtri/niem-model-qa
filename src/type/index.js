@@ -1,8 +1,8 @@
 
 let NIEMObjectQA = require("../niem-object/index");
 
-let TypeQA_UnitTests = require("./unit/index");
-let TypeQA_FieldTestSuites = require("./field/index");
+let TypeUnitTests = require("./unit/index");
+let TypeFieldTests = require("./field/index");
 
 class TypeQA extends NIEMObjectQA {
 
@@ -11,15 +11,15 @@ class TypeQA extends NIEMObjectQA {
     super(testSuite);
 
     /** @private */
-    this.unitTests = new TypeQA_UnitTests(testSuite);
+    this.unitTests = new TypeUnitTests(testSuite);
 
     /** @private */
-    this.fieldTestSuites = new TypeQA_FieldTestSuites(this.test);
+    this.fieldTestSuites = new TypeFieldTests(this.test);
   }
 
   /**
    * Individual Type unit tests
-   * @type {TypeQA_UnitTests}
+   * @type {TypeUnitTests}
    */
   get test() {
     return this.unitTests;
@@ -27,7 +27,7 @@ class TypeQA extends NIEMObjectQA {
 
   /**
    * A Type test suite made up of unit tests related to a particular Type field.
-   * @type {TypeQA_FieldTestSuites}
+   * @type {TypeFieldTests}
    */
   get field() {
     return this.fieldTestSuites;
