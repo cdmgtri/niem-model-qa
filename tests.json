@@ -1,0 +1,12 @@
+{
+  "type_name_repTerm_type": {
+    "description": "Type names must end with the representation term 'Type'.",
+    "validExample": "Type name 'PersonType'",
+    "invalidExample": "Type name 'Person'"
+  },
+  "type_name_inconsistent_codeType": {
+    "description": "Code types should correspond to code simple types",
+    "validExample": "HairCodeType is a valid name with base type HairCodeSimpleType.",
+    "invalidExample": "HairCodeType is not a recommended name with base type EyeColorCodeSimpleType."
+  }
+}

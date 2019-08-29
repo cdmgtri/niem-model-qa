@@ -1,91 +1,86 @@
 
-let NIEMTestSuite = require("niem-test-suite");
-let { ModelObjects } = require("niem-model-source");
-let { NIEMObject } = require("niem-model-objects");
+let QATestSuite = require("../test-suite");
 
-let { Release } = ModelObjects;
-let { Test, Issue } = NIEMTestSuite;
-
+/**
+ * @private
+ */
 class NIEMObjectQA {
 
   /**
-   * @param {NIEMTestSuite} testSuite
+   * @param {QATestSuite} testSuite
    */
   constructor(testSuite) {
+
+    /**
+     * Test suite with all tests for all objects
+     */
     this.testSuite = testSuite;
+
+    /**
+     * Individual object tests
+     */
+    this.test = {};
+
+    /**
+     * Run all tests in the test suite
+     */
+    this.all;
+
+    /**
+     * Run tests in the test suite filtered on a particular object field
+     */
+    this.field = {};
+
   }
 
   /**
-   * @param {Release} release
-   * @param {NIEMObject[]} niemObjects
-   * @returns {Test[]}
-   */
-  async run(release, niemObjects) {
-    let localTests = this.unitTests(niemObjects);
-    let refTests = await this.referenceTests(release, niemObjects);
-    return [...localTests, ...refTests];
-  }
-
-  /**
-   * @param {NIEMObject[]} niemObjects
-   * @returns {Test[]}
-   */
-  unitTests(niemObjects) {
-    return undefined;
-  }
-
-  /**
-   * @param {Release} release
-   * @param {NIEMObject[]} niemObjects
-   * @returns {Test[]}
-   */
-  async referenceTests(release, niemObjects) {
-    return undefined;
-  }
-
-  /**
-   * Logs issues for the test.
+   * Run all unit tests for the given field.
    *
-   * @param {String} testID
-   * @param {NIEMObject[]} problemObjects
-   * @param {String} problemField
-   * @param {CommentFunction} commentFunction
+   * @private
+   * @template T
+   * @param {T[]} niemObjects
+   * @param {Release} release
+   * @param {String} [field] - Optional test filter for a given object field
    */
-  logIssues(testID, problemObjects, problemField, commentFunction) {
+  async runTests(niemObjects, release, field) {
 
-    if (! this.testSuite.loggingEnabled || ! problemObjects) return;
+    /** @type {Test[]} */
+    let tests = [];
 
-    let test = this.testSuite.find(testID);
+    let testNames = this.fieldTestNames(field);
 
-    if (!test) {
-      throw new Error(`Test ${testID} not found.`);
+    for (let testName of testNames) {
+      let test = await this.test[testName](niemObjects, release);
+      tests.push(test);
     }
 
-    let issues = problemObjects.map( object => {
-      let problemValue = object[problemField];
-      let comment = commentFunction ? commentFunction(problemValue) : "";
+    return QATestSuite.init(tests);
 
-      return new Issue(object.authoritativePrefix, object.label, object.source_location, object.source_line, object.source_position, problemValue, comment);
-    });
+  }
 
-    test.log(issues);
+  /**
+   * Find all unit test names for the given field.
+   * @private
+   * @param {String} [field] - Optional test filter for a given object field
+   */
+  fieldTestNames(field) {
 
-    return test;
+    // Get all properties and methods from the unit test class
+    let testsPrototype = Object.getPrototypeOf(this.test);
+    let testFunctions = Object.getOwnPropertyNames(testsPrototype);
+
+    if (!field) {
+      // Return all unit tests, minus the constructor
+      return testFunctions.filter( fn => fn != "constructor" );
+    }
+
+    // Return unit tests filtered on given field
+    return testFunctions.filter( fn => fn.includes(field + "_") );
 
   }
 
 }
 
-/**
- * @callback CommentFunction
- * @param {String} problemValue
- * @returns {String}
- */
-let CommentFunctionType;
-
-NIEMObjectQA.ModelObjects = ModelObjects;
-NIEMObjectQA.TestSuite = NIEMTestSuite;
-NIEMObjectQA.Test = Test;
-NIEMObjectQA.Issue = Issue;
-
 module.exports = NIEMObjectQA;
+
+let { Release, NIEMObject } = require("niem-model");

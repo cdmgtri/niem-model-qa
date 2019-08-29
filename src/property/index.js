@@ -1,20 +1,18 @@
 
 let NIEMObjectQA = require("../niem-object/index");
-let TypeUnitTests = require("./unit");
+let PropertyUnitTests = require("./unit");
 
-class TypeQA extends NIEMObjectQA {
+class PropertyQA extends NIEMObjectQA {
 
   constructor(testSuite) {
 
     super(testSuite);
 
-    this.test = new TypeUnitTests(testSuite);
+    this.test = new PropertyUnitTests(testSuite);
 
     this.all = this.loadTests();
 
     this.field = {
-
-      base: this.loadTests("base"),
 
       definition: this.loadTests("definition"),
 
@@ -22,9 +20,7 @@ class TypeQA extends NIEMObjectQA {
 
       prefix: this.loadTests("prefix"),
 
-      style: this.loadTests("style")
-
-    }
+    };
 
   }
 
@@ -35,15 +31,15 @@ class TypeQA extends NIEMObjectQA {
   loadTests(field) {
 
     /**
-     * @param {Type[]} types
+     * @param {Property[]} properties
      * @param {Release} release
      */
-    let fn = (types, release) => this.runTests(types, release, field);
+    let fn = (properties, release) => this.runTests(properties, release, field);
     return fn;
   }
 
 }
 
-module.exports = TypeQA;
+module.exports = PropertyQA;
 
-let { Release, Type } = require("niem-model");
+let { Release, Property } = require("niem-model");
