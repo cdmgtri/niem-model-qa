@@ -2,7 +2,7 @@
 let NIEMModelQA = require("../../index");
 
 let NIEM = require("niem-model");
-let { Release, Namespace, Property } = NIEM;
+let { Release, Property } = NIEM;
 
 /** @type {Release} */
 let release;
@@ -10,6 +10,7 @@ let release;
 /** @type {Property[]} */
 let fieldProperties = [];
 
+let FieldTest = require("./field");
 
 /**
  * @param {NIEMModelQA} qa
@@ -226,6 +227,29 @@ function propertyTests(qa, niem) {
 
         expect(test.failed()).toBeTruthy();
         expect(issues.length).toBe(1);
+      });
+
+    });
+
+    describe("Property field tests", () => {
+
+      /** @type {FieldTest} */
+      let fieldTest;
+
+      beforeAll( async () => {
+        fieldTest = new FieldTest(qa.property, fieldProperties, release);
+      });
+
+      test("#individual fields", async () => {
+        let fields = Object.getOwnPropertyNames( qa.property.field );
+        for (let field of fields) {
+          await fieldTest.run(field);
+        }
+      });
+
+      test("#all fields", async () => {
+        let testSuite = await qa.property.all(fieldProperties, release);
+        expect(fieldTest.fieldTestCount).toBe(testSuite.tests.length);
       });
 
     });

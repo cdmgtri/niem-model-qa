@@ -2,7 +2,7 @@
 let NIEMModelQA = require("../../index");
 
 let NIEM = require("niem-model");
-let { Release, Namespace, Type, Facet, LocalTerm } = NIEM;
+let { Release, Type } = NIEM;
 
 /** @type {Release} */
 let release;
@@ -575,8 +575,8 @@ function typeTests(qa, niem) {
       });
 
       test("#all fields", async () => {
-        let testSuite = await fieldTest.run();
-        expect(testSuite.tests.length).toBe(fieldTest.fieldTestCount);
+        let testSuite = await qa.type.all(fieldTypes, release);
+        expect(fieldTest.fieldTestCount).toBe(testSuite.tests.length);
       });
 
     });

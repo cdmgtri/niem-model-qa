@@ -1,26 +1,26 @@
 
-let ComponentUnitTests = require("../../component/unit/index");
+let NIEMObjectUnitTests = require("../niem-object/unit/index");
 let { Release, Property } = require("niem-model");
 
 /**
  * Property unit tests
  */
-class PropertyUnitTests extends ComponentUnitTests {
+class PropertyUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Check that words in a property definition are either in the dictionary or defined
    * as Local Terminology.
    *
-   * @example "Definition 'A FIPS state codes" is valid if the term 'FIPS' is defined as Local Terminology in that namespace."
+   * @example "Definition 'A FIPS state codes' is valid if the term 'FIPS' is defined as Local Terminology in that namespace."
    *
-   * @example "Definition 'A FIPS state codes" is not recommended if the term 'FIPS' is not defined as Local Terminology in that namespace."
+   * @example "Definition 'A FIPS state codes' is not recommended if the term 'FIPS' is not defined as Local Terminology in that namespace."
    *
    * @param {Property[]} properties
    * @param {Release} release
    */
   async definition_spellcheck(properties, release) {
     let test = this.testSuite.start("property_definition_spellcheck");
-    return this.definition_spellcheck__helper(test, properties, release);
+    return this.utils.definition_spellcheck__helper(test, properties, release);
   }
 
   /**
@@ -64,14 +64,14 @@ class PropertyUnitTests extends ComponentUnitTests {
   /**
    * Check that property names are not repeated in a namespace.
    *
-   * @example "Elements 'hs:PersonAugmentation' and 'im:PersonAugmentation" are valid even though they have the same name because they are defined in different namespaces."
+   * @example "Elements 'hs:PersonAugmentation' and 'im:PersonAugmentation' are valid even though they have the same name because they are defined in different namespaces."
    * @example "Element 'PersonAugmentation' cannot be defined twice in the Human Services namespace."
    *
    * @param {Property[]} properties
    */
   async name_duplicate(properties) {
     let test = this.testSuite.start("property_name_duplicate");
-    return this.name_duplicate__helper(test, properties);
+    return this.utils.name_duplicate__helper(test, properties);
   }
 
   /**
@@ -84,7 +84,7 @@ class PropertyUnitTests extends ComponentUnitTests {
    */
   async name_invalidChar(properties) {
     let test = this.testSuite.start("property_name_invalidChar");
-    return this.name_invalidChar__helper(test, properties);
+    return this.utils.name_invalidChar__helper(test, properties);
   }
 
   /**
@@ -93,7 +93,7 @@ class PropertyUnitTests extends ComponentUnitTests {
    */
   async name_missing(properties) {
     let test = this.testSuite.start("property_name_missing");
-    return this.name_missing__helper(test, properties);
+    return this.utils.name_missing__helper(test, properties);
   }
 
   /**
@@ -109,7 +109,7 @@ class PropertyUnitTests extends ComponentUnitTests {
    */
   async name_spellcheck(properties, release) {
     let test = this.testSuite.start("property_name_spellcheck");
-    return this.name_spellcheck__helper(test, properties, release);
+    return this.utils.name_spellcheck__helper(test, properties, release);
   }
 
   /**
@@ -129,7 +129,7 @@ class PropertyUnitTests extends ComponentUnitTests {
    */
   async prefix_unknown(properties, release) {
     let test = this.testSuite.start("property_prefix_unknown");
-    return this.prefix_unknown__helper(test, properties, release);
+    return this.utils.prefix_unknown__helper(test, properties, release);
   }
 
 }

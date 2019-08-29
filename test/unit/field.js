@@ -22,7 +22,7 @@ class fieldTest {
    */
   async run(fieldName) {
 
-    let testSuite = await this.objectQA.field.testSuite(this.objects, this.release, fieldName);
+    let testSuite = await this.objectQA.field[fieldName](this.objects, this.release);
 
     expect(testSuite.status()).toBe("fail");
 

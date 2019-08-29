@@ -60,6 +60,7 @@ class QATestSuite extends NIEMTestSuite {
 }
 
 /**
+ * @private
  * @callback CommentFunction
  * @param {String} problemValue
  * @returns {String}

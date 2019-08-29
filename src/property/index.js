@@ -1,8 +1,6 @@
 
 let NIEMObjectQA = require("../niem-object/index");
-
-let PropertyUnitTests = require("./unit/index");
-// let PropertyFieldTest = require("./field/index");
+let PropertyUnitTests = require("./unit");
 
 class PropertyQA extends NIEMObjectQA {
 
@@ -10,29 +8,38 @@ class PropertyQA extends NIEMObjectQA {
 
     super(testSuite);
 
-    /** @private */
-    this.unitTests = new PropertyUnitTests(testSuite);
+    this.test = new PropertyUnitTests(testSuite);
 
-    /** @private */
-    // this.fieldTestSuites = new PropertyFieldTest(this.test);
+    this.all = this.loadTests();
+
+    this.field = {
+
+      definition: this.loadTests("definition"),
+
+      name: this.loadTests("name"),
+
+      prefix: this.loadTests("prefix"),
+
+    };
+
   }
 
   /**
-   * Individual Property unit tests
-   * @type {PropertyUnitTests}
+   * @private
+   * @param {string} field
    */
-  get test() {
-    return this.unitTests;
-  }
+  loadTests(field) {
 
-  /**
-   * A Type test suite made up of unit tests related to a particular Type field.
-   * @type {PropertyFieldTests}
-   */
-  get field() {
-    return this.fieldTestSuites;
+    /**
+     * @param {Property[]} properties
+     * @param {Release} release
+     */
+    let fn = (properties, release) => this.runTests(properties, release, field);
+    return fn;
   }
 
 }
 
 module.exports = PropertyQA;
+
+let { Release, Property } = require("niem-model");

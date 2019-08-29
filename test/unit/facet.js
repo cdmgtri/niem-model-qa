@@ -209,25 +209,16 @@ function facetTests(qa, niem) {
         fieldTest = new FieldTest(qa.facet, fieldFacets, release);
       });
 
-      test("#definition", async () => {
-        await fieldTest.run("definition");
-      });
-
-      test("#style", async () => {
-        await fieldTest.run("style");
-      });
-
-      test("#type", async () => {
-        await fieldTest.run("type");
-      });
-
-      test("#value", async () => {
-        await fieldTest.run("value");
+      test("#individual fields", async () => {
+        let fields = Object.getOwnPropertyNames( qa.facet.field );
+        for (let field of fields) {
+          await fieldTest.run(field);
+        }
       });
 
       test("#all fields", async () => {
-        let testSuite = await fieldTest.run();
-        expect(testSuite.tests.length).toBe(fieldTest.fieldTestCount);
+        let testSuite = await qa.facet.all(fieldFacets, release);
+        expect(fieldTest.fieldTestCount).toBe(testSuite.tests.length);
       });
 
     });

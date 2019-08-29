@@ -1,6 +1,5 @@
 
-let NIEMObjectUnitTests = require("../../niem-object/unit/index");
-
+let NIEMObjectUnitTests = require("../niem-object/unit/index");
 let { Release, Facet } = require("niem-model");
 
 /**
@@ -127,7 +126,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    */
   async type_unknown(facets, release) {
     let test = this.testSuite.start("facet_type_unknown");
-    return this.type_unknown__helper(test, facets, release);
+    return this.utils.type_unknown__helper(test, facets, release);
   }
 
   /**

@@ -1,12 +1,85 @@
 
 let SpellChecker = require("spellchecker");
 
-let { Test, Issue } = require("niem-test-suite");
-let { Release, Component } = require("niem-model");
+let TestSuite = require("../test-suite/index");
 
-let NIEMObjectUnitTests = require("../../niem-object/unit/index");
+let { Test, Issue } = TestSuite;
+let { Release, NIEMObject, Component } = require("niem-model");
 
-class ComponentUnitTests extends NIEMObjectUnitTests {
+class Utils {
+
+  /**
+   * @param {TestSuite} testSuite
+   */
+  constructor(testSuite) {
+    this.testSuite = testSuite;
+  }
+
+
+  /**
+   * Checks that the qualified property field of the object exists in the release.
+   *
+   * @param {Test} test
+   * @param {NIEMObject[]} objects
+   * @param {Release} release
+   * @param {String} [qnameField="propertyQName"] Qualified property field to check
+   */
+  async property_unknown__helper(test, objects, release, qnameField="propertyQName") {
+
+    return this.component_unknown__helper(test, objects, release, "properties", qnameField);
+
+  }
+
+  /**
+   * Checks that the qualified type field of the object exists in the release.
+   *
+   * @param {Test} test
+   * @param {NIEMObject[]} objects
+   * @param {Release} release
+   * @param {String} [qnameField="typeQName"] Qualified type field to check
+   */
+  async type_unknown__helper(test, objects, release, qnameField="typeQName") {
+
+    return this.component_unknown__helper(test, objects, release, "types", qnameField);
+
+  }
+
+
+  /**
+   * Checks that the qualified component field of the object exists in the release.
+   *
+   * @param {Test} test
+   * @param {NIEMObject[]} objects
+   * @param {Release} release
+   * @param {"types"|"properties"} sourceField - Release object to search for component
+   * @param {String} [qnameField="typeQName"] Qualified component field to check
+   */
+  async component_unknown__helper(test, objects, release, sourceField, qnameField) {
+
+    test.start();
+
+    /** @type {NIEMObject[]} */
+    let problemObjects = [];
+
+    /** @type {String[]} */
+    let uniqueQNames = new Set( objects.map( object => object[qnameField]) );
+
+    /** @type {String[]} */
+    let undefinedQNames = [];
+
+    // Only look up unique qnames; add to undefinedQNames array if not found
+    for (let qname of uniqueQNames) {
+      let component = await release[sourceField].get(qname);
+      if (!component) undefinedQNames.push(qname);
+    }
+
+    undefinedQNames.forEach( qname => {
+      let matches = objects.filter( object => object[qnameField] == qname );
+      problemObjects.push(...matches);
+    });
+
+    return this.testSuite.post(test, problemObjects, qnameField);
+  }
 
   /**
    * Checks that a component name is not repeated in a namespace.
@@ -43,7 +116,9 @@ class ComponentUnitTests extends NIEMObjectUnitTests {
    */
   name_invalidChar__helper(test, components) {
     let regex = /[^A-Za-z0-9_\-.]/;
-    let problemComponents = components.filter( component => component.name.match(regex) );
+    let problemComponents = components.filter( component => {
+      return component.name && component.name.match(regex)
+    });
     return this.testSuite.post(test, problemComponents, "name");
   }
 
@@ -170,6 +245,9 @@ class ComponentUnitTests extends NIEMObjectUnitTests {
     return this.testSuite.post(test, problemComponents, "prefix");
   }
 
+
 }
 
-module.exports = ComponentUnitTests;
+module.exports = Utils;
+
+let {} = require("niem-model");

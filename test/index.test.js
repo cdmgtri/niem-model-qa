@@ -4,13 +4,8 @@ let NIEM = require("niem-model");
 let NIEMModelQA = require("../index");
 let unitTests = require("./unit/index");
 
-let { Release } = NIEM;
-
 let qa = new NIEMModelQA();
 let niem = new NIEM();
-
-/** @type {Release} */
-let release;
 
 beforeAll( async () => {
   await qa.loadTests();

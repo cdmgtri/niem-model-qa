@@ -1,41 +1,43 @@
 
 let NIEMObjectQA = require("../niem-object/index");
-
-let FacetUnitTests = require("./unit/index");
-let FacetFieldTests = require("./field/index");
+let FacetUnitTests = require("./unit");
 
 class FacetQA extends NIEMObjectQA {
 
   constructor(testSuite) {
 
     super(testSuite);
-    this.testSuite = testSuite;
 
-    /** @private */
-    this.unitTests = new FacetUnitTests(this.testSuite);
+    this.test = new FacetUnitTests(testSuite);
 
-    /** @private */
-    this.fieldTests = new FacetFieldTests(this.unitTests);
+    this.all = this.loadTests();
+
+    this.field = {
+
+      definition: this.loadTests("definition"),
+
+      style: this.loadTests("style"),
+
+      type: this.loadTests("type"),
+
+      value: this.loadTests("value")
+
+    }
 
   }
 
-  /**
-   * Individual Facet unit tests
-   * @type {FacetUnitTests}
-   */
-  get test() {
-    return this.unitTests;
-  }
+  loadTests(field) {
 
-  /**
-   * A Facet test suite made up of unit tests related to a particular Facet field.
-   * @type {FacetFieldTests}
-   */
-  get field() {
-    return this.fieldTests;
+    /**
+     * @param {Facet[]} facets
+     * @param {Release} release
+     */
+    let fn = (facets, release) => this.runTests(facets, release, field);
+    return fn;
   }
-
 
 }
 
 module.exports = FacetQA;
+
+let { Release, Facet } = require("niem-model");

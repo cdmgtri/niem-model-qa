@@ -1,5 +1,6 @@
 
 let TestSuite = require("../../test-suite/index");
+let Utils = require("../../utils/index");
 
 let { Test } = TestSuite;
 let { Release, NIEMObject } = require("niem-model");
@@ -14,6 +15,9 @@ class NIEMObjectUnitTests {
    */
   constructor(testSuite) {
     this.testSuite = testSuite;
+
+    /** @private */
+    this.utils = new Utils(testSuite);
   }
 
   /**

@@ -1,8 +1,6 @@
 
 let NIEMObjectQA = require("../niem-object/index");
-
-let TypeUnitTests = require("./unit/index");
-let TypeFieldTests = require("./field/index");
+let TypeUnitTests = require("./unit");
 
 class TypeQA extends NIEMObjectQA {
 
@@ -10,29 +8,42 @@ class TypeQA extends NIEMObjectQA {
 
     super(testSuite);
 
-    /** @private */
-    this.unitTests = new TypeUnitTests(testSuite);
+    this.test = new TypeUnitTests(testSuite);
 
-    /** @private */
-    this.fieldTestSuites = new TypeFieldTests(this.test);
+    this.all = this.loadTests();
+
+    this.field = {
+
+      base: this.loadTests("base"),
+
+      definition: this.loadTests("definition"),
+
+      name: this.loadTests("name"),
+
+      prefix: this.loadTests("prefix"),
+
+      style: this.loadTests("style")
+
+    }
+
   }
 
   /**
-   * Individual Type unit tests
-   * @type {TypeUnitTests}
+   * @private
+   * @param {string} field
    */
-  get test() {
-    return this.unitTests;
-  }
+  loadTests(field) {
 
-  /**
-   * A Type test suite made up of unit tests related to a particular Type field.
-   * @type {TypeFieldTests}
-   */
-  get field() {
-    return this.fieldTestSuites;
+    /**
+     * @param {Type[]} types
+     * @param {Release} release
+     */
+    let fn = (types, release) => this.runTests(types, release, field);
+    return fn;
   }
 
 }
 
 module.exports = TypeQA;
+
+let { Release, Type } = require("niem-model");

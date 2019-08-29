@@ -1,11 +1,11 @@
 
-let ComponentUnitTests = require("../../component/unit/index");
+let NIEMObjectUnitTests = require("../niem-object/unit/index");
 let { Release, Type } = require("niem-model");
 
 /**
  * Type unit tests
  */
-class TypeUnitTests extends ComponentUnitTests {
+class TypeUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Check that complex types with simple content (CSC) have a CSC or a simple
@@ -174,16 +174,16 @@ class TypeUnitTests extends ComponentUnitTests {
    * Check that words in a type definition are either in the dictionary or defined
    * as Local Terminology.
    *
-   * @example "Definition 'A data type for FIPS state codes" is valid if the term 'FIPS' is defined as Local Terminology in that namespace."
+   * @example "Definition 'A data type for FIPS state codes' is valid if the term 'FIPS' is defined as Local Terminology in that namespace."
    *
-   * @example "Definition 'A data type for FIPS state codes" is not recommended if the term 'FIPS' is not defined as Local Terminology in that namespace."
+   * @example "Definition 'A data type for FIPS state codes' is not recommended if the term 'FIPS' is not defined as Local Terminology in that namespace."
    *
    * @param {Type[]} types
    * @param {Release} release
    */
   async definition_spellcheck(types, release) {
     let test = this.testSuite.start("type_definition_spellcheck");
-    return this.definition_spellcheck__helper(test, types, release);
+    return this.utils.definition_spellcheck__helper(test, types, release);
   }
 
   /**
@@ -221,7 +221,7 @@ class TypeUnitTests extends ComponentUnitTests {
    */
   async name_duplicate(types) {
     let test = this.testSuite.start("type_name_duplicate");
-    return this.name_duplicate__helper(test, types);
+    return this.utils.name_duplicate__helper(test, types);
   }
 
   /**
@@ -248,14 +248,14 @@ class TypeUnitTests extends ComponentUnitTests {
   /**
    * Check that all type names use valid characters.
    *
-   * @example "Type name "PersonType" uses valid characters."
-   * @example "Type name "ID#Type" does not use valid characters."
+   * @example "Type name 'PersonType' uses valid characters."
+   * @example "Type name 'ID#Type' does not use valid characters."
    *
    * @param {Type[]} types
    */
   async name_invalidChar(types) {
     let test = this.testSuite.start("type_name_invalidChar");
-    return this.name_invalidChar__helper(test, types);
+    return this.utils.name_invalidChar__helper(test, types);
   }
 
   /**
@@ -265,7 +265,7 @@ class TypeUnitTests extends ComponentUnitTests {
   async name_missing_complex(types) {
     let test = this.testSuite.start("type_name_missing_complex");
     let complexTypes = types.filter( type => type.isComplexType );
-    return this.name_missing__helper(test, complexTypes);
+    return this.utils.name_missing__helper(test, complexTypes);
   }
 
   /**
@@ -275,7 +275,7 @@ class TypeUnitTests extends ComponentUnitTests {
   async name_missing_simple(types) {
     let test = this.testSuite.start("type_name_missing_simple");
     let simpleTypes = types.filter( type => type.isSimpleType );
-    return this.name_missing__helper(test, simpleTypes);
+    return this.utils.name_missing__helper(test, simpleTypes);
   }
 
   /**
@@ -425,7 +425,7 @@ class TypeUnitTests extends ComponentUnitTests {
    */
   async name_spellcheck(types, release) {
     let test = this.testSuite.start("type_name_spellcheck");
-    return this.name_spellcheck__helper(test, types, release);
+    return this.utils.name_spellcheck__helper(test, types, release);
   }
 
   /**
@@ -445,7 +445,7 @@ class TypeUnitTests extends ComponentUnitTests {
    */
   async prefix_unknown(types, release) {
     let test = this.testSuite.start("type_prefix_unknown");
-    return this.prefix_unknown__helper(test, types, release);
+    return this.utils.prefix_unknown__helper(test, types, release);
   }
 
   /**

@@ -12,6 +12,30 @@ Provides QA checks for NIEM data, based on NIEM NDR rules and modeling best prac
 npm i cdmgtri/niem-model-qa
 ```
 
+## Usage
+
+```js
+let NIEMModelQA = require("niem-model-qa");
+
+let qa = new NIEMModelQA();
+
+// Load test metadata from spreadsheet
+await qa.loadTests();
+
+// Run a specific test
+let spellCheckResults = await qa.type.test.name_camelCase(types, release);
+
+// Run all tests on a specific type field
+let nameResults = await qa.type.field.name(types, release);
+
+// Run all type tests on a set of NIEM types
+let allResults = await qa.type.all(types, release);
+
+// Save or download QA results to a spreadsheet
+await qa.testSuite.saveAsFile("test-results"); // or
+await qa.testSuite.saveAsDownload("test-results");
+```
+
 ## Test Status
 
 Most CSC type, simple type, and facet tests have been implemented.
