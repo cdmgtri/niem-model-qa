@@ -1,5 +1,5 @@
 
-let NIEMObjectQA = require("../niem-object/index");
+let NIEMObjectQA = require("../niem-object");
 let PropertyUnitTests = require("./unit");
 
 class PropertyQA extends NIEMObjectQA {

@@ -1,5 +1,5 @@
 
-let NIEMObjectQA = require("../../src/niem-object/index");
+let NIEMObjectQA = require("../../src/niem-object");
 let { Release, NIEMObject } = require("niem-model");
 
 class fieldTest {

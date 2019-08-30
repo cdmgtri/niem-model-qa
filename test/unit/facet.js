@@ -2,7 +2,7 @@
 let NIEM = require("niem-model");
 let NIEMModelQA = require("../../index");
 
-let { Release, Type, Facet } = NIEM;
+let { Release, Facet } = NIEM;
 
 /** @type {Release} */
 let release;
