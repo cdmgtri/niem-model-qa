@@ -1,5 +1,8 @@
 
 let SpellChecker = require("spellchecker");
+let TestSuite = require("../test-suite/index");
+let { Test, Issue } = TestSuite;
+let { Release, NIEMObject, Component } = require("niem-model");
 
 class Utils {
 
@@ -244,8 +247,3 @@ class Utils {
 }
 
 module.exports = Utils;
-
-let TestSuite = require("../test-suite/index");
-let { Test, Issue } = TestSuite;
-let { Release, NIEMObject, Component } = require("niem-model");
-

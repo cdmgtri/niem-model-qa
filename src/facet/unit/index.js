@@ -1,5 +1,6 @@
 
 let NIEMObjectUnitTests = require("../../niem-object/unit");
+let { Release, Facet } = require("niem-model");
 
 /**
  * Facet unit tests
@@ -172,5 +173,3 @@ class FacetUnitTests extends NIEMObjectUnitTests {
 }
 
 module.exports = FacetUnitTests;
-
-let { Release, Facet } = require("niem-model");

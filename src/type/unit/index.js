@@ -1,5 +1,6 @@
 
 let NIEMObjectUnitTests = require("../../niem-object/unit");
+let { Release, Type } = require("niem-model");
 
 /**
  * Type unit tests
@@ -491,5 +492,3 @@ class TypeUnitTests extends NIEMObjectUnitTests {
 }
 
 module.exports = TypeUnitTests;
-
-let { Release, Type } = require("niem-model");
