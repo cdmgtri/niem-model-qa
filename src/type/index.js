@@ -13,6 +13,7 @@ class TypeQA extends NIEMObjectQA {
     /**
      * @param {Type[]} types
      * @param {Release} release
+     * @returns {QATestSuite}
      */
     this.all = (types, release) => this.runTests(types, release);
 
@@ -21,30 +22,35 @@ class TypeQA extends NIEMObjectQA {
       /**
        * @param {Type[]} types
        * @param {Release} release
+       * @returns {QATestSuite}
        */
       base: (types, release) => this.runTests(types, release, "base"),
 
       /**
        * @param {Type[]} types
        * @param {Release} release
+       * @returns {QATestSuite}
        */
       definition: (types, release) => this.runTests(types, release, "definition"),
 
       /**
        * @param {Type[]} types
        * @param {Release} release
+       * @returns {QATestSuite}
        */
       name: (types, release) => this.runTests(types, release, "name"),
 
       /**
        * @param {Type[]} types
        * @param {Release} release
+       * @returns {QATestSuite}
        */
       prefix: (types, release) => this.runTests(types, release, "prefix"),
 
       /**
        * @param {Type[]} types
        * @param {Release} release
+       * @returns {QATestSuite}
        */
       style: (types, release) => this.runTests(types, release, "style"),
 
@@ -57,3 +63,4 @@ class TypeQA extends NIEMObjectQA {
 module.exports = TypeQA;
 
 let { Release, Type } = require("niem-model");
+let QATestSuite = require("../test-suite");

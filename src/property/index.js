@@ -13,6 +13,7 @@ class PropertyQA extends NIEMObjectQA {
     /**
      * @param {Property[]} properties
      * @param {Release} release
+     * @returns {QATestSuite}
      */
     this.all = (properties, release) => this.runTests(properties, release);
 
@@ -21,18 +22,21 @@ class PropertyQA extends NIEMObjectQA {
       /**
        * @param {Property[]} properties
        * @param {Release} release
+       * @returns {QATestSuite}
        */
       definition: (properties, release) => this.runTests(properties, release, "definition"),
 
       /**
        * @param {Property[]} properties
        * @param {Release} release
+       * @returns {QATestSuite}
        */
       name: (properties, release) => this.runTests(properties, release, "name"),
 
       /**
        * @param {Property[]} properties
        * @param {Release} release
+       * @returns {QATestSuite}
        */
       prefix: (properties, release) => this.runTests(properties, release, "prefix"),
 
@@ -45,3 +49,4 @@ class PropertyQA extends NIEMObjectQA {
 module.exports = PropertyQA;
 
 let { Release, Property } = require("niem-model");
+let QATestSuite = require("../test-suite");
