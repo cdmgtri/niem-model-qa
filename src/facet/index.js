@@ -10,30 +10,40 @@ class FacetQA extends NIEMObjectQA {
 
     this.test = new FacetUnitTests(testSuite);
 
-    this.all = this.loadTests();
-
-    this.field = {
-
-      definition: this.loadTests("definition"),
-
-      style: this.loadTests("style"),
-
-      type: this.loadTests("type"),
-
-      value: this.loadTests("value")
-
-    }
-
-  }
-
-  loadTests(field) {
-
     /**
      * @param {Facet[]} facets
      * @param {Release} release
      */
-    let fn = (facets, release) => this.runTests(facets, release, field);
-    return fn;
+    this.all = (facets, release) => this.runTests(facets, release);
+
+    this.field = {
+
+      /**
+       * @param {Facet[]} facets
+       * @param {Release} release
+       */
+      definition: (facets, release) => this.runTests(facets, release, "definition"),
+
+      /**
+       * @param {Facet[]} facets
+       * @param {Release} release
+       */
+      style: (facets, release) => this.runTests(facets, release, "style"),
+
+      /**
+       * @param {Facet[]} facets
+       * @param {Release} release
+       */
+      type: (facets, release) => this.runTests(facets, release, "type"),
+
+      /**
+       * @param {Facet[]} facets
+       * @param {Release} release
+       */
+      value: (facets, release) => this.runTests(facets, release, "value")
+
+    }
+
   }
 
 }

@@ -10,36 +10,46 @@ class TypeQA extends NIEMObjectQA {
 
     this.test = new TypeUnitTests(testSuite);
 
-    this.all = this.loadTests();
-
-    this.field = {
-
-      base: this.loadTests("base"),
-
-      definition: this.loadTests("definition"),
-
-      name: this.loadTests("name"),
-
-      prefix: this.loadTests("prefix"),
-
-      style: this.loadTests("style")
-
-    }
-
-  }
-
-  /**
-   * @private
-   * @param {string} field
-   */
-  loadTests(field) {
-
     /**
      * @param {Type[]} types
      * @param {Release} release
      */
-    let fn = (types, release) => this.runTests(types, release, field);
-    return fn;
+    this.all = (types, release) => this.runTests(types, release);
+
+    this.field = {
+
+      /**
+       * @param {Type[]} types
+       * @param {Release} release
+       */
+      base: (types, release) => this.runTests(types, release, "base"),
+
+      /**
+       * @param {Type[]} types
+       * @param {Release} release
+       */
+      definition: (types, release) => this.runTests(types, release, "definition"),
+
+      /**
+       * @param {Type[]} types
+       * @param {Release} release
+       */
+      name: (types, release) => this.runTests(types, release, "name"),
+
+      /**
+       * @param {Type[]} types
+       * @param {Release} release
+       */
+      prefix: (types, release) => this.runTests(types, release, "prefix"),
+
+      /**
+       * @param {Type[]} types
+       * @param {Release} release
+       */
+      style: (types, release) => this.runTests(types, release, "style"),
+
+    }
+
   }
 
 }

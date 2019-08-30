@@ -10,32 +10,34 @@ class PropertyQA extends NIEMObjectQA {
 
     this.test = new PropertyUnitTests(testSuite);
 
-    this.all = this.loadTests();
-
-    this.field = {
-
-      definition: this.loadTests("definition"),
-
-      name: this.loadTests("name"),
-
-      prefix: this.loadTests("prefix"),
-
-    };
-
-  }
-
-  /**
-   * @private
-   * @param {string} field
-   */
-  loadTests(field) {
-
     /**
      * @param {Property[]} properties
      * @param {Release} release
      */
-    let fn = (properties, release) => this.runTests(properties, release, field);
-    return fn;
+    this.all = (properties, release) => this.runTests(properties, release);
+
+    this.field = {
+
+      /**
+       * @param {Property[]} properties
+       * @param {Release} release
+       */
+      definition: (properties, release) => this.runTests(properties, release, "definition"),
+
+      /**
+       * @param {Property[]} properties
+       * @param {Release} release
+       */
+      name: (properties, release) => this.runTests(properties, release, "name"),
+
+      /**
+       * @param {Property[]} properties
+       * @param {Release} release
+       */
+      prefix: (properties, release) => this.runTests(properties, release, "prefix"),
+
+    };
+
   }
 
 }
