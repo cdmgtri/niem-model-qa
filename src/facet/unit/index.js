@@ -1,6 +1,7 @@
 
 let NIEMObjectUnitTests = require("../../niem-object/unit");
 let { Release, Facet } = require("niem-model");
+let { Test } = require("niem-test-suite");
 
 /**
  * Facet unit tests
@@ -14,6 +15,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    * @example "Length facet '10' is not required to have a definition."
    *
    * @param {Facet[]} facets
+   * @returns {Promise<Test>}
    */
   async definition_missing_code(facets) {
 
@@ -33,6 +35,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    * @example "Length facet '10' is not required to have a definition."
    *
    * @param {Facet[]} facets
+   * @returns {Promise<Test>}
    */
   async definition_missing_pattern(facets) {
 
@@ -52,6 +55,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    * @example "Facet 'MON' cannot have kind 'code' or 'ENUM'."
    *
    * @param {Facet[]} facets
+   * @returns {Promise<Test>}
    */
   async style_invalid(facets) {
 
@@ -72,6 +76,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    *
    * @param {Facet[]} facets
    * @param {Release} release
+   * @returns {Promise<Test>}
    */
   async type_complex(facets, release) {
 
@@ -106,6 +111,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    * @example "Code 'MON' cannot belong to a type named 'WeekdaySimpleType'."
    *
    * @param {Facet[]} facets
+   * @returns {Promise<Test>}
    */
   async type_repTerm_code(facets) {
 
@@ -123,6 +129,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    *
    * @param {Facet[]} facets
    * @param {Release} release
+   * @returns {Promise<Test>}
    */
   async type_unknown(facets, release) {
     let test = this.testSuite.start("facet_type_unknown");
@@ -136,6 +143,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    * @example "Type 'WeekdayCodeSimpleType' with codes 'MON', 'MON', 'MON', ..."
    *
    * @param {Facet[]} facets
+   * @returns {Promise<Test>}
    */
   async value_duplicate_code(facets) {
 
@@ -163,6 +171,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    * Check for missing facet values.
    *
    * @param {Facet[]} facets
+   * @returns {Promise<Test>}
    */
   async value_missing(facets) {
     let test = this.testSuite.start("facet_value_missing");

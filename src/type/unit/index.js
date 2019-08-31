@@ -1,6 +1,7 @@
 
 let NIEMObjectUnitTests = require("../../niem-object/unit");
 let { Release, Type } = require("niem-model");
+let { Test } = require("niem-test-suite");
 
 /**
  * Type unit tests
@@ -17,6 +18,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    *
    * @param {Type[]} types
    * @param {Release} release
+   * @returns {Promise<Test>}
    */
   async base_invalid_csc(types, release) {
 
@@ -46,6 +48,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    *
    * @param {Type[]} types
    * @param {Release} release
+   * @returns {Promise<Test>}
    */
   async base_invalid_simple(types, release) {
 
@@ -74,6 +77,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type HairColorCodeSimpleType is not valid without a base type."
    *
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async base_missing_simpleContent(types) {
     let test = this.testSuite.start("type_base_missing_simpleContent");
@@ -89,6 +93,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    *
    * @param {Type[]} types
    * @param {Release} release
+   * @returns {Promise<Test>}
    */
   async base_unknown(types, release) {
 
@@ -114,6 +119,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
   /**
    * Check that a complex type has a definition.
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async definition_missing_complex(types) {
     let test = this.testSuite.start("type_definition_missing_complex");
@@ -124,6 +130,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
   /**
    * Check that a simple type has a definition.
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async definition_missing_simple(types) {
     let test = this.testSuite.start("type_definition_missing_simple");
@@ -138,6 +145,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Definition 'A human being' is not valid for type 'PersonType'."
    *
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async definition_phrase_complex(types) {
 
@@ -158,6 +166,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Definition 'United States state codes' is not valid for type usps:StateCodeSimpleType."
    *
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async definition_phrase_simple(types) {
 
@@ -180,6 +189,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    *
    * @param {Type[]} types
    * @param {Release} release
+   * @returns {Promise<Test>}
    */
   async definition_spellcheck(types, release) {
     let test = this.testSuite.start("type_definition_spellcheck");
@@ -198,6 +208,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type name 'personType' is not valid because it begins with a lower case letter."
 
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async name_camelCase(types) {
 
@@ -218,6 +229,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type name 'CaseType' cannot be defined twice in the justice namespace."
    *
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async name_duplicate(types) {
     let test = this.testSuite.start("type_name_duplicate");
@@ -233,6 +245,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type name 'HairColorCodeType' is not recommended with base type 'EyeColorCodeSimpleType'."
    *
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async name_inconsistent_codeType(types) {
 
@@ -252,6 +265,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type name 'ID#Type' does not use valid characters."
    *
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async name_invalidChar(types) {
     let test = this.testSuite.start("type_name_invalidChar");
@@ -261,6 +275,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
   /**
    * Check that all complex types have names.
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async name_missing_complex(types) {
     let test = this.testSuite.start("type_name_missing_complex");
@@ -271,6 +286,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
   /**
    * Check that all simple types have names.
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async name_missing_simple(types) {
     let test = this.testSuite.start("type_name_missing_simple");
@@ -286,6 +302,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type name 'WeekdayCodeSimpleType' is not valid if the type does not declare codes."
    *
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async name_repTerm_codeSimpleType(types) {
 
@@ -321,6 +338,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type name 'WeekdayCodeType' is not valid with base type 'string'"
    *
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async name_repTerm_codeType(types) {
 
@@ -340,6 +358,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type name 'IDSimpleType' is not valid if the type is complex."
    *
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async name_repTerm_complex(types) {
 
@@ -361,6 +380,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type name 'IDType' is not valid if the type is simple."
    *
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async name_repTerm_simple(types) {
 
@@ -384,6 +404,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type name 'Person' is not valid."
    *
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async name_repTerm_type(types) {
 
@@ -405,6 +426,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type name 'IDTypeCodeType' is not valid because the term 'Type' is used in the middle of the name."
    *
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async name_reservedTerm_type(types) {
     let test = this.testSuite.start("type_name_reservedTerm_type");
@@ -422,6 +444,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    *
    * @param {Type[]} types
    * @param {Release} release
+   * @returns {Promise<Test>}
    */
   async name_spellcheck(types, release) {
     let test = this.testSuite.start("type_name_spellcheck");
@@ -431,6 +454,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
   /**
    * Check that types have a namespace prefix.
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async prefix_missing(types) {
     let test = this.testSuite.start("type_prefix_missing");
@@ -442,6 +466,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * Check that types have a namespace prefix that has been defined in the release.
    * @param {Type[]} types
    * @param {Release} release
+   * @returns {Promise<Test>}
    */
   async prefix_unknown(types, release) {
     let test = this.testSuite.start("type_prefix_unknown");
@@ -455,6 +480,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type PersonType does not have a style."
    *
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async style_missing(types) {
     let test = this.testSuite.start("type_style_missing");
@@ -469,6 +495,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type PersonType cannot have unknown style 'myCustomObject'."
    *
    * @param {Type[]} types
+   * @returns {Promise<Test>}
    */
   async style_unknown(types) {
 

@@ -1,6 +1,7 @@
 
 let NIEMObjectUnitTests = require("../../niem-object/unit");
 let { Release, Property } = require("niem-model");
+let { Test } = require("niem-test-suite");
 
 /**
  * Property unit tests
@@ -17,6 +18,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    *
    * @param {Property[]} properties
    * @param {Release} release
+   * @returns {Promise<Test>}
    */
   async definition_spellcheck(properties, release) {
     let test = this.testSuite.start("property_definition_spellcheck");
@@ -30,6 +32,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "Attribute name 'SequenceID' is not valid because it begins with an upper case letter."
    *
    * @param {Property[]} properties
+   * @returns {Promise<Test>}
    */
   async name_camelCase_attribute(properties) {
 
@@ -49,6 +52,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "Element name 'person' is not valid because it begins with a lower case letter."
    *
    * @param {Property[]} properties
+   * @returns {Promise<Test>}
    */
   async name_camelCase_element(properties) {
 
@@ -68,6 +72,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "Element 'PersonAugmentation' cannot be defined twice in the Human Services namespace."
    *
    * @param {Property[]} properties
+   * @returns {Promise<Test>}
    */
   async name_duplicate(properties) {
     let test = this.testSuite.start("property_name_duplicate");
@@ -81,6 +86,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "Property name 'PersonIsCitizen?' does not use valid characters."
    *
    * @param {Property[]} properties
+   * @returns {Promise<Test>}
    */
   async name_invalidChar(properties) {
     let test = this.testSuite.start("property_name_invalidChar");
@@ -90,6 +96,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
   /**
    * Check that all properties have names.
    * @param {Property[]} properties
+   * @returns {Promise<Test>}
    */
   async name_missing(properties) {
     let test = this.testSuite.start("property_name_missing");
@@ -106,6 +113,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    *
    * @param {Property[]} properties
    * @param {Release} release
+   * @returns {Promise<Test>}
    */
   async name_spellcheck(properties, release) {
     let test = this.testSuite.start("property_name_spellcheck");
@@ -115,6 +123,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
   /**
    * Check that properties have a namespace prefix.
    * @param {Property[]} properties
+   * @returns {Promise<Test>}
    */
   async prefix_missing(properties) {
     let test = this.testSuite.start("property_prefix_missing");
@@ -126,6 +135,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * Check that properties have a namespace prefix that has been defined in the release.
    * @param {Property[]} properties
    * @param {Release} release
+   * @returns {Promise<Test>}
    */
   async prefix_unknown(properties, release) {
     let test = this.testSuite.start("property_prefix_unknown");

@@ -1,4 +1,5 @@
 
+let NIEMTestSuite = require("niem-test-suite");
 let NIEMObjectQA = require("../niem-object");
 let TypeUnitTests = require("./unit");
 
@@ -13,7 +14,7 @@ class TypeQA extends NIEMObjectQA {
     /**
      * @param {Type[]} types
      * @param {Release} release
-     * @returns {QATestSuite}
+     * @returns {Promise<NIEMTestSuite>}
      */
     this.all = (types, release) => this.runTests(types, release);
 
@@ -22,35 +23,35 @@ class TypeQA extends NIEMObjectQA {
       /**
        * @param {Type[]} types
        * @param {Release} release
-       * @returns {QATestSuite}
+       * @returns {Promise<NIEMTestSuite>}
        */
       base: (types, release) => this.runTests(types, release, "base"),
 
       /**
        * @param {Type[]} types
        * @param {Release} release
-       * @returns {QATestSuite}
+       * @returns {Promise<NIEMTestSuite>}
        */
       definition: (types, release) => this.runTests(types, release, "definition"),
 
       /**
        * @param {Type[]} types
        * @param {Release} release
-       * @returns {QATestSuite}
+       * @returns {Promise<NIEMTestSuite>}
        */
       name: (types, release) => this.runTests(types, release, "name"),
 
       /**
        * @param {Type[]} types
        * @param {Release} release
-       * @returns {QATestSuite}
+       * @returns {Promise<NIEMTestSuite>}
        */
       prefix: (types, release) => this.runTests(types, release, "prefix"),
 
       /**
        * @param {Type[]} types
        * @param {Release} release
-       * @returns {QATestSuite}
+       * @returns {Promise<NIEMTestSuite>}
        */
       style: (types, release) => this.runTests(types, release, "style"),
 
@@ -63,4 +64,3 @@ class TypeQA extends NIEMObjectQA {
 module.exports = TypeQA;
 
 let { Release, Type } = require("niem-model");
-let QATestSuite = require("../test-suite");
