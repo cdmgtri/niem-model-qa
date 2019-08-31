@@ -8,7 +8,7 @@ let qa = new NIEMModelQA();
 let niem = new NIEM();
 
 beforeAll( async () => {
-  await qa.loadTests();
+  // await qa.loadTests();
   release = await niem.releases.add("user", "model", "1.0");
 });
 

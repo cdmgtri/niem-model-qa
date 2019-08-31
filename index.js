@@ -7,6 +7,9 @@ let PropertyQA = require("./src/property/index");
 let TypeQA = require("./src/type/index");
 let FacetQA = require("./src/facet/index");
 
+/** @type {Array} */
+let TestMetadata = require("./niem-model-qa-tests.json");
+
 /**
  * @todo Full test suite for classes
  * @todo Full test suite for a release
@@ -24,6 +27,9 @@ class NIEMModelQA {
     this.type = new TypeQA(this.testSuite);
     this.facet = new FacetQA(this.testSuite);
 
+    let tests = TestMetadata.map( metadata => Object.assign(new Test(), metadata) );
+    this.testSuite.loadTests(tests);
+
   }
 
   get testSuiteMetadata() {
@@ -38,6 +44,19 @@ class NIEMModelQA {
     let fs = require("fs");
     let json = JSON.stringify(this.testSuiteMetadata, null, 2);
     fs.writeFileSync(filePath, json);
+  }
+
+  static async updateTestSuiteJSON() {
+
+    let testSuite = new TestSuite();
+
+    // Import test spreadsheet metadata
+    await testSuite.loadTestSpreadsheet("./niem-model-qa-tests.xlsx");
+
+    // Save test metadata to JSON file
+    let fs = require("fs");
+    let json = JSON.stringify(testSuite.testSuiteMetadata, null, 2);
+    fs.writeFileSync("./niem-model-qa-tests.json", json);
   }
 
 }

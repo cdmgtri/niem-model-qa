@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "docs": "jsdoc index.js -r src -d docs -c jsdoc.json -R README.md -t node_modules/docdash",
-    "test": "jest",
+    "metadata": "node scripts/updateTestMetadata.js",
+    "test": "npm run metadata && jest",
     "test:cov": "jest --coverage"
   },
   "keywords": [],
