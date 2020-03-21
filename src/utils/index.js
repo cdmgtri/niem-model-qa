@@ -1,8 +1,9 @@
 
-let SpellChecker = require("spellchecker");
-let TestSuite = require("../test-suite/index");
-let { Test, Issue } = TestSuite;
 let { Release, NIEMObject, Component } = require("niem-model");
+
+let TestSuite = require("../test-suite/index");
+let SpellChecker = require("./spellChecker");
+let { Test, Issue } = TestSuite;
 
 class Utils {
 
@@ -11,8 +12,12 @@ class Utils {
    */
   constructor(testSuite) {
     this.testSuite = testSuite;
+    this._spellChecker = new SpellChecker();
   }
 
+  async init() {
+    await this._spellChecker.init();
+  }
 
   /**
    * Checks that the qualified property field of the object exists in the release.
@@ -149,21 +154,15 @@ class Utils {
       let definition = component.definition || "";
 
       // Get start and end positions for each misspelled word in the definition
-      let misspelledRanges = await SpellChecker.checkSpellingAsync(definition);
+      let unknownSpellings = await this._spellChecker.checkLongText(definition);
 
-      // Translate the misspelled position ranges to misspelled terms
-      let misspelledTerms = misspelledRanges.map( range => {
-        return component.definition.slice(range.start, range.end);
-      });
-
-      for (let term of misspelledTerms) {
+      for (let unknownSpelling of unknownSpellings) {
 
         // Check local terminology for the misspelled term
-        let localTerm = await release.localTerms.get(component.prefix, term);
+        let localTerm = await release.localTerms.get(component.prefix, unknownSpelling.word);
 
         if (! localTerm) {
-          let issue = new Issue(component.prefix, component.label, component.source_location, component.source_line, component.source_position, term);
-
+          let issue = new Issue(component.prefix, component.label, component.input_location, component.input_line, component.source_position, unknownSpelling.word);
           issues.push(issue);
         }
       }
@@ -189,8 +188,10 @@ class Utils {
     for (let component of components) {
       for (let term of component.terms) {
 
+        let correct = await this._spellChecker.checkWord(term);
+
         // Check for component term in dictionary
-        if (SpellChecker.isMisspelled(term)) {
+        if (!correct) {
 
           // Check for component term in Local Terminology
           let localTerm = await release.localTerms.get(component.prefix, term);

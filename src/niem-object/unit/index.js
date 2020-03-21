@@ -9,12 +9,13 @@ class NIEMObjectUnitTests {
 
   /**
    * @param {TestSuite} testSuite
+   * @param {Utils} utils
    */
-  constructor(testSuite) {
+  constructor(testSuite, utils) {
     this.testSuite = testSuite;
 
     /** @private */
-    this.utils = new Utils(testSuite);
+    this.utils = utils;
   }
 
 }

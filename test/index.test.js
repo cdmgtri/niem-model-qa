@@ -1,5 +1,5 @@
 
-let NIEM = require("niem-model");
+let { NIEM } = require("niem-model");
 
 let NIEMModelQA = require("../index");
 let unitTests = require("./unit/index");
@@ -7,8 +7,13 @@ let unitTests = require("./unit/index");
 let qa = new NIEMModelQA();
 let niem = new NIEM();
 
+let { Release } = NIEM;
+
+/** @type {Release} */
+let release;
+
 beforeAll( async () => {
-  // await qa.loadTests();
+  await qa.init();
   release = await niem.releases.add("user", "model", "1.0");
 });
 
@@ -34,6 +39,15 @@ describe("Class tests", () => {
 
   // Call unit tests for each Model Object class
   unitTests(qa, niem);
+
+});
+
+describe.skip("Release tests", () => {
+
+  // test("#checkRelease", async () => {
+  //   let results = await qa.checkRelease(release);
+  //   debugger;
+  // });
 
 });
 

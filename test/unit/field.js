@@ -15,6 +15,8 @@ class fieldTest {
     this.objects = objects;
     this.release = release;
     this.fieldTestCount = 0;
+
+    objects.forEach( object => object.release = release );
   }
 
   /**

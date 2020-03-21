@@ -2,14 +2,15 @@
 let NIEMTestSuite = require("niem-test-suite");
 let NIEMObjectQA = require("../niem-object");
 let PropertyUnitTests = require("./unit");
+let Utils = require("../utils/index");
 
 class PropertyQA extends NIEMObjectQA {
 
-  constructor(testSuite) {
+  constructor(testSuite, utils) {
 
     super(testSuite);
 
-    this.test = new PropertyUnitTests(testSuite);
+    this.test = new PropertyUnitTests(testSuite, utils);
 
     /**
      * @param {Property[]} properties

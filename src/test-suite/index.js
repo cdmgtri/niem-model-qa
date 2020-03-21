@@ -46,7 +46,7 @@ class QATestSuite extends NIEMTestSuite {
       let problemValue = object[problemField];
       let comment = commentFunction ? commentFunction(problemValue) : "";
 
-      return new Issue(object.authoritativePrefix, object.label, object.source_location, object.source_line, object.source_position, problemValue, comment);
+      return new Issue(object.authoritativePrefix, object.label, object.input_location, object.input_line, object.input_position, problemValue, comment);
 
     });
 

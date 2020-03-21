@@ -204,7 +204,7 @@ function propertyTests(qa, niem) {
         expect(test.failed()).toBeTruthy();
         expect(issues.length).toBe(3);
         expect(issues[0].label).toBe("null:B");
-        expect(issues[1].label).toBe("undefined:C");
+        expect(issues[1].label).toBe(":C");
         expect(issues[2].label).toBe(":D");
       });
 

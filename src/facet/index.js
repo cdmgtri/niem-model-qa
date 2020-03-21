@@ -5,11 +5,11 @@ let FacetUnitTests = require("./unit");
 
 class FacetQA extends NIEMObjectQA {
 
-  constructor(testSuite) {
+  constructor(testSuite, utils) {
 
     super(testSuite);
 
-    this.test = new FacetUnitTests(testSuite);
+    this.test = new FacetUnitTests(testSuite, utils);
 
     /**
      * @param {Facet[]} facets
