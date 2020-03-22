@@ -1,7 +1,7 @@
 
 let NIEMObjectUnitTests = require("../../niem-object/unit");
 let { Release, Property } = require("niem-model");
-let { Test } = require("niem-test-suite");
+let Test = require("../../test-suite/test/index");
 
 /**
  * Property unit tests

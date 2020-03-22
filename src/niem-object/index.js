@@ -1,5 +1,5 @@
 
-let QATestSuite = require("../test-suite");
+let QATestSuite = require("../test-suite/index");
 
 /**
  * @private

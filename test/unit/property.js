@@ -41,7 +41,7 @@ function propertyTests(qa, niem) {
         fieldProperties.push(...properties);
 
         let test = await qa.property.test.definition_spellcheck(properties, release);
-        let issues = test.issues();
+        let issues = test.issues;
 
         expect(issues.length).toBe(3);
 
@@ -67,9 +67,9 @@ function propertyTests(qa, niem) {
 
         let test = await qa.property.test.name_camelCase_attribute(properties);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("ext:SequenceID");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("ext:SequenceID");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#name_camelCase_element", async () => {
@@ -84,9 +84,9 @@ function propertyTests(qa, niem) {
 
         let test = await qa.property.test.name_camelCase_element(properties);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("ext:person");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("ext:person");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#name_duplicate", async () => {
@@ -101,9 +101,9 @@ function propertyTests(qa, niem) {
         fieldProperties.push(...properties);
 
         let test = await qa.property.test.name_duplicate(properties);
-        let issues = test.issues();
+        let issues = test.issues;
 
-        expect(test.failed()).toBeTruthy();
+        expect(test.failed).toBeTruthy();
         expect(issues.length).toBe(2);
         expect(issues[0].label).toBe("ext:Location");
         expect(issues[1].label).toBe("ext:Location");
@@ -124,9 +124,9 @@ function propertyTests(qa, niem) {
         fieldProperties.push(...properties);
 
         let test = await qa.property.test.name_invalidChar(properties);
-        let issues = test.issues();
+        let issues = test.issues;
 
-        expect(test.failed()).toBeTruthy();
+        expect(test.failed).toBeTruthy();
         expect(issues.length).toBe(2);
         expect(issues[0].problemValue).toBe("Car ");
         expect(issues[1].problemValue).toBe("ID#");
@@ -148,8 +148,8 @@ function propertyTests(qa, niem) {
 
         let test = await qa.property.test.name_missing(properties);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues().length).toBe(2);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues.length).toBe(2);
 
       });
 
@@ -168,9 +168,9 @@ function propertyTests(qa, niem) {
         fieldProperties.push(...properties);
 
         let test = await qa.property.test.name_spellcheck(properties, release);
-        let issues = test.issues();
+        let issues = test.issues;
 
-        expect(test.failed()).toBeTruthy();
+        expect(test.failed).toBeTruthy();
         expect(issues.length).toBe(3);
 
         expect(issues[0].label).toBe("ext:Organizatoin");
@@ -196,9 +196,9 @@ function propertyTests(qa, niem) {
         fieldProperties.push(...properties);
 
         let test = await qa.property.test.prefix_missing(properties, release);
-        let issues = test.issues();
+        let issues = test.issues;
 
-        expect(test.failed()).toBeTruthy();
+        expect(test.failed).toBeTruthy();
         expect(issues.length).toBe(3);
         expect(issues[0].label).toBe("null:B");
         expect(issues[1].label).toBe(":C");
@@ -220,9 +220,9 @@ function propertyTests(qa, niem) {
         await release.namespaces.add("nc", "core");
 
         let test = await qa.property.test.prefix_unknown(properties, release);
-        let issues = test.issues();
+        let issues = test.issues;
 
-        expect(test.failed()).toBeTruthy();
+        expect(test.failed).toBeTruthy();
         expect(issues.length).toBe(1);
       });
 

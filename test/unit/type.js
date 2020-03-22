@@ -43,10 +43,10 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.base_invalid_csc(types, release);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("ncic:HairColorCodeType");
-        expect(test.issues()[0].problemValue).toBe("nc:PersonType");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("ncic:HairColorCodeType");
+        expect(test.issues[0].problemValue).toBe("nc:PersonType");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#base_invalid_simple", async () => {
@@ -66,10 +66,10 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.base_invalid_simple(types, release);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("ncic:HairColorCodeSimpleType");
-        expect(test.issues()[0].problemValue).toBe("ncic:EyeColorCodeSimpleType");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("ncic:HairColorCodeSimpleType");
+        expect(test.issues[0].problemValue).toBe("ncic:EyeColorCodeSimpleType");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#base_missing_simpleContent", async () => {
@@ -85,10 +85,10 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.base_missing_simpleContent(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("ncic:HairColorCodeType");
-        expect(test.issues()[1].label).toBe("ncic:HairColorCodeSimpleType");
-        expect(test.issues().length).toBe(2);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("ncic:HairColorCodeType");
+        expect(test.issues[1].label).toBe("ncic:HairColorCodeSimpleType");
+        expect(test.issues.length).toBe(2);
       });
 
       test("#base_unknown", async () => {
@@ -105,9 +105,9 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.base_unknown(types, release);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("nc:LocationType");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("nc:LocationType");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#definition_missing_complex", async () => {
@@ -122,9 +122,9 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.definition_missing_simple(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("xs:string");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("xs:string");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#definition_missing_simple", async () => {
@@ -139,9 +139,9 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.definition_missing_simple(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("xs:string");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("xs:string");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#definition_phrase_complex", async () => {
@@ -156,9 +156,9 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.definition_phrase_complex(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("nc:PersonType");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("nc:PersonType");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#definition_phrase_simple", async () => {
@@ -173,9 +173,9 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.definition_phrase_simple(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("ext:IDSimpleType");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("ext:IDSimpleType");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#definition_spellcheck", async () => {
@@ -194,15 +194,15 @@ function typeTests(qa, niem) {
         fieldTypes.push(...types);
 
         let test = await qa.type.test.definition_spellcheck(types, release);
-        let issues = test.issues();
+        let issues = test.issues;
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("nc:PersonType");
-        expect(test.issues()[0].problemValue).toBe("persom");
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("nc:PersonType");
+        expect(test.issues[0].problemValue).toBe("persom");
 
-        expect(test.issues()[1].label).toBe("nc:PersonType");
-        expect(test.issues()[1].problemValue).toBe("hooman");
-        expect(test.issues().length).toBe(2);
+        expect(test.issues[1].label).toBe("nc:PersonType");
+        expect(test.issues[1].problemValue).toBe("hooman");
+        expect(test.issues.length).toBe(2);
       });
 
       test("#name_camelCase", async () => {
@@ -218,9 +218,9 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.name_camelCase(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("ext:string");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("ext:string");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#name_duplicate", async () => {
@@ -236,10 +236,10 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.name_duplicate(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("ext:LocationType");
-        expect(test.issues()[1].label).toBe("ext:LocationType");
-        expect(test.issues().length).toBe(2);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("ext:LocationType");
+        expect(test.issues[1].label).toBe("ext:LocationType");
+        expect(test.issues.length).toBe(2);
       });
 
       test("#name_inconsistent_codeType", async () => {
@@ -254,9 +254,9 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.name_inconsistent_codeType(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].problemValue).toBe("HairColorCodeType");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].problemValue).toBe("HairColorCodeType");
+        expect(test.issues.length).toBe(1);
       });
 
       /**
@@ -274,10 +274,10 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.name_invalidChar(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].problemValue).toBe("CarType ");
-        expect(test.issues()[1].problemValue).toBe("ID#");
-        expect(test.issues().length).toBe(2);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].problemValue).toBe("CarType ");
+        expect(test.issues[1].problemValue).toBe("ID#");
+        expect(test.issues.length).toBe(2);
       });
 
       /**
@@ -295,8 +295,8 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.name_missing_simple(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues.length).toBe(1);
 
       });
 
@@ -315,8 +315,8 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.name_missing_complex(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues.length).toBe(1);
       });
 
       test("#name_repTerm_type", async () => {
@@ -331,10 +331,10 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.name_repTerm_type(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].problemValue).toBe("Car_type ");
-        expect(test.issues()[1].problemValue).toBe("ID#");
-        expect(test.issues().length).toBe(2);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].problemValue).toBe("Car_type ");
+        expect(test.issues[1].problemValue).toBe("ID#");
+        expect(test.issues.length).toBe(2);
       });
 
       test("#name_repTerm_simple", async () => {
@@ -351,10 +351,10 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.name_repTerm_simple(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].problemValue).toBe("CarType");
-        expect(test.issues()[1].problemValue).toBe("IDsimpleType");
-        expect(test.issues().length).toBe(2);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].problemValue).toBe("CarType");
+        expect(test.issues[1].problemValue).toBe("IDsimpleType");
+        expect(test.issues.length).toBe(2);
       });
 
       test("#name_repTerm_complex", async () => {
@@ -369,9 +369,9 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.name_repTerm_complex(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].problemValue).toBe("CarSimpleType");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].problemValue).toBe("CarSimpleType");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#name_repTerm_codeType", async () => {
@@ -389,9 +389,9 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.name_repTerm_codeType(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].problemValue).toBe("MonthCodeType");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].problemValue).toBe("MonthCodeType");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#name_repTerm_codeSimpleType", async () => {
@@ -413,9 +413,9 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.name_repTerm_codeSimpleType(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].problemValue).toBe("MonthCodeSimpleType");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].problemValue).toBe("MonthCodeSimpleType");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#name_reservedTerm_type", async () => {
@@ -430,10 +430,10 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.name_reservedTerm_type(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("ext:IDTypeCodeType");
-        expect(test.issues()[1].label).toBe("ext:TypeCodeType");
-        expect(test.issues().length).toBe(2);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("ext:IDTypeCodeType");
+        expect(test.issues[1].label).toBe("ext:TypeCodeType");
+        expect(test.issues.length).toBe(2);
       });
 
       test("#name_spellcheck", async () => {
@@ -453,16 +453,16 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.name_spellcheck(types, release);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("ext:OrganizatoinType");
-        expect(test.issues()[0].problemValue).toBe("Organizatoin");
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("ext:OrganizatoinType");
+        expect(test.issues[0].problemValue).toBe("Organizatoin");
 
-        expect(test.issues()[1].label).toBe("nc:DestinationLocationzType");
-        expect(test.issues()[1].problemValue).toBe("Locationz");
+        expect(test.issues[1].label).toBe("nc:DestinationLocationzType");
+        expect(test.issues[1].problemValue).toBe("Locationz");
 
-        expect(test.issues()[2].label).toBe("ext:NIEMCountryCodeType");
-        expect(test.issues()[2].problemValue).toBe("NIEM");
-        expect(test.issues().length).toBe(3);
+        expect(test.issues[2].label).toBe("ext:NIEMCountryCodeType");
+        expect(test.issues[2].problemValue).toBe("NIEM");
+        expect(test.issues.length).toBe(3);
       });
 
       test("#prefix_missing", async () => {
@@ -476,9 +476,9 @@ function typeTests(qa, niem) {
         fieldTypes.push(...types);
 
         let test = await qa.type.test.prefix_missing(types);
-        let issues = test.issues();
+        let issues = test.issues;
 
-        expect(test.failed()).toBeTruthy();
+        expect(test.failed).toBeTruthy();
         expect(issues[0].label).toBe("null:IDTypeCodeType");
         expect(issues[1].label).toBe(":TypeCodeType");
         expect(issues.length).toBe(2);
@@ -499,10 +499,10 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.prefix_unknown(types, release);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("ext:IDTypeCodeType");
-        expect(test.issues()[0].problemValue).toBe("ext");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("ext:IDTypeCodeType");
+        expect(test.issues[0].problemValue).toBe("ext");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#style_missing", async () => {
@@ -515,9 +515,9 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.style_missing(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("ext:IDTypeCodeType");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("ext:IDTypeCodeType");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#style_unknown", async () => {
@@ -531,13 +531,13 @@ function typeTests(qa, niem) {
 
         let test = await qa.type.test.style_unknown(types);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("nc:LocationType");
-        expect(test.issues()[0].problemValue).toBe("bogus");
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("nc:LocationType");
+        expect(test.issues[0].problemValue).toBe("bogus");
 
-        expect(test.issues()[1].label).toBe("nc:ActivityType");
-        expect(test.issues()[1].problemValue).toBe(undefined);
-        expect(test.issues().length).toBe(2);
+        expect(test.issues[1].label).toBe("nc:ActivityType");
+        expect(test.issues[1].problemValue).toBe(undefined);
+        expect(test.issues.length).toBe(2);
       });
 
     });

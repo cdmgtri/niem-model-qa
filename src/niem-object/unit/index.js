@@ -1,5 +1,5 @@
 
-let TestSuite = require("../../test-suite");
+let TestSuite = require("../../test-suite/index");
 let Utils = require("../../utils");
 
 /**

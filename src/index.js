@@ -1,8 +1,7 @@
 
 let TestSuite = require("./test-suite/index");
+let Test = require("./test-suite/test/index");
 let Utils = require("./utils/index");
-
-let { Test } = TestSuite;
 
 let PropertyQA = require("./property/index");
 let TypeQA = require("./type/index");
@@ -39,6 +38,7 @@ class NIEMModelQA {
   }
 
   async init() {
+    // Load tests from the test spreadsheet and load the spellchecker library in utils
     await Promise.all([
       this.testSuite.loadTestSpreadsheet(process.cwd() + "/niem-model-qa-tests.xlsx"),
       this.utils.init()

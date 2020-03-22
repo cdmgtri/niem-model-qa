@@ -36,10 +36,8 @@ describe("Check test suite", () => {
 });
 
 describe("Class tests", () => {
-
   // Call unit tests for each Model Object class
   unitTests(qa, niem);
-
 });
 
 describe.skip("Release tests", () => {
@@ -53,6 +51,6 @@ describe.skip("Release tests", () => {
 
 afterAll( async() => {
 
-  await qa.testSuite.saveAsFile("test/test-results");
+  await qa.testSuite.report.saveAsFile("test/test-results");
 
 });

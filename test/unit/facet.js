@@ -38,9 +38,9 @@ function facetTests(qa, niem) {
 
         let test = await qa.facet.test.definition_missing_code(facets);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("ext:WeekdayCodeSimpleType - enum THU");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("ext:WeekdayCodeSimpleType - enum THU");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#definition_missing_pattern", async () => {
@@ -58,9 +58,9 @@ function facetTests(qa, niem) {
 
         let test = await qa.facet.test.definition_missing_pattern(facets);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("ext:SSNFormatType - pattern \d{9}");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("ext:SSNFormatType - pattern \d{9}");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#style_invalid", async () => {
@@ -77,13 +77,13 @@ function facetTests(qa, niem) {
 
         let test = await qa.facet.test.style_invalid(facets);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("ext:WeekdayCodeSimpleType - ENUM THU");
-        expect(test.issues()[0].problemValue).toBe("ENUM");
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("ext:WeekdayCodeSimpleType - ENUM THU");
+        expect(test.issues[0].problemValue).toBe("ENUM");
 
-        expect(test.issues()[1].label).toBe("ext:WeekdayCodeSimpleType - code FRI");
-        expect(test.issues()[1].problemValue).toBe("code");
-        expect(test.issues().length).toBe(2);
+        expect(test.issues[1].label).toBe("ext:WeekdayCodeSimpleType - code FRI");
+        expect(test.issues[1].problemValue).toBe("code");
+        expect(test.issues.length).toBe(2);
       });
 
       test("#type_complex", async () => {
@@ -100,10 +100,10 @@ function facetTests(qa, niem) {
 
         let test = await qa.facet.test.type_complex(facets, release);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("nc:PersonType - enum MON");
-        expect(test.issues()[0].problemValue).toBe("nc:PersonType");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("nc:PersonType - enum MON");
+        expect(test.issues[0].problemValue).toBe("nc:PersonType");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#type_repTerm_code", async () => {
@@ -118,10 +118,10 @@ function facetTests(qa, niem) {
 
         let test = await qa.facet.test.type_repTerm_code(facets, release);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("ext:WeekdaySimpleType - enum TUE");
-        expect(test.issues()[0].problemValue).toBe("ext:WeekdaySimpleType");
-        expect(test.issues().length).toBe(1);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("ext:WeekdaySimpleType - enum TUE");
+        expect(test.issues[0].problemValue).toBe("ext:WeekdaySimpleType");
+        expect(test.issues.length).toBe(1);
       });
 
       test("#type_unknown", async () => {
@@ -140,16 +140,16 @@ function facetTests(qa, niem) {
 
         let test = await qa.facet.test.type_unknown(facets, release);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("ext:BogusCodeSimpleType - enum X");
-        expect(test.issues()[0].problemValue).toBe("ext:BogusCodeSimpleType");
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("ext:BogusCodeSimpleType - enum X");
+        expect(test.issues[0].problemValue).toBe("ext:BogusCodeSimpleType");
 
-        expect(test.issues()[1].label).toBe("nc:BogusCodeSimpleType - enum Y");
-        expect(test.issues()[1].problemValue).toBe("nc:BogusCodeSimpleType");
+        expect(test.issues[1].label).toBe("nc:BogusCodeSimpleType - enum Y");
+        expect(test.issues[1].problemValue).toBe("nc:BogusCodeSimpleType");
 
-        expect(test.issues()[2].label).toBe("null - enum MON");
-        expect(test.issues()[2].problemValue).toBe(null);
-        expect(test.issues().length).toBe(3);
+        expect(test.issues[2].label).toBe("null - enum MON");
+        expect(test.issues[2].problemValue).toBe(null);
+        expect(test.issues.length).toBe(3);
       });
 
       test("#facet_value_duplicate_code", async () => {
@@ -166,13 +166,13 @@ function facetTests(qa, niem) {
 
         let test = await qa.facet.test.value_duplicate_code(facets, release);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("ext:WeekdayCodeSimpleType - enum MON");
-        expect(test.issues()[0].problemValue).toBe("MON");
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("ext:WeekdayCodeSimpleType - enum MON");
+        expect(test.issues[0].problemValue).toBe("MON");
 
-        expect(test.issues()[1].label).toBe("ext:WeekdayCodeSimpleType - enum MON");
-        expect(test.issues()[1].problemValue).toBe("MON");
-        expect(test.issues().length).toBe(2);
+        expect(test.issues[1].label).toBe("ext:WeekdayCodeSimpleType - enum MON");
+        expect(test.issues[1].problemValue).toBe("MON");
+        expect(test.issues.length).toBe(2);
       });
 
       test("#facet_value_missing", async () => {
@@ -188,11 +188,11 @@ function facetTests(qa, niem) {
 
         let test = await qa.facet.test.value_missing(facets);
 
-        expect(test.failed()).toBeTruthy();
-        expect(test.issues()[0].label).toBe("a:WeekdayCodeSimpleType - enum undefined");
-        expect(test.issues()[1].label).toBe("b:WeekdayCodeSimpleType - enum null");
-        expect(test.issues()[2].label).toBe("c:WeekdayCodeSimpleType - enum ");
-        expect(test.issues().length).toBe(3);
+        expect(test.failed).toBeTruthy();
+        expect(test.issues[0].label).toBe("a:WeekdayCodeSimpleType - enum undefined");
+        expect(test.issues[1].label).toBe("b:WeekdayCodeSimpleType - enum null");
+        expect(test.issues[2].label).toBe("c:WeekdayCodeSimpleType - enum ");
+        expect(test.issues.length).toBe(3);
       });
 
     });

@@ -2,8 +2,9 @@
 let { Release, NIEMObject, Component } = require("niem-model");
 
 let TestSuite = require("../test-suite/index");
+let Test = require("../test-suite/test/index");
+let Issue = require("../test-suite/issue/index");
 let SpellChecker = require("./spellChecker");
-let { Test, Issue } = TestSuite;
 
 class Utils {
 

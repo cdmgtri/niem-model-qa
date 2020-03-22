@@ -1,8 +1,7 @@
 
-let NIEMTestSuite = require("niem-test-suite");
 let NIEMObjectQA = require("../niem-object");
 let PropertyUnitTests = require("./unit");
-let Utils = require("../utils/index");
+let QATestSuite = require("../test-suite/index");
 
 class PropertyQA extends NIEMObjectQA {
 
@@ -15,7 +14,7 @@ class PropertyQA extends NIEMObjectQA {
     /**
      * @param {Property[]} properties
      * @param {Release} release
-     * @returns {Promise<NIEMTestSuite>}
+     * @returns {Promise<QATestSuite>}
      */
     this.all = (properties, release) => this.runTests(properties, release);
 
@@ -24,21 +23,21 @@ class PropertyQA extends NIEMObjectQA {
       /**
        * @param {Property[]} properties
        * @param {Release} release
-       * @returns {Promise<NIEMTestSuite>}
+       * @returns {Promise<QATestSuite>}
        */
       definition: (properties, release) => this.runTests(properties, release, "definition"),
 
       /**
        * @param {Property[]} properties
        * @param {Release} release
-       * @returns {Promise<NIEMTestSuite>}
+       * @returns {Promise<QATestSuite>}
        */
       name: (properties, release) => this.runTests(properties, release, "name"),
 
       /**
        * @param {Property[]} properties
        * @param {Release} release
-       * @returns {Promise<NIEMTestSuite>}
+       * @returns {Promise<QATestSuite>}
        */
       prefix: (properties, release) => this.runTests(properties, release, "prefix"),
 

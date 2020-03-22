@@ -14,12 +14,15 @@
   "license": "ISC",
   "dependencies": {
     "dictionary-en": "^3.0.0",
+    "file-saver": "^2.0.2",
     "niem-model": "github:cdmgtri/niem-model#dev",
-    "niem-test-suite": "github:cdmgtri/niem-test-suite#dev",
-    "nodehun": "^3.0.1"
+    "niem-specification-utils-js": "github:cdmgtri/niem-specification-utils-js",
+    "nodehun": "^3.0.1",
+    "xlsx-populate": "^1.21.0"
   },
   "devDependencies": {
     "@types/jest": "^24.9.1",
+    "@types/xlsx-populate": "github:JanLoebel/types-xlsx-populate",
     "coveralls": "^3.0.11",
     "docdash": "^1.2.0",
     "jest": "^25.1.0",
