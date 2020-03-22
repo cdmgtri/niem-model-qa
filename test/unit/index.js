@@ -1,5 +1,5 @@
 
-let NIEMModelQA = require("../../index");
+let NIEMModelQA = require("../../src/index");
 
 let classUnitTestSets = [
   require("./property"),

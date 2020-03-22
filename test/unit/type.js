@@ -1,8 +1,5 @@
 
-let NIEMModelQA = require("../../index");
-
-let NIEM = require("niem-model");
-let { Release, Type } = NIEM;
+let { NIEM, Release, Type } = require("niem-model");
 
 /** @type {Release} */
 let release;
@@ -587,3 +584,5 @@ function typeTests(qa, niem) {
 
 
 module.exports = typeTests;
+
+let NIEMModelQA = require("../../src/index");

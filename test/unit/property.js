@@ -1,8 +1,5 @@
 
-let NIEMModelQA = require("../../index");
-
-let NIEM = require("niem-model");
-let { Release, Property } = NIEM;
+let { NIEM, Release, Property } = require("niem-model");
 
 /** @type {Release} */
 let release;
@@ -260,3 +257,5 @@ function propertyTests(qa, niem) {
 }
 
 module.exports = propertyTests;
+
+let NIEMModelQA = require("../../src/index");

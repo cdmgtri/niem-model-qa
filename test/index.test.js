@@ -1,7 +1,7 @@
 
 let { NIEM } = require("niem-model");
 
-let NIEMModelQA = require("../index");
+let NIEMModelQA = require("../src/index");
 let unitTests = require("./unit/index");
 
 let qa = new NIEMModelQA();

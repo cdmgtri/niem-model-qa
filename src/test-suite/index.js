@@ -1,10 +1,8 @@
 
-let NIEMTestSuite = require("niem-test-suite");
 let { NIEMObject } = require("niem-model");
+let { TestSuite, Test, Issue } = require("niem-test-suite");
 
-let { Test, Issue } = NIEMTestSuite;
-
-class QATestSuite extends NIEMTestSuite {
+class QATestSuite extends TestSuite {
 
   /**
    * Starts the clock on a test or throws error if not found.

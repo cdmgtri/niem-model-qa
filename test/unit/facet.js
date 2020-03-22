@@ -1,8 +1,5 @@
 
-let NIEM = require("niem-model");
-let NIEMModelQA = require("../../index");
-
-let { Release, Facet } = NIEM;
+let { NIEM, Release, Facet } = require("niem-model");
 
 /** @type {Release} */
 let release;
@@ -228,3 +225,5 @@ function facetTests(qa, niem) {
 }
 
 module.exports = facetTests;
+
+let NIEMModelQA = require("../../src/index");
