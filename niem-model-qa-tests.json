@@ -11,7 +11,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -26,7 +26,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -43,7 +43,7 @@
     "rule": "9-14",
     "exampleValid": "Code facet 'MON' must have a definition (e.g., 'Monday').",
     "exampleInvalid": "Length facet '10' is not required to have a definition.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -60,7 +60,7 @@
     "rule": "",
     "exampleValid": "Pattern facet '\\d{3}-\\d{3}-\\d{4}' should have a definition (e.g., 'Telephone number format matching the pattern ###-###-####').",
     "exampleInvalid": "Length facet '10' is not required to have a definition.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -75,7 +75,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -90,7 +90,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -107,7 +107,7 @@
     "rule": "",
     "exampleValid": "Code 'MON' can belong to simple type 'WeekdayCodeSimpleType'.",
     "exampleInvalid": "Code 'MON' cannot belong to complex object type 'nc:PersonType'.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -124,7 +124,7 @@
     "rule": "11-7",
     "exampleValid": "Code 'MON' can belong to a type named 'WeekdayCodeSimpleType'.",
     "exampleInvalid": "Code 'MON' cannot belong to a type named 'WeekdaySimpleType'.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -139,7 +139,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -156,7 +156,7 @@
     "rule": "",
     "exampleValid": "Type 'WeekdayCodeSimpleType' with codes 'MON', 'TUE', 'WED', ...",
     "exampleInvalid": "Type 'WeekdayCodeSimpleType' with codes 'MON', 'MON', 'MON', ...",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -171,7 +171,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -186,7 +186,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -203,7 +203,7 @@
     "rule": "",
     "exampleValid": "Definition 'A FIPS state codes\" is valid if the term 'FIPS' is defined as Local Terminology in that namespace.",
     "exampleInvalid": "A FIPS state codes\" is not recommended if the term 'FIPS' is not defined as Local Terminology in that namespace.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -218,7 +218,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -233,7 +233,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -250,7 +250,7 @@
     "rule": "10-48",
     "exampleValid": "Attribute name 'sequenceID' is valid because it begins with a lower case letter.",
     "exampleInvalid": "Attribute name 'SequenceID' is not valid because it begins with an upper case letter.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -267,7 +267,7 @@
     "rule": "10-49",
     "exampleValid": "Element name 'Person' is valid because it begins with an upper case letter.",
     "exampleInvalid": "Element name 'person' is not valid because it begins with a lower case letter.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -282,7 +282,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -299,7 +299,7 @@
     "rule": "10-45",
     "exampleValid": "Property name 'Person' uses valid characters.",
     "exampleInvalid": "Property name 'PersonIsCitizen?' does not use valid characters.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -314,7 +314,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -331,7 +331,7 @@
     "rule": "10-44",
     "exampleValid": "Property name 'nc:StateFIPSCode' is valid if the nc namespace defines the meaning of 'FIPS' in its Local Terminology section.",
     "exampleInvalid": "Property name 'nc:StateFIPSCode' is not valid if the nc namespace does not define 'FIPS' in its Local Terminology section.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -346,7 +346,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -361,7 +361,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -376,7 +376,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -391,7 +391,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -406,7 +406,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -421,7 +421,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -436,7 +436,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -451,7 +451,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -466,7 +466,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -481,7 +481,7 @@
     "spec": "NDR",
     "version": "4.0",
     "rule": "10-21",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -496,7 +496,7 @@
     "spec": "NDR",
     "version": "4.0",
     "rule": "10-35",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -513,7 +513,7 @@
     "rule": "",
     "exampleValid": "Simple content type HairColorCodeType can have a base type like HairColorCodeSimpleType (simple type).",
     "exampleInvalid": "Simple content type HairColorCodeType cannot have a type like nc:PersonType (complex object type).",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -530,7 +530,7 @@
     "rule": "",
     "exampleValid": "Simple type ext:HairColorCodeSimpleType can have base type xs:token.",
     "exampleInvalid": "Simple type ext:HairColorCodeSimpleType should not have base type ext:ColorCodeSimpleType.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -545,7 +545,7 @@
     "spec": "NDR",
     "version": "4.0",
     "rule": "10-39",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -562,7 +562,7 @@
     "rule": "",
     "exampleValid": "Type HairColorCodeSimpleType needs a base type like xs:string or xs:token.",
     "exampleInvalid": "Type HairColorCodeSimpleType is not valid without a base type.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -577,7 +577,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -594,7 +594,7 @@
     "rule": "",
     "exampleValid": "Type PersonType can extend type structures:ObjectType (this type exists).",
     "exampleInvalid": "Type PersonType cannot extend type structures:BogusType (this type does not exist).",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -609,7 +609,7 @@
     "spec": "NDR",
     "version": "4.0",
     "rule": "9-26",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -624,7 +624,7 @@
     "spec": "NDR",
     "version": "4.0",
     "rule": "9-12",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -641,7 +641,7 @@
     "rule": "11-44",
     "exampleValid": "Definition 'A data type for a human being' is valid for type 'PersonType'.",
     "exampleInvalid": "Definition 'A human being' is not valid for type 'PersonType'.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -658,7 +658,7 @@
     "rule": "11-45",
     "exampleValid": "Definition 'A data type for United States state codes' is valid for type usps:StateCodeSimpleType.",
     "exampleInvalid": "Definition 'United States state codes' is not valid for type usps:StateCodeSimpleType.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -675,7 +675,7 @@
     "rule": "",
     "exampleValid": "Definition 'A data type for FIPS state codes\" is valid if the term 'FIPS' is defined as Local Terminology in that namespace.",
     "exampleInvalid": "Definition 'A data type for FIPS state codes\" is not recommended if the term 'FIPS' is not defined as Local Terminology in that namespace.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -692,7 +692,7 @@
     "rule": "10-49",
     "exampleValid": "Type name 'PersonType' is valid because it begins with an upper case letter.",
     "exampleInvalid": "Type name 'personType' is not valid because it begins with a lower case letter.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -709,7 +709,7 @@
     "rule": "",
     "exampleValid": "Types 'justice:CaseType' and 'logistics:CaseType' are valid because even though they use the same name, they are defined in different namespaces.",
     "exampleInvalid": "Type name 'CaseType' cannot be defined twice in the justice namespace.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -726,7 +726,9 @@
     "rule": "",
     "exampleValid": "Type name 'HairColorCodeType' is valid with base type 'HairColorCodeSimpleType'.",
     "exampleInvalid": "Type name 'HairColorCodeType' is not recommended with base type 'EyeColorCodeSimpleType'.",
-    "exceptionIDs": [],
+    "exceptionLabels": [
+      "nc:CodeType"
+    ],
     "ran": false
   },
   {
@@ -743,7 +745,7 @@
     "rule": "10-45",
     "exampleValid": "Type name \"PersonType\" uses valid characters.",
     "exampleInvalid": "Type name \"ID#Type\" does not use valid characters.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -758,7 +760,7 @@
     "spec": "NDR",
     "version": "4.0",
     "rule": "9-25",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -773,7 +775,7 @@
     "spec": "NDR",
     "version": "4.0",
     "rule": "9-10",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -790,7 +792,7 @@
     "rule": "",
     "exampleValid": "Type name 'PersonLocationAssociationType' is a valid association type name.",
     "exampleInvalid": "Type name 'PersonLocationType' is not a valid association type name.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -807,7 +809,7 @@
     "rule": "10-34",
     "exampleValid": "Type name 'PersonAugmentationType' is a valid augmentation type name.",
     "exampleInvalid": "Type name 'PersonType' is not a valid augmentation type name.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -824,7 +826,7 @@
     "rule": "11-8",
     "exampleValid": "Type name 'WeekdayCodeSimpleType' is valid if the type declares codes.",
     "exampleInvalid": "Type name 'WeekdayCodeSimpleType' is not valid if the type does not declare codes.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -841,7 +843,9 @@
     "rule": "10-18",
     "exampleValid": "Type name 'WeekdayCodeSimpleType' is not valid if the type does not declare codes.",
     "exampleInvalid": "Type name 'WeekdayCodeType' is not valid with base type 'string'",
-    "exceptionIDs": [],
+    "exceptionLabels": [
+      "nc:CodeType"
+    ],
     "ran": false
   },
   {
@@ -858,7 +862,7 @@
     "rule": "",
     "exampleValid": "Type name 'IDSimpleType' is valid if the type is simple.",
     "exampleInvalid": "Type name 'IDSimpleType' is not valid if the type is complex.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -875,7 +879,7 @@
     "rule": "",
     "exampleValid": "Type name 'DecimalListSimpleType' is a valid list type name.",
     "exampleInvalid": "Type name 'DecimalValuesSimpleType' is not a valid list type name.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -892,7 +896,7 @@
     "rule": "",
     "exampleValid": "Type name 'SourceMetadataType' is a valid metadata type name.",
     "exampleInvalid": "Type name 'SourceType' is not a valid metadata type name.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -909,7 +913,7 @@
     "rule": "11-3",
     "exampleValid": "Type name 'IDSimpleType' is valid if the type is simple.",
     "exampleInvalid": "Type name 'IDType' is not valid if the type is simple.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -926,7 +930,7 @@
     "rule": "11-1",
     "exampleValid": "Type name 'PersonType' is valid.",
     "exampleInvalid": "Type name 'Person' is not valid.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -943,7 +947,15 @@
     "rule": "",
     "exampleValid": "Type name 'IDCategoryCodeType' is valid because the term 'Type' only appears at the end of the name.",
     "exampleInvalid": "Type name 'IDTypeCodeType' is not valid because the term 'Type' is used in the middle of the name.",
-    "exceptionIDs": [],
+    "exceptionLabels": [
+      "biom:Type2CrossReferenceListType",
+      "j:PersonBloodTypeCodeSimpleType",
+      "j:PersonBloodTypeCodeType",
+      "jp3-52:AirspaceCoordinatingMeasureTypeAndUsageType",
+      "jp3-52:AirspaceCoordinatingMeasureTypeCodeSimpleType",
+      "jp3-52:AirspaceCoordinatingMeasureTypeCodeType",
+      "mo:UnitTypeCodeTextSimpleType"
+    ],
     "ran": false
   },
   {
@@ -960,7 +972,7 @@
     "rule": "10-44",
     "exampleValid": "Type name 'ncic:VMOCodeType' is valid if the ncic namespace defines the meaning of 'VMO' in its Local Terminology section.",
     "exampleInvalid": "Type name 'ncic:VMOCodeType' is not valid if the ncic namespace does not defined 'VMO' in its Local Terminology section.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "notes": "NDR rule does not mention local terminology.",
     "ran": false
   },
@@ -978,7 +990,7 @@
     "rule": "",
     "exampleValid": "Type PersonType can be associated with a namespace prefix like 'nc'.",
     "exampleInvalid": "Type PersonType should not have a missing namespace prefix.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -995,7 +1007,7 @@
     "rule": "",
     "exampleValid": "Type PersonType can have namespace prefix 'nc' if that prefix is declared.",
     "exampleInvalid": "Type PersonType cannot have namespace prefix 'unk' if there is no declaration of what 'unk' is.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -1010,7 +1022,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -1025,7 +1037,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -1040,7 +1052,7 @@
     "spec": "",
     "version": "",
     "rule": "",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -1057,7 +1069,7 @@
     "rule": "",
     "exampleValid": "Type PersonType has style 'object'.",
     "exampleInvalid": "Type PersonType does not have a style.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   },
   {
@@ -1074,7 +1086,7 @@
     "rule": "",
     "exampleValid": "Type PersonType has permitted style 'object'.",
     "exampleInvalid": "Type PersonType cannot have unknown style 'myCustomObject'.",
-    "exceptionIDs": [],
+    "exceptionLabels": [],
     "ran": false
   }
 ]

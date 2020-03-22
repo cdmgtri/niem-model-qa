@@ -11,12 +11,17 @@ let Report = require("./report/index");
  */
 class QATestSuite {
 
-  constructor() {
+  /**
+   * @param {boolean} ignoreExceptions True if exceptions should not be added to the issue list
+   */
+  constructor(ignoreExceptions=true) {
 
     /** @type {Test[]} */
     this.tests = [];
 
     this.report = new Report(this);
+
+    this.ignoreExceptions = ignoreExceptions;
 
   }
 
@@ -231,7 +236,11 @@ class QATestSuite {
       let problemValue = object[problemField];
       let comment = commentFunction ? commentFunction(object) : "";
 
-      return new Issue(object.authoritativePrefix, object.label, object.input_location, object.input_line, object.input_position, problemValue, comment);
+      let isException = test.exceptionLabels.includes(object.label);
+
+      if (!this.ignoreExceptions || !isException) {
+        return new Issue(object.authoritativePrefix, object.label, object.input_location, object.input_line, object.input_position, problemValue, comment);
+      }
 
     });
 

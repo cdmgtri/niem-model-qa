@@ -40,9 +40,14 @@ class Test {
     this.exampleValid = validExample;
     this.exampleInvalid = invalidExample;
     this.exceptions = exceptions;
-    this.exceptionIDs = exceptionIDs ? exceptionIDs.replace(/\s/g, "").split(",") : [];
+    this.exceptionLabels = [];
     this.notes = notes;
     this.ran = ran;
+
+    if (exceptionIDs) {
+      // Clean up and split comma-separated values
+      this.exceptionLabels = exceptionIDs.trim().replace(/,$/, "").replace(/\s/g, "").split(",");
+    }
 
     /** @type {number} */
     this.timeStart;

@@ -13,11 +13,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "debug": "^4.1.1",
     "dictionary-en": "^3.0.0",
     "file-saver": "^2.0.2",
     "niem-model": "github:cdmgtri/niem-model#dev",
     "niem-specification-utils-js": "github:cdmgtri/niem-specification-utils-js",
     "nodehun": "^3.0.1",
+    "supports-color": "^7.1.0",
     "xlsx-populate": "^1.21.0"
   },
   "devDependencies": {

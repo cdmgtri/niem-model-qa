@@ -232,7 +232,7 @@ class Report {
   async reportBinary(testedNamespaces=[], prefixes, format="Buffer", options) {
 
     let path = require("path");
-    let filePath = path.resolve(process.cwd() + "/templates/test-results-template.xlsx");
+    let filePath = path.resolve(__dirname, "../../../templates/test-results-template.xlsx");
     let workbook = await xlsx.fromFileAsync(filePath);
 
     this.writeSummaryTab(workbook, prefixes);
