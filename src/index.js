@@ -7,6 +7,8 @@ let PropertyQA = require("./property/index");
 let TypeQA = require("./type/index");
 let FacetQA = require("./facet/index");
 
+let { Component, Facet } = require("niem-model");
+
 /** @type {Array} */
 let TestMetadata = require("../niem-model-qa-tests.json");
 
@@ -51,6 +53,10 @@ class NIEMModelQA {
     let properties = await release.properties.find();
     let types = await release.types.find();
     let facets = await release.facets.find();
+
+    properties = properties.sort(Component.sortByQName);
+    types = types.filter( type => type.prefix != "xs" ).sort(Component.sortByQName);
+    facets = facets.sort(Facet.sortFacetsByStyleAdjustedValueDefinition);
 
     /** @type {Object<string, TestSuite>} */
     let testSuites = {};
