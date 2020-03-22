@@ -28,8 +28,8 @@ class NIEMModelQA {
     this.type = new TypeQA(this.testSuite, this.utils);
     this.facet = new FacetQA(this.testSuite, this.utils);
 
-    let tests = TestMetadata.map( metadata => Object.assign(new Test(), metadata) );
-    this.testSuite.loadTests(tests);
+    // let tests = TestMetadata.map( metadata => Object.assign(new Test(), metadata) );
+    // this.testSuite.loadTests(tests);
 
   }
 
@@ -38,11 +38,8 @@ class NIEMModelQA {
   }
 
   async init() {
-    // Load tests from the test spreadsheet and load the spellchecker library in utils
-    await Promise.all([
-      this.testSuite.loadTestSpreadsheet(process.cwd() + "/niem-model-qa-tests.xlsx"),
-      this.utils.init()
-    ]);
+    // Load the spellchecker library in utils
+    await this.utils.init()
   }
 
   /**
@@ -81,15 +78,18 @@ class NIEMModelQA {
 
   static async updateTestSuiteJSON() {
 
+    let path = require("path");
+    let currentPath = path.resolve(__dirname, "../");
+
     let testSuite = new TestSuite();
 
     // Import test spreadsheet metadata
-    await testSuite.loadTestSpreadsheet("./niem-model-qa-tests.xlsx");
+    await testSuite.loadTestSpreadsheet(currentPath + "/niem-model-qa-tests.xlsx");
 
     // Save test metadata to JSON file
     let fs = require("fs");
     let json = JSON.stringify(testSuite.testSuiteMetadata, null, 2);
-    fs.writeFileSync("./niem-model-qa-tests.json", json);
+    fs.writeFileSync(currentPath + "/niem-model-qa-tests.json", json);
   }
 
 }

@@ -14,6 +14,7 @@ let release;
 
 beforeAll( async () => {
   await qa.init();
+  await qa.testSuite.loadTestSpreadsheet("niem-model-qa-tests.xlsx");
   release = await niem.releases.add("user", "model", "1.0");
 });
 
@@ -21,6 +22,7 @@ describe("Check test suite", () => {
 
   test("#load", () => {
     expect(qa.testSuite.tests.length).toBeGreaterThan(20);
+    expect(qa.testSuite.tests.length).toBeLessThan(500);
     expect(qa.testSuite.status()).toBe("not ran");
   });
 
@@ -50,7 +52,5 @@ describe.skip("Release tests", () => {
 });
 
 afterAll( async() => {
-
   await qa.testSuite.report.saveAsFile("test/test-results");
-
 });

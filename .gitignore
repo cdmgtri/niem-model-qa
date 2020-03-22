@@ -3,6 +3,7 @@ index.d.ts
 docs/
 ~*
 *stackdump*
+test/test-results.xlsx
 
 # Logs
 logs
