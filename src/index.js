@@ -28,8 +28,8 @@ class NIEMModelQA {
     this.type = new TypeQA(this.testSuite, this.utils);
     this.facet = new FacetQA(this.testSuite, this.utils);
 
-    // let tests = TestMetadata.map( metadata => Object.assign(new Test(), metadata) );
-    // this.testSuite.loadTests(tests);
+    let tests = TestMetadata.map( metadata => Object.assign(new Test(), metadata) );
+    this.testSuite.loadTests(tests);
 
   }
 
@@ -63,7 +63,7 @@ class NIEMModelQA {
     // Merge the results into a single test suite
     let fullTestSuite = new TestSuite();
     for (let key in testSuites) {
-      fullTestSuite.tests.push(testSuites[key].tests);
+      fullTestSuite.tests.push(...testSuites[key].tests);
     }
 
     return fullTestSuite;

@@ -42,12 +42,13 @@ describe("Class tests", () => {
   unitTests(qa, niem);
 });
 
-describe.skip("Release tests", () => {
+describe("Release tests", () => {
 
-  // test("#checkRelease", async () => {
-  //   let results = await qa.checkRelease(release);
-  //   debugger;
-  // });
+  test("#checkRelease", async () => {
+    let testSuite = await qa.checkRelease(release);
+    let issues = testSuite.issues();
+    expect(issues.length).toBe(101);
+  });
 
 });
 

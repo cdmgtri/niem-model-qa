@@ -58,8 +58,10 @@ class QATestSuite {
 
   /**
    * @param {String} filePath
+   * @param {boolean} reset Overwrite existing tests if true
    */
-  async loadTestSpreadsheet(filePath) {
+  async loadTestSpreadsheet(filePath, reset=true) {
+    if (reset) this.tests = [];
     let tests = await QATestSuite.loadTestSpreadsheet(filePath);
     return this.loadTests(tests);
   }
