@@ -208,13 +208,14 @@ class QATestSuite {
     return test;
   }
 
+  // * @param {function(NIEMObject):string} commentFunction
   /**
    * Logs issues for the test.
    *
    * @param {Test} test
    * @param {NIEMObject[]} problemObjects
    * @param {String} problemField
-   * @param {CommentFunction} commentFunction
+   * @param {(object: NIEMObject) => string} commentFunction
    * @param {Boolean} [reset=true] Replaces any previous issues with new issues
    */
   post(test, problemObjects, problemField, commentFunction, reset=true) {
@@ -228,7 +229,7 @@ class QATestSuite {
     let issues = problemObjects.map( object => {
 
       let problemValue = object[problemField];
-      let comment = commentFunction ? commentFunction(problemValue) : "";
+      let comment = commentFunction ? commentFunction(object) : "";
 
       return new Issue(object.authoritativePrefix, object.label, object.input_location, object.input_line, object.input_position, problemValue, comment);
 

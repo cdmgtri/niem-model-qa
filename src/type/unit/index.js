@@ -255,7 +255,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
     .filter( type => type.name && type.name.endsWith("CodeType") && type.baseName )
     .filter( type => type.name.replace("CodeType", "CodeSimpleType") != type.baseName );
 
-    return this.testSuite.post(test, problemTypes, "name");
+    return this.testSuite.post(test, problemTypes, "name", (type) => "base type " + type.baseQName);
   }
 
   /**

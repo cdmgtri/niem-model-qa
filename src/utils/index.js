@@ -163,7 +163,7 @@ class Utils {
         let localTerm = await release.localTerms.get(component.prefix, unknownSpelling.word);
 
         if (! localTerm) {
-          let issue = new Issue(component.prefix, component.label, component.input_location, component.input_line, component.source_position, unknownSpelling.word);
+          let issue = new Issue(component.prefix, component.label, component.input_location, component.input_line, component.source_position, unknownSpelling.word, component.definition);
           issues.push(issue);
         }
       }
@@ -198,7 +198,7 @@ class Utils {
           let localTerm = await release.localTerms.get(component.prefix, term);
 
           if (!localTerm) {
-            let issue = new Issue(component.prefix, component.label, component.source_location, component.source_line, component.source_position, term);
+            let issue = new Issue(component.prefix, component.label, component.source_location, component.source_line, component.source_position, term, component.qname);
 
             issues.push(issue);
           }

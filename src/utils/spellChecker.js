@@ -53,7 +53,13 @@ class SpellChecker {
   async checkLongText(text) {
 
     let unknownSpellings = [];
-    let uniqueWords = new Set(text.split(" "));
+
+    let updatedText = text
+    .replace(/\(\S*\)/g, "")   // Replace non-space text in parentheses with a space, e.g., "(CMV)"" => " "
+    .replace(/[^\w]/g, " ")    // Replace everything that isn't a word character with a space
+
+    let uniqueWords = new Set(updatedText.split(/\s+/));
+    uniqueWords.delete("");
 
     for (let word of uniqueWords) {
       let correct = await this.checkWord(word);
@@ -66,7 +72,10 @@ class SpellChecker {
         };
 
         // Find each position of the unknown word in the original text
-        let matches = text.match(new RegExp(word, "g"));
+        let wordPattern = word.replace("(", "\\\(").replace(")", "\\\)");
+        let matches = text.match(new RegExp(wordPattern, "g"));
+        if (!matches) continue;
+
         let lastIndex = 0;
         for (let i = 0; i < matches.length; i ++) {
           let index = text.indexOf(word, lastIndex);
