@@ -53,6 +53,29 @@ describe("Release tests", () => {
 
 });
 
+describe("Reload tests", () => {
+
+  test("save and reload tests", async () => {
+
+    let filePath = "test/tests.json";
+
+    // Save current counts
+    let testCount = qa.testSuite.tests.length;
+    let issueCount = qa.testSuite.issues().length;
+
+    // Save tests
+    await qa.saveTestResults(filePath);
+
+    // Reset and reload tests
+    qa.testSuite.tests = [];
+    await qa.reloadTestResults(filePath);
+
+    expect(qa.testSuite.tests.length).toBe(testCount);
+    expect(qa.testSuite.issues().length).toBe(issueCount);
+
+  })
+});
+
 afterAll( async() => {
   await qa.testSuite.report.saveAsFile("test/test-results");
 });

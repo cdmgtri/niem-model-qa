@@ -88,6 +88,26 @@ class NIEMModelQA {
     fs.writeFileSync(filePath, json);
   }
 
+  saveTestResults(filePath) {
+    let fs = require("fs");
+    let json = JSON.stringify(this.testSuite.tests, null, 2);
+    fs.writeFileSync(filePath, json);
+  }
+
+  reloadTestResults(filePath) {
+    let fs = require("fs");
+    let data = fs.readFileSync(filePath, "utf8");
+
+    /** @type {{}[]} */
+    let json = JSON.parse(data);
+
+    for (let testInfo of json) {
+      let test = Object.assign(new Test(), testInfo);
+      this.testSuite.tests.push(test)
+    }
+
+  }
+
   static async updateTestSuiteJSON() {
 
     let path = require("path");
