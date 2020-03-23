@@ -2,6 +2,10 @@
 let TestSuite = require("./test-suite/index");
 let Test = require("./test-suite/test/index");
 let Utils = require("./utils/index");
+let debug = require("debug")("niem-qa");
+
+process.env.DEBUG = "niem-*";
+debug.enabled = true;
 
 let PropertyQA = require("./property/index");
 let TypeQA = require("./type/index");
@@ -32,6 +36,8 @@ class NIEMModelQA {
 
     let tests = TestMetadata.map( metadata => Object.assign(new Test(), metadata) );
     this.testSuite.loadTests(tests);
+
+    debug("Initialized test suite");
 
   }
 

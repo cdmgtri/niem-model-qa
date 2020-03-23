@@ -1,5 +1,9 @@
 
 let QATestSuite = require("../test-suite/index");
+let debug = require("debug")("niem-qa");
+
+process.env.DEBUG = "niem-*";
+debug.enabled = true;
 
 /**
  * @private
@@ -53,6 +57,8 @@ class NIEMObjectQA {
       let test = await this.test[testName](niemObjects, release);
       tests.push(test);
     }
+
+    debug(`Ran ${this.constructor.name.replace("QA", "")} tests`);
 
     return QATestSuite.init(tests);
 
