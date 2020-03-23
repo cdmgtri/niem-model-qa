@@ -351,8 +351,11 @@ class QATestSuite {
       test.issues = [];
     }
 
+    /** @type {Issue[]} */
+    let issues = [];
+
     // Process inputs into an array of issues
-    let issues = problemObjects.map( object => {
+    problemObjects.forEach( object => {
 
       let problemValue = object[problemField];
       let comment = commentFunction ? commentFunction(object) : "";
@@ -360,7 +363,8 @@ class QATestSuite {
       let isException = test.exceptionLabels.includes(object.label);
 
       if (!this.ignoreExceptions || !isException) {
-        return new Issue(object.authoritativePrefix, object.label, object.input_location, object.input_line, object.input_position, problemValue, comment);
+        let issue = new Issue(object.authoritativePrefix, object.label, object.input_location, object.input_line, object.input_position, problemValue, comment);
+        issues.push(issue);
       }
 
     });

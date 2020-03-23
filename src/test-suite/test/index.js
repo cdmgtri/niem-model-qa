@@ -103,6 +103,7 @@ class Test {
    * @type {String[]}
    */
   get prefixes() {
+    if (this.issues.length == 0) return [];
     let prefixes = this.issues.map( issue => issue.prefix );
     return [ ...(new Set(prefixes)) ];
   }
@@ -157,6 +158,7 @@ class Test {
    */
   namespacesIssues(prefixes=[]) {
     if (prefixes.length == 0) return this.issues;
+    if (!this.issues || this.issues.length == 0) return [];
     return this.issues.filter( issue => prefixes.includes(issue.prefix) );
   }
 

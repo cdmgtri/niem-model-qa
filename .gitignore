@@ -4,6 +4,7 @@ docs/
 ~*
 *stackdump*
 test/test-results.xlsx
+test/tests.json
 
 # Logs
 logs
