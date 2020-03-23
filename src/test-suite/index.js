@@ -1,5 +1,6 @@
 
 let xlsx = require("xlsx-populate");
+let chalk = require("chalk");
 let { NIEMObject } = require("niem-model");
 
 let Test = require("./test/index");
@@ -122,6 +123,27 @@ class QATestSuite {
   /**
    * @param {String[]} prefixes
    */
+  testsFailedErrors(prefixes) {
+    return this.testsFailed(prefixes, ["error"]);
+  }
+
+  /**
+   * @param {String[]} prefixes
+   */
+  testsFailedWarnings(prefixes) {
+    return this.testsFailed(prefixes, ["warning"]);
+  }
+
+  /**
+   * @param {String[]} prefixes
+   */
+  testsFailedInfo(prefixes) {
+    return this.testsFailed(prefixes, ["info"]);
+  }
+
+  /**
+   * @param {String[]} prefixes
+   */
   passed(prefixes) {
     return this.testsFailed(prefixes).length == 0 && this.testsRan.length > 0;
   }
@@ -140,6 +162,105 @@ class QATestSuite {
     if (this.passed(prefixes)) return "pass";
     if (this.failed(prefixes)) return "fail";
     return "not ran";
+  }
+
+  /**
+   * Print QA status to the console.
+   * @param {String[]} prefixes
+   */
+  printStatus(prefixes) {
+
+    /**
+     * @typedef Details
+     * @property {Test[]} tests
+     * @property {string} symbol
+     * @property {Function} chalkFunction
+     * @property {string} heading
+     */
+    let DetailsType;
+
+    let headerPadding = 10;
+
+    /** @type {{passed: Details, errors: Details, warnings: Details, info: Details}} */
+    let summary = {
+      passed: {
+        tests: this.testsPassed(prefixes),
+        symbol: chalk.green("\u2714"),
+        chalkFunction: chalk.green,
+        heading: "Passed:".padEnd(headerPadding, " ")
+      },
+      errors: {
+        tests: this.testsFailedErrors(prefixes),
+        symbol: chalk.red("\u2716"),
+        chalkFunction: chalk.red,
+        heading: "Errors:".padEnd(headerPadding, " ")
+      },
+      warnings: {
+        tests: this.testsFailedWarnings(prefixes),
+        symbol: chalk.yellow("?"),
+        chalkFunction: chalk.yellow,
+        heading: "Warnings:".padEnd(headerPadding, " ")
+      },
+      info: {
+        tests: this.testsFailedInfo(prefixes),
+        symbol: chalk.gray("\u2722"),
+        chalkFunction: chalk.gray,
+        heading: "Info:".padEnd(headerPadding, " ")
+      }
+    }
+
+    /**
+     * @param {Test} test
+     * @param {Details} details
+     */
+    function printTestSummaryLine(test, details) {
+      let issueCount = "";
+      if (test.issues.length > 0) {
+        issueCount = `(${test.issues.length} issue${test.issues.length > 1 ? "s" : ""})`;
+      }
+      return `${details.symbol} ${test.id}  ${details.chalkFunction(issueCount)}`;
+    }
+
+    /**
+     * @param {Details} details
+     */
+    function printSeverityTests(details) {
+      if (details.tests.length == 0) return [];
+      return details.tests
+      .sort( (test1, test2) => test1.id.localeCompare(test2.id) )
+      .map( test => printTestSummaryLine(test, details));
+    }
+
+    /**
+     * @param {Details} details
+     */
+    function printSeveritySummary(details) {
+      if (details.tests.length == 0) return;
+      let severitySummary = `${details.tests.length} tests`;
+      return `${details.symbol} ${details.heading} ${details.chalkFunction(severitySummary.padStart(9, " "))}`;
+    }
+
+    let severityTests = []
+    .concat(printSeverityTests(summary.passed))
+    .concat(printSeverityTests(summary.info))
+    .concat(printSeverityTests(summary.warnings))
+    .concat(printSeverityTests(summary.errors));
+
+    let severitySummaries = [];
+    severitySummaries.push(printSeveritySummary(summary.passed))
+    severitySummaries.push(printSeveritySummary(summary.info))
+    severitySummaries.push(printSeveritySummary(summary.warnings))
+    severitySummaries.push(printSeveritySummary(summary.errors));
+
+    console.log(`
+    ---------------------------------------------------------------
+      NIEM QA Results:
+    ---------------------------------------------------------------
+      ${severityTests.join("\n      ")}
+    ---------------------------------------------------------------
+      ${severitySummaries.filter( str => str ).join("\n      ")}
+    ---------------------------------------------------------------`);
+
   }
 
   /**

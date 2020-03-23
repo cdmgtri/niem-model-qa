@@ -48,6 +48,7 @@ describe("Release tests", () => {
     let testSuite = await qa.checkRelease(release);
     let issues = testSuite.issues();
     expect(issues.length).toBe(95);
+    testSuite.printStatus();
   });
 
 });

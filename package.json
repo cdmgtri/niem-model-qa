@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^3.0.0",
     "debug": "^4.1.1",
     "dictionary-en": "^3.0.0",
     "file-saver": "^2.0.2",
