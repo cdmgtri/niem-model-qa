@@ -37,8 +37,6 @@ class NIEMModelQA {
     let tests = TestMetadata.map( metadata => Object.assign(new Test(), metadata) );
     this.testSuite.loadTests(tests);
 
-    debug("Initialized test suite");
-
   }
 
   get testSuiteMetadata() {
@@ -48,6 +46,7 @@ class NIEMModelQA {
   async init() {
     // Load the spellchecker library in utils
     await this.utils.init()
+    debug("Initialized test suite");
   }
 
   /**

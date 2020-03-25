@@ -185,25 +185,25 @@ class QATestSuite {
     let summary = {
       passed: {
         tests: this.testsPassed(prefixes),
-        symbol: chalk.green("\u2714"),
+        symbol: chalk.green("\u2714 "),
         chalkFunction: chalk.green,
         heading: "Passed:".padEnd(headerPadding, " ")
       },
       errors: {
         tests: this.testsFailedErrors(prefixes),
-        symbol: chalk.red("\u2716"),
+        symbol: chalk.red("\u2716 "),
         chalkFunction: chalk.red,
         heading: "Errors:".padEnd(headerPadding, " ")
       },
       warnings: {
         tests: this.testsFailedWarnings(prefixes),
-        symbol: chalk.yellow("?"),
+        symbol: chalk.yellow("? "),
         chalkFunction: chalk.yellow,
         heading: "Warnings:".padEnd(headerPadding, " ")
       },
       info: {
         tests: this.testsFailedInfo(prefixes),
-        symbol: chalk.gray("\u2722"),
+        symbol: chalk.gray("\u2722 "),
         chalkFunction: chalk.gray,
         heading: "Info:".padEnd(headerPadding, " ")
       }
