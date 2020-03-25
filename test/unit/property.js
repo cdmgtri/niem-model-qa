@@ -153,6 +153,23 @@ function propertyTests(qa, niem) {
 
       });
 
+      test("#name_repTerm_aug", async () => {
+
+        let properties = [
+          new Property("ext", "PersonAugmentation", "", "", "nc:PersonAugmentationPoint"),
+          new Property("ext", "GeospatialLocationAugmentation", "", "", "nc:LocationAugmentationPoint")
+        ];
+
+        fieldProperties.push(...properties);
+
+        let test = await qa.property.test.name_repTerm_aug(properties);
+
+        expect(test.failed).toBeTruthy();
+        expect(test.issues.length).toBe(1);
+        expect(test.issues[0].label).toBe("ext:GeospatialLocationAugmentation");
+
+      });
+
       test("#name_spellcheck", async () => {
 
         let properties = [

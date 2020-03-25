@@ -26,6 +26,25 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
   }
 
   /**
+   * Check that augmentation property names correspond to their augmentation point elements, with the representation term "AugmentationPoint" replaced by term "Augmentation".
+   *
+   * @example "'PersonAugmentation' is a valid name for a property that substitutes for augmentation point element 'nc:PersonAugmentationPoint'."
+   * @example "'ManagerAugmentation' is not a valid name for a property that substitutes for augmentation point element 'nc:PersonAugmentationPoint'."
+   * "
+   * @param {Property[]} properties
+   */
+  async name_repTerm_aug(properties) {
+
+    let test = this.testSuite.start("property_name_repTerm_aug");
+
+    let problems = properties
+    .filter( property => property.name && property.name.endsWith("Augmentation") )
+    .filter( property => !property.groupName || property.groupName.replace(/Point$/, "") != property.name );
+
+    return this.testSuite.post(test, problems, "name");
+  }
+
+  /**
    * Check that an attribute name begins with a lower case letter.
    *
    * @example "Attribute name 'sequenceID' is valid because it begins with a lower case letter."

@@ -335,6 +335,23 @@
     "ran": false
   },
   {
+    "id": "property_name_repTerm_aug",
+    "description": "Augmentation property names should correspond to their augmentation point elements, with the representation term \"AugmentationPoint\" replaced by term \"Augmentation\".",
+    "category": "Invalid value",
+    "component": "Property",
+    "field": "name",
+    "scope": "augmentation points",
+    "source": "model",
+    "severity": "warning",
+    "spec": "",
+    "version": "",
+    "rule": "",
+    "exampleValid": "\"PersonAugmentation\" is a valid name for a property that substitutes for augmentation point element \"nc:PersonAugmentationPoint\".",
+    "exampleInvalid": "\"ManagerAugmentation\" is not a valid name for a property that substitutes for augmentation point element \"nc:PersonAugmentationPoint\".",
+    "exceptionLabels": [],
+    "ran": false
+  },
+  {
     "id": "property_prefix_missing",
     "description": "Properties must have a namespace prefix.",
     "category": "Missing value",
