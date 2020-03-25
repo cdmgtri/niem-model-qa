@@ -214,12 +214,12 @@ class Report {
    */
   async saveAsFile(filePath, testedNamespaces, prefixes, options) {
 
-    let fs = require("fs").promises;
+    let fs = require("fs-extra");
     let buffer = await this.reportBinary(testedNamespaces, prefixes, "buffer", options);
 
     // Make sure the file path has a single ".xlsx" extension
     filePath = filePath.replace(/.xlsx$/, "") + ".xlsx";
-    return fs.writeFile(filePath, buffer);
+    return fs.outputFile(filePath, buffer);
   }
 
   /**

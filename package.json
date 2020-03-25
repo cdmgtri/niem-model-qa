@@ -6,6 +6,7 @@
   "scripts": {
     "docs": "jsdoc index.js -r src -d docs -c jsdoc.json -R README.md -t node_modules/docdash",
     "metadata": "node scripts/updateTestMetadata.js",
+    "qa": "node scripts/run-qa.js",
     "test": "npm run metadata && jest",
     "test:cov": "jest --coverage"
   },
@@ -17,6 +18,7 @@
     "debug": "^4.1.1",
     "dictionary-en": "^3.0.0",
     "file-saver": "^2.0.2",
+    "fs-extra": "^9.0.0",
     "niem-model": "github:cdmgtri/niem-model#dev",
     "niem-specification-utils-js": "github:cdmgtri/niem-specification-utils-js",
     "nodehun": "^3.0.1",
