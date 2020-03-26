@@ -1,0 +1,41 @@
+{
+  "allow": [
+    "_",
+    "2D",
+    "3D",
+    "acknowledgement",
+    "arrestee",
+    "barcode",
+    "base64",
+    "biometric",
+    "biometrics",
+    "cancelled",
+    "cardinality",
+    "codec",
+    "dateTime",
+    "designator",
+    "eyewear",
+    "genotype",
+    "geospatial",
+    "interagency",
+    "nonnegative",
+    "nuclide",
+    "obligor",
+    "octant",
+    "pathologies",
+    "pre",
+    "radiographic",
+    "radiological",
+    "radionuclide",
+    "responder",
+    "subclassification",
+    "subfield",
+    "subfields",
+    "URI",
+    "xml"
+  ],
+  "exclude": [
+    "doc",
+    "org"
+  ]
+}
