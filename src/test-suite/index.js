@@ -176,6 +176,7 @@ class QATestSuite {
      * @property {string} symbol
      * @property {Function} chalkFunction
      * @property {string} heading
+     * @property {number} issues
      */
     let DetailsType;
 
@@ -187,25 +188,28 @@ class QATestSuite {
         tests: this.testsPassed(prefixes),
         symbol: chalk.green("\u2714 "),
         chalkFunction: chalk.green,
-        heading: "Passed:".padEnd(headerPadding, " ")
+        heading: "Passed:".padEnd(headerPadding, " "),
       },
       errors: {
         tests: this.testsFailedErrors(prefixes),
         symbol: chalk.red("\u2716 "),
         chalkFunction: chalk.red,
-        heading: "Errors:".padEnd(headerPadding, " ")
+        heading: "Errors:".padEnd(headerPadding, " "),
+        issues: this.issues(prefixes, "error").length
       },
       warnings: {
         tests: this.testsFailedWarnings(prefixes),
         symbol: chalk.yellow("? "),
         chalkFunction: chalk.yellow,
-        heading: "Warnings:".padEnd(headerPadding, " ")
+        heading: "Warnings:".padEnd(headerPadding, " "),
+        issues: this.issues(prefixes, "warning").length
       },
       info: {
         tests: this.testsFailedInfo(prefixes),
         symbol: chalk.gray("\u2722 "),
         chalkFunction: chalk.gray,
-        heading: "Info:".padEnd(headerPadding, " ")
+        heading: "Info:".padEnd(headerPadding, " "),
+        issues: this.issues(prefixes, "info").length
       }
     }
 
@@ -236,8 +240,9 @@ class QATestSuite {
      */
     function printSeveritySummary(details) {
       if (details.tests.length == 0) return;
-      let severitySummary = `${details.tests.length} tests`;
-      return `${details.symbol} ${details.heading} ${details.chalkFunction(severitySummary.padStart(9, " "))}`;
+      let severitySummary = `${details.tests.length} tests`.padStart(9, " ");
+      let issueCount = details.issues ? `(${details.issues} issues)`.padStart(15, " ") : "";
+      return `${details.symbol} ${details.heading} ${details.chalkFunction(severitySummary, issueCount)}`;
     }
 
     let severityTests = []
