@@ -5,6 +5,8 @@ docs/
 *stackdump*
 test/test-results.xlsx
 test/tests.json
+output/
+scripts/run-qa.js
 
 # Logs
 logs

@@ -6,7 +6,6 @@
   "scripts": {
     "docs": "jsdoc index.js -r src -d docs -c jsdoc.json -R README.md -t node_modules/docdash",
     "metadata": "node scripts/updateTestMetadata.js",
-    "qa": "node scripts/run-qa.js",
     "test": "npm run metadata && jest",
     "test:cov": "jest --coverage"
   },
