@@ -7,6 +7,7 @@ let debug = require("debug")("niem-qa");
 process.env.DEBUG = "niem-*";
 debug.enabled = true;
 
+let NamespaceQA = require("./namespace/index");
 let PropertyQA = require("./property/index");
 let TypeQA = require("./type/index");
 let FacetQA = require("./facet/index");
@@ -30,6 +31,7 @@ class NIEMModelQA {
     this.testSuite = new TestSuite();
     this.utils = new Utils(this.testSuite);
 
+    this.namespace = new NamespaceQA(this.testSuite, this.utils);
     this.property = new PropertyQA(this.testSuite, this.utils);
     this.type = new TypeQA(this.testSuite, this.utils);
     this.facet = new FacetQA(this.testSuite, this.utils);
@@ -72,10 +74,10 @@ class NIEMModelQA {
   async checkRelease(release) {
 
     // Load data
+    let namespaces = await release.namespaces.find();
     let properties = await release.properties.find({});
     let types = await release.types.find();
     let facets = await release.facets.find();
-    let namespaces = await release.namespaces.find();
 
     let conformantNamespaces = namespaces.filter( namespace => namespace.conformanceRequired );
     let conformantPrefixes = conformantNamespaces.map( namespace => namespace.prefix );
@@ -84,15 +86,16 @@ class NIEMModelQA {
     properties = properties.filter( property => conformantPrefixes.includes(property.prefix) );
 
     // Sort components
+    namespaces = namespaces.sort(Namespace.sortByPrefix);
     properties = properties.sort(Component.sortByQName);
     types = types.filter( type => type.prefix != "xs" ).sort(Component.sortByQName);
     facets = facets.sort(Facet.sortFacetsByStyleAdjustedValueDefinition);
-    namespaces = namespaces.sort(Namespace.sortByPrefix);
 
     /** @type {Object<string, TestSuite>} */
     let testSuites = {};
 
     // Run tests
+    testSuites.namespace = await this.namespace.all(conformantNamespaces, release);
     testSuites.property = await this.property.all(properties, release);
     testSuites.type = await this.type.all(types, release);
     testSuites.facet = await this.facet.all(facets, release);
