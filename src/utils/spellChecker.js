@@ -102,6 +102,8 @@ class SpellChecker {
     let updatedText = text
     .replace(/\(\S*\)/g, "")   // Replace non-space text in parentheses with a space, e.g., "(CMV)"" => " "
     .replace(/[^\w]/g, " ")    // Replace everything that isn't a word character with a space
+    .replace(/https?.* /g, "")
+    .replace(/https?.*\.?$/g, "")
 
     let uniqueWords = new Set(updatedText.split(/\s+/));
     uniqueWords.delete("");
