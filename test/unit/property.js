@@ -26,13 +26,8 @@ function propertyTests(qa, niem) {
       test("#definition_spellcheck", async () => {
 
         let properties = [
-
-          // invalid
-          new Property("ext", "ID", "An identifer"),
-
-          // invalid
-          new Property("nc", "Person", "A persom or a hooman being."),
-
+          new Property("ext", "ID", "An identifer"),  // invalid
+          new Property("nc", "Person", "A persom or a hooman being."),  // invalid
           new Property("nc", "CountryISOCode", "An ISO country code")
         ];
 
@@ -177,10 +172,16 @@ function propertyTests(qa, niem) {
           new Property("nc", "DestinationLocationz"), // invalid
           new Property("nc", "NIEMCountryCode"),
           new Property("ext", "NIEMCountryCode"), // invalid
-          new Property("nc", "Person")
+          new Property("nc", "Person"),
+          new Property("ext", "BiometricID"),
+          new Property("ext", "OrgName") // invalid
         ];
 
         await release.localTerms.add("nc", "NIEM", "National Information Exchange Model");
+
+        // Customize the dictionary
+        await qa.spellcheckAddWords(["Biometric"]);
+        await qa.spellcheckRemoveWords(["Org", "Doc"]);
 
         fieldProperties.push(...properties);
 
@@ -188,7 +189,7 @@ function propertyTests(qa, niem) {
         let issues = test.issues;
 
         expect(test.failed).toBeTruthy();
-        expect(issues.length).toBe(3);
+        expect(issues.length).toBe(4);
 
         expect(issues[0].label).toBe("ext:Organizatoin");
         expect(issues[0].problemValue).toBe("Organizatoin");
@@ -198,6 +199,10 @@ function propertyTests(qa, niem) {
 
         expect(issues[2].label).toBe("ext:NIEMCountryCode");
         expect(issues[2].problemValue).toBe("NIEM");
+
+        expect(issues[3].label).toBe("ext:OrgName");
+        expect(issues[3].problemValue).toBe("Org");
+
       });
 
       test("#prefix_missing", async () => {

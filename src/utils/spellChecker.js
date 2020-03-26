@@ -4,6 +4,8 @@ let en = require("dictionary-en");
 
 let { Release } = require("niem-model");
 
+/** @type {{allow: string[], exclude: string[]}} */
+let customDictionary = require("../../customDictionary.json");
 
 /**
  * Create a promise wrapper to load the US English dictionary
@@ -26,10 +28,53 @@ class SpellChecker {
     this.checkLongText;
   }
 
-  async init() {
+  /**
+   * @param {Release} release
+   */
+  async init(release) {
+
     // Load the US English dictionary
     let results = await loadDictionary();
     this.nodehun = new Nodehun(results.aff, results.dic);
+
+    // Load custom dictionary list of allowed and excluded terms
+    await this.addWords(customDictionary.allow);
+    await this.removeWords(customDictionary.exclude);
+
+    if (release) {
+      // Add CCC type names to dictionary
+      let types = await release.types.find({isComplexContent: true});
+      for (let type of types) {
+        await this.nodehun.add(type.name);
+      }
+
+      // Add namespace prefixes to dictionary
+      let namespaces = await release.namespaces.find({conformanceRequired: true});
+      for (let namespace of namespaces) {
+        await this.nodehun.add(namespace.prefix);
+      }
+    }
+
+  }
+
+  /**
+   * Add words to the dictionary
+   * @param {string[]} words
+   */
+  async addWords(words) {
+    for (let word of words) {
+      await this.nodehun.add(word);
+    }
+  }
+
+  /**
+   * Remove words from the dictionary
+   * @param {string[]} words
+   */
+  async removeWords(words) {
+    for (let word of words) {
+      await this.nodehun.remove(word);
+    }
   }
 
   /**
@@ -102,9 +147,8 @@ class SpellChecker {
    */
   async addLocalTerms(release, prefix) {
     let localTerms = await release.localTerms.find({prefix: prefix});
-    for (let localTerm of localTerms) {
-      await this.nodehun.add(localTerm.term);
-    }
+    let terms = localTerms.map( localTerm => localTerm.term );
+    await this.addWords(terms);
   }
 
   /**
@@ -113,9 +157,8 @@ class SpellChecker {
    */
   async removeLocalTerms(release, prefix) {
     let localTerms = await release.localTerms.find({prefix: prefix});
-    for (let localTerm of localTerms) {
-      await this.nodehun.remove(localTerm.term);
-    }
+    let terms = localTerms.map( localTerm => localTerm.term );
+    await this.removeWords(terms);
   }
 
 

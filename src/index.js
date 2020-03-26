@@ -11,7 +11,7 @@ let PropertyQA = require("./property/index");
 let TypeQA = require("./type/index");
 let FacetQA = require("./facet/index");
 
-let { Component, Facet } = require("niem-model");
+let { Namespace, Component, Facet } = require("niem-model");
 
 /** @type {Array} */
 let TestMetadata = require("../niem-model-qa-tests.json");
@@ -43,10 +43,27 @@ class NIEMModelQA {
     return this.testSuite.testSuiteMetadata;
   }
 
-  async init() {
+  /**
+   * @param {Release} release
+   */
+  async init(release) {
     // Load the spellchecker library in utils
-    await this.utils.init()
+    await this.utils.init(release)
     debug("Initialized test suite");
+  }
+
+  /**
+   * @param {string[]} words
+   */
+  async spellcheckAddWords(words) {
+    return this.utils._spellChecker.addWords(words);
+  }
+
+  /**
+   * @param {string[]} words
+   */
+  async spellcheckRemoveWords(words) {
+    return this.utils._spellChecker.removeWords(words);
   }
 
   /**
@@ -55,13 +72,22 @@ class NIEMModelQA {
   async checkRelease(release) {
 
     // Load data
-    let properties = await release.properties.find();
+    let properties = await release.properties.find({});
     let types = await release.types.find();
     let facets = await release.facets.find();
+    let namespaces = await release.namespaces.find();
 
+    let conformantNamespaces = namespaces.filter( namespace => namespace.conformanceRequired );
+    let conformantPrefixes = conformantNamespaces.map( namespace => namespace.prefix );
+
+    // Exclude external properties from QA testing
+    properties = properties.filter( property => conformantPrefixes.includes(property.prefix) );
+
+    // Sort components
     properties = properties.sort(Component.sortByQName);
     types = types.filter( type => type.prefix != "xs" ).sort(Component.sortByQName);
     facets = facets.sort(Facet.sortFacetsByStyleAdjustedValueDefinition);
+    namespaces = namespaces.sort(Namespace.sortByPrefix);
 
     /** @type {Object<string, TestSuite>} */
     let testSuites = {};

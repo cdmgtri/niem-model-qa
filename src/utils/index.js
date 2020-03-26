@@ -16,8 +16,11 @@ class Utils {
     this._spellChecker = new SpellChecker();
   }
 
-  async init() {
-    await this._spellChecker.init();
+  /**
+   * @param {Release} release
+   */
+  async init(release) {
+    await this._spellChecker.init(release);
   }
 
   /**
