@@ -76,8 +76,8 @@ function typeTests(qa, niem) {
 
         let types = [
           new Type("ext", "IDType", "An ID", "object"),
-          new Type("ncic", "HairColorCodeType", null, "CSC"), // invalid
           new Type("ncic", "HairColorCodeSimpleType", null, "simple"), // invalid
+          new Type("ncic", "HairColorCodeType", null, "CSC"), // invalid
           new Type("nc", "TextType", null, "CSC", "niem-xs:token")
         ];
 
@@ -86,9 +86,9 @@ function typeTests(qa, niem) {
         let test = await qa.type.test.base_missing_simpleContent(types);
 
         expect(test.failed).toBeTruthy();
-        expect(test.issues[0].label).toBe("ncic:HairColorCodeType");
-        expect(test.issues[1].label).toBe("ncic:HairColorCodeSimpleType");
         expect(test.issues.length).toBe(2);
+        expect(test.issues[0].label).toBe("ncic:HairColorCodeSimpleType");
+        expect(test.issues[1].label).toBe("ncic:HairColorCodeType");
       });
 
       test("#base_unknown", async () => {
@@ -440,10 +440,10 @@ function typeTests(qa, niem) {
 
         let types = [
           new Type("ext", "OrganizatoinType"), // invalid
-          new Type("nc", "DestinationLocationzType"), // invalid
-          new Type("nc", "XYZCountryCodeType"),
           new Type("ext", "XYZCountryCodeType"), // invalid
-          new Type("nc", "PersonType")
+          new Type("nc", "DestinationLocationzType"), // invalid
+          new Type("nc", "PersonType"),
+          new Type("nc", "XYZCountryCodeType")
         ];
 
         // --Note: "XYZ" already added to local terms by property tests--
@@ -452,17 +452,17 @@ function typeTests(qa, niem) {
         fieldTypes.push(...types);
 
         let test = await qa.type.test.name_spellcheck(types, release);
+        expect(test.issues.length).toBe(3);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ext:OrganizatoinType");
         expect(test.issues[0].problemValue).toBe("Organizatoin");
 
-        expect(test.issues[1].label).toBe("nc:DestinationLocationzType");
-        expect(test.issues[1].problemValue).toBe("Locationz");
+        expect(test.issues[1].label).toBe("ext:XYZCountryCodeType");
+        expect(test.issues[1].problemValue).toBe("XYZ");
 
-        expect(test.issues[2].label).toBe("ext:XYZCountryCodeType");
-        expect(test.issues[2].problemValue).toBe("XYZ");
-        expect(test.issues.length).toBe(3);
+        expect(test.issues[2].label).toBe("nc:DestinationLocationzType");
+        expect(test.issues[2].problemValue).toBe("Locationz");
       });
 
       test("#prefix_missing", async () => {

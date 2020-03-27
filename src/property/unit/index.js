@@ -9,6 +9,20 @@ let Test = require("../../test-suite/test/index");
 class PropertyUnitTests extends NIEMObjectUnitTests {
 
   /**
+   * Check property definition use consistent formatting.
+   *
+   * - Two spaces are allowed after a period.  Other uses of multiple consecutive spaces are not allowed.
+   * - Leading and trailing spaces are not allowed.
+   *
+   * @param {Property[]} properties
+   * @returns {Promise<Test>}
+   */
+  definition_formatting(properties) {
+    let test = this.testSuite.start("property_definition_formatting");
+    return this.utils.definition_formatting_helper(test, properties);
+  }
+
+  /**
    * Check that words in a property definition are either in the dictionary or defined
    * as Local Terminology.
    *

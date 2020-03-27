@@ -83,7 +83,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
   async base_missing_simpleContent(types) {
     let test = this.testSuite.start("type_base_missing_simpleContent");
     let problemTypes = types.filter( type => {
-      return (type.style == "simple" || type.style == "list") && ! type.baseQName
+      return type.isSimpleContent && type.style != "union" && ! type.baseQName;
     });
     return this.testSuite.post(test, problemTypes, "baseQName");
   }
@@ -117,6 +117,20 @@ class TypeUnitTests extends NIEMObjectUnitTests {
     }
 
     return this.testSuite.post(test, problemTypes, "baseQName");
+  }
+
+  /**
+   * Check type definition use consistent formatting.
+   *
+   * - Two spaces are allowed after a period.  Other uses of multiple consecutive spaces are not allowed.
+   * - Leading and trailing spaces are not allowed.
+   *
+   * @param {Property[]} types
+   * @returns {Promise<Test>}
+   */
+  definition_formatting(types) {
+    let test = this.testSuite.start("type_definition_formatting");
+    return this.utils.definition_formatting_helper(test, types);
   }
 
   /**

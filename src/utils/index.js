@@ -184,6 +184,28 @@ class Utils {
   }
 
   /**
+   * Check the formatting of a definition for consistency.
+   *
+   * Checks for:
+   * - 2 spaces that do not appear after a period.
+   * - 3 spaces
+   * - Leading space
+   * - Trailing space
+   *
+   * @private
+   * @param {Test} test
+   * @param {Component[]} components
+   */
+  async definition_formatting_helper(test, components) {
+
+    let problemComponents = components
+    .filter( component => component.definition.match(/ {3,}|(?<!\.) {2,}|^ | $/) );
+
+    return this.testSuite.post(test, problemComponents, "definition", () => "Leading, trailing, or multiple spaces detected");
+
+  }
+
+  /**
    * Check the spelling of each term in a component name.  Check Local Terminology
    * if not found in dictionary.
    *

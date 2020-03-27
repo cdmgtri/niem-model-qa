@@ -23,6 +23,31 @@ function propertyTests(qa, niem) {
 
     describe("Property unit tests", () => {
 
+      test("#definition_formatting", async () => {
+
+        let properties = [
+          new Property("x", "Name1", "A definition with valid formatting.  This should pass."),
+
+          // Invalid properties below
+          new Property("x", "Name2", "This definition has  double spaces in the middle."),
+          new Property("x", "Name3", "This definition has triple spaces after the period.   This should fail."),
+          new Property("x", "Name4", " This definition has a leading space."),
+          new Property("x", "Name5", "This definition has a trailing space. "),
+        ]
+
+        fieldProperties.push(...properties);
+
+        let test = await qa.property.test.definition_formatting(properties);
+        let issues = test.issues;
+
+        expect(issues.length).toBe(4);
+
+        expect(issues[0].label).toBe("x:Name2");
+        expect(issues[1].label).toBe("x:Name3");
+        expect(issues[2].label).toBe("x:Name4");
+        expect(issues[3].label).toBe("x:Name5");
+      });
+
       test("#definition_spellcheck", async () => {
 
         let properties = [
@@ -168,13 +193,13 @@ function propertyTests(qa, niem) {
       test("#name_spellcheck", async () => {
 
         let properties = [
+          new Property("ext", "BiometricID"),
           new Property("ext", "Organizatoin"), // invalid
+          new Property("ext", "OrgName"), // invalid
+          new Property("ext", "XYZCountryCode"), // invalid
           new Property("nc", "DestinationLocationz"), // invalid
           new Property("nc", "XYZCountryCode"),
-          new Property("ext", "XYZCountryCode"), // invalid
-          new Property("nc", "Person"),
-          new Property("ext", "BiometricID"),
-          new Property("ext", "OrgName") // invalid
+          new Property("nc", "Person")
         ];
 
         await release.localTerms.add("nc", "XYZ", "An acronym for XYZ");
@@ -194,14 +219,14 @@ function propertyTests(qa, niem) {
         expect(issues[0].label).toBe("ext:Organizatoin");
         expect(issues[0].problemValue).toBe("Organizatoin");
 
-        expect(issues[1].label).toBe("nc:DestinationLocationz");
-        expect(issues[1].problemValue).toBe("Locationz");
+        expect(issues[1].label).toBe("ext:OrgName");
+        expect(issues[1].problemValue).toBe("Org");
 
         expect(issues[2].label).toBe("ext:XYZCountryCode");
         expect(issues[2].problemValue).toBe("XYZ");
 
-        expect(issues[3].label).toBe("ext:OrgName");
-        expect(issues[3].problemValue).toBe("Org");
+        expect(issues[3].label).toBe("nc:DestinationLocationz");
+        expect(issues[3].problemValue).toBe("Locationz");
 
       });
 
