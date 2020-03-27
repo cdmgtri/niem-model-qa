@@ -1119,7 +1119,7 @@
     "field": "definition",
     "scope": "all",
     "source": "model",
-    "severity": "error",
+    "severity": "warning",
     "spec": "",
     "version": "",
     "rule": "",

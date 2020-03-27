@@ -288,7 +288,7 @@ function getNameTerms(name, specialTerms) {
   for (let specialTerm of specialTerms) {
     if (name.includes(specialTerm)) {
       terms.push(specialTerm);
-      name = name.replace(specialTerm, " ");
+      name = name.replace(specialTerm, "");
     }
   }
 
@@ -299,10 +299,14 @@ function getNameTerms(name, specialTerms) {
   s = s.replace(/([A-Z0-9])([A-Z][a-z])/g, "$1 $2");
 
   // Add a space before uppercase letters and the term "ID"
-  s = s.replace(/([A-Z])(ID)/g, "$1 T2");
+  s = s.replace(/([A-Z])(ID)/g, "$1 $2");
 
   // Replace an underscore with a space
   s = s.replace(/_/g, " ");
+
+  // Remove leading or singular dashes
+  s = s.replace(/ \- /g, "");
+  s = s.replace(/$\-*/g, "");
 
   return [...terms, ...s.split(" ")];
 
