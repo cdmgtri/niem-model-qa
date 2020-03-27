@@ -153,21 +153,29 @@ class Utils {
     /** @type {Issue[]} */
     let issues = [];
 
-    for (let component of components) {
+    // Check terms by namespace
+    let prefixes = new Set(components.map( component => component.prefix ));
 
-      let definition = component.definition || "";
+    for (let prefix of prefixes) {
+      let localTerms = await release.localTerms.find({prefix: prefix});
+      let terms = localTerms.map( localTerm => localTerm.term );
 
-      // Get start and end positions for each misspelled word in the definition
-      let unknownSpellings = await this._spellChecker.checkLongText(definition);
+      let namespaceComponents = components.filter( component => component.prefix == prefix );
 
-      for (let unknownSpelling of unknownSpellings) {
+      for (let component of namespaceComponents) {
+        let definition = component.definition || "";
 
-        // Check local terminology for the misspelled term
-        let localTerm = await release.localTerms.get(component.prefix, unknownSpelling.word);
+        let unknownSpellings = await this._spellChecker.checkDefinition(definition, terms);
 
-        if (! localTerm) {
-          let issue = new Issue(component.prefix, component.label, component.input_location, component.input_line, component.source_position, unknownSpelling.word, component.definition);
-          issues.push(issue);
+        for (let unknownSpelling of unknownSpellings) {
+
+          // Check local terminology for the misspelled term
+          let localTerm = await release.localTerms.get(component.prefix, unknownSpelling.word);
+
+          if (! localTerm) {
+            let issue = new Issue(component.prefix, component.label, component.input_location, component.input_line, component.source_position, unknownSpelling.word, component.definition);
+            issues.push(issue);
+          }
         }
       }
     }
@@ -189,21 +197,34 @@ class Utils {
     /** @type {Issue[]} */
     let issues = [];
 
-    for (let component of components) {
-      for (let term of component.terms) {
+    // Check terms by namespace
+    let prefixes = new Set(components.map( component => component.prefix ));
 
-        let correct = await this._spellChecker.checkWord(term);
+    for (let prefix of prefixes) {
+      let localTerms = await release.localTerms.find({prefix: prefix});
+      let terms = localTerms.map( localTerm => localTerm.term );
 
-        // Check for component term in dictionary
-        if (!correct) {
+      let namespaceComponents = components.filter( component => component.prefix == prefix );
 
-          // Check for component term in Local Terminology
-          let localTerm = await release.localTerms.get(component.prefix, term);
+      for (let component of namespaceComponents) {
 
-          if (!localTerm) {
-            let issue = new Issue(component.prefix, component.label, component.source_location, component.source_line, component.source_position, term, component.qname);
+        let nameTerms = getNameTerms(component.name, this._spellChecker.specialTerms);
 
-            issues.push(issue);
+        for (let nameTerm of nameTerms) {
+
+          let correct = await this._spellChecker.checkWord(nameTerm, terms);
+
+          // Check for component term in dictionary
+          if (!correct) {
+
+            // Check for component term in Local Terminology
+            let localTerm = await release.localTerms.get(component.prefix, nameTerm);
+
+            if (!localTerm) {
+              let issue = new Issue(component.prefix, component.label, component.source_location, component.source_line, component.source_position, nameTerm, component.qname);
+
+              issues.push(issue);
+            }
           }
         }
       }
@@ -248,6 +269,39 @@ class Utils {
     return this.testSuite.post(test, problemComponents, "prefix");
   }
 
+
+}
+
+
+/**
+ * @param {string} name
+ * @param {string[]} specialTerms
+ */
+function getNameTerms(name, specialTerms) {
+
+  if (!name) return [];
+
+  /** @type {string[]} */
+  let terms = [];
+
+  // Parse out special terms first before splitting terms by camel case
+  for (let specialTerm of specialTerms) {
+    if (name.includes(specialTerm)) {
+      terms.push(specialTerm);
+      name = name.replace(specialTerm, " ");
+    }
+  }
+
+  // Add a space between a lowercase letter (or number) and an uppercase letter
+  let s = name.replace(/([a-z0-9])([A-Z])/g, "$1 $2");
+
+  // Add a space before the last letter in a series of uppercase letters or numbers
+  s = s.replace(/([A-Z0-9])([A-Z][a-z])/g, "$1 $2");
+
+  // Replace an underscore with a space
+  s = s.replace(/_/g, " ");
+
+  return [...terms, ...s.split(" ")];
 
 }
 

@@ -18,6 +18,7 @@
     "genotype",
     "geospatial",
     "interagency",
+    "NIEM",
     "nonnegative",
     "nuclide",
     "obligor",
@@ -37,5 +38,14 @@
   "exclude": [
     "doc",
     "org"
+  ],
+  "special": [
+    "2D",
+    "3D",
+    "CLUID",
+    "HazMat",
+    "IPv4",
+    "IPv6",
+    "KeV"
   ]
 }

@@ -88,7 +88,7 @@ class NIEMModelQA {
     // Sort components
     namespaces = namespaces.sort(Namespace.sortByPrefix);
     properties = properties.sort(Component.sortByQName);
-    types = types.filter( type => type.prefix != "xs" ).sort(Component.sortByQName);
+    types = types.filter( type => type.prefix != "xs" && type.prefix != "structures" ).sort(Component.sortByQName);
     facets = facets.sort(Facet.sortFacetsByStyleAdjustedValueDefinition);
 
     /** @type {Object<string, TestSuite>} */

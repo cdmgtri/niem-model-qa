@@ -4,7 +4,7 @@ let en = require("dictionary-en");
 
 let { Release } = require("niem-model");
 
-/** @type {{allow: string[], exclude: string[]}} */
+/** @type {{allow: string[], exclude: string[], special: string[]}} */
 let customDictionary = require("../../customDictionary.json");
 
 /**
@@ -25,7 +25,7 @@ class SpellChecker {
 
   constructor() {
     this.nodehun;
-    this.checkLongText;
+    this.specialTerms = customDictionary.special;
   }
 
   /**
@@ -63,7 +63,9 @@ class SpellChecker {
    */
   async addWords(words) {
     for (let word of words) {
+      if (!word) continue;
       await this.nodehun.add(word);
+      await this.nodehun.add(word[0].toUpperCase() + word.slice(1));
     }
   }
 
@@ -78,10 +80,14 @@ class SpellChecker {
   }
 
   /**
+   * Check against dictionary and given local terms
    * @param {string} word
+   * @param {string[]} terms
    */
-  async checkWord(word) {
-    return this.nodehun.spell(word);
+  async checkWord(word, terms) {
+    let passed = await this.nodehun.spell(word);
+    if (!passed && terms) passed = terms.find( term => term.toLowerCase() == word.toLowerCase() );
+    return passed;
   }
 
   /**
@@ -92,24 +98,21 @@ class SpellChecker {
   }
 
   /**
-   * @param {string} text
+   * @param {string} definition
+   * @param {string[]} terms
    * @returns {Promise<{word: string, suggestions: string[], positions: {from: number, to: number, length: number}[]}[]>}
    */
-  async checkLongText(text) {
+  async checkDefinition(definition, terms) {
 
     let unknownSpellings = [];
 
-    let updatedText = text
-    .replace(/\(\S*\)/g, "")   // Replace non-space text in parentheses with a space, e.g., "(CMV)"" => " "
-    .replace(/[^\w]/g, " ")    // Replace everything that isn't a word character with a space
-    .replace(/https?.* /g, "")
-    .replace(/https?.*\.?$/g, "")
+    let processedDefinition = processDefinition(definition);
 
-    let uniqueWords = new Set(updatedText.split(/\s+/));
+    let uniqueWords = new Set(processedDefinition.split(/\s+/));
     uniqueWords.delete("");
 
     for (let word of uniqueWords) {
-      let correct = await this.checkWord(word);
+      let correct = await this.checkWord(word, terms);
 
       if (!correct) {
         // Create a new result object for the unknown word
@@ -120,12 +123,12 @@ class SpellChecker {
 
         // Find each position of the unknown word in the original text
         let wordPattern = word.replace("(", "\\\(").replace(")", "\\\)");
-        let matches = text.match(new RegExp(wordPattern, "g"));
+        let matches = definition.match(new RegExp(wordPattern, "g"));
         if (!matches) continue;
 
         let lastIndex = 0;
         for (let i = 0; i < matches.length; i ++) {
-          let index = text.indexOf(word, lastIndex);
+          let index = definition.indexOf(word, lastIndex);
           let position = {
             start: index,
             end: index + word.length,
@@ -165,5 +168,26 @@ class SpellChecker {
 
 
 }
+
+/**
+ * @param {string} definition
+ */
+function processDefinition(definition) {
+
+  let results = definition;
+
+  // Replace non-space text in parentheses with a space, e.g., "(CMV)"" => " "
+  results = results.replace(/\(\S*\)/g, "")
+
+  // Remove urls from the definition
+  results = results.replace(/https?.* /g, "")
+  results = results.replace(/https?.*\.?$/g, "")
+
+  // Replace everything that isn't a word character with a space
+  results = results.replace(/[^\w]/g, " ")
+
+  return results;
+}
+
 
 module.exports = SpellChecker;

@@ -170,14 +170,14 @@ function propertyTests(qa, niem) {
         let properties = [
           new Property("ext", "Organizatoin"), // invalid
           new Property("nc", "DestinationLocationz"), // invalid
-          new Property("nc", "NIEMCountryCode"),
-          new Property("ext", "NIEMCountryCode"), // invalid
+          new Property("nc", "XYZCountryCode"),
+          new Property("ext", "XYZCountryCode"), // invalid
           new Property("nc", "Person"),
           new Property("ext", "BiometricID"),
           new Property("ext", "OrgName") // invalid
         ];
 
-        await release.localTerms.add("nc", "NIEM", "National Information Exchange Model");
+        await release.localTerms.add("nc", "XYZ", "An acronym for XYZ");
 
         // Customize the dictionary
         await qa.spellcheckAddWords(["Biometric"]);
@@ -197,8 +197,8 @@ function propertyTests(qa, niem) {
         expect(issues[1].label).toBe("nc:DestinationLocationz");
         expect(issues[1].problemValue).toBe("Locationz");
 
-        expect(issues[2].label).toBe("ext:NIEMCountryCode");
-        expect(issues[2].problemValue).toBe("NIEM");
+        expect(issues[2].label).toBe("ext:XYZCountryCode");
+        expect(issues[2].problemValue).toBe("XYZ");
 
         expect(issues[3].label).toBe("ext:OrgName");
         expect(issues[3].problemValue).toBe("Org");

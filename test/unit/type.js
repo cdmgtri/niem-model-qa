@@ -441,13 +441,13 @@ function typeTests(qa, niem) {
         let types = [
           new Type("ext", "OrganizatoinType"), // invalid
           new Type("nc", "DestinationLocationzType"), // invalid
-          new Type("nc", "NIEMCountryCodeType"),
-          new Type("ext", "NIEMCountryCodeType"), // invalid
+          new Type("nc", "XYZCountryCodeType"),
+          new Type("ext", "XYZCountryCodeType"), // invalid
           new Type("nc", "PersonType")
         ];
 
-        // --Note: "NIEM" already added to local terms by property tests--
-        // await release.localTerms.add("nc", "NIEM", "National Information Exchange Model");
+        // --Note: "XYZ" already added to local terms by property tests--
+        // await release.localTerms.add("nc", "XYZ", "");
 
         fieldTypes.push(...types);
 
@@ -460,8 +460,8 @@ function typeTests(qa, niem) {
         expect(test.issues[1].label).toBe("nc:DestinationLocationzType");
         expect(test.issues[1].problemValue).toBe("Locationz");
 
-        expect(test.issues[2].label).toBe("ext:NIEMCountryCodeType");
-        expect(test.issues[2].problemValue).toBe("NIEM");
+        expect(test.issues[2].label).toBe("ext:XYZCountryCodeType");
+        expect(test.issues[2].problemValue).toBe("XYZ");
         expect(test.issues.length).toBe(3);
       });
 

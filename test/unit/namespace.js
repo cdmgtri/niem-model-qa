@@ -27,16 +27,15 @@ function namespaceTests(qa, niem) {
       test("#definition_spellcheck", async () => {
 
         let namespaces = [
-          new Namespace("ext1", "core", "", "", "NIEM Core"),
+          new Namespace("ext1", "core", "", "", "ABC abc Abc namespace"),
           new Namespace("ext2", "domain", "", "", "Justice"),
           new Namespace("ext3", "", "", "", "An extnsion namespace"),  // invalid
-          new Namespace("ext4", "", "", "", "A NIEM extension namespace"),  // invalid
-          new Namespace("ext5", "", "", "", "A namespace from http://www.example.com"),
-          new Namespace("ext6", "", "", "", "A namespace from https://www.example.com"),
-          new Namespace("ext7", "", "", "", "A namespace from https://www.example.com extnsion") // invalid
+          new Namespace("ext4", "", "", "", "A namespace from http://www.example.com"),
+          new Namespace("ext5", "", "", "", "A namespace from https://www.example.com"),
+          new Namespace("ext6", "", "", "", "A namespace from https://www.example.com extnsion") // invalid
         ];
 
-        await release.localTerms.add("ext1", "NIEM", "National Information Exchange Model");
+        await release.localTerms.add("ext1", "ABC", "Alpha Bravo Charlie");
         await qa.spellcheckAddWords(["namespace"]);
 
         fieldNamespaces.push(...namespaces);
@@ -44,16 +43,13 @@ function namespaceTests(qa, niem) {
         let test = await qa.namespace.test.definition_spellcheck(namespaces, release);
         let issues = test.issues;
 
-        expect(issues.length).toBe(3);
+        expect(issues.length).toBe(2);
 
         expect(issues[0].label).toBe("ext3");
         expect(issues[0].problemValue).toBe("extnsion");
 
-        expect(issues[1].label).toBe("ext4");
-        expect(issues[1].problemValue).toBe("NIEM");
-
-        expect(issues[2].label).toBe("ext7");
-        expect(issues[2].problemValue).toBe("extnsion");
+        expect(issues[1].label).toBe("ext6");
+        expect(issues[1].problemValue).toBe("extnsion");
 
       });
 
