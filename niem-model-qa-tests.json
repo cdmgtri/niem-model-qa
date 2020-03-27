@@ -156,7 +156,12 @@
     "rule": "",
     "exampleValid": "Type 'WeekdayCodeSimpleType' with codes 'MON', 'TUE', 'WED', ...",
     "exampleInvalid": "Type 'WeekdayCodeSimpleType' with codes 'MON', 'MON', 'MON', ...",
-    "exceptionLabels": [],
+    "exceptionLabels": [
+      "dea:DrugCodeSimpleType",
+      "fips:USCountyNumericCodeSimpleType",
+      "hazmat:HazmatCodeSimpleType",
+      "ncic:VMOCodeSimpleType"
+    ],
     "ran": false
   },
   {
@@ -567,7 +572,7 @@
   },
   {
     "id": "type_base_missing_simpleContent",
-    "description": "Types that represent a value (simple content) must declare a base type.",
+    "description": "Types that represent a value (simple content) must declare a base type.  Note: Simple union types have member types instead of a base type.",
     "category": "Missing value",
     "component": "Type",
     "field": "base",

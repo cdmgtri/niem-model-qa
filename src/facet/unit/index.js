@@ -153,6 +153,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
     let labelCounts = {};
 
     facets
+    .filter( facet => !test.exceptionLabels.includes(facet.typeQName) )
     .filter( facet => facet.style == "enumeration" )
     .forEach( facet => {
       let label = facet.label;
@@ -160,6 +161,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
     });
 
     let problemFacets = facets
+    .filter( facet => !test.exceptionLabels.includes(facet.typeQName) )
     .filter( facet => facet.style == "enumeration" )
     .filter( facet => labelCounts[facet.label] > 1 );
 

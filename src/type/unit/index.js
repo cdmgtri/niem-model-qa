@@ -72,6 +72,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Check that simple content types have a base.
+   * Exception: Simple union types have member types instead of a base.
    *
    * @example "Type HairColorCodeSimpleType needs a base type like xs:string or xs:token."
    * @example "Type HairColorCodeSimpleType is not valid without a base type."
@@ -81,7 +82,9 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    */
   async base_missing_simpleContent(types) {
     let test = this.testSuite.start("type_base_missing_simpleContent");
-    let problemTypes = types.filter( type => type.isSimpleContent && ! type.baseQName )
+    let problemTypes = types.filter( type => {
+      return (type.style == "simple" || type.style == "list") && ! type.baseQName
+    });
     return this.testSuite.post(test, problemTypes, "baseQName");
   }
 
@@ -320,9 +323,18 @@ class TypeUnitTests extends NIEMObjectUnitTests {
         return test;
       }
 
-      let facets = await type.facets.find();
-      if (facets.length == 0) {
-        problemTypes.push(type);
+      if (type.style == "union") {
+        // Check that a union CodeSimpleType has member CodeSimpleTypes
+        type.memberQNames.forEach( memberQName => {
+          if (!memberQName.endsWith("CodeSimpleType")) {
+            problemTypes.push(type);
+          }
+        })
+      }
+      else {
+        // Check that the CodeSimpleType has facets
+        let facets = await type.facets.find();
+        if (facets.length == 0) problemTypes.push(type);
       }
     }
 

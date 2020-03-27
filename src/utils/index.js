@@ -298,6 +298,9 @@ function getNameTerms(name, specialTerms) {
   // Add a space before the last letter in a series of uppercase letters or numbers
   s = s.replace(/([A-Z0-9])([A-Z][a-z])/g, "$1 $2");
 
+  // Add a space before uppercase letters and the term "ID"
+  s = s.replace(/([A-Z])(ID)/g, "$1 T2");
+
   // Replace an underscore with a space
   s = s.replace(/_/g, " ");
 
