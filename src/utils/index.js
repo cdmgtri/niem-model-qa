@@ -306,7 +306,10 @@ function getNameTerms(name, specialTerms) {
 
   // Remove leading or singular dashes
   s = s.replace(/ \- /g, "");
-  s = s.replace(/$\-*/g, "");
+  s = s.replace(/$\-+/g, "");
+
+  // Drop all {digits}To{digits}
+  s = s.replace(/\d+To\d+/g, "");
 
   return [...terms, ...s.split(" ")];
 
