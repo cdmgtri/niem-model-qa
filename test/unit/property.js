@@ -33,6 +33,7 @@ function propertyTests(qa, niem) {
           new Property("x", "Name3", "This definition has triple spaces after the period.   This should fail."),
           new Property("x", "Name4", " This definition has a leading space."),
           new Property("x", "Name5", "This definition has a trailing space. "),
+          new Property("x", "Name6", "This definition has a non-breaking space:  ."),
         ]
 
         fieldProperties.push(...properties);
@@ -40,12 +41,14 @@ function propertyTests(qa, niem) {
         let test = await qa.property.test.definition_formatting(properties);
         let issues = test.issues;
 
-        expect(issues.length).toBe(4);
+        expect(issues.length).toBe(5);
 
         expect(issues[0].label).toBe("x:Name2");
         expect(issues[1].label).toBe("x:Name3");
         expect(issues[2].label).toBe("x:Name4");
         expect(issues[3].label).toBe("x:Name5");
+        expect(issues[4].label).toBe("x:Name6");
+        expect(issues[4].comments).toBe("Non-breaking space detected: This definition has a non-breaking space: --> <--.");
       });
 
       test("#definition_spellcheck", async () => {

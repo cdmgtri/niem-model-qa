@@ -194,14 +194,27 @@ class Utils {
    *
    * @private
    * @param {Test} test
-   * @param {Component[]} components
+   * @param {NIEMObject[]} objects
+   * @param {string} field Object field to check the formatting of
    */
-  async definition_formatting_helper(test, components) {
+  async text_formatting_helper(test, objects, field) {
 
-    let problemComponents = components
-    .filter( component => component.definition.match(/ {3,}|(?<!\.) {2,}|^ | $/) );
+    if (!field) throw new Error("Field name required");
 
-    return this.testSuite.post(test, problemComponents, "definition", () => "Leading, trailing, or multiple spaces detected");
+    let checkableObjects = objects.filter( object => object[field] );
+
+    let problemObjects = checkableObjects
+    .filter( component => component[field] && component[field].match(/ {3,}|(?<!\.) {2,}|^ | $/) );
+
+    this.testSuite.post(test, problemObjects, field, () => "Leading, trailing, or multiple spaces detected");
+
+
+    // Non-breaking space
+    let nbsp = "\u00A0";
+
+    problemObjects = checkableObjects.filter( object => object[field].match(nbsp) );
+
+    return this.testSuite.post(test, problemObjects, field, (object) => "Non-breaking space detected: " + object[field].replace(nbsp, `-->${nbsp}<--`), false);
 
   }
 

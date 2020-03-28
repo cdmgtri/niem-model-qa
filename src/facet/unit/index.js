@@ -175,6 +175,17 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    * @param {Facet[]} facets
    * @returns {Promise<Test>}
    */
+  async value_formatting(facets) {
+    let test = this.testSuite.start("facet_value_formatting");
+    return this.utils.text_formatting_helper(test, facets, "value");
+  }
+
+  /**
+   * Check for missing facet values.
+   *
+   * @param {Facet[]} facets
+   * @returns {Promise<Test>}
+   */
   async value_missing(facets) {
     let test = this.testSuite.start("facet_value_missing");
     let problemFacets = facets.filter( facet => ! facet.value );

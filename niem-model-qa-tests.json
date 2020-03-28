@@ -180,8 +180,8 @@
     "ran": false
   },
   {
-    "id": "facet_value_spaces",
-    "description": "Facet values should not contain leading or trailing spaces.",
+    "id": "facet_value_formatting",
+    "description": "Facet values should not contain leading or trailing spaces, multiple consecutive spaces, or non-breaking spaces.",
     "category": "Invalid value",
     "component": "Facet",
     "field": "value",

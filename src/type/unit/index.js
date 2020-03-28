@@ -130,7 +130,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    */
   definition_formatting(types) {
     let test = this.testSuite.start("type_definition_formatting");
-    return this.utils.definition_formatting_helper(test, types);
+    return this.utils.text_formatting_helper(test, types, "definition");
   }
 
   /**

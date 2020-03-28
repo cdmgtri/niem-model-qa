@@ -257,6 +257,9 @@ class QATestSuite {
     severitySummaries.push(printSeveritySummary(summary.warnings))
     severitySummaries.push(printSeveritySummary(summary.errors));
 
+    let qaTestCount  = `${this.tests.length} tests`;
+    let qaIssueCount = `(${this.issues().length} issues)`;
+
     console.log(`
     ---------------------------------------------------------------
       NIEM QA Results:
@@ -265,7 +268,7 @@ class QATestSuite {
     ---------------------------------------------------------------
       ${severitySummaries.filter( str => str ).join("\n      ")}
     ---------------------------------------------------------------
-      QA Summary:   ${this.issues().length} issues
+      QA Summary:    ${qaTestCount} ${qaIssueCount.padStart(15, " ")}
     `);
 
   }
@@ -364,13 +367,17 @@ class QATestSuite {
     // Process inputs into an array of issues
     problemObjects.forEach( object => {
 
+      let label = object.label;
       let problemValue = object[problemField];
       let comment = commentFunction ? commentFunction(object) : "";
+
+      // Replace full facet identifier with qualified type name
+      // if (test.id.startsWith("facet")) label = object.typeQName;
 
       let isException = test.exceptionLabels.includes(object.label);
 
       if (!this.ignoreExceptions || !isException) {
-        let issue = new Issue(object.authoritativePrefix, object.label, object.input_location, object.input_line, object.input_position, problemValue, comment);
+        let issue = new Issue(object.authoritativePrefix, label, object.input_location, object.input_line, object.input_position, problemValue, comment);
         issues.push(issue);
       }
 

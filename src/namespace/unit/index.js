@@ -16,7 +16,7 @@ class NamespaceUnitTests extends NIEMObjectUnitTests {
    */
   definition_formatting(namespaces) {
     let test = this.testSuite.start("namespace_definition_formatting");
-    return this.utils.definition_formatting_helper(test, namespaces);
+    return this.utils.text_formatting_helper(test, namespaces, "definition");
   }
 
   /**

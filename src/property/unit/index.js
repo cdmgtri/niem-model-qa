@@ -19,7 +19,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    */
   definition_formatting(properties) {
     let test = this.testSuite.start("property_definition_formatting");
-    return this.utils.definition_formatting_helper(test, properties);
+    return this.utils.text_formatting_helper(test, properties, "definition");
   }
 
   /**
