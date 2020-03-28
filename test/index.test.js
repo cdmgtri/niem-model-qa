@@ -59,19 +59,15 @@ describe("Reload tests", () => {
 
     let filePath = "test/tests.json";
 
-    // Save current counts
-    let testCount = qa.testSuite.tests.length;
-    let issueCount = qa.testSuite.issues().length;
-
     // Save tests
     await qa.saveTestResults(filePath);
 
     // Reset and reload tests
-    qa.testSuite.tests = [];
-    await qa.reloadTestResults(filePath);
+    let newQA = new NIEMModelQA();
+    await newQA.reloadTestResults(filePath);
 
-    expect(qa.testSuite.tests.length).toBe(testCount);
-    expect(qa.testSuite.issues().length).toBe(issueCount);
+    expect(newQA.testSuite.tests.length).toBe(qa.testSuite.tests.length);
+    expect(newQA.testSuite.issues().length).toBe(qa.testSuite.issues().length);
 
   })
 });

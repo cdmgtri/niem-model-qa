@@ -110,24 +110,24 @@ class NIEMModelQA {
 
   }
 
-  saveTestSuiteMetadata(filePath) {
-    let fs = require("fs");
-    let json = JSON.stringify(this.testSuiteMetadata, null, 2);
-    fs.writeFileSync(filePath, json);
+  async saveTestSuiteMetadata(filePath) {
+    let fs = require("fs-extra");
+    await fs.outputJSON(filePath, this.testSuiteMetadata, {spaces: 2});
   }
 
-  saveTestResults(filePath) {
-    let fs = require("fs");
-    let json = JSON.stringify(this.testSuite.tests, null, 2);
-    fs.writeFileSync(filePath, json);
+  async saveTestResults(filePath) {
+    let fs = require("fs-extra");
+    await fs.outputJSON(filePath, this.testSuite.tests, {spaces: 2});
   }
 
-  reloadTestResults(filePath) {
-    let fs = require("fs");
-    let data = fs.readFileSync(filePath, "utf8");
+  async reloadTestResults(filePath, overwrite=true) {
+
+    let fs = require("fs-extra");
 
     /** @type {{}[]} */
-    let json = JSON.parse(data);
+    let json = await fs.readJSON(filePath);
+
+    if (overwrite) this.testSuite.tests = [];
 
     for (let testInfo of json) {
       let test = Object.assign(new Test(), testInfo);
