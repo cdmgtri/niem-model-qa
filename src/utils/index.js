@@ -344,7 +344,10 @@ function getNameTerms(name, specialTerms) {
   s = s.replace(/$\-+/g, "");
 
   // Drop all {digits}To{digits}
-  s = s.replace(/\d+To\d+/g, "");
+  s = s.replace(/\d*To\d+/g, "").replace(/\d+To\d*/g, "");
+
+  // Drop all Integer{digits} and Decimal{digits}
+  s = s.replace(/(Integer)|(Decimal)\d*/g, "")
 
   return [...terms, ...s.split(" ")];
 
