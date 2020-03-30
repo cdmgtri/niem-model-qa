@@ -1,13 +1,11 @@
 
-let { NIEM } = require("niem-model");
+let { NIEM, Release } = require("niem-model");
 
 let NIEMModelQA = require("../src/index");
 let unitTests = require("./unit/index");
 
 let qa = new NIEMModelQA();
 let niem = new NIEM();
-
-let { Release } = NIEM;
 
 /** @type {Release} */
 let release;

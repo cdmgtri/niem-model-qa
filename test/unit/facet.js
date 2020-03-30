@@ -23,6 +23,41 @@ function facetTests(qa, niem) {
 
     describe("Facet unit tests", () => {
 
+      test("#definition_formatting_specialChars", async () => {
+
+        let facets = [
+          new Facet("can:CanadianProvinceCodeSimpleType", "QC", "Québec"),
+
+          new Facet("genc:CountryAlpha2CodeSimpleType", "CI", "CÃ”TE Dâ€™IVOIRE"),
+          new Facet("genc:CountryAlpha3CodeSimpleType", "CIV", "CÔTE D’IVOIRE"),
+          new Facet("genc:CountryNumericCodeSimpleType", "384", "CÔTE D’IVOIRE"),
+          new Facet("genc:CountrySubdivisionCodeSimpleType", "AD-06", "Sant Julià de Lòria"),
+
+          new Facet("iso_3166:CountryAlpha2CodeSimpleType", "CI", "Côte d'Ivoire"),
+          new Facet("iso_3166:CountryAlpha3CodeSimpleType", "CIV", "Côte d'Ivoire"),
+          new Facet("iso_3166:CountryNumericCodeSimpleType", "384", "CÃ”TE Dâ€™IVOIRE"),
+          new Facet("iso_3166:CountrySubdivisionCodeSimpleType", "AD-06", "Sant Julià de Lòria"),
+
+          new Facet("iso_639-3:LanguageCodeSimpleType", "aae", "Arbëreshë Albanian"),
+        ]
+
+        fieldFacets.push(...facets);
+        await release.facets.addMultiple(facets);
+
+        let test = await qa.facet.test.definition_formatting_specialChars(facets);
+        let issues = test.issues;
+
+        expect(test.failed).toBeTruthy();
+        expect(issues.length).toBe(2);
+
+        expect(issues[0].label).toBe("genc:CountryAlpha2CodeSimpleType - enum CI");
+        expect(issues[0].problemValue).toBe("CÃ”TE Dâ€™IVOIRE");
+
+        expect(issues[1].label).toBe("iso_3166:CountryNumericCodeSimpleType - enum 384");
+        expect(issues[1].problemValue).toBe("CÃ”TE Dâ€™IVOIRE");
+
+      });
+
       test("#definition_missing_code", async () => {
 
         let facets = [
