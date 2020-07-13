@@ -132,20 +132,27 @@ class NIEMModelQA {
 
   }
 
-  static async updateTestSuiteJSON() {
+  /**
+   * Convert a test metadata spreadsheet to JSON.  Defaults to model tests if no path given.
+   * @param {string} spreadsheetFilePath Path and file name of the test metadata spread.
+   */
+  static async updateTestSuiteJSON(spreadsheetFilePath) {
 
-    let path = require("path");
-    let currentPath = path.resolve(__dirname, "../");
-
-    let testSuite = new TestSuite();
+    if (!spreadsheetFilePath) {
+      // Default to this project's model test spreadsheet
+      let path = require("path");
+      let currentPath = path.resolve(__dirname, "../");
+      spreadsheetFilePath = currentPath + "/niem-model-qa-tests"
+    }
 
     // Import test spreadsheet metadata
-    await testSuite.loadTestSpreadsheet(currentPath + "/niem-model-qa-tests.xlsx");
+    let testSuite = new TestSuite();
+    await testSuite.loadTestSpreadsheet(spreadsheetFilePath + ".xlsx");
 
     // Save test metadata to JSON file
     let fs = require("fs");
     let json = JSON.stringify(testSuite.testSuiteMetadata, null, 2);
-    fs.writeFileSync(currentPath + "/niem-model-qa-tests.json", json);
+    fs.writeFileSync(spreadsheetFilePath + ".json", json);
   }
 
 }
