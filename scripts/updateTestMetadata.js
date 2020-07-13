@@ -1,5 +1,5 @@
 
-let QA = require("../index");
+let QA = require("../index.js").NIEMModelQA;
 
 QA
 .updateTestSuiteJSON()
