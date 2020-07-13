@@ -14,9 +14,6 @@ let FacetQA = require("./model-tests/facet/index");
 
 let { Namespace, Component, Facet } = require("niem-model");
 
-/** @type {Array} */
-let TestMetadata = require("../niem-model-qa-tests.json");
-
 /**
  * @todo Full test suite for classes
  * @todo Full test suite for a release
@@ -36,8 +33,7 @@ class NIEMModelQA {
     this.type = new TypeQA(this.testSuite, this.utils);
     this.facet = new FacetQA(this.testSuite, this.utils);
 
-    let tests = TestMetadata.map( metadata => Object.assign(new Test(), metadata) );
-    this.testSuite.loadTests(tests);
+    this.testSuite.loadModelTests();
 
   }
 

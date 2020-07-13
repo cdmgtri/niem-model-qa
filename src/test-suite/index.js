@@ -7,6 +7,9 @@ let Test = require("./test/index");
 let Issue = require("./issue/index");
 let Report = require("./report/index");
 
+/** @type {Array} */
+let TestMetadata = require("../../niem-model-qa-tests.json");
+
 /**
  * NIEM Test Suite
  */
@@ -70,6 +73,15 @@ class QATestSuite {
     if (reset) this.tests = [];
     let tests = await QATestSuite.loadTestSpreadsheet(filePath);
     return this.loadTests(tests);
+  }
+
+  /**
+   * @param {boolean} reset Overwrite existing tests if true
+   */
+  loadModelTests(reset=true) {
+    if (reset) this.tests = [];
+    let tests = TestMetadata.map( metadata => Object.assign(new Test(), metadata) );
+    this.loadTests(tests);
   }
 
   /**
