@@ -68,6 +68,18 @@ class Test {
   }
 
   /**
+   * Finds the test with the given test ID and starts the timer.
+   * @param {Test[]} tests
+   * @param {string} testID
+   * @returns {Test}
+   */
+  static start(tests, testID) {
+    let test = tests.find( test => test.id == testID );
+    test.start();
+    return test;
+  }
+
+  /**
    * Logs this test as having ran, ends the test run timer, and pushes any given issues.
    *
    * @param {Issue[]} issues
