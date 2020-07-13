@@ -7,10 +7,10 @@ let debug = require("debug")("niem-qa");
 process.env.DEBUG = "niem-*";
 debug.enabled = true;
 
-let NamespaceQA = require("./namespace/index");
-let PropertyQA = require("./property/index");
-let TypeQA = require("./type/index");
-let FacetQA = require("./facet/index");
+let NamespaceQA = require("./model-tests/namespace/index");
+let PropertyQA = require("./model-tests/property/index");
+let TypeQA = require("./model-tests/type/index");
+let FacetQA = require("./model-tests/facet/index");
 
 let { Namespace, Component, Facet } = require("niem-model");
 

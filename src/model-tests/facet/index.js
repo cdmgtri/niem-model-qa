@@ -1,7 +1,7 @@
 
-let NIEMObjectQA = require("../niem-object");
-let FacetUnitTests = require("./unit");
-let QATestSuite = require("../test-suite/index");
+let NIEMObjectQA = require("../niem-object/index");
+let FacetUnitTests = require("./unit/index");
+let QATestSuite = require("../../test-suite/index");
 
 class FacetQA extends NIEMObjectQA {
 

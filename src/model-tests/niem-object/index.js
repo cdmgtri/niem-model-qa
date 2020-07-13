@@ -1,5 +1,5 @@
 
-let QATestSuite = require("../test-suite/index");
+let QATestSuite = require("../../test-suite/index");
 let debug = require("debug")("niem-qa");
 
 process.env.DEBUG = "niem-*";
