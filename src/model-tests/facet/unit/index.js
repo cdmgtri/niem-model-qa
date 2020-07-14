@@ -9,6 +9,8 @@ let Test = require("../../../test-suite/test/index");
 class FacetUnitTests extends NIEMObjectUnitTests {
 
   /**
+   * TODO Move facet test for expected special characters to release-specific QA
+   *
    * Check sample known facets with special characters in definitions to confirm
    * the correct character encoding has been used.
    *
@@ -17,37 +19,37 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    *
    * @param {Facet[]} facets
    */
-  async definition_formatting_specialChars(facets) {
+  // async definition_formatting_specialChars(facets) {
 
-    let test = this.testSuite.start("facet_definition_formatting_specialChars");
+  //   let test = this.testSuite.start("facet_definition_formatting_specialChars");
 
-    /** @type {Facet[]} */
-    let problemFacets = [];
+  //   /** @type {Facet[]} */
+  //   let problemFacets = [];
 
-    /** @type {{typeQName: string, value: string, expectedDefinition: string}[]} */
-    let samples = [
-      {typeQName: "can:CanadianProvinceCodeSimpleType", value: "QC", expectedDefinition: "Québec" },
+  //   /** @type {{typeQName: string, value: string, expectedDefinition: string}[]} */
+  //   let samples = [
+  //     {typeQName: "can:CanadianProvinceCodeSimpleType", value: "QC", expectedDefinition: "Québec" },
 
-      {typeQName: "genc:CountryAlpha2CodeSimpleType", value: "CI", expectedDefinition: "CÔTE D’IVOIRE" },
-      {typeQName: "genc:CountryAlpha3CodeSimpleType", value: "CIV", expectedDefinition: "CÔTE D’IVOIRE" },
-      {typeQName: "genc:CountryNumericCodeSimpleType", value: "384", expectedDefinition: "CÔTE D’IVOIRE" },
-      {typeQName: "genc:CountrySubdivisionCodeSimpleType", value: "AD-06", expectedDefinition: "Sant Julià de Lòria" },
+  //     {typeQName: "genc:CountryAlpha2CodeSimpleType", value: "CI", expectedDefinition: "CÔTE D’IVOIRE" },
+  //     {typeQName: "genc:CountryAlpha3CodeSimpleType", value: "CIV", expectedDefinition: "CÔTE D’IVOIRE" },
+  //     {typeQName: "genc:CountryNumericCodeSimpleType", value: "384", expectedDefinition: "CÔTE D’IVOIRE" },
+  //     {typeQName: "genc:CountrySubdivisionCodeSimpleType", value: "AD-06", expectedDefinition: "Sant Julià de Lòria" },
 
-      {typeQName: "iso_3166:CountryAlpha2CodeSimpleType", value: "CI", expectedDefinition: "Côte d'Ivoire" },
-      {typeQName: "iso_3166:CountryAlpha3CodeSimpleType", value: "CIV", expectedDefinition: "Côte d'Ivoire" },
-      {typeQName: "iso_3166:CountryNumericCodeSimpleType", value: "384", expectedDefinition: "Côte d'Ivoire" },
-      {typeQName: "iso_3166:CountrySubdivisionCodeSimpleType", value: "AD-06", expectedDefinition: "Sant Julià de Lòria" },
+  //     {typeQName: "iso_3166:CountryAlpha2CodeSimpleType", value: "CI", expectedDefinition: "Côte d'Ivoire" },
+  //     {typeQName: "iso_3166:CountryAlpha3CodeSimpleType", value: "CIV", expectedDefinition: "Côte d'Ivoire" },
+  //     {typeQName: "iso_3166:CountryNumericCodeSimpleType", value: "384", expectedDefinition: "Côte d'Ivoire" },
+  //     {typeQName: "iso_3166:CountrySubdivisionCodeSimpleType", value: "AD-06", expectedDefinition: "Sant Julià de Lòria" },
 
-      {typeQName: "iso_639-3:LanguageCodeSimpleType", value: "aae", expectedDefinition: "Arbëreshë Albanian" },
-    ];
+  //     {typeQName: "iso_639-3:LanguageCodeSimpleType", value: "aae", expectedDefinition: "Arbëreshë Albanian" },
+  //   ];
 
-    for (let sample of samples) {
-      let problemFacet = checkExpectedFacetDefinition(facets, sample.typeQName, sample.value, sample.expectedDefinition);
-      if (problemFacet) problemFacets.push(problemFacet);
-    }
+  //   for (let sample of samples) {
+  //     let problemFacet = checkExpectedFacetDefinition(facets, sample.typeQName, sample.value, sample.expectedDefinition);
+  //     if (problemFacet) problemFacets.push(problemFacet);
+  //   }
 
-    return this.testSuite.post(test, problemFacets, "definition");
-  }
+  //   return this.testSuite.post(test, problemFacets, "definition");
+  // }
 
   /**
    * Check that code facets have definitions.

@@ -23,7 +23,7 @@ function facetTests(qa, niem) {
 
     describe("Facet unit tests", () => {
 
-      test("#definition_formatting_specialChars", async () => {
+      test.skip("#definition_formatting_specialChars", async () => {
 
         let facets = [
           new Facet("can:CanadianProvinceCodeSimpleType", "QC", "Québec"),
