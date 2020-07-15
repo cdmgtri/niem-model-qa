@@ -1,6 +1,6 @@
 
-let TestSuite = require("../../../test-suite/index");
-let Utils = require("../../../utils");
+let TestSuite = require("../../test-suite/index");
+let Utils = require("../../utils");
 
 /**
  * @private

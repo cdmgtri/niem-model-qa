@@ -1,6 +1,6 @@
 
 let NIEMObjectQA = require("../niem-object");
-let TypeUnitTests = require("./unit");
+let TypeUnitTests = require("./unit.js");
 let QATestSuite = require("../../test-suite/index");
 
 class TypeQA extends NIEMObjectQA {
