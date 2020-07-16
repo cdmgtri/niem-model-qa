@@ -1,5 +1,5 @@
 
-const Test = require("./test-suite/test/index");
+const Test = require("./test");
 const NIEMModelQA = require("./index");
 
 class QAResults {
@@ -15,7 +15,7 @@ class QAResults {
    * All tests that have been run.
    */
   get testsRan() {
-    return this.qa.tests.filter( test => test.ran );
+    return this.qa._tests.filter( test => test.ran );
   }
 
   /**
@@ -24,7 +24,7 @@ class QAResults {
    * has not yet been implemented.
    */
   get testsNotRan() {
-    return this.qa.tests.filter( test => ! test.ran );
+    return this.qa._tests.filter( test => ! test.ran );
   }
 
   /**
@@ -104,11 +104,11 @@ class QAResults {
     /** @type {{}[]} */
     let json = await fs.readJSON(filePath);
 
-    if (overwrite) this.qa.tests = [];
+    if (overwrite) this.qa._tests = [];
 
     for (let testInfo of json) {
       let test = Object.assign(new Test(), testInfo);
-      this.qa.tests.push(test)
+      this.qa._tests.push(test)
     }
 
   }
@@ -118,7 +118,7 @@ class QAResults {
    */
   async save(filePath) {
     let fs = require("fs-extra");
-    await fs.outputJSON(filePath, this.qa.tests, {spaces: 2});
+    await fs.outputJSON(filePath, this.qa._tests, {spaces: 2});
   }
 
 
@@ -127,7 +127,7 @@ class QAResults {
    */
   get issuePrefixes() {
     /** @type {String[]} */
-    let prefixes = this.qa.tests.reduce( (prefixes, test) => [...prefixes, ...test.prefixes], [] );
+    let prefixes = this.qa._tests.reduce( (prefixes, test) => [...prefixes, ...test.prefixes], [] );
     return [...(new Set(prefixes))];
   }
 
@@ -142,6 +142,16 @@ class QAResults {
     .reduce( (results, test) => [...results, ...test.namespacesIssues(prefixes)], []);
   }
 
+
+  /**
+   * Total test run times in seconds.
+   */
+  get runTime() {
+    return this.qa._tests.reduce( (totalTime, test) => {
+      let newTime = test.timeElapsedSeconds;
+      return newTime ? totalTime + newTime : totalTime;
+    }, 0);
+  }
 
 }
 

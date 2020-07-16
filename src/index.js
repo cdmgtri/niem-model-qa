@@ -1,6 +1,6 @@
 
 let TestSuite = require("./test-suite/index");
-let Test = require("./test-suite/test/index");
+let Test = require("./test");
 let SpellChecker = require("./spellChecker");
 let Utils = require("./utils/index");
 let debug = require("debug")("niem-qa");
@@ -34,7 +34,7 @@ class NIEMModelQA {
   constructor() {
 
     /** @type {Test[]} */
-    this.tests = [];
+    this._tests = [];
 
     this.testSuite = new TestSuite(this);
     this.spellChecker = new SpellChecker();
@@ -99,7 +99,7 @@ class NIEMModelQA {
     // Merge the results into a single test suite
     let fullQA = new NIEMModelQA();
     for (let key in qaResults) {
-      fullQA.tests.push(...qaResults[key].tests);
+      fullQA._tests.push(...qaResults[key]._tests);
     }
 
     return fullQA;
@@ -111,31 +111,32 @@ class NIEMModelQA {
    */
   static init(tests) {
     let qa = new NIEMModelQA();
-    qa.tests.push(...tests);
-    return qa.testSuite;
+    qa._tests.push(...tests);
+    return qa;
   }
 
   /**
    * Convert a test metadata spreadsheet to JSON.  Defaults to model tests if no path given.
-   * @param {string} spreadsheetFilePath Path and file name of the test metadata spread.
+   *
+   * @param {string} spreadsheetPath Path and file name of the test metadata spread.
+   * @param {boolean} [reset=true] If path given, overwrite model tests (default); otherwise append tests
    */
-  static async updateTestSuiteJSON(spreadsheetFilePath) {
+  static async saveTestsAsJSON(spreadsheetPath, reset=true) {
 
-    if (!spreadsheetFilePath) {
-      // Default to this project's model test spreadsheet
+    let qa = new NIEMModelQA();
+    await qa.init();
+
+    if (spreadsheetPath) {
+      qa.testMetadata.add(spreadsheetPath, reset);
+    }
+    else {
       let path = require("path");
-      let currentPath = path.resolve(__dirname, "../");
-      spreadsheetFilePath = currentPath + "/niem-model-qa-tests"
+      spreadsheetPath = path.resolve(__dirname, "niem-model-qa-tests.xlsx");
     }
 
-    // Import test spreadsheet metadata
-    let testSuite = new TestSuite();
-    await testSuite.loadTestSpreadsheet(spreadsheetFilePath + ".xlsx");
+    let outputPath = spreadsheetPath.replace(".xlsx", ".json");
+    await qa.testMetadata.save(outputPath)
 
-    // Save test metadata to JSON file
-    let fs = require("fs");
-    let json = JSON.stringify(testSuite.testSuiteMetadata, null, 2);
-    fs.writeFileSync(spreadsheetFilePath + ".json", json);
   }
 
 }

@@ -1,7 +1,7 @@
 
 let { Release, NIEMObject, Component } = require("niem-model");
 
-let Test = require("../test-suite/test/index");
+let Test = require("../test");
 let Issue = require("../test-suite/issue/index");
 
 class Utils {
@@ -11,6 +11,7 @@ class Utils {
    */
   constructor(qa) {
     this.testSuite = qa.testSuite;
+    this.qa = qa;
     this.spellChecker = qa.spellChecker;
   }
 
@@ -76,7 +77,7 @@ class Utils {
       problemObjects.push(...matches);
     });
 
-    return this.testSuite.post(test, problemObjects, qnameField);
+    return this.qa.testMetadata.post(test, problemObjects, qnameField);
   }
 
   /**
@@ -104,7 +105,7 @@ class Utils {
       }
     }
 
-    return this.testSuite.post(test, problemComponents, "name");
+    return this.qa.testMetadata.post(test, problemComponents, "name");
   }
 
   /**
@@ -117,7 +118,7 @@ class Utils {
     let problemComponents = components.filter( component => {
       return component.name && component.name.match(regex)
     });
-    return this.testSuite.post(test, problemComponents, "name");
+    return this.qa.testMetadata.post(test, problemComponents, "name");
   }
 
   /**
@@ -127,7 +128,7 @@ class Utils {
    */
   name_missing__helper(test, components) {
     let problemComponents = components.filter( component => ! component.name );
-    return this.testSuite.post(test, problemComponents, "name");
+    return this.qa.testMetadata.post(test, problemComponents, "name");
   }
 
   /**
@@ -197,7 +198,7 @@ class Utils {
     let problemObjects = checkableObjects
     .filter( component => component[field] && component[field].match(/ {3,}|(?<!\.) {2,}|^ | $/) );
 
-    this.testSuite.post(test, problemObjects, field, () => "Leading, trailing, or multiple spaces detected");
+    this.qa.testMetadata.post(test, problemObjects, field, () => "Leading, trailing, or multiple spaces detected");
 
 
     // Non-breaking space
@@ -205,7 +206,7 @@ class Utils {
 
     problemObjects = checkableObjects.filter( object => object[field].match(nbsp) );
 
-    return this.testSuite.post(test, problemObjects, field, (object) => "Non-breaking space detected: " + object[field].replace(nbsp, `-->${nbsp}<--`), false);
+    return this.qa.testMetadata.post(test, problemObjects, field, (object) => "Non-breaking space detected: " + object[field].replace(nbsp, `-->${nbsp}<--`), false);
 
   }
 
@@ -292,7 +293,7 @@ class Utils {
       problemComponents.push(...matches);
     });
 
-    return this.testSuite.post(test, problemComponents, "prefix");
+    return this.qa.testMetadata.post(test, problemComponents, "prefix");
   }
 
 

@@ -3,7 +3,7 @@ let { saveAs } = require("file-saver");
 let xlsx = require("xlsx-populate");
 let { Workbook } = xlsx;
 
-let Test = require("../test/index");
+let Test = require("../../test");
 let Issue = require("../issue/index");
 
 let { Namespace } = require("niem-model");
@@ -95,7 +95,7 @@ class Report {
    * @param {String[]} prefixes
    */
   testStatus(prefixes=[]) {
-    return this.qa.tests.map( test => {
+    return this.qa._tests.map( test => {
       return {
         id: test.id,
         severity: test.severity,
@@ -180,7 +180,7 @@ class Report {
   issues(prefixes) {
 
     // Temporary assignment to establish return type for Intellisense
-    let results = this.qa.tests[0] ? this.qa.tests[0].issueReport() : undefined;
+    let results = this.qa._tests[0] ? this.qa._tests[0].issueReport() : undefined;
 
     results = [];
 

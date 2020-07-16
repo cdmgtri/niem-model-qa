@@ -24,13 +24,13 @@ class fieldTest {
    */
   async run(fieldName) {
 
-    let testSuite = await this.objectQA.field[fieldName](this.objects, this.release);
+    let qa = await this.objectQA.field[fieldName](this.objects, this.release);
 
-    expect(testSuite.qa.results.status()).toBe("fail");
+    expect(qa.results.status()).toBe("fail");
 
-    if (fieldName) this.fieldTestCount += testSuite.qa.tests.length;
+    if (fieldName) this.fieldTestCount += qa._tests.length;
 
-    return testSuite;
+    return qa;
   }
 
 }

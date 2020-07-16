@@ -1,5 +1,6 @@
 
-let Test = require("./test-suite/test/index");
+let Test = require("./test");
+let Issue = require("./test-suite/issue/index");
 let SpreadsheetUtils = require("./utils/xlsx");
 
 class TestMetadata {
@@ -18,7 +19,7 @@ class TestMetadata {
    * @returns {Test[]}
    */
   get tests() {
-    let copy = this.qa.tests.map( test => Object.assign(new Test(), test));
+    let copy = this.qa._tests.map( test => Object.assign(new Test(), test));
     copy.forEach( test => delete test.issues );
     return copy;
   }
@@ -29,8 +30,8 @@ class TestMetadata {
    * @param {boolean} reset True to remove existing tests; false to append new tests onto existing tests
    */
   add(tests, reset=false) {
-    if (reset) this.qa.tests = [];
-    this.qa.tests.push(...tests);
+    if (reset) this.qa._tests = [];
+    this.qa._tests.push(...tests);
     return tests;
   }
 
@@ -40,7 +41,7 @@ class TestMetadata {
    */
   async loadSpreadsheet(filePath, reset=true) {
 
-    if (reset) this.qa.tests = [];
+    if (reset) this.qa._tests = [];
 
     /** @type {Test[]} */
     let tests = [];
@@ -60,7 +61,76 @@ class TestMetadata {
    * Resets each test status back to its initial state and removes all issues.
    */
   reset() {
-    this.qa.tests.forEach( test => test.reset() );
+    this.qa._tests.forEach( test => test.reset() );
+  }
+
+  // * @param {function(NIEMObject):string} commentFunction
+  /**
+   * Logs issues for the test.
+   *
+   * @param {Test} test
+   * @param {NIEMObject[]} problemObjects
+   * @param {String} problemField
+   * @param {(object: NIEMObject) => string} commentFunction
+   * @param {Boolean} [reset=true] Replaces any previous issues with new issues
+   */
+  post(test, problemObjects, problemField, commentFunction, reset=true) {
+
+    if (reset == true) {
+      // Remove any existing issues on the test
+      test.issues = [];
+    }
+
+    /** @type {Issue[]} */
+    let issues = [];
+
+    // Process inputs into an array of issues
+    problemObjects.forEach( object => {
+
+      let label = object.label;
+      let problemValue = object[problemField];
+      let comment = commentFunction ? commentFunction(object) : "";
+
+      // Replace full facet identifier with qualified type name
+      // if (test.id.startsWith("facet")) label = object.typeQName;
+
+      let isException = test.exceptionLabels.includes(object.label);
+
+      if (!this.ignoreExceptions || !isException) {
+        let issue = new Issue(object.authoritativePrefix, label, object.input_location, object.input_line, object.input_position, problemValue, comment);
+        issues.push(issue);
+      }
+
+    });
+
+    // Mark test as ran and load any issues
+    test.log(issues);
+
+    return test;
+
+  }
+
+  /**
+   * Returns a test from the given set of tests with the given ID.
+   *
+   * @param {Test[]} tests
+   * @param {String} testID
+   */
+  // static find(tests, testID) {
+  //   return tests.find( test => test.id == testID );
+  // }
+
+  /**
+   * Returns a test from the test suite with the given ID.
+
+   * @param {String} testID
+   */
+  find(testID) {
+    let test = this.qa._tests.find(test => test.id == testID);
+    if (!test) {
+      throw new Error(`Test '${testID}' not found in test suite.`);
+    }
+    return test;
   }
 
   /**
@@ -70,6 +140,7 @@ class TestMetadata {
     let fs = require("fs-extra");
     await fs.outputJSON(filePath, this.tests, {spaces: 2});
   }
+
 
 }
 

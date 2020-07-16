@@ -72,8 +72,8 @@ function namespaceTests(qa, niem) {
       });
 
       test("#all fields", async () => {
-        let testSuite = await qa.namespace.all(fieldNamespaces, release);
-        expect(fieldTest.fieldTestCount).toBe(testSuite.tests.length);
+        let results = await qa.namespace.all(fieldNamespaces, release);
+        expect(fieldTest.fieldTestCount).toBe(results._tests.length);
       });
 
     });

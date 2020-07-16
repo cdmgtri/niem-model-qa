@@ -13,6 +13,7 @@ class NIEMObjectUnitTests {
    */
   constructor(testSuite, utils) {
     this.testSuite = testSuite;
+    this.qa = testSuite.qa;
 
     /** @private */
     this.utils = utils;

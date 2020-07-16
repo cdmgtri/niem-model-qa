@@ -1,7 +1,7 @@
 
 let NIEMObjectUnitTests = require("../niem-object/unit");
 let { Release, Property } = require("niem-model");
-let Test = require("../../test-suite/test/index");
+let Test = require("../../test");
 
 /**
  * Property unit tests
@@ -55,7 +55,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
     .filter( property => property.name && property.name.endsWith("Augmentation") )
     .filter( property => !property.groupName || property.groupName.replace(/Point$/, "") != property.name );
 
-    return this.testSuite.post(test, problems, "name");
+    return this.qa.testMetadata.post(test, problems, "name");
   }
 
   /**
@@ -75,7 +75,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
     .filter( property => property.name && property.isAttribute )
     .filter( property => property.name[0] == property.name[0].toUpperCase() );
 
-    return this.testSuite.post(test, problems, "name");
+    return this.qa.testMetadata.post(test, problems, "name");
   }
 
   /**
@@ -95,7 +95,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
     .filter( property => property.name && property.isElement )
     .filter( property => property.name[0] == property.name[0].toLowerCase() );
 
-    return this.testSuite.post(test, problems, "name");
+    return this.qa.testMetadata.post(test, problems, "name");
   }
 
   /**
@@ -161,7 +161,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
   async prefix_missing(properties) {
     let test = this.testSuite.start("property_prefix_missing");
     let problems = properties.filter( property => ! property.prefix );
-    return this.testSuite.post(test, problems, "prefix");
+    return this.qa.testMetadata.post(test, problems, "prefix");
   }
 
   /**

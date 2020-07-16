@@ -19,13 +19,13 @@ beforeAll( async () => {
 describe("Check test suite", () => {
 
   test("#load", () => {
-    expect(qa.tests.length).toBeGreaterThan(20);
-    expect(qa.tests.length).toBeLessThan(500);
+    expect(qa._tests.length).toBeGreaterThan(20);
+    expect(qa._tests.length).toBeLessThan(500);
     expect(qa.results.status()).toBe("not ran");
   });
 
   test("#find", () => {
-    let test = qa.testSuite.find("type_name_missing_complex");
+    let test = qa.testMetadata.find("type_name_missing_complex");
     expect(test).toBeDefined();
   });
 
@@ -67,7 +67,7 @@ describe("Reload tests", () => {
     let newQA = new NIEMModelQA();
     await newQA.results.reload(filePath);
 
-    expect(newQA.tests.length).toBe(qa.tests.length);
+    expect(newQA._tests.length).toBe(qa._tests.length);
     expect(newQA.results.issues().length).toBe(qa.results.issues().length);
 
   })

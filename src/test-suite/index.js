@@ -2,7 +2,7 @@
 let chalk = require("chalk");
 let { NIEMObject } = require("niem-model");
 
-let Test = require("./test/index");
+let Test = require("../test");
 let Issue = require("./issue/index");
 const NIEMModelQA = require("..");
 
@@ -24,7 +24,7 @@ class QATestSuite {
   }
 
   get tests() {
-    return this.qa.tests;
+    return this.qa._tests;
   }
 
   /**
@@ -120,7 +120,7 @@ class QATestSuite {
     severitySummaries.push(printSeveritySummary(summary.warnings))
     severitySummaries.push(printSeveritySummary(summary.errors));
 
-    let qaTestCount  = `${this.qa.tests.length} tests`;
+    let qaTestCount  = `${this.qa._tests.length} tests`;
     let qaIssueCount = `(${this.qa.results.issues().length} issues)`;
 
     console.log(`
@@ -137,21 +137,11 @@ class QATestSuite {
   }
 
   /**
-   * Total test run times in seconds.
-   */
-  get runTime() {
-    return this.qa.tests.reduce( (totalTime, test) => {
-      let newTime = test.timeElapsedSeconds;
-      return newTime ? totalTime + newTime : totalTime;
-    }, 0);
-  }
-
-  /**
    * Starts the clock on a test or throws error if not found.
    * @param {string} testID
    */
   start(testID) {
-    let test = QATestSuite.find(this.tests, testID);
+    let test = this.qa.testMetadata.find(testID);
     if (! test) throw new Error(`Test ${testID} not found`);
     test.timeStart = Date.now();
     return test;
@@ -168,7 +158,10 @@ class QATestSuite {
    * @param {Boolean} [append=false] Append rather than replace current test issues.
    */
   log(test, issues, append=false) {
-    return QATestSuite.log(this.tests, test.id, issues, append);
+    // return QATestSuite.log(this.tests, test.id, issues, append);
+    // let test = this.qa.testMetadata.find(testID);
+    test.log(issues, append);
+    return test;
   }
 
   /**
@@ -182,90 +175,13 @@ class QATestSuite {
    * @param {Issue[]} issues
    * @param {Boolean} [append=false] Append rather than replace current test issues.
    */
-  static log(tests, testID, issues=[], append=false) {
-    let test = QATestSuite.find(tests, testID, append);
-    test.log(issues);
-    return test;
-  }
-
-  // * @param {function(NIEMObject):string} commentFunction
-  /**
-   * Logs issues for the test.
-   *
-   * @param {Test} test
-   * @param {NIEMObject[]} problemObjects
-   * @param {String} problemField
-   * @param {(object: NIEMObject) => string} commentFunction
-   * @param {Boolean} [reset=true] Replaces any previous issues with new issues
-   */
-  post(test, problemObjects, problemField, commentFunction, reset=true) {
-
-    if (reset == true) {
-      // Remove any existing issues on the test
-      test.issues = [];
-    }
-
-    /** @type {Issue[]} */
-    let issues = [];
-
-    // Process inputs into an array of issues
-    problemObjects.forEach( object => {
-
-      let label = object.label;
-      let problemValue = object[problemField];
-      let comment = commentFunction ? commentFunction(object) : "";
-
-      // Replace full facet identifier with qualified type name
-      // if (test.id.startsWith("facet")) label = object.typeQName;
-
-      let isException = test.exceptionLabels.includes(object.label);
-
-      if (!this.ignoreExceptions || !isException) {
-        let issue = new Issue(object.authoritativePrefix, label, object.input_location, object.input_line, object.input_position, problemValue, comment);
-        issues.push(issue);
-      }
-
-    });
-
-    // Mark test as ran and load any issues
-    test.log(issues);
-
-    return test;
-
-  }
-
-  /**
-   * Returns a test from the given set of tests with the given ID.
-   *
-   * @param {Test[]} tests
-   * @param {String} testID
-   */
-  static find(tests, testID) {
-    return tests.find( test => test.id == testID );
-  }
-
-  /**
-   * Returns a test from the test suite with the given ID.
-
-   * @param {String} testID
-   */
-  find(testID) {
-    let test = QATestSuite.find(this.tests, testID);
-    if (!test) {
-      throw new Error(`Test '${testID}' not found in test suite.`);
-    }
-    return test;
-  }
+  // static log(tests, testID, issues=[], append=false) {
+  //   let test = QATestSuite.find(tests, testID, append);
+  //   test.log(issues);
+  //   return test;
+  // }
 
 }
-
-/**
- * @private
- * @callback CommentFunction
- * @param {String} problemValue
- * @returns {String}
- */
-let CommentFunctionType;
 
 module.exports = QATestSuite;
 

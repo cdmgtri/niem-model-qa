@@ -1,5 +1,5 @@
 
-let Issue = require("../issue/index");
+let Issue = require("./test-suite/issue/index");
 let NIEMSpecs = require("niem-specification-utils-js");
 
 class Test {

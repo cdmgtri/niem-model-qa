@@ -249,8 +249,8 @@ function facetTests(qa, niem) {
       });
 
       test("#all fields", async () => {
-        let testSuite = await qa.facet.all(fieldFacets, release);
-        expect(fieldTest.fieldTestCount).toBe(testSuite.tests.length);
+        let results = await qa.facet.all(fieldFacets, release);
+        expect(fieldTest.fieldTestCount).toBe(results._tests.length);
       });
 
     });
