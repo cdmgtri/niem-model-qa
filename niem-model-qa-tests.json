@@ -46,7 +46,7 @@
   },
   {
     "id": "facet_definition_formatting_specialChars",
-    "description": "Sample facets from certain types with known special characters should be tested to confirm special characters have been correctly encoded.",
+    "description": "Move to NIEM Releases-specific tests.  Doesn't apply to user input.\r\n\r\nSample facets from certain types with known special characters should be tested to confirm special characters have been correctly encoded.",
     "category": "Invalid value",
     "component": "Facet",
     "field": "definition",
