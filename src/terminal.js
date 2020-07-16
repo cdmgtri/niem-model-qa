@@ -32,7 +32,7 @@ class Terminal {
     severitySummaryLines.push(severityStatusLine( summary(this.qa, prefixes).errors ));
 
     // Total counts
-    let qaTestCount  = `${this.qa._tests.length} tests`;
+    let qaTestCount  = `${this.qa.tests.length} tests`;
     let qaIssueCount = `(${this.qa.results.issues().length} issues)`;
 
     // Print to console

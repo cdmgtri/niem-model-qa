@@ -250,7 +250,7 @@ function facetTests(qa, niem) {
 
       test("#all fields", async () => {
         let results = await qa.facet.all(fieldFacets, release);
-        expect(fieldTest.fieldTestCount).toBe(results._tests.length);
+        expect(fieldTest.fieldTestCount).toBe(results.tests.length);
       });
 
     });

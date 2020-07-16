@@ -13,17 +13,6 @@ class Tests {
   }
 
   /**
-   * Metadata about each test.
-   * Does not include issues related to the test.
-   * @returns {Test[]}
-   */
-  get tests() {
-    let copy = this.qa._tests.map( test => Object.assign(new Test(), test));
-    copy.forEach( test => delete test.issues );
-    return copy;
-  }
-
-  /**
    * Adds test objects into the test suite.
    * @param {Test[]} tests
    * @param {boolean} reset True to remove existing tests; false to append new tests onto existing tests
@@ -47,6 +36,10 @@ class Tests {
     return test;
   }
 
+  get length() {
+    return this.qa._tests.length;
+  }
+
   /**
    * @param {String} filePath
    * @param {boolean} reset Overwrite existing tests if true
@@ -64,6 +57,17 @@ class Tests {
 
     return this.qa.tests.add(tests, reset);
 
+  }
+
+  /**
+   * Metadata about each test.
+   * Does not include issues related to the test.
+   * @returns {Test[]}
+   */
+  get metadata() {
+    let copy = this.qa._tests.map( test => Object.assign(new Test(), test));
+    copy.forEach( test => delete test.issues );
+    return copy;
   }
 
   /**
@@ -120,7 +124,7 @@ class Tests {
    */
   async save(filePath) {
     let fs = require("fs-extra");
-    await fs.outputJSON(filePath, this.tests, {spaces: 2});
+    await fs.outputJSON(filePath, this.metadata, {spaces: 2});
   }
 
   /**

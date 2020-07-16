@@ -99,7 +99,7 @@ class NIEMModelQA {
     // Merge the results into a single test suite
     let fullQA = new NIEMModelQA();
     for (let key in qaResults) {
-      fullQA._tests.push(...qaResults[key]._tests);
+      fullQA.tests.add(qaResults[key]._tests);
     }
 
     return fullQA;

@@ -73,7 +73,7 @@ function namespaceTests(qa, niem) {
 
       test("#all fields", async () => {
         let results = await qa.namespace.all(fieldNamespaces, release);
-        expect(fieldTest.fieldTestCount).toBe(results._tests.length);
+        expect(fieldTest.fieldTestCount).toBe(results.tests.length);
       });
 
     });

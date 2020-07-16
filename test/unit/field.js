@@ -28,7 +28,7 @@ class fieldTest {
 
     expect(qa.results.status()).toBe("fail");
 
-    if (fieldName) this.fieldTestCount += qa._tests.length;
+    if (fieldName) this.fieldTestCount += qa.tests.length;
 
     return qa;
   }
