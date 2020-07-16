@@ -249,7 +249,7 @@ function facetTests(qa, niem) {
       });
 
       test("#all fields", async () => {
-        let results = await qa.facet.all(fieldFacets, release);
+        let results = await qa.facet.run(fieldFacets, release);
         expect(fieldTest.fieldTestCount).toBe(results.tests.length);
       });
 

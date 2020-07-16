@@ -572,7 +572,7 @@ function typeTests(qa, niem) {
       });
 
       test("#all fields", async () => {
-        let results = await qa.type.all(fieldTypes, release);
+        let results = await qa.type.run(fieldTypes, release);
         expect(fieldTest.fieldTestCount).toBe(results.tests.length);
       });
 

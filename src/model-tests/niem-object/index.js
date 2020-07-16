@@ -27,7 +27,7 @@ class NIEMObjectQA {
     /**
      * Run all tests in the test suite
      */
-    this.all;
+    this.run;
 
     /**
      * Run tests in the test suite filtered on a particular object field

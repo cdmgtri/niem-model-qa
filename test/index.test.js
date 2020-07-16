@@ -45,11 +45,11 @@ describe("Release tests", () => {
   /**
    * @TODO Does the first line need to return a new QA type with the results?
    */
-  test("#checkRelease", async () => {
-    let releaseQA = await qa.run(release);
-    let issues = releaseQA.results.issues();
+  test("#Run", async () => {
+    await qa.run(release, false);
+    let issues = qa.results.issues();
     expect(issues.length).toBeGreaterThan(100);
-    releaseQA.terminal.printStatus();
+    qa.terminal.printStatus();
   });
 
 });

@@ -65,44 +65,32 @@ class NIEMModelQA {
   }
 
   /**
+   * Runs all tests
+   *
    * @param {Release} release
+   * @param {boolean} [reset=true] True (default) to reset any existing test results
    */
-  async run(release) {
+  async run(release, reset=true) {
 
-    // Load data
-    let namespaces = await release.namespaces.find();
-    let properties = await release.properties.find({});
-    let types = await release.types.find();
-    let facets = await release.facets.find();
+    if (reset) this.tests.reset();
 
+    // Load and sort data
+    let namespaces = await release.namespaces.find({}, Namespace.sortByPrefix);
+    let properties = await release.properties.find({}, Component.sortByQName);
+    let types = await release.types.find({}, Component.sortByQName);
+    let facets = await release.facets.find({}, Facet.sortFacetsByStyleAdjustedValueDefinition);
+
+    // Filter data to remove non-conformant objects
     let conformantNamespaces = namespaces.filter( namespace => namespace.conformanceRequired );
     let conformantPrefixes = conformantNamespaces.map( namespace => namespace.prefix );
-
-    // Exclude external properties from QA testing
     properties = properties.filter( property => conformantPrefixes.includes(property.prefix) );
-
-    // Sort components
-    namespaces = namespaces.sort(Namespace.sortByPrefix);
-    properties = properties.sort(Component.sortByQName);
-    types = types.filter( type => type.prefix != "xs" && type.prefix != "structures" ).sort(Component.sortByQName);
-    facets = facets.sort(Facet.sortFacetsByStyleAdjustedValueDefinition);
-
-    /** @type {Object<string, NIEMModelQA>} */
-    let qaResults = {};
+    types = types.filter( type => type.prefix != "xs" && type.prefix != "structures" )
 
     // Run tests
-    qaResults.namespace = await this.namespace.all(conformantNamespaces, release);
-    qaResults.property = await this.property.all(properties, release);
-    qaResults.type = await this.type.all(types, release);
-    qaResults.facet = await this.facet.all(facets, release);
-
-    // Merge the results into a single test suite
-    let fullQA = new NIEMModelQA();
-    for (let key in qaResults) {
-      fullQA.tests.add(qaResults[key]._tests);
-    }
-
-    return fullQA;
+    await this.namespace.run(conformantNamespaces, release);
+    await this.property.run(properties, release);
+    await this.type.run(types, release);
+    await this.facet.run(facets, release);
 
   }
 

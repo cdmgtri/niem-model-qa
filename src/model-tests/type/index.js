@@ -15,7 +15,7 @@ class TypeQA extends NIEMObjectQA {
      * @param {Release} release
      * @returns {Promise<NIEMModelQA>}
      */
-    this.all = (types, release) => this.runTests(types, release);
+    this.run = (types, release) => this.runTests(types, release);
 
     this.field = {
 

@@ -295,7 +295,7 @@ function propertyTests(qa, niem) {
       });
 
       test("#all fields", async () => {
-        let propertyQA = await qa.property.all(fieldProperties, release);
+        let propertyQA = await qa.property.run(fieldProperties, release);
         expect(fieldTest.fieldTestCount).toBe(propertyQA.tests.length);
       });
 

@@ -15,7 +15,7 @@ class FacetQA extends NIEMObjectQA {
      * @param {Release} release
      * @returns {Promise<NIEMModelQA>}
      */
-    this.all = (facets, release) => this.runTests(facets, release);
+    this.run = (facets, release) => this.runTests(facets, release);
 
     this.field = {
 

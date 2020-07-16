@@ -16,7 +16,7 @@ class NamespaceQA extends NIEMObjectQA {
      * @param {Release} release
      * @return {Promise<NIEMModelQA>}
      */
-    this.all = (namespaces, release) => this.runTests(namespaces, release);
+    this.run = (namespaces, release) => this.runTests(namespaces, release);
 
     this.field = {
 

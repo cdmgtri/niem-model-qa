@@ -15,7 +15,7 @@ class PropertyQA extends NIEMObjectQA {
      * @param {Release} release
      * @returns {Promise<NIEMModelQA>}
      */
-    this.all = (properties, release) => this.runTests(properties, release);
+    this.run = (properties, release) => this.runTests(properties, release);
 
     this.field = {
 
