@@ -6,8 +6,9 @@ let Utils = require("./utils/index");
 let debug = require("debug")("niem-qa");
 
 const QAReport = require("./test-suite/report/index");
-const Tests = require("./tests");
 const QAResults = require("./results");
+const QATerminal = require("./terminal");
+const Tests = require("./tests");
 
 process.env.DEBUG = "niem-*";
 debug.enabled = true;
@@ -42,6 +43,7 @@ class NIEMModelQA {
     this.tests = new Tests(this);
     this.results = new QAResults(this);
     this.report = new QAReport(this.testSuite);
+    this.terminal = new QATerminal(this);
 
     let utils = new Utils(this);
     this.namespace = new NamespaceQA(this.testSuite, utils);

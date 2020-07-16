@@ -49,7 +49,7 @@ describe("Release tests", () => {
     let releaseQA = await qa.checkRelease(release);
     let issues = releaseQA.results.issues();
     expect(issues.length).toBeGreaterThan(100);
-    releaseQA.testSuite.printStatus();
+    releaseQA.terminal.printStatus();
   });
 
 });
