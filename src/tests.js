@@ -41,8 +41,6 @@ class Tests {
    */
   async loadSpreadsheet(filePath, reset=true) {
 
-    if (reset) this.qa._tests = [];
-
     /** @type {Test[]} */
     let tests = [];
 
@@ -52,8 +50,7 @@ class Tests {
     // Convert spreadsheet rows to test objects
     rows.forEach( row => tests.push(new Test(...row) ) );
 
-    // return tests;
-    return this.qa.tests.add(tests);
+    return this.qa.tests.add(tests, reset);
 
   }
 
@@ -64,7 +61,6 @@ class Tests {
     this.qa._tests.forEach( test => test.reset() );
   }
 
-  // * @param {function(NIEMObject):string} commentFunction
   /**
    * Logs issues for the test.
    *

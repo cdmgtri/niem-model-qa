@@ -127,7 +127,7 @@ class NIEMModelQA {
     await qa.init();
 
     if (spreadsheetPath) {
-      qa.tests.add(spreadsheetPath, reset);
+      await qa.tests.loadSpreadsheet(spreadsheetPath, reset);
     }
     else {
       let path = require("path");
