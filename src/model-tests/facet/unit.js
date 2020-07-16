@@ -68,7 +68,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
       return facet.style == "enumeration" && ! facet.definition
     });
 
-    return this.qa.testMetadata.post(test, problemFacets, "definition");
+    return this.qa.tests.post(test, problemFacets, "definition");
   }
 
   /**
@@ -88,7 +88,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
       return facet.style == "pattern" && ! facet.definition
     });
 
-    return this.qa.testMetadata.post(test, problemFacets, "definition");
+    return this.qa.tests.post(test, problemFacets, "definition");
   }
 
   /**
@@ -108,7 +108,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
       return ! facet.style || ! Facet.Styles.includes(facet.style)
     });
 
-    return this.qa.testMetadata.post(test, problemFacets, "style");
+    return this.qa.tests.post(test, problemFacets, "style");
   }
 
   /**
@@ -144,7 +144,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
       problemFacets.push(...matches);
     }
 
-    return this.qa.testMetadata.post(test, problemFacets, "typeQName");
+    return this.qa.tests.post(test, problemFacets, "typeQName");
   }
 
   /**
@@ -164,7 +164,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
     .filter( facet => facet.typeName && facet.style == "enumeration" )
     .filter( facet => ! facet.typeName.endsWith("CodeSimpleType") );
 
-    return this.qa.testMetadata.post(test, problemFacets, "typeQName");
+    return this.qa.tests.post(test, problemFacets, "typeQName");
   }
 
   /**
@@ -208,7 +208,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
     .filter( facet => facet.style == "enumeration" )
     .filter( facet => labelCounts[facet.label] > 1 );
 
-    return this.qa.testMetadata.post(test, problemFacets, "value");
+    return this.qa.tests.post(test, problemFacets, "value");
 
   }
 
@@ -232,7 +232,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
   async value_missing(facets) {
     let test = this.testSuite.start("facet_value_missing");
     let problemFacets = facets.filter( facet => ! facet.value );
-    return this.qa.testMetadata.post(test, problemFacets, "value");
+    return this.qa.tests.post(test, problemFacets, "value");
   }
 
 }

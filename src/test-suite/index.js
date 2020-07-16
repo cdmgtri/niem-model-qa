@@ -141,7 +141,7 @@ class QATestSuite {
    * @param {string} testID
    */
   start(testID) {
-    let test = this.qa.testMetadata.find(testID);
+    let test = this.qa.tests.find(testID);
     if (! test) throw new Error(`Test ${testID} not found`);
     test.timeStart = Date.now();
     return test;

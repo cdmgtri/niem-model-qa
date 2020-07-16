@@ -12,7 +12,7 @@ let release;
 
 beforeAll( async () => {
   await qa.init();
-  await qa.testMetadata.loadSpreadsheet("niem-model-qa-tests.xlsx");
+  await qa.tests.loadSpreadsheet("niem-model-qa-tests.xlsx");
   release = await niem.releases.add("user", "model", "1.0");
 });
 
@@ -25,12 +25,12 @@ describe("Check test suite", () => {
   });
 
   test("#find", () => {
-    let test = qa.testMetadata.find("type_name_missing_complex");
+    let test = qa.tests.find("type_name_missing_complex");
     expect(test).toBeDefined();
   });
 
   test("#test metadata", () => {
-    qa.testMetadata.save("niem-model-qa-tests.json")
+    qa.tests.save("niem-model-qa-tests.json")
   });
 
 });

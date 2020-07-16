@@ -77,7 +77,7 @@ class Utils {
       problemObjects.push(...matches);
     });
 
-    return this.qa.testMetadata.post(test, problemObjects, qnameField);
+    return this.qa.tests.post(test, problemObjects, qnameField);
   }
 
   /**
@@ -105,7 +105,7 @@ class Utils {
       }
     }
 
-    return this.qa.testMetadata.post(test, problemComponents, "name");
+    return this.qa.tests.post(test, problemComponents, "name");
   }
 
   /**
@@ -118,7 +118,7 @@ class Utils {
     let problemComponents = components.filter( component => {
       return component.name && component.name.match(regex)
     });
-    return this.qa.testMetadata.post(test, problemComponents, "name");
+    return this.qa.tests.post(test, problemComponents, "name");
   }
 
   /**
@@ -128,7 +128,7 @@ class Utils {
    */
   name_missing__helper(test, components) {
     let problemComponents = components.filter( component => ! component.name );
-    return this.qa.testMetadata.post(test, problemComponents, "name");
+    return this.qa.tests.post(test, problemComponents, "name");
   }
 
   /**
@@ -198,7 +198,7 @@ class Utils {
     let problemObjects = checkableObjects
     .filter( component => component[field] && component[field].match(/ {3,}|(?<!\.) {2,}|^ | $/) );
 
-    this.qa.testMetadata.post(test, problemObjects, field, () => "Leading, trailing, or multiple spaces detected");
+    this.qa.tests.post(test, problemObjects, field, () => "Leading, trailing, or multiple spaces detected");
 
 
     // Non-breaking space
@@ -206,7 +206,7 @@ class Utils {
 
     problemObjects = checkableObjects.filter( object => object[field].match(nbsp) );
 
-    return this.qa.testMetadata.post(test, problemObjects, field, (object) => "Non-breaking space detected: " + object[field].replace(nbsp, `-->${nbsp}<--`), false);
+    return this.qa.tests.post(test, problemObjects, field, (object) => "Non-breaking space detected: " + object[field].replace(nbsp, `-->${nbsp}<--`), false);
 
   }
 
@@ -293,7 +293,7 @@ class Utils {
       problemComponents.push(...matches);
     });
 
-    return this.qa.testMetadata.post(test, problemComponents, "prefix");
+    return this.qa.tests.post(test, problemComponents, "prefix");
   }
 
 

@@ -37,7 +37,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
       }
     }
 
-    return this.qa.testMetadata.post(test, problemTypes, "baseQName");
+    return this.qa.tests.post(test, problemTypes, "baseQName");
   }
 
   /**
@@ -67,7 +67,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
       }
     }
 
-    return this.qa.testMetadata.post(test, problemTypes, "baseQName");
+    return this.qa.tests.post(test, problemTypes, "baseQName");
   }
 
   /**
@@ -85,7 +85,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
     let problemTypes = types.filter( type => {
       return type.isSimpleContent && type.style != "union" && ! type.baseQName;
     });
-    return this.qa.testMetadata.post(test, problemTypes, "baseQName");
+    return this.qa.tests.post(test, problemTypes, "baseQName");
   }
 
   /**
@@ -116,7 +116,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
       }
     }
 
-    return this.qa.testMetadata.post(test, problemTypes, "baseQName");
+    return this.qa.tests.post(test, problemTypes, "baseQName");
   }
 
   /**
@@ -141,7 +141,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
   async definition_missing_complex(types) {
     let test = this.testSuite.start("type_definition_missing_complex");
     let problemTypes = types.filter( type => type.isComplexType && ! type.definition )
-    return this.qa.testMetadata.post(test, problemTypes, "definition");
+    return this.qa.tests.post(test, problemTypes, "definition");
   }
 
   /**
@@ -152,7 +152,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
   async definition_missing_simple(types) {
     let test = this.testSuite.start("type_definition_missing_simple");
     let problemTypes = types.filter( type => type.isSimpleType && ! type.definition )
-    return this.qa.testMetadata.post(test, problemTypes, "definition");
+    return this.qa.tests.post(test, problemTypes, "definition");
   }
 
   /**
@@ -172,7 +172,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
     .filter( type => type.isComplexType && type.definition )
     .filter( type => ! type.definition.startsWith("A data type ") );
 
-    return this.qa.testMetadata.post(test, problemTypes, "definition");
+    return this.qa.tests.post(test, problemTypes, "definition");
   }
 
   /**
@@ -193,7 +193,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
     .filter( type => type.isSimpleType && type.definition )
     .filter( type => ! type.definition.startsWith("A data type ") );
 
-    return this.qa.testMetadata.post(test, problemTypes, "definition");
+    return this.qa.tests.post(test, problemTypes, "definition");
   }
 
   /**
@@ -236,7 +236,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
     .filter( type => type.prefix != "xs" && type.prefix != "niem-xs" )
     .filter( type => type.name[0] == type.name[0].toLowerCase() );
 
-    return this.qa.testMetadata.post(test, problemTypes, "name");
+    return this.qa.tests.post(test, problemTypes, "name");
   }
 
   /**
@@ -272,7 +272,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
     .filter( type => type.name && type.name.endsWith("CodeType") && type.baseName )
     .filter( type => type.name.replace("CodeType", "CodeSimpleType") != type.baseName );
 
-    return this.qa.testMetadata.post(test, problemTypes, "name", (type) => "base type " + type.baseQName);
+    return this.qa.tests.post(test, problemTypes, "name", (type) => "base type " + type.baseQName);
   }
 
   /**
@@ -352,7 +352,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
       }
     }
 
-    return this.qa.testMetadata.post(test, problemTypes, "name");
+    return this.qa.tests.post(test, problemTypes, "name");
   }
 
   /**
@@ -374,7 +374,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
     .filter( type => type.isComplexType && type.name && type.name.endsWith("CodeType") )
     .filter( type => ! type.baseQName || ! type.baseQName.endsWith("CodeSimpleType") );
 
-    return this.qa.testMetadata.post(test, problemTypes, "name");
+    return this.qa.tests.post(test, problemTypes, "name");
   }
 
   /**
@@ -394,7 +394,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
     .filter( type => type.isComplexType && type.name )
     .filter( type => type.name.endsWith("SimpleType") );
 
-    return this.qa.testMetadata.post(test, problemTypes, "name");
+    return this.qa.tests.post(test, problemTypes, "name");
   }
 
   /**
@@ -416,7 +416,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
     .filter( type => type.prefix != "xs" && type.isSimpleType && type.name )
     .filter( type => ! type.name.endsWith("SimpleType") );
 
-    return this.qa.testMetadata.post(test, problemTypes, "name");
+    return this.qa.tests.post(test, problemTypes, "name");
   }
 
   /**
@@ -440,7 +440,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
     .filter( type => type.prefix != "xs" && type.prefix != "niem-xs" && type.name )
     .filter( type => ! type.name.endsWith("Type") );
 
-    return this.qa.testMetadata.post(test, problemTypes, "name");
+    return this.qa.tests.post(test, problemTypes, "name");
   }
 
   /**
@@ -457,7 +457,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
   async name_reservedTerm_type(types) {
     let test = this.testSuite.start("type_name_reservedTerm_type");
     let problemTypes = types.filter( type => type.name.match(/Type.*Type/) );
-    return this.qa.testMetadata.post(test, problemTypes, "name");
+    return this.qa.tests.post(test, problemTypes, "name");
   }
 
   /**
@@ -485,7 +485,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
   async prefix_missing(types) {
     let test = this.testSuite.start("type_prefix_missing");
     let problemTypes = types.filter( type => ! type.prefix );
-    return this.qa.testMetadata.post(test, problemTypes, "prefix");
+    return this.qa.tests.post(test, problemTypes, "prefix");
   }
 
   /**
@@ -511,7 +511,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
   async style_missing(types) {
     let test = this.testSuite.start("type_style_missing");
     let problemTypes = types.filter( type => ! type.style );
-    return this.qa.testMetadata.post(test, problemTypes, "style");
+    return this.qa.tests.post(test, problemTypes, "style");
   }
 
   /**
@@ -539,7 +539,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
     });
 
     let problemTypes = types.filter( type => unknownStyles.includes(type.style) );
-    return this.qa.testMetadata.post(test, problemTypes, "style");
+    return this.qa.tests.post(test, problemTypes, "style");
   }
 
 }

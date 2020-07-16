@@ -6,7 +6,7 @@ let Utils = require("./utils/index");
 let debug = require("debug")("niem-qa");
 
 const QAReport = require("./test-suite/report/index");
-const TestMetadata = require("./testMetadata");
+const Tests = require("./tests");
 const QAResults = require("./results");
 
 process.env.DEBUG = "niem-*";
@@ -39,7 +39,7 @@ class NIEMModelQA {
     this.testSuite = new TestSuite(this);
     this.spellChecker = new SpellChecker();
 
-    this.testMetadata = new TestMetadata(this);
+    this.tests = new Tests(this);
     this.results = new QAResults(this);
     this.report = new QAReport(this.testSuite);
 
@@ -57,7 +57,7 @@ class NIEMModelQA {
   async init(release) {
     // Convert ModelQA tests saved as JSON data into test objects and load
     let tests = ModelQaJSONTestData.map( metadata => Object.assign(new Test(), metadata) );
-    this.testMetadata.add(tests);
+    this.tests.add(tests);
 
     // Initialize the spell checker
     await this.spellChecker.init(release);
@@ -127,7 +127,7 @@ class NIEMModelQA {
     await qa.init();
 
     if (spreadsheetPath) {
-      qa.testMetadata.add(spreadsheetPath, reset);
+      qa.tests.add(spreadsheetPath, reset);
     }
     else {
       let path = require("path");
@@ -135,7 +135,7 @@ class NIEMModelQA {
     }
 
     let outputPath = spreadsheetPath.replace(".xlsx", ".json");
-    await qa.testMetadata.save(outputPath)
+    await qa.tests.save(outputPath)
 
   }
 

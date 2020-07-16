@@ -3,7 +3,7 @@ let Test = require("./test");
 let Issue = require("./test-suite/issue/index");
 let SpreadsheetUtils = require("./utils/xlsx");
 
-class TestMetadata {
+class Tests {
 
   /**
    * @param {NIEMModelQA} qa
@@ -53,7 +53,7 @@ class TestMetadata {
     rows.forEach( row => tests.push(new Test(...row) ) );
 
     // return tests;
-    return this.qa.testMetadata.add(tests);
+    return this.qa.tests.add(tests);
 
   }
 
@@ -146,4 +146,4 @@ class TestMetadata {
 
 const NIEMModelQA = require("./index");
 
-module.exports = TestMetadata;
+module.exports = Tests;
