@@ -1,5 +1,4 @@
 
-let QATestSuite = require("../../test-suite/index");
 let debug = require("debug")("niem-qa");
 
 process.env.DEBUG = "niem-*";
@@ -11,14 +10,14 @@ debug.enabled = true;
 class NIEMObjectQA {
 
   /**
-   * @param {QATestSuite} testSuite
+   * @param {NIEMModelQA} qa
    */
-  constructor(testSuite) {
+  constructor(qa) {
 
     /**
-     * Test suite with all tests for all objects
+     * QA with all tests for all objects
      */
-    this.testSuite = testSuite;
+    this.qa = qa;
 
     /**
      * Individual object tests
@@ -91,4 +90,5 @@ class NIEMObjectQA {
 
 module.exports = NIEMObjectQA;
 
-let { Release, NIEMObject } = require("niem-model");
+let { Release } = require("niem-model");
+let NIEMModelQA = require("../../index");

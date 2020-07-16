@@ -11,11 +11,10 @@ let { Namespace } = require("niem-model");
 class Report {
 
   /**
-   * @param {QATestSuite} testSuite
+   * @param {NIEMModelQA} qa
    */
-  constructor(testSuite) {
-    this.testSuite = testSuite;
-    this.qa = testSuite.qa;
+  constructor(qa) {
+    this.qa = qa;
   }
 
 
@@ -404,7 +403,6 @@ function setWorkbookOptions(workbook, options={}) {
  */
 let resultsOptions;
 
+let NIEMModelQA = require("../../index");
 
 module.exports = Report;
-
-let QATestSuite = require("../index");

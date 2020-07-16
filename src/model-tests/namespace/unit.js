@@ -1,7 +1,7 @@
 
 let NIEMObjectUnitTests = require("../niem-object/unit");
 let { Release, Namespace } = require("niem-model");
-let Test = require("../../test-suite/index");
+let Test = require("../../test");
 
 class NamespaceUnitTests extends NIEMObjectUnitTests {
 

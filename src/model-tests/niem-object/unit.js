@@ -1,5 +1,4 @@
 
-let TestSuite = require("../../test-suite/index");
 let Utils = require("../../utils");
 
 /**
@@ -8,17 +7,18 @@ let Utils = require("../../utils");
 class NIEMObjectUnitTests {
 
   /**
-   * @param {TestSuite} testSuite
+   * @param {NIEMModelQA} qa
    * @param {Utils} utils
    */
-  constructor(testSuite, utils) {
-    this.testSuite = testSuite;
-    this.qa = testSuite.qa;
+  constructor(qa, utils) {
+    this.qa = qa;
 
     /** @private */
     this.utils = utils;
   }
 
 }
+
+let NIEMModelQA = require("../../index");
 
 module.exports = NIEMObjectUnitTests;

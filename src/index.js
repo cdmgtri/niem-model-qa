@@ -1,5 +1,4 @@
 
-let TestSuite = require("./test-suite/index");
 let Test = require("./test");
 let SpellChecker = require("./spellChecker");
 let Utils = require("./utils/index");
@@ -37,19 +36,19 @@ class NIEMModelQA {
     /** @type {Test[]} */
     this._tests = [];
 
-    this.testSuite = new TestSuite(this);
-    this.spellChecker = new SpellChecker();
 
     this.tests = new Tests(this);
     this.results = new QAResults(this);
-    this.report = new QAReport(this.testSuite);
+    this.report = new QAReport(this);
     this.terminal = new QATerminal(this);
 
     let utils = new Utils(this);
-    this.namespace = new NamespaceQA(this.testSuite, utils);
-    this.property = new PropertyQA(this.testSuite, utils);
-    this.type = new TypeQA(this.testSuite, utils);
-    this.facet = new FacetQA(this.testSuite, utils);
+    this.spellChecker = new SpellChecker();
+
+    this.namespace = new NamespaceQA(this, utils);
+    this.property = new PropertyQA(this, utils);
+    this.type = new TypeQA(this, utils);
+    this.facet = new FacetQA(this, utils);
 
   }
 

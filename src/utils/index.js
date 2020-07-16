@@ -10,9 +10,11 @@ class Utils {
    * @param {NIEMModelQA} qa
    */
   constructor(qa) {
-    this.testSuite = qa.testSuite;
     this.qa = qa;
-    this.spellChecker = qa.spellChecker;
+  }
+
+  get spellChecker() {
+    return this.qa.spellChecker;
   }
 
   /**
