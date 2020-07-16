@@ -27,7 +27,7 @@ class QAResults {
    */
   issues(prefixes, severities) {
     return this
-    .testsFailed(prefixes, severities)
+    .tests.failed(prefixes, severities)
     .reduce( (results, test) => [...results, ...test.namespacesIssues(prefixes)], []);
   }
 
@@ -35,14 +35,14 @@ class QAResults {
    * @param {String[]} prefixes
    */
   passed(prefixes) {
-    return this.testsFailed(prefixes).length == 0 && this.testsRan.length > 0;
+    return this.tests.failed(prefixes).length == 0 && this.tests.ran.length > 0;
   }
 
   /**
    * @param {String[]} prefixes
    */
   failed(prefixes) {
-    return this.testsFailed(prefixes).length > 0;
+    return this.tests.failed(prefixes).length > 0;
   }
 
   /**
@@ -91,64 +91,73 @@ class QAResults {
     return "not ran";
   }
 
-  /**
-   * All tests that have been run.
-   */
-  get testsRan() {
-    return this.qa._tests.filter( test => test.ran );
-  }
+  get tests() {
 
-  /**
-   * All tests that have not been run.
-   * This could be because test metadata exists in the test spreadsheet but a corresponding test
-   * has not yet been implemented.
-   */
-  get testsNotRan() {
-    return this.qa._tests.filter( test => ! test.ran );
-  }
+    let qa = this.qa;
 
-  /**
-   * Tests that have passed, with results optionally filtered by the given namespace prefixes.
-   * @param {String[]} prefixes
-   */
-  testsPassed(prefixes) {
-    return this.testsRan.filter( test => test.namespacesPassed(prefixes) );
-  }
+    return {
 
-  /**
-   * Tests that have failed, with results optionally filtered by the given namespace prefixes.
-   * @param {String[]} prefixes - Optional filter on issue prefix
-   * @param {Test.SeverityType[]} severities - Optional filter on test severity
-   */
-  testsFailed(prefixes, severities) {
-    let failedTests = this.testsRan.filter( test => test.namespacesFailed(prefixes) );
+      /**
+       * All tests that have been run.
+       */
+      ran: (() => {
+        return qa._tests.filter( test => test.ran );
+      })(),
 
-    if (severities) {
-      return failedTests.filter( test => severities.includes(test.severity) );
+      /**
+       * All tests that have not been run.
+       * This could be because test metadata exists in the test spreadsheet but a corresponding test
+       * has not yet been implemented.
+       */
+      notRan: (() => {
+        return qa._tests.filter( test => ! test.ran );
+      })(),
+
+      /**
+       * Tests that have passed, with results optionally filtered by the given namespace prefixes.
+       * @param {String[]} prefixes
+       */
+      passed: (prefixes) => {
+        return qa.results.tests.ran.filter( test => test.namespacesPassed(prefixes) );
+      },
+
+      /**
+       * Tests that have failed, with results optionally filtered by the given namespace prefixes.
+       * @param {String[]} prefixes - Optional filter on issue prefix
+       * @param {Test.SeverityType[]} severities - Optional filter on test severity
+       */
+      failed: (prefixes, severities) => {
+        let failedTests = qa.results.tests.ran.filter( test => test.namespacesFailed(prefixes) );
+
+        if (severities) {
+          return failedTests.filter( test => severities.includes(test.severity) );
+        }
+
+        return failedTests;
+      },
+
+      /**
+       * @param {String[]} prefixes
+       */
+      failedErrors: (prefixes) => {
+        return qa.results.tests.failed(prefixes, ["error"]);
+      },
+
+      /**
+       * @param {String[]} prefixes
+       */
+      failedWarnings: (prefixes) => {
+        return qa.results.tests.failed(prefixes, ["warning"]);
+      },
+
+      /**
+       * @param {String[]} prefixes
+       */
+      failedInfo: (prefixes) => {
+        return qa.results.tests.failed(prefixes, ["info"]);
+      }
+
     }
-
-    return failedTests;
-  }
-
-  /**
-   * @param {String[]} prefixes
-   */
-  testsFailedErrors(prefixes) {
-    return this.testsFailed(prefixes, ["error"]);
-  }
-
-  /**
-   * @param {String[]} prefixes
-   */
-  testsFailedWarnings(prefixes) {
-    return this.testsFailed(prefixes, ["warning"]);
-  }
-
-  /**
-   * @param {String[]} prefixes
-   */
-  testsFailedInfo(prefixes) {
-    return this.testsFailed(prefixes, ["info"]);
   }
 
 }

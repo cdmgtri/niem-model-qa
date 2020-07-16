@@ -150,7 +150,7 @@ class Report {
    */
   failedTestReportPerNamespace(prefix) {
 
-    return this.qa.results.testsFailed([prefix]).map( test => {
+    return this.qa.results.tests.failed([prefix]).map( test => {
       return {
         id: test.id,
         severity: test.severity,
@@ -185,7 +185,7 @@ class Report {
     results = [];
 
     // Return flattened array of issue reports for each test
-    return this.qa.results.testsFailed(prefixes).reduce( (results, test) => {
+    return this.qa.results.tests.failed(prefixes).reduce( (results, test) => {
       return [...results, ...test.issueReport(prefixes)];
     }, results);
 

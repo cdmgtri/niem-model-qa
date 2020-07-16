@@ -48,27 +48,27 @@ class QATestSuite {
     /** @type {{passed: Details, errors: Details, warnings: Details, info: Details}} */
     let summary = {
       passed: {
-        tests: this.qa.results.testsPassed(prefixes),
+        tests: this.qa.results.tests.passed(prefixes),
         symbol: chalk.green("\u2714 "),
         chalkFunction: chalk.green,
         heading: "Passed:".padEnd(headerPadding, " "),
       },
       errors: {
-        tests: this.qa.results.testsFailedErrors(prefixes),
+        tests: this.qa.results.tests.failedErrors(prefixes),
         symbol: chalk.red("\u2716 "),
         chalkFunction: chalk.red,
         heading: "Errors:".padEnd(headerPadding, " "),
         issues: this.qa.results.issues(prefixes, "error").length
       },
       warnings: {
-        tests: this.qa.results.testsFailedWarnings(prefixes),
+        tests: this.qa.results.tests.failedWarnings(prefixes),
         symbol: chalk.yellow("? "),
         chalkFunction: chalk.yellow,
         heading: "Warnings:".padEnd(headerPadding, " "),
         issues: this.qa.results.issues(prefixes, "warning").length
       },
       info: {
-        tests: this.qa.results.testsFailedInfo(prefixes),
+        tests: this.qa.results.tests.failedInfo(prefixes),
         symbol: chalk.gray("\u2722 "),
         chalkFunction: chalk.gray,
         heading: "Info:".padEnd(headerPadding, " "),
