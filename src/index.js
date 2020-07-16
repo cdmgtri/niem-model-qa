@@ -20,7 +20,7 @@ let FacetQA = require("./model-tests/facet/index");
 let { Namespace, Component, Facet } = require("niem-model");
 
 /** @type {Array} */
-let ModelQaJSONTestData = require("../niem-model-qa-tests.json");
+let JSONTests = require("../niem-model-qa-tests.json");
 
 /**
  * @todo Full test suite for classes
@@ -35,7 +35,6 @@ class NIEMModelQA {
 
     /** @type {Test[]} */
     this._tests = [];
-
 
     this.tests = new Tests(this);
     this.results = new QAResults(this);
@@ -57,7 +56,7 @@ class NIEMModelQA {
    */
   async init(release) {
     // Convert ModelQA tests saved as JSON data into test objects and load
-    let tests = ModelQaJSONTestData.map( metadata => Object.assign(new Test(), metadata) );
+    let tests = JSONTests.map( metadata => Object.assign(new Test(), metadata) );
     this.tests.add(tests);
 
     // Initialize the spell checker
@@ -68,7 +67,7 @@ class NIEMModelQA {
   /**
    * @param {Release} release
    */
-  async checkRelease(release) {
+  async run(release) {
 
     // Load data
     let namespaces = await release.namespaces.find();
@@ -105,15 +104,6 @@ class NIEMModelQA {
 
     return fullQA;
 
-  }
-
-  /**
-   * @param {Test[]} tests
-   */
-  static init(tests) {
-    let qa = new NIEMModelQA();
-    qa._tests.push(...tests);
-    return qa;
   }
 
   /**
