@@ -48,6 +48,8 @@ class NIEMObjectQA {
    */
   async runTests(niemObjects, release, field) {
 
+    let NIEMModelQA = require("../../index");
+
     /** @type {Test[]} */
     let tests = [];
 
@@ -60,7 +62,7 @@ class NIEMObjectQA {
 
     debug(`Ran ${this.constructor.name.replace("QA", "")} tests`);
 
-    return QATestSuite.init(tests);
+    return NIEMModelQA.init(tests);
 
   }
 

@@ -1,8 +1,13 @@
 
 let TestSuite = require("./test-suite/index");
 let Test = require("./test-suite/test/index");
+let SpellChecker = require("./spellChecker");
 let Utils = require("./utils/index");
 let debug = require("debug")("niem-qa");
+
+const QAReport = require("./test-suite/report/index");
+const TestMetadata = require("./testMetadata");
+const QAResults = require("./results");
 
 process.env.DEBUG = "niem-*";
 debug.enabled = true;
@@ -13,6 +18,9 @@ let TypeQA = require("./model-tests/type/index");
 let FacetQA = require("./model-tests/facet/index");
 
 let { Namespace, Component, Facet } = require("niem-model");
+
+/** @type {Array} */
+let ModelQaJSONTestData = require("../niem-model-qa-tests.json");
 
 /**
  * @todo Full test suite for classes
@@ -25,43 +33,35 @@ class NIEMModelQA {
 
   constructor() {
 
-    this.testSuite = new TestSuite();
-    this.utils = new Utils(this.testSuite);
+    /** @type {Test[]} */
+    this.tests = [];
 
-    this.namespace = new NamespaceQA(this.testSuite, this.utils);
-    this.property = new PropertyQA(this.testSuite, this.utils);
-    this.type = new TypeQA(this.testSuite, this.utils);
-    this.facet = new FacetQA(this.testSuite, this.utils);
+    this.testSuite = new TestSuite(this);
+    this.spellChecker = new SpellChecker();
 
-    this.testSuite.loadModelTests();
+    this.testMetadata = new TestMetadata(this);
+    this.results = new QAResults(this);
+    this.report = new QAReport(this.testSuite);
 
-  }
+    let utils = new Utils(this);
+    this.namespace = new NamespaceQA(this.testSuite, utils);
+    this.property = new PropertyQA(this.testSuite, utils);
+    this.type = new TypeQA(this.testSuite, utils);
+    this.facet = new FacetQA(this.testSuite, utils);
 
-  get testSuiteMetadata() {
-    return this.testSuite.testSuiteMetadata;
   }
 
   /**
    * @param {Release} release
    */
   async init(release) {
-    // Load the spellchecker library in utils
-    await this.utils.init(release)
+    // Convert ModelQA tests saved as JSON data into test objects and load
+    let tests = ModelQaJSONTestData.map( metadata => Object.assign(new Test(), metadata) );
+    this.testMetadata.add(tests);
+
+    // Initialize the spell checker
+    await this.spellChecker.init(release);
     debug("Initialized test suite");
-  }
-
-  /**
-   * @param {string[]} words
-   */
-  async spellcheckAddWords(words) {
-    return this.utils._spellChecker.addWords(words);
-  }
-
-  /**
-   * @param {string[]} words
-   */
-  async spellcheckRemoveWords(words) {
-    return this.utils._spellChecker.removeWords(words);
   }
 
   /**
@@ -87,49 +87,32 @@ class NIEMModelQA {
     types = types.filter( type => type.prefix != "xs" && type.prefix != "structures" ).sort(Component.sortByQName);
     facets = facets.sort(Facet.sortFacetsByStyleAdjustedValueDefinition);
 
-    /** @type {Object<string, TestSuite>} */
-    let testSuites = {};
+    /** @type {Object<string, NIEMModelQA>} */
+    let qaResults = {};
 
     // Run tests
-    testSuites.namespace = await this.namespace.all(conformantNamespaces, release);
-    testSuites.property = await this.property.all(properties, release);
-    testSuites.type = await this.type.all(types, release);
-    testSuites.facet = await this.facet.all(facets, release);
+    qaResults.namespace = await this.namespace.all(conformantNamespaces, release);
+    qaResults.property = await this.property.all(properties, release);
+    qaResults.type = await this.type.all(types, release);
+    qaResults.facet = await this.facet.all(facets, release);
 
     // Merge the results into a single test suite
-    let fullTestSuite = new TestSuite();
-    for (let key in testSuites) {
-      fullTestSuite.tests.push(...testSuites[key].tests);
+    let fullQA = new NIEMModelQA();
+    for (let key in qaResults) {
+      fullQA.tests.push(...qaResults[key].tests);
     }
 
-    return fullTestSuite;
+    return fullQA;
 
   }
 
-  async saveTestSuiteMetadata(filePath) {
-    let fs = require("fs-extra");
-    await fs.outputJSON(filePath, this.testSuiteMetadata, {spaces: 2});
-  }
-
-  async saveTestResults(filePath) {
-    let fs = require("fs-extra");
-    await fs.outputJSON(filePath, this.testSuite.tests, {spaces: 2});
-  }
-
-  async reloadTestResults(filePath, overwrite=true) {
-
-    let fs = require("fs-extra");
-
-    /** @type {{}[]} */
-    let json = await fs.readJSON(filePath);
-
-    if (overwrite) this.testSuite.tests = [];
-
-    for (let testInfo of json) {
-      let test = Object.assign(new Test(), testInfo);
-      this.testSuite.tests.push(test)
-    }
-
+  /**
+   * @param {Test[]} tests
+   */
+  static init(tests) {
+    let qa = new NIEMModelQA();
+    qa.tests.push(...tests);
+    return qa.testSuite;
   }
 
   /**
@@ -159,4 +142,5 @@ class NIEMModelQA {
 
 module.exports = NIEMModelQA;
 
-let { Release } = require("niem-model");
+const { Release } = require("niem-model");
+

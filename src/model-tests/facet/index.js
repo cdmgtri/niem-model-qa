@@ -1,7 +1,6 @@
 
 let NIEMObjectQA = require("../niem-object/index");
 let FacetUnitTests = require("./unit");
-let QATestSuite = require("../../test-suite/index");
 
 class FacetQA extends NIEMObjectQA {
 
@@ -14,7 +13,7 @@ class FacetQA extends NIEMObjectQA {
     /**
      * @param {Facet[]} facets
      * @param {Release} release
-     * @returns {Promise<QATestSuite>}
+     * @returns {Promise<NIEMModelQA>}
      */
     this.all = (facets, release) => this.runTests(facets, release);
 
@@ -23,28 +22,28 @@ class FacetQA extends NIEMObjectQA {
       /**
        * @param {Facet[]} facets
        * @param {Release} release
-       * @returns {Promise<QATestSuite>}
+       * @returns {Promise<NIEMModelQA>}
        */
       definition: (facets, release) => this.runTests(facets, release, "definition"),
 
       /**
        * @param {Facet[]} facets
        * @param {Release} release
-       * @returns {Promise<QATestSuite>}
+       * @returns {Promise<NIEMModelQA>}
        */
       style: (facets, release) => this.runTests(facets, release, "style"),
 
       /**
        * @param {Facet[]} facets
        * @param {Release} release
-       * @returns {Promise<QATestSuite>}
+       * @returns {Promise<NIEMModelQA>}
        */
       type: (facets, release) => this.runTests(facets, release, "type"),
 
       /**
        * @param {Facet[]} facets
        * @param {Release} release
-       * @returns {Promise<QATestSuite>}
+       * @returns {Promise<NIEMModelQA>}
        */
       value: (facets, release) => this.runTests(facets, release, "value")
 
@@ -56,4 +55,5 @@ class FacetQA extends NIEMObjectQA {
 
 module.exports = FacetQA;
 
+let NIEMModelQA = require("../../index");
 let { Release, Facet } = require("niem-model");

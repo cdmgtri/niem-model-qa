@@ -7,7 +7,8 @@
     "docs": "jsdoc index.js -r src -d docs -c jsdoc.json -R README.md -t node_modules/docdash",
     "metadata": "node scripts/updateTestMetadata.js",
     "test": "npm run metadata && jest",
-    "test:cov": "jest --coverage"
+    "test:cov": "jest --coverage",
+    "test:release": "node scripts/run-qa.js"
   },
   "keywords": [],
   "author": "",

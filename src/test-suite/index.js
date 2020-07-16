@@ -1,14 +1,10 @@
 
-let xlsx = require("xlsx-populate");
 let chalk = require("chalk");
 let { NIEMObject } = require("niem-model");
 
 let Test = require("./test/index");
 let Issue = require("./issue/index");
-let Report = require("./report/index");
-
-/** @type {Array} */
-let TestMetadata = require("../../niem-model-qa-tests.json");
+const NIEMModelQA = require("..");
 
 /**
  * NIEM Test Suite
@@ -16,164 +12,19 @@ let TestMetadata = require("../../niem-model-qa-tests.json");
 class QATestSuite {
 
   /**
+   * @param {NIEMModelQA} qa
    * @param {boolean} ignoreExceptions True if exceptions should not be added to the issue list
    */
-  constructor(ignoreExceptions=true) {
+  constructor(qa, ignoreExceptions=true) {
 
-    /** @type {Test[]} */
-    this.tests = [];
-
-    this.report = new Report(this);
+    this.qa = qa;
 
     this.ignoreExceptions = ignoreExceptions;
 
   }
 
-  /**
-   * @param {Test[]} tests
-   */
-  static init(tests) {
-    let testSuite = new QATestSuite();
-    testSuite.tests.push(...tests);
-    return testSuite;
-  }
-
-  /**
-   * Resets each test status back to its initial state and removes all issues.
-   */
-  reset() {
-    this.tests.forEach( test => test.reset() );
-  }
-
-  /**
-   * @param {String} filePath
-   */
-  static async loadTestSpreadsheet(filePath) {
-
-    /** @type {Test[]} */
-    let tests = [];
-
-    // Get rows of given spreadsheet with test metadata
-    let workbook = await xlsx.fromFileAsync(filePath);
-    let rows = workbook.sheet(0).usedRange().value();
-
-    // Remove the column header row and convert rows to tests
-    rows.splice(0, 1);
-    rows.forEach( row => tests.push(new Test(...row) ) );
-
-    return tests;
-
-  }
-
-  /**
-   * @param {String} filePath
-   * @param {boolean} reset Overwrite existing tests if true
-   */
-  async loadTestSpreadsheet(filePath, reset=true) {
-    if (reset) this.tests = [];
-    let tests = await QATestSuite.loadTestSpreadsheet(filePath);
-    return this.loadTests(tests);
-  }
-
-  /**
-   * @param {boolean} reset Overwrite existing tests if true
-   */
-  loadModelTests(reset=true) {
-    if (reset) this.tests = [];
-    let tests = TestMetadata.map( metadata => Object.assign(new Test(), metadata) );
-    this.loadTests(tests);
-  }
-
-  /**
-   * Loads test objects into the test suite.
-   * @param {Test[]} tests
-   */
-  loadTests(tests) {
-    this.tests.push(...tests);
-    return tests;
-  }
-
-  /**
-   * All tests that have been run.
-   */
-  get testsRan() {
-    return this.tests.filter( test => test.ran );
-  }
-
-  /**
-   * All tests that have not been run.
-   * This could be because test metadata exists in the test spreadsheet but a corresponding test
-   * has not yet been implemented.
-   */
-  get testsNotRan() {
-    return this.tests.filter( test => ! test.ran );
-  }
-
-  /**
-   * Tests that have passed, with results optionally filtered by the given namespace prefixes.
-   * @param {String[]} prefixes
-   */
-  testsPassed(prefixes) {
-    return this.testsRan.filter( test => test.namespacesPassed(prefixes) );
-  }
-
-  /**
-   * Tests that have failed, with results optionally filtered by the given namespace prefixes.
-   * @param {String[]} prefixes - Optional filter on issue prefix
-   * @param {Test.SeverityType[]} severities - Optional filter on test severity
-   */
-  testsFailed(prefixes, severities) {
-    let failedTests = this.testsRan.filter( test => test.namespacesFailed(prefixes) );
-
-    if (severities) {
-      return failedTests.filter( test => severities.includes(test.severity) );
-    }
-
-    return failedTests;
-  }
-
-  /**
-   * @param {String[]} prefixes
-   */
-  testsFailedErrors(prefixes) {
-    return this.testsFailed(prefixes, ["error"]);
-  }
-
-  /**
-   * @param {String[]} prefixes
-   */
-  testsFailedWarnings(prefixes) {
-    return this.testsFailed(prefixes, ["warning"]);
-  }
-
-  /**
-   * @param {String[]} prefixes
-   */
-  testsFailedInfo(prefixes) {
-    return this.testsFailed(prefixes, ["info"]);
-  }
-
-  /**
-   * @param {String[]} prefixes
-   */
-  passed(prefixes) {
-    return this.testsFailed(prefixes).length == 0 && this.testsRan.length > 0;
-  }
-
-  /**
-   * @param {String[]} prefixes
-   */
-  failed(prefixes) {
-    return this.testsFailed(prefixes).length > 0;
-  }
-
-  /**
-   * @param {String[]} prefixes
-   */
-  status(prefixes) {
-    if (this.passed(prefixes)) return "pass";
-    if (this.failed(prefixes)) return "fail";
-    return "not ran";
+  get tests() {
+    return this.qa.tests;
   }
 
   /**
@@ -197,31 +48,31 @@ class QATestSuite {
     /** @type {{passed: Details, errors: Details, warnings: Details, info: Details}} */
     let summary = {
       passed: {
-        tests: this.testsPassed(prefixes),
+        tests: this.qa.results.testsPassed(prefixes),
         symbol: chalk.green("\u2714 "),
         chalkFunction: chalk.green,
         heading: "Passed:".padEnd(headerPadding, " "),
       },
       errors: {
-        tests: this.testsFailedErrors(prefixes),
+        tests: this.qa.results.testsFailedErrors(prefixes),
         symbol: chalk.red("\u2716 "),
         chalkFunction: chalk.red,
         heading: "Errors:".padEnd(headerPadding, " "),
-        issues: this.issues(prefixes, "error").length
+        issues: this.qa.results.issues(prefixes, "error").length
       },
       warnings: {
-        tests: this.testsFailedWarnings(prefixes),
+        tests: this.qa.results.testsFailedWarnings(prefixes),
         symbol: chalk.yellow("? "),
         chalkFunction: chalk.yellow,
         heading: "Warnings:".padEnd(headerPadding, " "),
-        issues: this.issues(prefixes, "warning").length
+        issues: this.qa.results.issues(prefixes, "warning").length
       },
       info: {
-        tests: this.testsFailedInfo(prefixes),
+        tests: this.qa.results.testsFailedInfo(prefixes),
         symbol: chalk.gray("\u2722 "),
         chalkFunction: chalk.gray,
         heading: "Info:".padEnd(headerPadding, " "),
-        issues: this.issues(prefixes, "info").length
+        issues: this.qa.results.issues(prefixes, "info").length
       }
     }
 
@@ -269,8 +120,8 @@ class QATestSuite {
     severitySummaries.push(printSeveritySummary(summary.warnings))
     severitySummaries.push(printSeveritySummary(summary.errors));
 
-    let qaTestCount  = `${this.tests.length} tests`;
-    let qaIssueCount = `(${this.issues().length} issues)`;
+    let qaTestCount  = `${this.qa.tests.length} tests`;
+    let qaIssueCount = `(${this.qa.results.issues().length} issues)`;
 
     console.log(`
     ---------------------------------------------------------------
@@ -286,29 +137,10 @@ class QATestSuite {
   }
 
   /**
-   * Prefixes of namespaces with one or more QA issues.
-   */
-  get issuePrefixes() {
-    /** @type {String[]} */
-    let prefixes = this.tests.reduce( (prefixes, test) => [...prefixes, ...test.prefixes], [] );
-    return [...(new Set(prefixes))];
-  }
-
-  /**
-   * Metadata about each test.
-   * Does not include issues related to the test.
-   */
-  get testSuiteMetadata() {
-    let copy = this.tests.map( test => Object.assign(new Test(), test));
-    copy.forEach( test => delete test.issues );
-    return copy;
-  }
-
-  /**
    * Total test run times in seconds.
    */
   get runTime() {
-    return this.tests.reduce( (totalTime, test) => {
+    return this.qa.tests.reduce( (totalTime, test) => {
       let newTime = test.timeElapsedSeconds;
       return newTime ? totalTime + newTime : totalTime;
     }, 0);
@@ -400,17 +232,6 @@ class QATestSuite {
 
     return test;
 
-  }
-
-  /**
-   * @param {String[]} prefixes - Filter issues by prefix
-   * @param {Test.SeverityType[]} severities - Filter issues by test severity
-   * @returns {Issue[]}
-   */
-  issues(prefixes, severities) {
-    return this
-    .testsFailed(prefixes, severities)
-    .reduce( (results, test) => [...results, ...test.namespacesIssues(prefixes)], []);
   }
 
   /**

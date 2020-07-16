@@ -12,16 +12,16 @@ let release;
 
 beforeAll( async () => {
   await qa.init();
-  await qa.testSuite.loadTestSpreadsheet("niem-model-qa-tests.xlsx");
+  await qa.testMetadata.loadSpreadsheet("niem-model-qa-tests.xlsx");
   release = await niem.releases.add("user", "model", "1.0");
 });
 
 describe("Check test suite", () => {
 
   test("#load", () => {
-    expect(qa.testSuite.tests.length).toBeGreaterThan(20);
-    expect(qa.testSuite.tests.length).toBeLessThan(500);
-    expect(qa.testSuite.status()).toBe("not ran");
+    expect(qa.tests.length).toBeGreaterThan(20);
+    expect(qa.tests.length).toBeLessThan(500);
+    expect(qa.results.status()).toBe("not ran");
   });
 
   test("#find", () => {
@@ -30,7 +30,7 @@ describe("Check test suite", () => {
   });
 
   test("#test metadata", () => {
-    qa.saveTestSuiteMetadata("niem-model-qa-tests.json")
+    qa.testMetadata.save("niem-model-qa-tests.json")
   });
 
 });
@@ -42,11 +42,14 @@ describe("Class tests", () => {
 
 describe("Release tests", () => {
 
+  /**
+   * @TODO Does the first line need to return a new QA type with the results?
+   */
   test("#checkRelease", async () => {
-    let testSuite = await qa.checkRelease(release);
-    let issues = testSuite.issues();
+    let releaseQA = await qa.checkRelease(release);
+    let issues = releaseQA.results.issues();
     expect(issues.length).toBeGreaterThan(100);
-    testSuite.printStatus();
+    releaseQA.testSuite.printStatus();
   });
 
 });
@@ -58,18 +61,18 @@ describe("Reload tests", () => {
     let filePath = "test/tests.json";
 
     // Save tests
-    await qa.saveTestResults(filePath);
+    await qa.results.save(filePath);
 
     // Reset and reload tests
     let newQA = new NIEMModelQA();
-    await newQA.reloadTestResults(filePath);
+    await newQA.results.reload(filePath);
 
-    expect(newQA.testSuite.tests.length).toBe(qa.testSuite.tests.length);
-    expect(newQA.testSuite.issues().length).toBe(qa.testSuite.issues().length);
+    expect(newQA.tests.length).toBe(qa.tests.length);
+    expect(newQA.results.issues().length).toBe(qa.results.issues().length);
 
   })
 });
 
 afterAll( async() => {
-  await qa.testSuite.report.saveAsFile("test/test-results");
+  await qa.report.saveAsFile("test/test-results");
 });

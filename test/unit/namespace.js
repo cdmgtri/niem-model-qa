@@ -36,7 +36,7 @@ function namespaceTests(qa, niem) {
         ];
 
         await release.localTerms.add("ext1", "ABC", "Alpha Bravo Charlie");
-        await qa.spellcheckAddWords(["namespace"]);
+        await qa.spellChecker.addWords(["namespace"]);
 
         fieldNamespaces.push(...namespaces);
 

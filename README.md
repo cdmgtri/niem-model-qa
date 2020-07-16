@@ -52,3 +52,9 @@ Most CSC type, simple type, and facet tests have been implemented.
 - [ ] Namespace tests
 - [ ] Local terminology tests
 - [ ] Metadata tests
+
+## To Do
+
+- [ ] Merge QA and TestSuite classes
+- [ ] Async init spell checkers from relevant function
+- [ ] Extract command line code to separate class

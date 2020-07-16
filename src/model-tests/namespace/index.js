@@ -1,7 +1,6 @@
 
 let NIEMObjectQA = require("../niem-object/index");
 let NamespaceUnitTests = require("./unit");
-let QATestSuite = require("../../test-suite/index");
 let { Release, Namespace } = require("niem-model");
 
 class NamespaceQA extends NIEMObjectQA {
@@ -15,7 +14,7 @@ class NamespaceQA extends NIEMObjectQA {
     /**
      * @param {Namespace[]} namespaces
      * @param {Release} release
-     * @return {Promise<QATestSuite>}
+     * @return {Promise<NIEMModelQA>}
      */
     this.all = (namespaces, release) => this.runTests(namespaces, release);
 
@@ -24,7 +23,7 @@ class NamespaceQA extends NIEMObjectQA {
       /**
        * @param {Namespace[]} namespaces
        * @param {Release} release
-       * @returns {Promise<QATestSuite>}
+       * @returns {Promise<NIEMModelQA>}
        */
       definition: (namespaces, release) => this.runTests(namespaces, release, "definition")
 
@@ -33,5 +32,7 @@ class NamespaceQA extends NIEMObjectQA {
   }
 
 }
+
+const NIEMModelQA = require("../../index");
 
 module.exports = NamespaceQA;

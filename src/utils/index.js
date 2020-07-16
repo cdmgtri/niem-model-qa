@@ -1,26 +1,17 @@
 
 let { Release, NIEMObject, Component } = require("niem-model");
 
-let TestSuite = require("../test-suite/index");
 let Test = require("../test-suite/test/index");
 let Issue = require("../test-suite/issue/index");
-let SpellChecker = require("./spellChecker");
 
 class Utils {
 
   /**
-   * @param {TestSuite} testSuite
+   * @param {NIEMModelQA} qa
    */
-  constructor(testSuite) {
-    this.testSuite = testSuite;
-    this._spellChecker = new SpellChecker();
-  }
-
-  /**
-   * @param {Release} release
-   */
-  async init(release) {
-    await this._spellChecker.init(release);
+  constructor(qa) {
+    this.testSuite = qa.testSuite;
+    this.spellChecker = qa.spellChecker;
   }
 
   /**
@@ -165,7 +156,7 @@ class Utils {
       for (let component of namespaceComponents) {
         let definition = component.definition || "";
 
-        let unknownSpellings = await this._spellChecker.checkDefinition(definition, terms);
+        let unknownSpellings = await this.spellChecker.checkDefinition(definition, terms);
 
         for (let unknownSpelling of unknownSpellings) {
 
@@ -243,11 +234,11 @@ class Utils {
 
       for (let component of namespaceComponents) {
 
-        let nameTerms = getNameTerms(component.name, this._spellChecker.specialTerms);
+        let nameTerms = getNameTerms(component.name, this.spellChecker.specialTerms);
 
         for (let nameTerm of nameTerms) {
 
-          let correct = await this._spellChecker.checkWord(nameTerm, terms);
+          let correct = await this.spellChecker.checkWord(nameTerm, terms);
 
           // Check for component term in dictionary
           if (!correct) {
@@ -352,5 +343,7 @@ function getNameTerms(name, specialTerms) {
   return [...terms, ...s.split(" ")];
 
 }
+
+let NIEMModelQA = require("../index");
 
 module.exports = Utils;

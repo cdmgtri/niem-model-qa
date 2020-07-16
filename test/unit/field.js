@@ -26,9 +26,9 @@ class fieldTest {
 
     let testSuite = await this.objectQA.field[fieldName](this.objects, this.release);
 
-    expect(testSuite.status()).toBe("fail");
+    expect(testSuite.qa.results.status()).toBe("fail");
 
-    if (fieldName) this.fieldTestCount += testSuite.tests.length;
+    if (fieldName) this.fieldTestCount += testSuite.qa.tests.length;
 
     return testSuite;
   }

@@ -15,6 +15,7 @@ class Report {
    */
   constructor(testSuite) {
     this.testSuite = testSuite;
+    this.qa = testSuite.qa;
   }
 
 
@@ -47,11 +48,11 @@ class Report {
 
     return {
       timestamp: (new Date()).toLocaleString(),
-      status: this.testSuite.status(prefixes),
-      runTime: this.testSuite.runTime,
-      issueErrorCount: this.testSuite.issues(prefixes, "error").length,
-      issueWarningCount: this.testSuite.issues(prefixes, "warning").length,
-      issueInfoCount: this.testSuite.issues(prefixes, "info").length,
+      status: this.qa.results.status(prefixes),
+      runTime: this.qa.results.runTime,
+      issueErrorCount: this.qa.results.issues(prefixes, "error").length,
+      issueWarningCount: this.qa.results.issues(prefixes, "warning").length,
+      issueInfoCount: this.qa.results.issues(prefixes, "info").length,
       filter
     }
   }
@@ -69,7 +70,7 @@ class Report {
 
     if (namespaces.length == 0) {
       // Use namespaces with recorded issues since no list of namespaces provided
-      namespaces = this.testSuite.issuePrefixes.map( prefix => new Namespace(prefix) );
+      namespaces = this.qa.results.issuePrefixes.map( prefix => new Namespace(prefix) );
     }
 
     if (prefixes) {
@@ -81,9 +82,9 @@ class Report {
       return {
         prefix: ns.prefix,
         style: ns.style,
-        errors: this.testSuite.issues([ns.prefix], ["error"]).length,
-        warnings: this.testSuite.issues([ns.prefix], ["warning"]).length,
-        info: this.testSuite.issues([ns.prefix], ["info"]).length
+        errors: this.qa.results.issues([ns.prefix], ["error"]).length,
+        warnings: this.qa.results.issues([ns.prefix], ["warning"]).length,
+        info: this.qa.results.issues([ns.prefix], ["info"]).length
       }
     });
 
@@ -94,7 +95,7 @@ class Report {
    * @param {String[]} prefixes
    */
   testStatus(prefixes=[]) {
-    return this.testSuite.tests.map( test => {
+    return this.qa.tests.map( test => {
       return {
         id: test.id,
         severity: test.severity,
@@ -128,7 +129,7 @@ class Report {
 
     if (filterPrefixes.length == 0) {
       // Use all namespace prefixes with issues if no input given
-      filterPrefixes = this.testSuite.issuePrefixes;
+      filterPrefixes = this.qa.results.issuePrefixes;
     }
 
     // Temporary assignment to establish Intellisense
@@ -149,7 +150,7 @@ class Report {
    */
   failedTestReportPerNamespace(prefix) {
 
-    return this.testSuite.testsFailed([prefix]).map( test => {
+    return this.qa.results.testsFailed([prefix]).map( test => {
       return {
         id: test.id,
         severity: test.severity,
@@ -179,12 +180,12 @@ class Report {
   issues(prefixes) {
 
     // Temporary assignment to establish return type for Intellisense
-    let results = this.testSuite.tests[0] ? this.testSuite.tests[0].issueReport() : undefined;
+    let results = this.qa.tests[0] ? this.qa.tests[0].issueReport() : undefined;
 
     results = [];
 
     // Return flattened array of issue reports for each test
-    return this.testSuite.testsFailed(prefixes).reduce( (results, test) => {
+    return this.qa.results.testsFailed(prefixes).reduce( (results, test) => {
       return [...results, ...test.issueReport(prefixes)];
     }, results);
 
@@ -248,7 +249,7 @@ class Report {
     setWorkbookOptions(workbook, options);
 
     // Hide issue source columns if empty
-    hideSourceColumns(workbook, this.testSuite.issues(prefixes));
+    hideSourceColumns(workbook, this.qa.results.issues(prefixes));
 
     // Save workbook to buffer
     return workbook.outputAsync(format);

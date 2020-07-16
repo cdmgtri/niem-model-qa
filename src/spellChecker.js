@@ -5,7 +5,7 @@ let en = require("dictionary-en");
 let { Release } = require("niem-model");
 
 /** @type {{allow: string[], exclude: string[], special: string[]}} */
-let customDictionary = require("../../customDictionary.json");
+let customDictionary = require("../customDictionary.json");
 
 /**
  * Create a promise wrapper to load the US English dictionary
@@ -41,19 +41,8 @@ class SpellChecker {
     await this.addWords(customDictionary.allow);
     await this.removeWords(customDictionary.exclude);
 
-    if (release) {
-      // Add CCC type names to dictionary
-      let types = await release.types.find({isComplexContent: true});
-      for (let type of types) {
-        await this.nodehun.add(type.name);
-      }
-
-      // Add namespace prefixes to dictionary
-      let namespaces = await release.namespaces.find({conformanceRequired: true});
-      for (let namespace of namespaces) {
-        await this.nodehun.add(namespace.prefix);
-      }
-    }
+    // Load NIEM type names and namespace prefixes into the dictionary
+    await this.addNIEMNames(release);
 
   }
 
@@ -166,8 +155,31 @@ class SpellChecker {
     await this.removeWords(terms);
   }
 
+  /**
+   * Adds type names and namespace prefixes to the list of allowable words.
+   * This permits definitions to include things like "An augmentation point for type nc:PersonType"
+   * @param {Release} release
+   */
+  async addNIEMNames(release) {
+
+    if (release) {
+      // Add CCC type names to dictionary
+      let types = await release.types.find({isComplexContent: true});
+      for (let type of types) {
+        await this.nodehun.add(type.name);
+      }
+
+      // Add namespace prefixes to dictionary
+      let namespaces = await release.namespaces.find({conformanceRequired: true});
+      for (let namespace of namespaces) {
+        await this.nodehun.add(namespace.prefix);
+      }
+    }
+
+  }
 
 }
+
 
 /**
  * @param {string} definition
