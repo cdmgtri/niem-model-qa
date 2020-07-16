@@ -1,16 +1,17 @@
 
-let Test = require("./test");
-let SpellChecker = require("./utils/spellChecker");
-let Utils = require("./utils/index");
-let debug = require("debug")("niem-qa");
-
-const QAReport = require("./report");
-const QAResults = require("./results");
-const QATerminal = require("./terminal");
-const Tests = require("./tests");
+const debug = require("debug")("niem-qa");
 
 process.env.DEBUG = "niem-*";
 debug.enabled = true;
+
+const Test = require("./test");
+const Utils = require("./utils/index");
+const SpellChecker = require("./utils/spellChecker");
+const QATerminal = require("./utils/terminal");
+
+const QAReport = require("./report");
+const QAResults = require("./results");
+const Tests = require("./tests");
 
 let NamespaceQA = require("./model-tests/namespace/index");
 let PropertyQA = require("./model-tests/property/index");

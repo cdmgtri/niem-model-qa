@@ -1,7 +1,7 @@
 
 const chalk = require("chalk");
 const NIEMModelQA = require("./index");
-const Test = require("./test");
+const Test = require("../test");
 
 class Terminal {
 
