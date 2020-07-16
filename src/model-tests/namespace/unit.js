@@ -15,7 +15,7 @@ class NamespaceUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   definition_formatting(namespaces) {
-    let test = this.testSuite.start("namespace_definition_formatting");
+    let test = this.qa.tests.start("namespace_definition_formatting");
     return this.utils.text_formatting_helper(test, namespaces, "definition");
   }
 
@@ -24,7 +24,7 @@ class NamespaceUnitTests extends NIEMObjectUnitTests {
    * @param {Release} release
    */
   async definition_spellcheck(namespaces, release) {
-    let test = this.testSuite.start("namespace_definition_spellcheck");
+    let test = this.qa.tests.start("namespace_definition_spellcheck");
     return this.utils.definition_spellcheck__helper(test, namespaces, release);
   }
 

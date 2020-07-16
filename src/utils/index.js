@@ -172,7 +172,8 @@ class Utils {
       }
     }
 
-    return this.testSuite.log(test, issues);
+    return test.log(issues);
+
   }
 
   /**
@@ -257,7 +258,7 @@ class Utils {
       }
     }
 
-    return this.testSuite.log(test, issues);
+    return test.log(issues);
   }
 
   /**

@@ -22,7 +22,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    */
   async base_invalid_csc(types, release) {
 
-    let test = this.testSuite.start("type_base_invalid_csc");
+    let test = this.qa.tests.start("type_base_invalid_csc");
 
     /** @type {Type[]} */
     let problemTypes = [];
@@ -52,7 +52,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    */
   async base_invalid_simple(types, release) {
 
-    let test = this.testSuite.start("type_base_invalid_simple");
+    let test = this.qa.tests.start("type_base_invalid_simple");
 
     /** @type {Type[]} */
     let problemTypes = [];
@@ -81,7 +81,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async base_missing_simpleContent(types) {
-    let test = this.testSuite.start("type_base_missing_simpleContent");
+    let test = this.qa.tests.start("type_base_missing_simpleContent");
     let problemTypes = types.filter( type => {
       return type.isSimpleContent && type.style != "union" && ! type.baseQName;
     });
@@ -100,7 +100,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    */
   async base_unknown(types, release) {
 
-    let test = this.testSuite.start("type_base_unknown");
+    let test = this.qa.tests.start("type_base_unknown");
 
     /** @type {Type[]} */
     let problemTypes = [];
@@ -129,7 +129,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   definition_formatting(types) {
-    let test = this.testSuite.start("type_definition_formatting");
+    let test = this.qa.tests.start("type_definition_formatting");
     return this.utils.text_formatting_helper(test, types, "definition");
   }
 
@@ -139,7 +139,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async definition_missing_complex(types) {
-    let test = this.testSuite.start("type_definition_missing_complex");
+    let test = this.qa.tests.start("type_definition_missing_complex");
     let problemTypes = types.filter( type => type.isComplexType && ! type.definition )
     return this.qa.tests.post(test, problemTypes, "definition");
   }
@@ -150,7 +150,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async definition_missing_simple(types) {
-    let test = this.testSuite.start("type_definition_missing_simple");
+    let test = this.qa.tests.start("type_definition_missing_simple");
     let problemTypes = types.filter( type => type.isSimpleType && ! type.definition )
     return this.qa.tests.post(test, problemTypes, "definition");
   }
@@ -166,7 +166,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    */
   async definition_phrase_complex(types) {
 
-    let test = this.testSuite.start("type_definition_phrase_complex");
+    let test = this.qa.tests.start("type_definition_phrase_complex");
 
     let problemTypes = types
     .filter( type => type.isComplexType && type.definition )
@@ -187,7 +187,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    */
   async definition_phrase_simple(types) {
 
-    let test = this.testSuite.start("type_definition_phrase_simple");
+    let test = this.qa.tests.start("type_definition_phrase_simple");
 
     let problemTypes = types
     .filter( type => type.isSimpleType && type.definition )
@@ -209,7 +209,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async definition_spellcheck(types, release) {
-    let test = this.testSuite.start("type_definition_spellcheck");
+    let test = this.qa.tests.start("type_definition_spellcheck");
     return this.utils.definition_spellcheck__helper(test, types, release);
   }
 
@@ -229,7 +229,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    */
   async name_camelCase(types) {
 
-    let test = this.testSuite.start("type_name_camelCase");
+    let test = this.qa.tests.start("type_name_camelCase");
 
     let problemTypes = types
     .filter( type => type.name )
@@ -249,7 +249,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async name_duplicate(types) {
-    let test = this.testSuite.start("type_name_duplicate");
+    let test = this.qa.tests.start("type_name_duplicate");
     return this.utils.name_duplicate__helper(test, types);
   }
 
@@ -266,7 +266,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    */
   async name_inconsistent_codeType(types) {
 
-    let test = this.testSuite.start("type_name_inconsistent_codeType");
+    let test = this.qa.tests.start("type_name_inconsistent_codeType");
 
     let problemTypes = types
     .filter( type => type.name && type.name.endsWith("CodeType") && type.baseName )
@@ -285,7 +285,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async name_invalidChar(types) {
-    let test = this.testSuite.start("type_name_invalidChar");
+    let test = this.qa.tests.start("type_name_invalidChar");
     return this.utils.name_invalidChar__helper(test, types);
   }
 
@@ -295,7 +295,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async name_missing_complex(types) {
-    let test = this.testSuite.start("type_name_missing_complex");
+    let test = this.qa.tests.start("type_name_missing_complex");
     let complexTypes = types.filter( type => type.isComplexType );
     return this.utils.name_missing__helper(test, complexTypes);
   }
@@ -306,7 +306,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async name_missing_simple(types) {
-    let test = this.testSuite.start("type_name_missing_simple");
+    let test = this.qa.tests.start("type_name_missing_simple");
     let simpleTypes = types.filter( type => type.isSimpleType );
     return this.utils.name_missing__helper(test, simpleTypes);
   }
@@ -323,7 +323,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    */
   async name_repTerm_codeSimpleType(types) {
 
-    let test = this.testSuite.start("type_name_repTerm_codeSimpleType");
+    let test = this.qa.tests.start("type_name_repTerm_codeSimpleType");
 
     let codeSimpleTypes = types.filter( type => type.name && type.name.endsWith("CodeSimpleType"));
 
@@ -368,7 +368,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    */
   async name_repTerm_codeType(types) {
 
-    let test = this.testSuite.start("type_name_repTerm_codeType");
+    let test = this.qa.tests.start("type_name_repTerm_codeType");
 
     let problemTypes = types
     .filter( type => type.isComplexType && type.name && type.name.endsWith("CodeType") )
@@ -388,7 +388,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    */
   async name_repTerm_complex(types) {
 
-    let test = this.testSuite.start("type_name_repTerm_complex");
+    let test = this.qa.tests.start("type_name_repTerm_complex");
 
     let problemTypes = types
     .filter( type => type.isComplexType && type.name )
@@ -410,7 +410,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    */
   async name_repTerm_simple(types) {
 
-    let test = this.testSuite.start("type_name_repTerm_simple");
+    let test = this.qa.tests.start("type_name_repTerm_simple");
 
     let problemTypes = types
     .filter( type => type.prefix != "xs" && type.isSimpleType && type.name )
@@ -434,7 +434,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    */
   async name_repTerm_type(types) {
 
-    let test = this.testSuite.start("type_name_repTerm_type");
+    let test = this.qa.tests.start("type_name_repTerm_type");
 
     let problemTypes = types
     .filter( type => type.prefix != "xs" && type.prefix != "niem-xs" && type.name )
@@ -455,7 +455,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async name_reservedTerm_type(types) {
-    let test = this.testSuite.start("type_name_reservedTerm_type");
+    let test = this.qa.tests.start("type_name_reservedTerm_type");
     let problemTypes = types.filter( type => type.name.match(/Type.*Type/) );
     return this.qa.tests.post(test, problemTypes, "name");
   }
@@ -473,7 +473,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async name_spellcheck(types, release) {
-    let test = this.testSuite.start("type_name_spellcheck");
+    let test = this.qa.tests.start("type_name_spellcheck");
     return this.utils.name_spellcheck__helper(test, types, release);
   }
 
@@ -483,7 +483,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async prefix_missing(types) {
-    let test = this.testSuite.start("type_prefix_missing");
+    let test = this.qa.tests.start("type_prefix_missing");
     let problemTypes = types.filter( type => ! type.prefix );
     return this.qa.tests.post(test, problemTypes, "prefix");
   }
@@ -495,7 +495,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async prefix_unknown(types, release) {
-    let test = this.testSuite.start("type_prefix_unknown");
+    let test = this.qa.tests.start("type_prefix_unknown");
     return this.utils.prefix_unknown__helper(test, types, release);
   }
 
@@ -509,7 +509,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async style_missing(types) {
-    let test = this.testSuite.start("type_style_missing");
+    let test = this.qa.tests.start("type_style_missing");
     let problemTypes = types.filter( type => ! type.style );
     return this.qa.tests.post(test, problemTypes, "style");
   }
@@ -525,7 +525,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    */
   async style_unknown(types) {
 
-    let test = this.testSuite.start("type_style_unknown");
+    let test = this.qa.tests.start("type_style_unknown");
 
     let uniqueStyles = new Set( types.map( type => type.style ) );
 

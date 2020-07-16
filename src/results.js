@@ -12,6 +12,86 @@ class QAResults {
   }
 
   /**
+   * Prefixes of namespaces with one or more QA issues.
+   */
+  get issuePrefixes() {
+    /** @type {String[]} */
+    let prefixes = this.qa._tests.reduce( (prefixes, test) => [...prefixes, ...test.prefixes], [] );
+    return [...(new Set(prefixes))];
+  }
+
+  /**
+   * @param {String[]} prefixes - Filter issues by prefix
+   * @param {Test.SeverityType[]} severities - Filter issues by test severity
+   * @returns {Issue[]}
+   */
+  issues(prefixes, severities) {
+    return this
+    .testsFailed(prefixes, severities)
+    .reduce( (results, test) => [...results, ...test.namespacesIssues(prefixes)], []);
+  }
+
+  /**
+   * @param {String[]} prefixes
+   */
+  passed(prefixes) {
+    return this.testsFailed(prefixes).length == 0 && this.testsRan.length > 0;
+  }
+
+  /**
+   * @param {String[]} prefixes
+   */
+  failed(prefixes) {
+    return this.testsFailed(prefixes).length > 0;
+  }
+
+  /**
+   * Release test results from a JSON file into the QA object
+   */
+  async reload(filePath, overwrite=true) {
+
+    let fs = require("fs-extra");
+
+    /** @type {{}[]} */
+    let json = await fs.readJSON(filePath);
+
+    if (overwrite) this.qa._tests = [];
+
+    for (let testInfo of json) {
+      let test = Object.assign(new Test(), testInfo);
+      this.qa._tests.push(test)
+    }
+
+  }
+
+  /**
+   * Total test run times in seconds.
+   */
+  get runTime() {
+    return this.qa._tests.reduce( (totalTime, test) => {
+      let newTime = test.timeElapsedSeconds;
+      return newTime ? totalTime + newTime : totalTime;
+    }, 0);
+  }
+
+  /**
+   * Saves test results to a JSON file
+   */
+  async save(filePath) {
+    let fs = require("fs-extra");
+    await fs.outputJSON(filePath, this.qa._tests, {spaces: 2});
+  }
+
+  /**
+   * @param {String[]} prefixes
+   */
+  status(prefixes) {
+    if (this.passed(prefixes)) return "pass";
+    if (this.failed(prefixes)) return "fail";
+    return "not ran";
+  }
+
+  /**
    * All tests that have been run.
    */
   get testsRan() {
@@ -69,88 +149,6 @@ class QAResults {
    */
   testsFailedInfo(prefixes) {
     return this.testsFailed(prefixes, ["info"]);
-  }
-
-  /**
-   * @param {String[]} prefixes
-   */
-  passed(prefixes) {
-    return this.testsFailed(prefixes).length == 0 && this.testsRan.length > 0;
-  }
-
-  /**
-   * @param {String[]} prefixes
-   */
-  failed(prefixes) {
-    return this.testsFailed(prefixes).length > 0;
-  }
-
-  /**
-   * @param {String[]} prefixes
-   */
-  status(prefixes) {
-    if (this.passed(prefixes)) return "pass";
-    if (this.failed(prefixes)) return "fail";
-    return "not ran";
-  }
-
-  /**
-   * Release test results from a JSON file into the QA object
-   */
-  async reload(filePath, overwrite=true) {
-
-    let fs = require("fs-extra");
-
-    /** @type {{}[]} */
-    let json = await fs.readJSON(filePath);
-
-    if (overwrite) this.qa._tests = [];
-
-    for (let testInfo of json) {
-      let test = Object.assign(new Test(), testInfo);
-      this.qa._tests.push(test)
-    }
-
-  }
-
-  /**
-   * Saves test results to a JSON file
-   */
-  async save(filePath) {
-    let fs = require("fs-extra");
-    await fs.outputJSON(filePath, this.qa._tests, {spaces: 2});
-  }
-
-
-  /**
-   * Prefixes of namespaces with one or more QA issues.
-   */
-  get issuePrefixes() {
-    /** @type {String[]} */
-    let prefixes = this.qa._tests.reduce( (prefixes, test) => [...prefixes, ...test.prefixes], [] );
-    return [...(new Set(prefixes))];
-  }
-
-  /**
-   * @param {String[]} prefixes - Filter issues by prefix
-   * @param {Test.SeverityType[]} severities - Filter issues by test severity
-   * @returns {Issue[]}
-   */
-  issues(prefixes, severities) {
-    return this
-    .testsFailed(prefixes, severities)
-    .reduce( (results, test) => [...results, ...test.namespacesIssues(prefixes)], []);
-  }
-
-
-  /**
-   * Total test run times in seconds.
-   */
-  get runTime() {
-    return this.qa._tests.reduce( (totalTime, test) => {
-      let newTime = test.timeElapsedSeconds;
-      return newTime ? totalTime + newTime : totalTime;
-    }, 0);
   }
 
 }

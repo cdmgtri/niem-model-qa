@@ -21,7 +21,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    */
   // async definition_formatting_specialChars(facets) {
 
-  //   let test = this.testSuite.start("facet_definition_formatting_specialChars");
+  //   let test = this.qa.tests.start("facet_definition_formatting_specialChars");
 
   //   /** @type {Facet[]} */
   //   let problemFacets = [];
@@ -62,7 +62,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    */
   async definition_missing_code(facets) {
 
-    let test = this.testSuite.start("facet_definition_missing_code");
+    let test = this.qa.tests.start("facet_definition_missing_code");
 
     let problemFacets = facets.filter( facet => {
       return facet.style == "enumeration" && ! facet.definition
@@ -82,7 +82,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    */
   async definition_missing_pattern(facets) {
 
-    let test = this.testSuite.start("facet_definition_missing_pattern");
+    let test = this.qa.tests.start("facet_definition_missing_pattern");
 
     let problemFacets = facets.filter( facet => {
       return facet.style == "pattern" && ! facet.definition
@@ -102,7 +102,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    */
   async style_invalid(facets) {
 
-    let test = this.testSuite.start("facet_kind_invalid");
+    let test = this.qa.tests.start("facet_kind_invalid");
 
     let problemFacets = facets.filter( facet => {
       return ! facet.style || ! Facet.Styles.includes(facet.style)
@@ -123,7 +123,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    */
   async type_complex(facets, release) {
 
-    let test = this.testSuite.start("facet_type_complex");
+    let test = this.qa.tests.start("facet_type_complex");
 
     let uniqueTypeQNames = new Set( facets.map( facet => facet.typeQName) );
 
@@ -158,7 +158,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    */
   async type_repTerm_code(facets) {
 
-    let test = this.testSuite.start("facet_type_repTerm_code");
+    let test = this.qa.tests.start("facet_type_repTerm_code");
 
     let problemFacets = facets
     .filter( facet => facet.typeName && facet.style == "enumeration" )
@@ -175,7 +175,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async type_unknown(facets, release) {
-    let test = this.testSuite.start("facet_type_unknown");
+    let test = this.qa.tests.start("facet_type_unknown");
     return this.utils.type_unknown__helper(test, facets, release);
   }
 
@@ -190,7 +190,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    */
   async value_duplicate_code(facets) {
 
-    let test = this.testSuite.start("facet_value_duplicate_code");
+    let test = this.qa.tests.start("facet_value_duplicate_code");
 
     // Check for types that have duplicate facets
     let labelCounts = {};
@@ -219,7 +219,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async value_formatting(facets) {
-    let test = this.testSuite.start("facet_value_formatting");
+    let test = this.qa.tests.start("facet_value_formatting");
     return this.utils.text_formatting_helper(test, facets, "value");
   }
 
@@ -230,7 +230,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async value_missing(facets) {
-    let test = this.testSuite.start("facet_value_missing");
+    let test = this.qa.tests.start("facet_value_missing");
     let problemFacets = facets.filter( facet => ! facet.value );
     return this.qa.tests.post(test, problemFacets, "value");
   }

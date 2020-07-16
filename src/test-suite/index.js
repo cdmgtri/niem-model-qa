@@ -136,51 +136,6 @@ class QATestSuite {
 
   }
 
-  /**
-   * Starts the clock on a test or throws error if not found.
-   * @param {string} testID
-   */
-  start(testID) {
-    let test = this.qa.tests.find(testID);
-    if (! test) throw new Error(`Test ${testID} not found`);
-    test.timeStart = Date.now();
-    return test;
-  }
-
-  /**
-   * Logs a test with the given ID as having ran and pushes any given issues.
-   *
-   * Existing issues are not overwritten, so this may be called multiple
-   * times if needed.
-   *
-   * @param {Test} test
-   * @param {Issue[]} issues
-   * @param {Boolean} [append=false] Append rather than replace current test issues.
-   */
-  log(test, issues, append=false) {
-    // return QATestSuite.log(this.tests, test.id, issues, append);
-    // let test = this.qa.testMetadata.find(testID);
-    test.log(issues, append);
-    return test;
-  }
-
-  /**
-   * Logs a test with the given ID as having ran and pushes any given issues.
-   *
-   * Existing issues are not overwritten, so this may be called multiple
-   * times if needed.
-   *
-   * @param {Test[]} tests
-   * @param {String} testID
-   * @param {Issue[]} issues
-   * @param {Boolean} [append=false] Append rather than replace current test issues.
-   */
-  // static log(tests, testID, issues=[], append=false) {
-  //   let test = QATestSuite.find(tests, testID, append);
-  //   test.log(issues);
-  //   return test;
-  // }
-
 }
 
 module.exports = QATestSuite;

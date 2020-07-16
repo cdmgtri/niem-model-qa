@@ -18,7 +18,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   definition_formatting(properties) {
-    let test = this.testSuite.start("property_definition_formatting");
+    let test = this.qa.tests.start("property_definition_formatting");
     return this.utils.text_formatting_helper(test, properties, "definition");
   }
 
@@ -35,7 +35,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async definition_spellcheck(properties, release) {
-    let test = this.testSuite.start("property_definition_spellcheck");
+    let test = this.qa.tests.start("property_definition_spellcheck");
     return this.utils.definition_spellcheck__helper(test, properties, release);
   }
 
@@ -49,7 +49,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    */
   async name_repTerm_aug(properties) {
 
-    let test = this.testSuite.start("property_name_repTerm_aug");
+    let test = this.qa.tests.start("property_name_repTerm_aug");
 
     let problems = properties
     .filter( property => property.name && property.name.endsWith("Augmentation") )
@@ -69,7 +69,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    */
   async name_camelCase_attribute(properties) {
 
-    let test = this.testSuite.start("property_name_camelCase_attribute");
+    let test = this.qa.tests.start("property_name_camelCase_attribute");
 
     let problems = properties
     .filter( property => property.name && property.isAttribute )
@@ -89,7 +89,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    */
   async name_camelCase_element(properties) {
 
-    let test = this.testSuite.start("property_name_camelCase_element");
+    let test = this.qa.tests.start("property_name_camelCase_element");
 
     let problems = properties
     .filter( property => property.name && property.isElement )
@@ -108,7 +108,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async name_duplicate(properties) {
-    let test = this.testSuite.start("property_name_duplicate");
+    let test = this.qa.tests.start("property_name_duplicate");
     return this.utils.name_duplicate__helper(test, properties);
   }
 
@@ -122,7 +122,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async name_invalidChar(properties) {
-    let test = this.testSuite.start("property_name_invalidChar");
+    let test = this.qa.tests.start("property_name_invalidChar");
     return this.utils.name_invalidChar__helper(test, properties);
   }
 
@@ -132,7 +132,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async name_missing(properties) {
-    let test = this.testSuite.start("property_name_missing");
+    let test = this.qa.tests.start("property_name_missing");
     return this.utils.name_missing__helper(test, properties);
   }
 
@@ -149,7 +149,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async name_spellcheck(properties, release) {
-    let test = this.testSuite.start("property_name_spellcheck");
+    let test = this.qa.tests.start("property_name_spellcheck");
     return this.utils.name_spellcheck__helper(test, properties, release);
   }
 
@@ -159,7 +159,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async prefix_missing(properties) {
-    let test = this.testSuite.start("property_prefix_missing");
+    let test = this.qa.tests.start("property_prefix_missing");
     let problems = properties.filter( property => ! property.prefix );
     return this.qa.tests.post(test, problems, "prefix");
   }
@@ -171,7 +171,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @returns {Promise<Test>}
    */
   async prefix_unknown(properties, release) {
-    let test = this.testSuite.start("property_prefix_unknown");
+    let test = this.qa.tests.start("property_prefix_unknown");
     return this.utils.prefix_unknown__helper(test, properties, release);
   }
 

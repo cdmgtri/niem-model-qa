@@ -12,7 +12,6 @@ class Tests {
     this.qa = qa;
   }
 
-
   /**
    * Metadata about each test.
    * Does not include issues related to the test.
@@ -36,6 +35,19 @@ class Tests {
   }
 
   /**
+   * Returns a test from the test suite with the given ID.
+
+   * @param {String} testID
+   */
+  find(testID) {
+    let test = this.qa._tests.find(test => test.id == testID);
+    if (!test) {
+      throw new Error(`Test '${testID}' not found in test suite.`);
+    }
+    return test;
+  }
+
+  /**
    * @param {String} filePath
    * @param {boolean} reset Overwrite existing tests if true
    */
@@ -52,13 +64,6 @@ class Tests {
 
     return this.qa.tests.add(tests, reset);
 
-  }
-
-  /**
-   * Resets each test status back to its initial state and removes all issues.
-   */
-  reset() {
-    this.qa._tests.forEach( test => test.reset() );
   }
 
   /**
@@ -87,9 +92,6 @@ class Tests {
       let problemValue = object[problemField];
       let comment = commentFunction ? commentFunction(object) : "";
 
-      // Replace full facet identifier with qualified type name
-      // if (test.id.startsWith("facet")) label = object.typeQName;
-
       let isException = test.exceptionLabels.includes(object.label);
 
       if (!this.ignoreExceptions || !isException) {
@@ -107,26 +109,10 @@ class Tests {
   }
 
   /**
-   * Returns a test from the given set of tests with the given ID.
-   *
-   * @param {Test[]} tests
-   * @param {String} testID
+   * Resets each test status back to its initial state and removes all issues.
    */
-  // static find(tests, testID) {
-  //   return tests.find( test => test.id == testID );
-  // }
-
-  /**
-   * Returns a test from the test suite with the given ID.
-
-   * @param {String} testID
-   */
-  find(testID) {
-    let test = this.qa._tests.find(test => test.id == testID);
-    if (!test) {
-      throw new Error(`Test '${testID}' not found in test suite.`);
-    }
-    return test;
+  reset() {
+    this.qa._tests.forEach( test => test.reset() );
   }
 
   /**
@@ -135,6 +121,17 @@ class Tests {
   async save(filePath) {
     let fs = require("fs-extra");
     await fs.outputJSON(filePath, this.tests, {spaces: 2});
+  }
+
+  /**
+   * Starts the clock on a test or throws error if not found.
+   * @param {string} testID
+   */
+  start(testID) {
+    let test = this.find(testID);
+    if (! test) throw new Error(`Test ${testID} not found`);
+    test.timeStart = Date.now();
+    return test;
   }
 
 

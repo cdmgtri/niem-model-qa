@@ -90,6 +90,7 @@ class Test {
     this.timeEnd = Date.now();
     if (append) this.issues = [];
     this.issues.push(...issues);
+    return this;
   }
 
   /**
