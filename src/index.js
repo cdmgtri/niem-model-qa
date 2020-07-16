@@ -1,10 +1,10 @@
 
 let Test = require("./test");
-let SpellChecker = require("./spellChecker");
+let SpellChecker = require("./utils/spellChecker");
 let Utils = require("./utils/index");
 let debug = require("debug")("niem-qa");
 
-const QAReport = require("./test-suite/report/index");
+const QAReport = require("./report");
 const QAResults = require("./results");
 const QATerminal = require("./terminal");
 const Tests = require("./tests");

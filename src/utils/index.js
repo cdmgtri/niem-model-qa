@@ -2,7 +2,7 @@
 let { Release, NIEMObject, Component } = require("niem-model");
 
 let Test = require("../test");
-let Issue = require("../test-suite/issue/index");
+let Issue = require("../issue");
 
 class Utils {
 

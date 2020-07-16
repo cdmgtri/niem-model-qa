@@ -5,7 +5,7 @@ let en = require("dictionary-en");
 let { Release } = require("niem-model");
 
 /** @type {{allow: string[], exclude: string[], special: string[]}} */
-let customDictionary = require("../customDictionary.json");
+let customDictionary = require("../../customDictionary.json");
 
 /**
  * Create a promise wrapper to load the US English dictionary

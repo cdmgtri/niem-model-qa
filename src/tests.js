@@ -1,6 +1,6 @@
 
 let Test = require("./test");
-let Issue = require("./test-suite/issue/index");
+let Issue = require("./issue");
 let SpreadsheetUtils = require("./utils/xlsx");
 
 class Tests {

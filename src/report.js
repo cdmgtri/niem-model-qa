@@ -1,10 +1,9 @@
 
-let { saveAs } = require("file-saver");
 let xlsx = require("xlsx-populate");
+let { saveAs } = require("file-saver");
 let { Workbook } = xlsx;
 
-let Test = require("../../test");
-let Issue = require("../issue/index");
+let Issue = require("./issue");
 
 let { Namespace } = require("niem-model");
 
@@ -232,7 +231,7 @@ class Report {
   async reportBinary(testedNamespaces=[], prefixes, format="Buffer", options) {
 
     let path = require("path");
-    let filePath = path.resolve(__dirname, "../../../templates/test-results-template.xlsx");
+    let filePath = path.resolve(__dirname, "../templates/test-results-template.xlsx");
     let workbook = await xlsx.fromFileAsync(filePath);
 
     this.writeSummaryTab(workbook, prefixes);
@@ -403,6 +402,6 @@ function setWorkbookOptions(workbook, options={}) {
  */
 let resultsOptions;
 
-let NIEMModelQA = require("../../index");
+let NIEMModelQA = require("./index");
 
 module.exports = Report;
