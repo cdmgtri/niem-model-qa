@@ -128,16 +128,6 @@ class NIEMModelQA {
 }
 
 
-NIEMModelQA.Test = Test;
-NIEMModelQA.Utils = Utils;
-NIEMModelQA.SpellChecker = SpellChecker;
-NIEMModelQA.QATerminal = QATerminal;
-
-NIEMModelQA.QAReport = QAReport;
-NIEMModelQA.QAResults = QAResults;
-NIEMModelQA.Tests = Tests;
-
-
 module.exports = NIEMModelQA;
 
 const { Release } = require("niem-model");

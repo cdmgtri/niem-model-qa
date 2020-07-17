@@ -1,8 +1,16 @@
 
 module.exports = {
   NIEMModelQA: require("./src/index"),
+
   Issue: require("./src/issue"),
+  Report: require("./src/report"),
+  Results: require("./src/results"),
   Test: require("./src/test"),
+  Tests: require("./src/tests"),
+
+  SpellChecker: require("./src/utils/spellChecker"),
+  Terminal: require("./src/utils/terminal"),
+  Utils: require("./src/utils/index"),
 
   NIEMObjectTester: require("./src/model-tests/niem-object/index"),
   NamespaceTester: require("./src/model-tests/namespace/index"),
