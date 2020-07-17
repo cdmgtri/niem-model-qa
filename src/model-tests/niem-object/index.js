@@ -7,7 +7,7 @@ debug.enabled = true;
 /**
  * @private
  */
-class NIEMObjectQA {
+class NIEMObjectTester {
 
   /**
    * @param {NIEMModelQA} qa
@@ -90,7 +90,7 @@ class NIEMObjectQA {
 
 }
 
-module.exports = NIEMObjectQA;
+module.exports = NIEMObjectTester;
 
 let { Release } = require("niem-model");
 let NIEMModelQA = require("../../index");

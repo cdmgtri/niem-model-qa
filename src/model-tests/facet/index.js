@@ -1,8 +1,8 @@
 
-let NIEMObjectQA = require("../niem-object/index");
+let NIEMObjectTester = require("../niem-object/index");
 let FacetUnitTests = require("./unit");
 
-class FacetQA extends NIEMObjectQA {
+class FacetTester extends NIEMObjectTester {
 
   constructor(qa, utils) {
 
@@ -53,7 +53,7 @@ class FacetQA extends NIEMObjectQA {
 
 }
 
-module.exports = FacetQA;
+module.exports = FacetTester;
 
 let NIEMModelQA = require("../../index");
 let { Release, Facet } = require("niem-model");

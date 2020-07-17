@@ -1,8 +1,8 @@
 
-let NIEMObjectQA = require("../niem-object");
+let NIEMObjectTester = require("../niem-object");
 let PropertyUnitTests = require("./unit");
 
-class PropertyQA extends NIEMObjectQA {
+class PropertyTester extends NIEMObjectTester {
 
   constructor(qa, utils) {
 
@@ -46,7 +46,7 @@ class PropertyQA extends NIEMObjectQA {
 
 }
 
-module.exports = PropertyQA;
+module.exports = PropertyTester;
 
 let NIEMModelQA = require("../../index");
 let { Release, Property } = require("niem-model");

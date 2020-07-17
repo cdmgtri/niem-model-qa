@@ -13,10 +13,10 @@ const QAReport = require("./report");
 const QAResults = require("./results");
 const Tests = require("./tests");
 
-let NamespaceQA = require("./model-tests/namespace/index");
-let PropertyQA = require("./model-tests/property/index");
-let TypeQA = require("./model-tests/type/index");
-let FacetQA = require("./model-tests/facet/index");
+let NamespaceTester = require("./model-tests/namespace/index");
+let PropertyTester = require("./model-tests/property/index");
+let TypeTester = require("./model-tests/type/index");
+let FacetTester = require("./model-tests/facet/index");
 
 let { Namespace, Component, Facet } = require("niem-model");
 
@@ -49,10 +49,10 @@ class NIEMModelQA {
     this.spellChecker = new SpellChecker();
 
     this.objects = {
-      namespace: new NamespaceQA(this, utils),
-      property: new PropertyQA(this, utils),
-      type: new TypeQA(this, utils),
-      facet: new FacetQA(this, utils)
+      namespace: new NamespaceTester(this, utils),
+      property: new PropertyTester(this, utils),
+      type: new TypeTester(this, utils),
+      facet: new FacetTester(this, utils)
     }
 
 
@@ -127,7 +127,17 @@ class NIEMModelQA {
 
 }
 
+
+NIEMModelQA.Test = Test;
+NIEMModelQA.Utils = Utils;
+NIEMModelQA.SpellChecker = SpellChecker;
+NIEMModelQA.QATerminal = QATerminal;
+
+NIEMModelQA.QAReport = QAReport;
+NIEMModelQA.QAResults = QAResults;
+NIEMModelQA.Tests = Tests;
+
+
 module.exports = NIEMModelQA;
 
 const { Release } = require("niem-model");
-
