@@ -77,14 +77,11 @@ class Tests {
    * @param {NIEMObject[]} problemObjects
    * @param {String} problemField
    * @param {(object: NIEMObject) => string} commentFunction
-   * @param {Boolean} [reset=true] Replaces any previous issues with new issues
+   * @param {Boolean} [append=true] Append new issues onto existing issues (default); else replace
    */
-  post(test, problemObjects, problemField, commentFunction, reset=true) {
+  post(test, problemObjects, problemField, commentFunction, append=true) {
 
-    if (reset == true) {
-      // Remove any existing issues on the test
-      test.issues = [];
-    }
+    if (!append) test.issues = [];
 
     /** @type {Issue[]} */
     let issues = [];
@@ -99,14 +96,14 @@ class Tests {
       let isException = test.exceptionLabels.includes(object.label);
 
       if (!this.ignoreExceptions || !isException) {
-        let issue = new Issue(object.authoritativePrefix, label, object.input_location, object.input_line, object.input_position, problemValue, comment);
+        let issue = new Issue(object.authoritativePrefix, label, object.input_location, object.input_line, object.input_position, problemValue, comment, test);
         issues.push(issue);
       }
 
     });
 
     // Mark test as ran and load any issues
-    test.log(issues);
+    test.log(issues, append);
 
     return test;
 

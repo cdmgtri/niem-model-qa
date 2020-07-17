@@ -9,8 +9,9 @@ class Issue {
    * @param {String} position - A character position or a column name
    * @param {String} problemValue
    * @param {String} comments
+   * @param {Test} test
    */
-  constructor(prefix, label, location, line, position, problemValue, comments) {
+  constructor(prefix, label, location, line, position, problemValue, comments, test) {
 
     this.prefix = prefix;
     this.label = label;
@@ -20,8 +21,24 @@ class Issue {
     this.problemValue = problemValue;
     this.comments = comments;
 
+    this.test = test;
+
+  }
+
+  toJSON() {
+    return {
+      prefix: this.prefix,
+      label: this.label,
+      location: this.location,
+      line: this.line,
+      position: this.position,
+      problemValue: this.problemValue,
+      comments: this.comments
+    }
   }
 
 }
+
+const Test = require("./test");
 
 module.exports = Issue;

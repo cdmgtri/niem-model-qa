@@ -209,7 +209,7 @@ class Utils {
 
     problemObjects = checkableObjects.filter( object => object[field].match(nbsp) );
 
-    return this.qa.tests.post(test, problemObjects, field, (object) => "Non-breaking space detected: " + object[field].replace(nbsp, `-->${nbsp}<--`), false);
+    return this.qa.tests.post(test, problemObjects, field, (object) => "Non-breaking space detected: " + object[field].replace(nbsp, `-->${nbsp}<--`));
 
   }
 

@@ -61,83 +61,31 @@ class Test {
   }
 
   /**
-   * Starts the timer for the test run time.
-   */
-  start() {
-    this.timeStart = Date.now();
-  }
-
-  /**
-   * Finds the test with the given test ID and starts the timer.
-   * @param {Test[]} tests
-   * @param {string} testID
-   * @returns {Test}
-   */
-  static start(tests, testID) {
-    let test = tests.find( test => test.id == testID );
-    test.start();
-    return test;
-  }
-
-  /**
-   * Logs this test as having ran, ends the test run timer, and pushes any given issues.
-   *
-   * @param {Issue[]} issues
-   * @param {Boolean} [append=false] Append rather than replace current test issues.
-   */
-  log(issues=[], append=false) {
-    this.ran = true;
-    this.timeEnd = Date.now();
-    if (append) this.issues = [];
-    this.issues.push(...issues);
-    return this;
-  }
-
-  /**
-   * Resets test execution information - run status and timer, and test issues.
-   */
-  reset() {
-    this.ran = false;
-    this.timeStart = undefined;
-    this.timeEnd = undefined;
-    this.issues = [];
-  }
-
-  /**
-   * URL for the specific specification rule.
-   * @type {String}
-   */
-  get ruleURL() {
-    return NIEMSpecs.ruleURL(this.spec, this.version, this.rule);
-  }
-
-  /**
    * Unique array of namespace prefixes with issues.
    * @type {String[]}
    */
-  get prefixes() {
+  get issuePrefixes() {
     if (this.issues.length == 0) return [];
     let prefixes = this.issues.map( issue => issue.prefix );
     return [ ...(new Set(prefixes)) ];
   }
 
   /**
-   * Test run time, in milliseconds
+   * Logs this test as having ran, ends the test run timer, and pushes any given issues.
+   *
+   * @param {Issue[]} issues
+   * @param {Boolean} [append=true] Append (default) rather than replace current test issues.
    */
-  get timeElapsedMilliseconds() {
-    if (this.timeStart && this.timeEnd) {
-      return this.timeEnd - this.timeStart;
-    }
-  }
+  log(issues=[], append=true) {
+    if (!append) this.issues = [];
 
-  /**
-   * Test run time, in seconds
-   */
-  get timeElapsedSeconds() {
-    if (this.timeStart && this.timeEnd) {
-      // Round to 1 decimal
-      return +(this.timeElapsedMilliseconds / 1000).toFixed(1);
-    }
+    // Close out test
+    this.ran = true;
+    this.timeEnd = Date.now();
+    issues.forEach( issue => issue.test = this );
+
+    this.issues.push(...issues);
+    return this;
   }
 
   /**
@@ -204,27 +152,48 @@ class Test {
     return "not ran";
   }
 
+  /**
+   * Resets test execution information - run status and timer, and test issues.
+   */
+  reset() {
+    this.ran = false;
+    this.timeStart = undefined;
+    this.timeEnd = undefined;
+    this.issues = [];
+  }
 
   /**
-   * Array of test issues, with test info embedded directly into each issue object.
-   *
-   * @param {String[]} prefixes - Prefix for issue filtering
+   * URL for the specific specification rule.
+   * @type {String}
    */
-  issueReport(prefixes) {
-    return this.namespacesIssues(prefixes).map( issue => {
-      return {
-        id: this.id,
-        severity: this.severity,
-        description: this.description,
-        prefix: issue.prefix,
-        label: issue.label,
-        problemValue: issue.problemValue,
-        location: issue.location,
-        line: issue.line,
-        position: issue.position,
-        comments: issue.comments
-      }
-    });
+  get ruleURL() {
+    return NIEMSpecs.ruleURL(this.spec, this.version, this.rule);
+  }
+
+  /**
+   * Starts the timer for the test run time.
+   */
+  start() {
+    this.timeStart = Date.now();
+  }
+
+  /**
+   * Test run time, in milliseconds
+   */
+  get timeElapsedMilliseconds() {
+    if (this.timeStart && this.timeEnd) {
+      return this.timeEnd - this.timeStart;
+    }
+  }
+
+  /**
+   * Test run time, in seconds
+   */
+  get timeElapsedSeconds() {
+    if (this.timeStart && this.timeEnd) {
+      // Round to 1 decimal
+      return +(this.timeElapsedMilliseconds / 1000).toFixed(1);
+    }
   }
 
 }

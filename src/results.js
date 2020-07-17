@@ -1,5 +1,6 @@
 
 const Test = require("./test");
+const Issue = require("./issue");
 const NIEMModelQA = require("./index");
 
 class QAResults {
@@ -16,7 +17,7 @@ class QAResults {
    */
   get issuePrefixes() {
     /** @type {String[]} */
-    let prefixes = this.qa._tests.reduce( (prefixes, test) => [...prefixes, ...test.prefixes], [] );
+    let prefixes = this.qa._tests.reduce( (prefixes, test) => [...prefixes, ...test.issuePrefixes], [] );
     return [...(new Set(prefixes))];
   }
 
@@ -58,7 +59,18 @@ class QAResults {
     if (overwrite) this.qa._tests = [];
 
     for (let testInfo of json) {
+      /** @type {Test} */
       let test = Object.assign(new Test(), testInfo);
+      let issueObjects = test.issues;
+      test.issues = [];
+
+      for (let issueObject of issueObjects) {
+        /** @type {Issue} */
+        let issue = Object.assign(new Issue(), issueObject);
+        issue.test = test;
+        test.issues.push(issue);
+      }
+
       this.qa._tests.push(test)
     }
 

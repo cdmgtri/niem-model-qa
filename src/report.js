@@ -177,15 +177,22 @@ class Report {
    */
   issues(prefixes) {
 
-    // Temporary assignment to establish return type for Intellisense
-    let results = this.qa._tests[0] ? this.qa._tests[0].issueReport() : undefined;
+    let issues = this.qa.results.issues(prefixes);
 
-    results = [];
-
-    // Return flattened array of issue reports for each test
-    return this.qa.results.tests.failed(prefixes).reduce( (results, test) => {
-      return [...results, ...test.issueReport(prefixes)];
-    }, results);
+    return issues.map( issue => {
+      return {
+        id: issue.test.id,
+        severity: issue.test.severity,
+        description: issue.test.description,
+        prefix: issue.prefix,
+        label: issue.label,
+        problemValue: issue.problemValue,
+        location: issue.location,
+        line: issue.line,
+        position: issue.position,
+        comments: issue.comments
+      }
+    });
 
   }
 

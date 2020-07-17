@@ -120,10 +120,10 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.definition_missing_simple(types);
+        let test = await qa.type.test.definition_missing_complex(types);
 
         expect(test.failed).toBeTruthy();
-        expect(test.issues[0].label).toBe("xs:string");
+        expect(test.issues[0].label).toBe("nc:PersonType");
         expect(test.issues.length).toBe(1);
       });
 
