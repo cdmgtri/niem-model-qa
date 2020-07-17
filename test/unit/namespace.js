@@ -40,7 +40,7 @@ function namespaceTests(qa, niem) {
 
         fieldNamespaces.push(...namespaces);
 
-        let test = await qa.namespace.test.definition_spellcheck(namespaces, release);
+        let test = await qa.objects.namespace.test.definition_spellcheck(namespaces, release);
         let issues = test.issues;
 
         expect(issues.length).toBe(2);
@@ -61,18 +61,18 @@ function namespaceTests(qa, niem) {
       let fieldTest;
 
       beforeAll( async () => {
-        fieldTest = new FieldTest(qa.namespace, fieldNamespaces, release);
+        fieldTest = new FieldTest(qa.objects.namespace, fieldNamespaces, release);
       });
 
       test("#individual fields", async () => {
-        let fields = Object.getOwnPropertyNames(qa.namespace.field);
+        let fields = Object.getOwnPropertyNames(qa.objects.namespace.field);
         for (let field of fields) {
           await fieldTest.run(field);
         }
       });
 
       test("#all fields", async () => {
-        let results = await qa.namespace.run(fieldNamespaces, release);
+        let results = await qa.objects.namespace.run(fieldNamespaces, release);
         expect(fieldTest.fieldTestCount).toBe(results.tests.length);
       });
 

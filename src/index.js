@@ -34,7 +34,10 @@ class NIEMModelQA {
 
   constructor() {
 
-    /** @type {Test[]} */
+    /**
+     * @private
+     * @type {Test[]}
+     */
     this._tests = [];
 
     this.tests = new Tests(this);
@@ -45,10 +48,13 @@ class NIEMModelQA {
     let utils = new Utils(this);
     this.spellChecker = new SpellChecker();
 
-    this.namespace = new NamespaceQA(this, utils);
-    this.property = new PropertyQA(this, utils);
-    this.type = new TypeQA(this, utils);
-    this.facet = new FacetQA(this, utils);
+    this.objects = {
+      namespace: new NamespaceQA(this, utils),
+      property: new PropertyQA(this, utils),
+      type: new TypeQA(this, utils),
+      facet: new FacetQA(this, utils)
+    }
+
 
   }
 
@@ -88,10 +94,10 @@ class NIEMModelQA {
     types = types.filter( type => type.prefix != "xs" && type.prefix != "structures" )
 
     // Run tests
-    await this.namespace.run(conformantNamespaces, release);
-    await this.property.run(properties, release);
-    await this.type.run(types, release);
-    await this.facet.run(facets, release);
+    await this.objects.namespace.run(conformantNamespaces, release);
+    await this.objects.property.run(properties, release);
+    await this.objects.type.run(types, release);
+    await this.objects.facet.run(facets, release);
 
   }
 

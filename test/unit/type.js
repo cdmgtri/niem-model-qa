@@ -41,7 +41,7 @@ function typeTests(qa, niem) {
         await release.types.add("niem-xs", "token", null, "CSC");
         await release.types.add("nc", "PersonType", null, "object");
 
-        let test = await qa.type.test.base_invalid_csc(types, release);
+        let test = await qa.objects.type.test.base_invalid_csc(types, release);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ncic:HairColorCodeType");
@@ -64,7 +64,7 @@ function typeTests(qa, niem) {
 
         await release.types.add("ncic", "EyeColorCodeSimpleType", null, "simple");
 
-        let test = await qa.type.test.base_invalid_simple(types, release);
+        let test = await qa.objects.type.test.base_invalid_simple(types, release);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ncic:HairColorCodeSimpleType");
@@ -83,7 +83,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.base_missing_simpleContent(types);
+        let test = await qa.objects.type.test.base_missing_simpleContent(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues.length).toBe(2);
@@ -103,7 +103,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.base_unknown(types, release);
+        let test = await qa.objects.type.test.base_unknown(types, release);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("nc:LocationType");
@@ -120,7 +120,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.definition_missing_complex(types);
+        let test = await qa.objects.type.test.definition_missing_complex(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("nc:PersonType");
@@ -137,7 +137,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.definition_missing_simple(types);
+        let test = await qa.objects.type.test.definition_missing_simple(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("xs:string");
@@ -154,7 +154,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.definition_phrase_complex(types);
+        let test = await qa.objects.type.test.definition_phrase_complex(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("nc:PersonType");
@@ -171,7 +171,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.definition_phrase_simple(types);
+        let test = await qa.objects.type.test.definition_phrase_simple(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ext:IDSimpleType");
@@ -193,7 +193,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.definition_spellcheck(types, release);
+        let test = await qa.objects.type.test.definition_spellcheck(types, release);
         let issues = test.issues;
 
         expect(test.failed).toBeTruthy();
@@ -216,7 +216,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.name_camelCase(types);
+        let test = await qa.objects.type.test.name_camelCase(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ext:string");
@@ -234,7 +234,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.name_duplicate(types);
+        let test = await qa.objects.type.test.name_duplicate(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ext:LocationType");
@@ -252,7 +252,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.name_inconsistent_codeType(types);
+        let test = await qa.objects.type.test.name_inconsistent_codeType(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].problemValue).toBe("HairColorCodeType");
@@ -272,7 +272,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.name_invalidChar(types);
+        let test = await qa.objects.type.test.name_invalidChar(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].problemValue).toBe("CarType ");
@@ -293,7 +293,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.name_missing_simple(types);
+        let test = await qa.objects.type.test.name_missing_simple(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues.length).toBe(1);
@@ -313,7 +313,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.name_missing_complex(types);
+        let test = await qa.objects.type.test.name_missing_complex(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues.length).toBe(1);
@@ -329,7 +329,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.name_repTerm_type(types);
+        let test = await qa.objects.type.test.name_repTerm_type(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].problemValue).toBe("Car_type ");
@@ -349,7 +349,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.name_repTerm_simple(types);
+        let test = await qa.objects.type.test.name_repTerm_simple(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].problemValue).toBe("CarType");
@@ -367,7 +367,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.name_repTerm_complex(types);
+        let test = await qa.objects.type.test.name_repTerm_complex(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].problemValue).toBe("CarSimpleType");
@@ -387,7 +387,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.name_repTerm_codeType(types);
+        let test = await qa.objects.type.test.name_repTerm_codeType(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].problemValue).toBe("MonthCodeType");
@@ -411,7 +411,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.name_repTerm_codeSimpleType(types);
+        let test = await qa.objects.type.test.name_repTerm_codeSimpleType(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].problemValue).toBe("MonthCodeSimpleType");
@@ -428,7 +428,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.name_reservedTerm_type(types);
+        let test = await qa.objects.type.test.name_reservedTerm_type(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ext:IDTypeCodeType");
@@ -451,7 +451,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.name_spellcheck(types, release);
+        let test = await qa.objects.type.test.name_spellcheck(types, release);
         expect(test.issues.length).toBe(3);
 
         expect(test.failed).toBeTruthy();
@@ -475,7 +475,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.type.test.prefix_missing(types);
+        let test = await qa.objects.type.test.prefix_missing(types);
         let issues = test.issues;
 
         expect(test.failed).toBeTruthy();
@@ -497,7 +497,7 @@ function typeTests(qa, niem) {
         // --Note: Namespace "nc" already added in property tests--
         // await release.namespaces.add("nc");
 
-        let test = await qa.type.test.prefix_unknown(types, release);
+        let test = await qa.objects.type.test.prefix_unknown(types, release);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ext:IDTypeCodeType");
@@ -513,7 +513,7 @@ function typeTests(qa, niem) {
           new Type("nc", "LocationType", null, "simple")
         ];
 
-        let test = await qa.type.test.style_missing(types);
+        let test = await qa.objects.type.test.style_missing(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ext:IDTypeCodeType");
@@ -529,7 +529,7 @@ function typeTests(qa, niem) {
           new Type("nc", "ActivityType", null) // invalid
         ];
 
-        let test = await qa.type.test.style_unknown(types);
+        let test = await qa.objects.type.test.style_unknown(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("nc:LocationType");
@@ -548,7 +548,7 @@ function typeTests(qa, niem) {
       let fieldTest;
 
       beforeAll( async () => {
-        fieldTest = new FieldTest(qa.type, fieldTypes, release);
+        fieldTest = new FieldTest(qa.objects.type, fieldTypes, release);
       });
 
       test("#base", async () => {
@@ -572,7 +572,7 @@ function typeTests(qa, niem) {
       });
 
       test("#all fields", async () => {
-        let results = await qa.type.run(fieldTypes, release);
+        let results = await qa.objects.type.run(fieldTypes, release);
         expect(fieldTest.fieldTestCount).toBe(results.tests.length);
       });
 
