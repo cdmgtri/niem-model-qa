@@ -9,49 +9,6 @@ let Test = require("../../test");
 class FacetUnitTests extends NIEMObjectUnitTests {
 
   /**
-   * TODO Move facet test for expected special characters to release-specific QA
-   *
-   * Check sample known facets with special characters in definitions to confirm
-   * the correct character encoding has been used.
-   *
-   * @example "Code facet 'CIV' in genc:CountryAlpha3CodeSimpleType should have correctly-encoded definition 'CÔTE D’IVOIRE'."
-   * @example "Code facet 'CIV' in genc:CountryAlpha3CodeSimpleType should not have incorrectly-encoded definition 'CÃ”TE Dâ€™IVOIRE'."
-   *
-   * @param {Facet[]} facets
-   */
-  // async definition_formatting_specialChars(facets) {
-
-  //   let test = this.qa.tests.start("facet_definition_formatting_specialChars");
-
-  //   /** @type {Facet[]} */
-  //   let problemFacets = [];
-
-  //   /** @type {{typeQName: string, value: string, expectedDefinition: string}[]} */
-  //   let samples = [
-  //     {typeQName: "can:CanadianProvinceCodeSimpleType", value: "QC", expectedDefinition: "Québec" },
-
-  //     {typeQName: "genc:CountryAlpha2CodeSimpleType", value: "CI", expectedDefinition: "CÔTE D’IVOIRE" },
-  //     {typeQName: "genc:CountryAlpha3CodeSimpleType", value: "CIV", expectedDefinition: "CÔTE D’IVOIRE" },
-  //     {typeQName: "genc:CountryNumericCodeSimpleType", value: "384", expectedDefinition: "CÔTE D’IVOIRE" },
-  //     {typeQName: "genc:CountrySubdivisionCodeSimpleType", value: "AD-06", expectedDefinition: "Sant Julià de Lòria" },
-
-  //     {typeQName: "iso_3166:CountryAlpha2CodeSimpleType", value: "CI", expectedDefinition: "Côte d'Ivoire" },
-  //     {typeQName: "iso_3166:CountryAlpha3CodeSimpleType", value: "CIV", expectedDefinition: "Côte d'Ivoire" },
-  //     {typeQName: "iso_3166:CountryNumericCodeSimpleType", value: "384", expectedDefinition: "Côte d'Ivoire" },
-  //     {typeQName: "iso_3166:CountrySubdivisionCodeSimpleType", value: "AD-06", expectedDefinition: "Sant Julià de Lòria" },
-
-  //     {typeQName: "iso_639-3:LanguageCodeSimpleType", value: "aae", expectedDefinition: "Arbëreshë Albanian" },
-  //   ];
-
-  //   for (let sample of samples) {
-  //     let problemFacet = checkExpectedFacetDefinition(facets, sample.typeQName, sample.value, sample.expectedDefinition);
-  //     if (problemFacet) problemFacets.push(problemFacet);
-  //   }
-
-  //   return this.qa.testMetadata.post(test, problemFacets, "definition");
-  // }
-
-  /**
    * Check that code facets have definitions.
    *
    * @example "Code facet 'MON' should have a definition (e.g., 'Monday')."
@@ -235,28 +192,6 @@ class FacetUnitTests extends NIEMObjectUnitTests {
     return this.qa.tests.post(test, problemFacets, "value");
   }
 
-}
-
-/**
- * Check that the given facet has the expected definition.  Returns undefined if correct;
- * returns the problem facet if the actual definition does not match the expected definition.
- *
- * @param {Facet[]} facets
- * @param {string} typeQName
- * @param {string} value
- * @param {string} expectedDefinition
- * @returns
- */
-function checkExpectedFacetDefinition(facets, typeQName, value, expectedDefinition) {
-
-  let facet = facets.find( facet => facet.typeQName == typeQName && facet.value == value);
-
-  // Make sure test cases are still valid
-  if (!facet) throw new Error(`Expected facet not found: ${typeQName} - enum ${value}`);
-
-  if (facet.definition != expectedDefinition) {
-    return facet;
-  }
 }
 
 module.exports = FacetUnitTests;

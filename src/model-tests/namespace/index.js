@@ -5,11 +5,11 @@ let { Release, Namespace } = require("niem-model");
 
 class NamespaceTester extends NIEMObjectTester {
 
-  constructor(qa, utils) {
+  constructor(qa) {
 
     super(qa);
 
-    this.test = new NamespaceUnitTests(qa, utils);
+    this.test = new NamespaceUnitTests(qa);
 
     /**
      * @param {Namespace[]} namespaces

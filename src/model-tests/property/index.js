@@ -4,11 +4,11 @@ let PropertyUnitTests = require("./unit");
 
 class PropertyTester extends NIEMObjectTester {
 
-  constructor(qa, utils) {
+  constructor(qa) {
 
     super(qa);
 
-    this.test = new PropertyUnitTests(qa, utils);
+    this.test = new PropertyUnitTests(qa);
 
     /**
      * @param {Property[]} properties

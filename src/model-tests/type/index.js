@@ -4,11 +4,11 @@ let TypeUnitTests = require("./unit.js");
 
 class TypeTester extends NIEMObjectTester {
 
-  constructor(qa, utils) {
+  constructor(qa) {
 
     super(qa);
 
-    this.test = new TypeUnitTests(qa, utils);
+    this.test = new TypeUnitTests(qa);
 
     /**
      * @param {Type[]} types

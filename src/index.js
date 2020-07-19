@@ -45,14 +45,14 @@ class NIEMModelQA {
     this.report = new QAReport(this);
     this.terminal = new QATerminal(this);
 
-    let utils = new Utils(this);
+    this.utils = new Utils(this);
     this.spellChecker = new SpellChecker();
 
     this.objects = {
-      namespace: new NamespaceTester(this, utils),
-      property: new PropertyTester(this, utils),
-      type: new TypeTester(this, utils),
-      facet: new FacetTester(this, utils)
+      namespace: new NamespaceTester(this),
+      property: new PropertyTester(this),
+      type: new TypeTester(this),
+      facet: new FacetTester(this)
     }
 
 

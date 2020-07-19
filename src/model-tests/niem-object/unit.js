@@ -1,6 +1,4 @@
 
-let Utils = require("../../utils");
-
 /**
  * @private
  */
@@ -8,13 +6,12 @@ class NIEMObjectUnitTests {
 
   /**
    * @param {NIEMModelQA} qa
-   * @param {Utils} utils
    */
-  constructor(qa, utils) {
+  constructor(qa) {
     this.qa = qa;
 
     /** @private */
-    this.utils = utils;
+    this.utils = qa.utils;
   }
 
 }
