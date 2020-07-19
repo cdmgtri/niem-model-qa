@@ -22,7 +22,7 @@ class NIEMObjectTester {
     /**
      * Individual object tests
      */
-    this.test = {};
+    this.tests = {};
 
     /**
      * Run all tests in the test suite
@@ -56,7 +56,7 @@ class NIEMObjectTester {
     let testNames = this.fieldTestNames(field);
 
     for (let testName of testNames) {
-      let test = await this.test[testName](niemObjects, release);
+      let test = await this.tests[testName](niemObjects, release);
       tests.push(test);
     }
 
@@ -75,7 +75,7 @@ class NIEMObjectTester {
   fieldTestNames(field) {
 
     // Get all properties and methods from the unit test class
-    let testsPrototype = Object.getPrototypeOf(this.test);
+    let testsPrototype = Object.getPrototypeOf(this.tests);
     let testFunctions = Object.getOwnPropertyNames(testsPrototype);
 
     if (!field) {

@@ -40,7 +40,7 @@ function namespaceTests(qa, niem) {
 
         fieldNamespaces.push(...namespaces);
 
-        let test = await qa.objects.namespace.test.definition_spellcheck(namespaces, release);
+        let test = await qa.objects.namespace.tests.definition_spellcheck(namespaces, release);
         let issues = test.issues;
 
         expect(issues.length).toBe(2);

@@ -44,7 +44,7 @@ function facetTests(qa, niem) {
         fieldFacets.push(...facets);
         await release.facets.addMultiple(facets);
 
-        let test = await qa.objects.facet.test.definition_formatting_specialChars(facets);
+        let test = await qa.objects.facet.tests.definition_formatting_specialChars(facets);
         let issues = test.issues;
 
         expect(test.failed).toBeTruthy();
@@ -71,7 +71,7 @@ function facetTests(qa, niem) {
 
         fieldFacets.push(...facets);
 
-        let test = await qa.objects.facet.test.definition_missing_code(facets);
+        let test = await qa.objects.facet.tests.definition_missing_code(facets);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ext:WeekdayCodeSimpleType - enum THU");
@@ -91,7 +91,7 @@ function facetTests(qa, niem) {
 
         fieldFacets.push(...facets);
 
-        let test = await qa.objects.facet.test.definition_missing_pattern(facets);
+        let test = await qa.objects.facet.tests.definition_missing_pattern(facets);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ext:SSNFormatType - pattern \d{9}");
@@ -110,7 +110,7 @@ function facetTests(qa, niem) {
 
         fieldFacets.push(...facets);
 
-        let test = await qa.objects.facet.test.style_invalid(facets);
+        let test = await qa.objects.facet.tests.style_invalid(facets);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ext:WeekdayCodeSimpleType - ENUM THU");
@@ -133,7 +133,7 @@ function facetTests(qa, niem) {
         await release.types.add("ext", "WeekdayCodeSimpleType", "", "simple");
         // await release.types.add("nc", "PersonType", "", "object");
 
-        let test = await qa.objects.facet.test.type_complex(facets, release);
+        let test = await qa.objects.facet.tests.type_complex(facets, release);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("nc:PersonType - enum MON");
@@ -151,7 +151,7 @@ function facetTests(qa, niem) {
 
         fieldFacets.push(...facets);
 
-        let test = await qa.objects.facet.test.type_repTerm_code(facets, release);
+        let test = await qa.objects.facet.tests.type_repTerm_code(facets, release);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ext:WeekdaySimpleType - enum TUE");
@@ -173,7 +173,7 @@ function facetTests(qa, niem) {
         // (type added above)
         // release.types.add("ext", "WeekdayCodeSimpleType", "", "simple");
 
-        let test = await qa.objects.facet.test.type_unknown(facets, release);
+        let test = await qa.objects.facet.tests.type_unknown(facets, release);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ext:BogusCodeSimpleType - enum X");
@@ -199,7 +199,7 @@ function facetTests(qa, niem) {
 
         fieldFacets.push(...facets);
 
-        let test = await qa.objects.facet.test.value_duplicate_code(facets, release);
+        let test = await qa.objects.facet.tests.value_duplicate_code(facets, release);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ext:WeekdayCodeSimpleType - enum MON");
@@ -221,7 +221,7 @@ function facetTests(qa, niem) {
 
         fieldFacets.push(...facets);
 
-        let test = await qa.objects.facet.test.value_missing(facets);
+        let test = await qa.objects.facet.tests.value_missing(facets);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("a:WeekdayCodeSimpleType - enum undefined");

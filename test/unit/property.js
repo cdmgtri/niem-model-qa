@@ -38,7 +38,7 @@ function propertyTests(qa, niem) {
 
         fieldProperties.push(...properties);
 
-        let test = await qa.objects.property.test.definition_formatting(properties);
+        let test = await qa.objects.property.tests.definition_formatting(properties);
         let issues = test.issues;
 
         expect(issues.length).toBe(5);
@@ -63,7 +63,7 @@ function propertyTests(qa, niem) {
 
         fieldProperties.push(...properties);
 
-        let test = await qa.objects.property.test.definition_spellcheck(properties, release);
+        let test = await qa.objects.property.tests.definition_spellcheck(properties, release);
         let issues = test.issues;
 
         expect(issues.length).toBe(3);
@@ -88,7 +88,7 @@ function propertyTests(qa, niem) {
 
         fieldProperties.push(...properties);
 
-        let test = await qa.objects.property.test.name_camelCase_attribute(properties);
+        let test = await qa.objects.property.tests.name_camelCase_attribute(properties);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ext:SequenceID");
@@ -105,7 +105,7 @@ function propertyTests(qa, niem) {
 
         fieldProperties.push(...properties);
 
-        let test = await qa.objects.property.test.name_camelCase_element(properties);
+        let test = await qa.objects.property.tests.name_camelCase_element(properties);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ext:person");
@@ -123,7 +123,7 @@ function propertyTests(qa, niem) {
 
         fieldProperties.push(...properties);
 
-        let test = await qa.objects.property.test.name_duplicate(properties);
+        let test = await qa.objects.property.tests.name_duplicate(properties);
         let issues = test.issues;
 
         expect(test.failed).toBeTruthy();
@@ -146,7 +146,7 @@ function propertyTests(qa, niem) {
 
         fieldProperties.push(...properties);
 
-        let test = await qa.objects.property.test.name_invalidChar(properties);
+        let test = await qa.objects.property.tests.name_invalidChar(properties);
         let issues = test.issues;
 
         expect(test.failed).toBeTruthy();
@@ -169,7 +169,7 @@ function propertyTests(qa, niem) {
 
         fieldProperties.push(...properties);
 
-        let test = await qa.objects.property.test.name_missing(properties);
+        let test = await qa.objects.property.tests.name_missing(properties);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues.length).toBe(2);
@@ -185,7 +185,7 @@ function propertyTests(qa, niem) {
 
         fieldProperties.push(...properties);
 
-        let test = await qa.objects.property.test.name_repTerm_aug(properties);
+        let test = await qa.objects.property.tests.name_repTerm_aug(properties);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues.length).toBe(1);
@@ -213,7 +213,7 @@ function propertyTests(qa, niem) {
 
         fieldProperties.push(...properties);
 
-        let test = await qa.objects.property.test.name_spellcheck(properties, release);
+        let test = await qa.objects.property.tests.name_spellcheck(properties, release);
         let issues = test.issues;
 
         expect(test.failed).toBeTruthy();
@@ -245,7 +245,7 @@ function propertyTests(qa, niem) {
 
         fieldProperties.push(...properties);
 
-        let test = await qa.objects.property.test.prefix_missing(properties, release);
+        let test = await qa.objects.property.tests.prefix_missing(properties, release);
         let issues = test.issues;
 
         expect(test.failed).toBeTruthy();
@@ -269,7 +269,7 @@ function propertyTests(qa, niem) {
 
         await release.namespaces.add("nc", "core");
 
-        let test = await qa.objects.property.test.prefix_unknown(properties, release);
+        let test = await qa.objects.property.tests.prefix_unknown(properties, release);
         let issues = test.issues;
 
         expect(test.failed).toBeTruthy();

@@ -8,7 +8,7 @@ class FacetTester extends NIEMObjectTester {
 
     super(qa);
 
-    this.test = new FacetUnitTests(qa);
+    this.tests = new FacetUnitTests(qa);
 
     /**
      * @param {Facet[]} facets

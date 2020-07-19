@@ -9,7 +9,7 @@ class NamespaceTester extends NIEMObjectTester {
 
     super(qa);
 
-    this.test = new NamespaceUnitTests(qa);
+    this.tests = new NamespaceUnitTests(qa);
 
     /**
      * @param {Namespace[]} namespaces

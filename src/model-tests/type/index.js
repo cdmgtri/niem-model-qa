@@ -8,7 +8,7 @@ class TypeTester extends NIEMObjectTester {
 
     super(qa);
 
-    this.test = new TypeUnitTests(qa);
+    this.tests = new TypeUnitTests(qa);
 
     /**
      * @param {Type[]} types

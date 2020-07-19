@@ -8,7 +8,7 @@ class PropertyTester extends NIEMObjectTester {
 
     super(qa);
 
-    this.test = new PropertyUnitTests(qa);
+    this.tests = new PropertyUnitTests(qa);
 
     /**
      * @param {Property[]} properties
