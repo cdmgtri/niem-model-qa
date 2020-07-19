@@ -11,6 +11,7 @@ const QATerminal = require("./utils/terminal");
 
 const QAReport = require("./report");
 const QAResults = require("./results");
+const Update = require("./update");
 const Tests = require("./tests");
 
 let NamespaceTester = require("./model-tests/namespace/index");
@@ -40,6 +41,9 @@ class NIEMModelQA {
      */
     this._tests = [];
 
+    /** @type {Update[]} */
+    this.updates = [];
+
     this.tests = new Tests(this);
     this.results = new QAResults(this);
     this.report = new QAReport(this);
@@ -54,7 +58,6 @@ class NIEMModelQA {
       type: new TypeTester(this),
       facet: new FacetTester(this)
     }
-
 
   }
 
@@ -123,6 +126,19 @@ class NIEMModelQA {
     let outputPath = spreadsheetPath.replace(".xlsx", ".json");
     await qa.tests.save(outputPath)
 
+  }
+
+  /**
+   * Adds a new update to the progress tracker.
+   *
+   * @param {String} label
+   * @param {String} description
+   * @param {number} testCount
+   */
+  startUpdate(label, description, testCount) {
+    let update = new Update("in progress", label, description, testCount);
+    this.updates.push(update);
+    return update;
   }
 
 }

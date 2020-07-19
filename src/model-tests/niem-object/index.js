@@ -53,14 +53,24 @@ class NIEMObjectTester {
     /** @type {Test[]} */
     let tests = [];
 
+    // Get function names from the Tester class to be run as tests
     let testNames = this.fieldTestNames(field);
 
+    // Add an update to the progress tracker
+    let label = this.constructor.name.replace("Tester", "");
+    let update = this.qa.startUpdate(label, null, testNames.length);
+
+    // Run and log tests
     for (let testName of testNames) {
       let test = await this.tests[testName](niemObjects, release);
       tests.push(test);
     }
 
     debug(`Ran ${this.constructor.name.replace("QA", "")} tests`);
+
+    // Close out the progress tracker update
+    let passed = tests.filter(test => test.passed.length);
+    update.end(passed);
 
     qa.tests.add(tests);
     return qa;
@@ -94,3 +104,4 @@ module.exports = NIEMObjectTester;
 
 let { Release } = require("niem-model");
 let NIEMModelQA = require("../../index");
+let Test = require("../../test");
