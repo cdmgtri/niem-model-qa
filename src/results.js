@@ -17,7 +17,7 @@ class QAResults {
    */
   get issuePrefixes() {
     /** @type {String[]} */
-    let prefixes = this.qa._tests.reduce( (prefixes, test) => [...prefixes, ...test.issuePrefixes], [] );
+    let prefixes = this.qa._tests.reduce( (prefixes, test) => [...prefixes, ...test.namespaces.prefixes()], [] );
     return [...(new Set(prefixes))];
   }
 
@@ -29,7 +29,7 @@ class QAResults {
   issues(prefixes, severities) {
     return this
     .tests.failed(prefixes, severities)
-    .reduce( (results, test) => [...results, ...test.namespacesIssues(prefixes)], []);
+    .reduce( (results, test) => [...results, ...test.namespaces.issues(prefixes)], []);
   }
 
   /**
@@ -130,7 +130,7 @@ class QAResults {
        * @param {String[]} prefixes
        */
       passed: (prefixes) => {
-        return qa.results.tests.ran.filter( test => test.namespacesPassed(prefixes) );
+        return qa.results.tests.ran.filter( test => test.namespaces.passed(prefixes) );
       },
 
       /**
@@ -139,7 +139,7 @@ class QAResults {
        * @param {Test.SeverityType[]} severities - Optional filter on test severity
        */
       failed: (prefixes, severities) => {
-        let failedTests = qa.results.tests.ran.filter( test => test.namespacesFailed(prefixes) );
+        let failedTests = qa.results.tests.ran.filter( test => test.namespaces.failed(prefixes) );
 
         if (severities) {
           return failedTests.filter( test => severities.includes(test.severity) );

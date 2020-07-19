@@ -61,16 +61,6 @@ class Test {
   }
 
   /**
-   * Unique array of namespace prefixes with issues.
-   * @type {String[]}
-   */
-  get issuePrefixes() {
-    if (this.issues.length == 0) return [];
-    let prefixes = this.issues.map( issue => issue.prefix );
-    return [ ...(new Set(prefixes)) ];
-  }
-
-  /**
    * Logs this test as having ran, ends the test run timer, and pushes any given issues.
    *
    * @param {Issue[]} issues
@@ -112,44 +102,63 @@ class Test {
     return "not ran";
   }
 
-  /**
-   * Test issues, optionally filtered by the given prefixes.
-   * @param {String[]} prefixes - Filters test issues on the given namespace prefix.
-   * @return {Issue[]}
-   */
-  namespacesIssues(prefixes=[]) {
-    if (prefixes.length == 0) return this.issues;
-    if (!this.issues || this.issues.length == 0) return [];
-    return this.issues.filter( issue => prefixes.includes(issue.prefix) );
-  }
+  get namespaces() {
 
-  /**
-   * True if the test ran and has no issues, optionally filtered by the given prefixes.
-   * @param {String[]} prefixes - Filters results for the given prefix.
-   * @returns {Boolean}
-   */
-  namespacesPassed(prefixes) {
-    return this.ran && this.namespacesIssues(prefixes).length == 0;
-  }
+    let self = this;
 
-  /**
-   * True if the test ran and has issues, optionally filtered by the given prefixes.
-   * @param {String[]} prefixes - Filters results for the given prefix.
-   * @returns {Boolean}
-   */
-  namespacesFailed(prefixes) {
-    return this.ran && this.namespacesIssues(prefixes).length > 0;
-  }
+    return {
 
-  /**
-   * Test status based on if the test ran and has issues.
-   * @param {String[]} prefixes - Filters results for the given prefix.
-   * @returns {"pass"|"fail"|"not ran"}
-   */
-  namespacesStatus(prefixes) {
-    if (this.namespacesPassed(prefixes)) return "pass";
-    if (this.namespacesFailed(prefixes)) return "fail";
-    return "not ran";
+      /**
+       * Test issues, optionally filtered by the given prefixes.
+       * @param {String[]} prefixes - Filters test issues on the given namespace prefix.
+       * @return {Issue[]}
+       */
+      issues(prefixes=[]) {
+        if (prefixes.length == 0) return self.issues;
+        if (!self.issues || self.issues.length == 0) return [];
+        return self.issues.filter( issue => prefixes.includes(issue.prefix) );
+      },
+
+      /**
+       * Unique array of namespace prefixes with issues.
+       * @type {String[]}
+       */
+      prefixes() {
+        if (self.issues.length == 0) return [];
+        let prefixes = self.issues.map( issue => issue.prefix );
+        return [ ...(new Set(prefixes)) ];
+      },
+
+      /**
+       * True if the test ran and has no issues, optionally filtered by the given prefixes.
+       * @param {String[]} prefixes - Filters results for the given prefix.
+       * @returns {Boolean}
+       */
+      passed(prefixes) {
+        return self.ran && self.namespaces.issues(prefixes).length == 0;
+      },
+
+      /**
+       * True if the test ran and has issues, optionally filtered by the given prefixes.
+       * @param {String[]} prefixes - Filters results for the given prefix.
+       * @returns {Boolean}
+       */
+      failed(prefixes) {
+        return self.ran && self.namespaces.issues(prefixes).length > 0;
+      },
+
+      /**
+       * Test status based on if the test ran and has issues.
+       * @param {String[]} prefixes - Filters results for the given prefix.
+       * @returns {"pass"|"fail"|"not ran"}
+       */
+      status(prefixes) {
+        if (self.namespaces.passed(prefixes)) return "pass";
+        if (self.namespaces.failed(prefixes)) return "fail";
+        return "not ran";
+      }
+
+    }
   }
 
   /**
