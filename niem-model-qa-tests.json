@@ -45,23 +45,6 @@
     "ran": false
   },
   {
-    "id": "facet_definition_formatting_specialChars",
-    "description": "Move to NIEM Releases-specific tests.  Doesn't apply to user input.\r\n\r\nSample facets from certain types with known special characters should be tested to confirm special characters have been correctly encoded.",
-    "category": "Invalid value",
-    "component": "Facet",
-    "field": "definition",
-    "scope": "enumerations",
-    "source": "db",
-    "severity": "error",
-    "spec": "",
-    "version": "",
-    "rule": "",
-    "exampleValid": "Code facet 'CIV' in genc:CountryAlpha3CodeSimpleType should have correctly-encoded definition 'CÔTE D’IVOIRE'.",
-    "exampleInvalid": "Code facet 'CIV' in genc:CountryAlpha3CodeSimpleType should not have incorrectly-encoded definition 'CÃ”TE Dâ€™IVOIRE'.",
-    "exceptionLabels": [],
-    "ran": false
-  },
-  {
     "id": "facet_definition_missing_code",
     "description": "Codes (enumerations) must have definitions.",
     "category": "Missing value",
