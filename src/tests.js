@@ -76,10 +76,10 @@ class Tests {
    * @param {Test} test
    * @param {NIEMObject[]} problemObjects
    * @param {String} problemField
-   * @param {(object: NIEMObject) => string} commentFunction
+   * @param {Function} commentFunction - For each problem object, returns the corresponding comment string
    * @param {Boolean} [append=true] Append new issues onto existing issues (default); else replace
    */
-  post(test, problemObjects, problemField, commentFunction, append=true) {
+  post(test, problemObjects, problemField, commentFunction = () => "", append=true) {
 
     if (!append) test.issues = [];
 
@@ -91,7 +91,7 @@ class Tests {
 
       let label = object.label;
       let problemValue = object[problemField];
-      let comment = commentFunction ? commentFunction(object) : "";
+      let comment = commentFunction(object);
 
       let isException = test.exceptionLabels.includes(object.label);
 

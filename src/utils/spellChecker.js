@@ -89,7 +89,8 @@ class SpellChecker {
   /**
    * @param {string} definition
    * @param {string[]} terms
-   * @returns {Promise<{word: string, suggestions: string[], positions: {from: number, to: number, length: number}[]}[]>}
+   *
+   * @returns {Promise<Array.<{word: string, suggestions: string[], positions: Array.<{from: number, to: number, length: number}>}>>}
    */
   async checkDefinition(definition, terms) {
 

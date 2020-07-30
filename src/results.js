@@ -53,7 +53,7 @@ class QAResults {
 
     let fs = require("fs-extra");
 
-    /** @type {{}[]} */
+    /** @type {Object[]} */
     let json = await fs.readJSON(filePath);
 
     if (overwrite) this.qa._tests = [];
