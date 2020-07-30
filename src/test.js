@@ -43,6 +43,7 @@ class Test {
     this.exceptionLabels = [];
     this.notes = notes;
     this.ran = ran;
+    this.timeElapsedMilliseconds = 0;
 
     if (exceptionIDs) {
       // Clean up and split comma-separated values
@@ -52,26 +53,34 @@ class Test {
     /** @type {number} */
     this.timeStart;
 
-    /** @type {number} */
-    this.timeEnd;
-
     /** @type {Issue[]} */
     this.issues = [];
 
   }
 
   /**
+   * Appends the given test issues and run time onto this test.
+   *
+   * @param {Test} test
+   */
+  append(test) {
+    this.timeElapsedMilliseconds += test.timeElapsedMilliseconds;
+    this.issues.push(...test.issues);
+  }
+
+  /**
    * Logs this test as having ran, ends the test run timer, and pushes any given issues.
    *
    * @param {Issue[]} issues
-   * @param {Boolean} [append=true] Append (default) rather than replace current test issues.
+   * @param {Boolean} [reset=false] True to replace current results; false (default) to append
    */
-  log(issues=[], append=true) {
-    if (!append) this.issues = [];
+  log(issues=[], reset=false) {
+
+    if (reset == true) this.reset();
 
     // Close out test
     this.ran = true;
-    this.timeEnd = Date.now();
+    this.timeElapsedMilliseconds = this.timeElapsedMilliseconds + (Date.now() - this.timeStart);
     issues.forEach( issue => issue.test = this );
 
     this.issues.push(...issues);
@@ -167,7 +176,7 @@ class Test {
   reset() {
     this.ran = false;
     this.timeStart = undefined;
-    this.timeEnd = undefined;
+    this.timeElapsedMilliseconds = 0;
     this.issues = [];
   }
 
@@ -187,22 +196,10 @@ class Test {
   }
 
   /**
-   * Test run time, in milliseconds
-   */
-  get timeElapsedMilliseconds() {
-    if (this.timeStart && this.timeEnd) {
-      return this.timeEnd - this.timeStart;
-    }
-  }
-
-  /**
    * Test run time, in seconds
    */
   get timeElapsedSeconds() {
-    if (this.timeStart && this.timeEnd) {
-      // Round to 1 decimal
-      return +(this.timeElapsedMilliseconds / 1000).toFixed(1);
-    }
+    return +(this.timeElapsedMilliseconds / 1000).toFixed(1);
   }
 
 }

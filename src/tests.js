@@ -18,9 +18,21 @@ class Tests {
    * @param {boolean} reset True to remove existing tests; false to append new tests onto existing tests
    */
   add(tests, reset=false) {
+
     if (reset) this.qa._tests = [];
-    this.qa._tests.push(...tests);
+
+    for (let newTest of tests) {
+      let existingTest = this.find(newTest.id);
+      if (existingTest) {
+        existingTest.append(newTest);
+      }
+      else {
+        this.qa._tests.push(newTest);
+      }
+    }
+
     return tests;
+
   }
 
   /**
@@ -29,11 +41,7 @@ class Tests {
    * @param {String} testID
    */
   find(testID) {
-    let test = this.qa._tests.find(test => test.id == testID);
-    if (!test) {
-      throw new Error(`Test '${testID}' not found in test suite.`);
-    }
-    return test;
+    return this.qa._tests.find(test => test.id == testID);
   }
 
   get length() {
@@ -77,11 +85,9 @@ class Tests {
    * @param {NIEMObject[]} problemObjects
    * @param {String} problemField
    * @param {Function} commentFunction - For each problem object, returns the corresponding comment string
-   * @param {Boolean} [append=true] Append new issues onto existing issues (default); else replace
+   * @param {Boolean} [reset=false] True to replace current results; false (default) to append
    */
-  post(test, problemObjects, problemField, commentFunction = () => "", append=true) {
-
-    if (!append) test.issues = [];
+  post(test, problemObjects, problemField, commentFunction = () => "", reset=false) {
 
     /** @type {Issue[]} */
     let issues = [];
@@ -103,7 +109,7 @@ class Tests {
     });
 
     // Mark test as ran and load any issues
-    test.log(issues, append);
+    test.log(issues, reset);
 
     return test;
 
