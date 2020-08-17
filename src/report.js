@@ -235,7 +235,7 @@ class Report {
    * @param {"buffer"|"blob"} format
    * @param {ResultsOptionsType} options
    */
-  async reportBinary(testedNamespaces=[], prefixes, format="Buffer", options) {
+  async reportBinary(testedNamespaces=[], prefixes, format="buffer", options) {
 
     let path = require("path");
     let filePath = path.resolve(__dirname, "../templates/test-results-template.xlsx");

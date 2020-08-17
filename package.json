@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dict:build": "node scripts/dictionary-build.js",
     "docs": "jsdoc index.js -r src -d docs -c jsdoc.json -R README.md -t node_modules/docdash",
     "save:tests": "node scripts/saveTestsAsJSON.js",
     "test": "npm run metadata && jest",
@@ -14,23 +15,23 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^3.0.0",
+    "chalk": "^4.1.0",
     "debug": "^4.1.1",
-    "dictionary-en": "^3.0.0",
+    "dictionary-en": "^3.0.1",
     "file-saver": "^2.0.2",
-    "fs-extra": "^9.0.0",
+    "fs-extra": "^9.0.1",
+    "hunspell-spellchecker": "^1.0.2",
     "niem-model": "github:cdmgtri/niem-model#dev",
     "niem-specification-utils-js": "github:cdmgtri/niem-specification-utils-js",
-    "nodehun": "^3.0.1",
     "supports-color": "^7.1.0",
     "xlsx-populate": "^1.21.0"
   },
   "devDependencies": {
-    "@types/jest": "^24.9.1",
+    "@types/jest": "^26.0.10",
     "@types/xlsx-populate": "github:JanLoebel/types-xlsx-populate",
-    "coveralls": "^3.0.11",
+    "coveralls": "^3.1.0",
     "docdash": "^1.2.0",
-    "jest": "^25.1.0",
+    "jest": "^26.4.0",
     "jsdoc": "^3.6.5"
   }
 }

@@ -36,20 +36,27 @@ function namespaceTests(qa, niem) {
         ];
 
         await release.localTerms.add("ext1", "ABC", "Alpha Bravo Charlie");
-        await qa.spellChecker.addWords(["namespace"]);
 
         fieldNamespaces.push(...namespaces);
 
         let test = await qa.objects.namespace.tests.definition_spellcheck(namespaces, release);
         let issues = test.issues;
 
-        expect(issues.length).toBe(2);
+        console.log(issues.map( issue => issue.problemValue ));
 
-        expect(issues[0].label).toBe("ext3");
-        expect(issues[0].problemValue).toBe("extnsion");
+        expect(issues.length).toBe(4);
 
-        expect(issues[1].label).toBe("ext6");
-        expect(issues[1].problemValue).toBe("extnsion");
+        expect(issues[0].label).toBe("ext1");
+        expect(issues[0].problemValue).toBe("abc");
+
+        expect(issues[1].label).toBe("ext1");
+        expect(issues[1].problemValue).toBe("Abc");
+
+        expect(issues[2].label).toBe("ext3");
+        expect(issues[2].problemValue).toBe("extnsion");
+
+        expect(issues[3].label).toBe("ext6");
+        expect(issues[3].problemValue).toBe("extnsion");
 
       });
 

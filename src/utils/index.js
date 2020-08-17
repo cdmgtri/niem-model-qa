@@ -1,5 +1,5 @@
 
-let { Release, NIEMObject, Component } = require("niem-model");
+let { Release, NIEMObject, Component, Namespace, Property, Type } = require("niem-model");
 
 let Test = require("../test");
 let Issue = require("../issue");
@@ -139,37 +139,32 @@ class Utils {
    *
    * @private
    * @param {Test} test
-   * @param {Component[]} components
+   * @param {Namespace[]|Property[]|Type[]} objects - Objects with a prefix and definition
    * @param {Release} release
    */
-  async definition_spellcheck__helper(test, components, release) {
+  async definition_spellcheck__helper(test, objects, release) {
 
     /** @type {Issue[]} */
     let issues = [];
 
     // Check terms by namespace
-    let prefixes = new Set(components.map( component => component.prefix ));
+    let prefixes = new Set(objects.map( component => component.prefix ));
 
     for (let prefix of prefixes) {
       let localTerms = await release.localTerms.find({prefix: prefix});
       let terms = localTerms.map( localTerm => localTerm.term );
 
-      let namespaceComponents = components.filter( component => component.prefix == prefix );
+      let objectsInNamespace = objects.filter( object => object.prefix == prefix && object.definition );
 
-      for (let component of namespaceComponents) {
-        let definition = component.definition || "";
+      for (let object of objectsInNamespace) {
+        // if (object.definition.includes("extnsion")) debugger;
 
-        let unknownSpellings = await this.spellChecker.checkDefinition(definition, terms);
+        let unknownSpellings = await this.spellChecker.checkDefinition(object.definition, terms);
 
         for (let unknownSpelling of unknownSpellings) {
-
-          // Check local terminology for the misspelled term
-          let localTerm = await release.localTerms.get(component.prefix, unknownSpelling.word);
-
-          if (! localTerm) {
-            let issue = new Issue(component.prefix, component.label, component.input_location, component.input_line, component.source_position, unknownSpelling.word, component.definition);
-            issues.push(issue);
-          }
+          // Log each unknown spelling as a new issue
+          let issue = new Issue(object.prefix, object.label, object.input_location, object.input_line, object.source_position, unknownSpelling, object.definition);
+          issues.push(issue);
         }
       }
     }

@@ -208,8 +208,8 @@ function propertyTests(qa, niem) {
         await release.localTerms.add("nc", "XYZ", "An acronym for XYZ");
 
         // Customize the dictionary
-        await qa.spellChecker.addWords(["Biometric"]);
-        await qa.spellChecker.removeWords(["Org", "Doc"]);
+        qa.spellChecker.allowedTerms.push("Biometric");
+        qa.spellChecker.excludedTerms.push("Org", "Doc");
 
         fieldProperties.push(...properties);
 

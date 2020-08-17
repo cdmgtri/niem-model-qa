@@ -1,89 +1,76 @@
 
-let { Nodehun } = require("nodehun");
-let en = require("dictionary-en");
+let HunspellSpellchecker = require("hunspell-spellchecker");
 
 let { Release } = require("niem-model");
 
 /** @type {{allow: string[], exclude: string[], special: string[]}} */
 let customDictionary = require("../../customDictionary.json");
 
-/**
- * Create a promise wrapper to load the US English dictionary
- * @returns {Promise<{dic: Buffer, aff: Buffer}>}
- */
-function loadDictionary() {
-  return new Promise( (resolve, reject) => {
-    en( (err, result) => {
-      if (err) reject(err);
-      resolve(result);
-    });
-  });
-}
-
 
 class SpellChecker {
 
   constructor() {
-    this.nodehun;
+
+    let dict_en = require("./dictionary-en.json");
+
+    this.dictionary = new HunspellSpellchecker();
+    this.dictionary.use(dict_en);
+
+    /**
+     * Terms from component names that do not break down appropriately from standard camel casing rules
+     * and should be allowed.
+     */
     this.specialTerms = customDictionary.special;
-  }
 
-  /**
-   * @param {Release} release
-   */
-  async init(release) {
+    /**
+     * Terms that not appear in the library dictionary but appear in other common dictionaries,
+     * like OED.  These should be allowed.
+     */
+    this.allowedTerms = customDictionary.allow;
 
-    // Load the US English dictionary
-    let results = await loadDictionary();
-    this.nodehun = new Nodehun(results.aff, results.dic);
+    /**
+     * Terms that are permitted from the library dictionary but NIEM does not allow, like 'Org'
+     * as an abbreviation for 'Organization'.
+     */
+    this.excludedTerms = customDictionary.exclude;
 
-    // Load custom dictionary list of allowed and excluded terms
-    await this.addWords(customDictionary.allow);
-    await this.removeWords(customDictionary.exclude);
+    /**
+     * Definitions, especially for augmentation points, sometimes use NIEM namespace prefixes and
+     * component names.  These should be allowed.
+     */
+    this.niemNames = [];
 
-    // Load NIEM type names and namespace prefixes into the dictionary
-    await this.addNIEMNames(release);
-
-  }
-
-  /**
-   * Add words to the dictionary
-   * @param {string[]} words
-   */
-  async addWords(words) {
-    for (let word of words) {
-      if (!word) continue;
-      await this.nodehun.add(word);
-      await this.nodehun.add(word[0].toUpperCase() + word.slice(1));
-    }
-  }
-
-  /**
-   * Remove words from the dictionary
-   * @param {string[]} words
-   */
-  async removeWords(words) {
-    for (let word of words) {
-      await this.nodehun.remove(word);
-    }
   }
 
   /**
    * Check against dictionary and given local terms
    * @param {string} word
    * @param {string[]} terms
+   * @param {Boolean} isDefinitionCheck
    */
-  async checkWord(word, terms) {
-    let passed = await this.nodehun.spell(word);
-    if (!passed && terms) passed = terms.find( term => term.toLowerCase() == word.toLowerCase() );
-    return passed;
-  }
+  async checkWord(word, terms, isDefinitionCheck = false) {
 
-  /**
-   * @param {string} word
-   */
-  async suggestions(word) {
-    return this.nodehun.suggest(word);
+    if (this.excludedTerms.includes(word)) {
+      // Reject words that are in the excluded list (e.g. "Org")
+      return false;
+    }
+
+    // if (word == "extnsion") debugger;
+
+    let passed = this.dictionary.checkExact(word.toLowerCase());
+    if (passed) return true;
+
+    // Check the pre-approved list of allowed terms plus the given list of local terminology terms
+    passed = this.allowedTerms.concat(terms).includes(word);
+    if (passed) return true;
+
+    // Check to see if the word is one of the various special exceptions
+    if (isDefinitionCheck) {
+      passed = this.niemNames.includes(word);
+    }
+
+    return passed;
+
   }
 
   /**
@@ -96,40 +83,13 @@ class SpellChecker {
 
     let unknownSpellings = [];
 
+    // Remove URLs / prepare definition field and split into words by whitespace
     let processedDefinition = processDefinition(definition);
+    let words = processedDefinition.split(/\s+/);
 
-    let uniqueWords = new Set(processedDefinition.split(/\s+/));
-    uniqueWords.delete("");
-
-    for (let word of uniqueWords) {
-      let correct = await this.checkWord(word, terms);
-
-      if (!correct) {
-        // Create a new result object for the unknown word
-        let unknownSpelling = {
-          word,
-          positions: []
-        };
-
-        // Find each position of the unknown word in the original text
-        let wordPattern = word.replace("(", "\\\(").replace(")", "\\\)");
-        let matches = definition.match(new RegExp(wordPattern, "g"));
-        if (!matches) continue;
-
-        let lastIndex = 0;
-        for (let i = 0; i < matches.length; i ++) {
-          let index = definition.indexOf(word, lastIndex);
-          let position = {
-            start: index,
-            end: index + word.length,
-            length: word.length
-          }
-          unknownSpelling.positions.push(position);
-          lastIndex = index;
-        }
-
-        unknownSpellings.push(unknownSpelling);
-      }
+    for (let word of words) {
+      let correct = await this.checkWord(word, terms, true);
+      if (!correct) unknownSpellings.push(word);
     }
 
     return unknownSpellings;
@@ -137,45 +97,23 @@ class SpellChecker {
   }
 
   /**
-   * @param {Release} release
-   * @param {string} prefix
-   */
-  async addLocalTerms(release, prefix) {
-    let localTerms = await release.localTerms.find({prefix: prefix});
-    let terms = localTerms.map( localTerm => localTerm.term );
-    await this.addWords(terms);
-  }
-
-  /**
-   * @param {Release} release
-   * @param {string} prefix
-   */
-  async removeLocalTerms(release, prefix) {
-    let localTerms = await release.localTerms.find({prefix: prefix});
-    let terms = localTerms.map( localTerm => localTerm.term );
-    await this.removeWords(terms);
-  }
-
-  /**
    * Adds type names and namespace prefixes to the list of allowable words.
    * This permits definitions to include things like "An augmentation point for type nc:PersonType"
    * @param {Release} release
    */
-  async addNIEMNames(release) {
+  async init(release) {
 
-    if (release) {
-      // Add CCC type names to dictionary
-      let types = await release.types.find({isComplexContent: true});
-      for (let type of types) {
-        await this.nodehun.add(type.name);
-      }
+    this.niemNames = [];
 
-      // Add namespace prefixes to dictionary
-      let namespaces = await release.namespaces.find({conformanceRequired: true});
-      for (let namespace of namespaces) {
-        await this.nodehun.add(namespace.prefix);
-      }
-    }
+    if (!release) return;
+
+    // Add CCC type names to dictionary
+    let types = await release.types.find({isComplexContent: true});
+    this.niemNames = types.map( type => type.name );
+
+    // Add namespace prefixes to dictionary
+    let namespaces = await release.namespaces.find({conformanceRequired: true});
+    this.niemNames.push( ...namespaces.map( namespace => namespace.prefix) );
 
   }
 
