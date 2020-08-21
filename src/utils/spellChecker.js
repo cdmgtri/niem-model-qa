@@ -11,6 +11,8 @@ class SpellChecker {
 
   constructor() {
 
+    this.count = 0;
+
     let dict_en = require("./dictionary-en.json");
 
     this.dictionary = new HunspellSpellchecker();
@@ -26,7 +28,7 @@ class SpellChecker {
      * Terms that not appear in the library dictionary but appear in other common dictionaries,
      * like OED.  These should be allowed.
      */
-    this.allowedTerms = customDictionary.allow;
+    this.allowedTerms = customDictionary.allow.map( term => term.toLowerCase() );
 
     /**
      * Terms that are permitted from the library dictionary but NIEM does not allow, like 'Org'
@@ -50,26 +52,33 @@ class SpellChecker {
    */
   async checkWord(word, terms, isDefinitionCheck = false) {
 
-    if (this.excludedTerms.includes(word)) {
-      // Reject words that are in the excluded list (e.g. "Org")
-      return false;
-    }
+    this.count++;
 
-    // if (word == "extnsion") debugger;
+    // Reject words that are in the excluded list (e.g. "Org")
+    if (this.excludedTerms.includes(word)) return false;
 
-    let passed = this.dictionary.checkExact(word.toLowerCase());
-    if (passed) return true;
+    // Approve pre-approved terms that do not tokenize correctly
+    if (this.specialTerms.includes(word)) return true;
 
-    // Check the pre-approved list of allowed terms plus the given list of local terminology terms
-    passed = this.allowedTerms.concat(terms).includes(word);
-    if (passed) return true;
+    //  @todo Update niem-model Component.terms to remove hyphens
+    word = word.replace(/-/g, "");
+    if (word =="") return true;
+
+    if (this.dictionary.checkExact(word.toLowerCase()) || this.dictionary.checkExact(word) ) return true;
+
+    // Check the pre-approved list of allowed terms (case-insensitive)
+    if (this.allowedTerms.concat(terms).includes(word.toLowerCase())) return true;
+
+    // Check the given list of local terminology terms
+    if ( terms.map( term => term.toLowerCase() ).includes(word.toLowerCase() ) ) return true;
 
     // Check to see if the word is one of the various special exceptions
-    if (isDefinitionCheck) {
-      passed = this.niemNames.includes(word);
-    }
+    if (isDefinitionCheck && this.niemNames.includes(word)) return true;
 
-    return passed;
+    // Check to see if the word is all digits
+    if (word.match(/^\d+$/g)) return true;
+
+    return false;
 
   }
 
@@ -111,8 +120,12 @@ class SpellChecker {
     let types = await release.types.find({isComplexContent: true});
     this.niemNames = types.map( type => type.name );
 
+    // Add property names to the dictionary
+    let properties = await release.properties.find();
+    this.niemNames.push( ...properties.map( property => property.name ));
+
     // Add namespace prefixes to dictionary
-    let namespaces = await release.namespaces.find({conformanceRequired: true});
+    let namespaces = await release.namespaces.find();
     this.niemNames.push( ...namespaces.map( namespace => namespace.prefix) );
 
   }
@@ -127,17 +140,23 @@ function processDefinition(definition) {
 
   let results = definition;
 
-  // Replace non-space text in parentheses with a space, e.g., "(CMV)"" => " "
+  // Replace parentheses with spaces, e.g., "(CMV)" => " "
   results = results.replace(/\(\S*\)/g, "")
 
   // Remove urls from the definition
-  results = results.replace(/https?.* /g, "")
-  results = results.replace(/https?.*\.?$/g, "")
+  results = results.replace(/https?.*( |\.|$)/g, "")
 
   // Replace everything that isn't a word character with a space
-  results = results.replace(/[^\w]/g, " ")
+  results = results.replace(/[\W]/g, " ")
+
+  // Remove digits followed immediately by 'ppi'
+  results = results.replace(/\dppi( |\.|$)/g, " ");
+
+  // Replace solo groups of digits with a space
+  results = results.replace(/\d+( |$)/g, " ");
 
   return results;
+
 }
 
 

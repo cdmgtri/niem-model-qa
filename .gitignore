@@ -98,3 +98,4 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 index.d.ts.tmp
+test/niem-5.0-test.js

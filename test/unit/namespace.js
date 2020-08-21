@@ -42,8 +42,6 @@ function namespaceTests(qa, niem) {
         let test = await qa.objects.namespace.tests.definition_spellcheck(namespaces, release);
         let issues = test.issues;
 
-        console.log(issues.map( issue => issue.problemValue ));
-
         expect(issues.length).toBe(4);
 
         expect(issues[0].label).toBe("ext1");
