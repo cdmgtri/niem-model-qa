@@ -84,17 +84,26 @@ class NIEMObjectTester {
    */
   fieldTestNames(field) {
 
-    // Get all properties and methods from the unit test class
-    let testsPrototype = Object.getPrototypeOf(this.tests);
-    let testFunctions = Object.getOwnPropertyNames(testsPrototype);
+    let testFunctionNames = [];
+    let testClass = Object.getPrototypeOf(this.tests);
 
-    if (!field) {
-      // Return all unit tests, minus the constructor
-      return testFunctions.filter( fn => fn != "constructor" );
+    while (testClass.constructor.name != "Object") {
+      // Get all properties and methods from the unit test class
+      testFunctionNames.push( ...Object.getOwnPropertyNames(testClass) );
+
+      // Loop over parent class for more tests
+      testClass = Object.getPrototypeOf(testClass);
     }
 
-    // Return unit tests filtered on given field
-    return testFunctions.filter( fn => fn.includes(field + "_") );
+    testFunctionNames = testFunctionNames.filter( name => name != "constructor" && ! name.startsWith("__") );
+
+    if (field) {
+      // Return unit tests filtered on the given field
+      return testFunctionNames.filter( name => name.includes(field + "_") );
+    }
+
+    // Return all unit tests
+    return testFunctionNames;
 
   }
 
