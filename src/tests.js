@@ -93,7 +93,7 @@ class Tests {
     let issues = [];
 
     // Process inputs into an array of issues
-    problemObjects.forEach( object => {
+    for (let object of problemObjects) {
 
       let label = object.label;
       let problemValue = object[problemField];
@@ -101,12 +101,12 @@ class Tests {
 
       let isException = test.exceptionLabels.includes(object.label);
 
-      if (!this.ignoreExceptions || !isException) {
+      if (isException == false || (isException == true && this.qa.ignoreExceptions == false)) {
         let issue = new Issue(object.authoritativePrefix, label, object.input_location, object.input_line, object.input_position, problemValue, comment, test);
         issues.push(issue);
       }
 
-    });
+    }
 
     // Mark test as ran and load any issues
     test.log(issues, reset);

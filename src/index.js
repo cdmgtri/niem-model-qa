@@ -44,6 +44,8 @@ class NIEMModelQA {
     /** @type {Update[]} */
     this.updates = [];
 
+    this.ignoreExceptions = true;
+
     this.tests = new Tests(this);
     this.results = new QAResults(this);
     this.report = new QAReport(this);
@@ -79,10 +81,17 @@ class NIEMModelQA {
    *
    * @param {Release} release
    * @param {boolean} [reset=true] True (default) to reset any existing test results
+   * @param {boolean} [ignoreExceptions=false] True (default) to ignore exceptions; false return all results
    */
-  async run(release, reset=true) {
+  async run(release, reset=true, ignoreExceptions=true) {
+
+    if (!release) {
+      console.log("A release must be provided");
+      return;
+    }
 
     if (reset) this.tests.reset();
+    this.ignoreExceptions = ignoreExceptions;
 
     // Load and sort data
     let namespaces = await release.namespaces.find({}, Namespace.sortByPrefix);
@@ -101,6 +110,8 @@ class NIEMModelQA {
     await this.objects.property.run(properties, release);
     await this.objects.type.run(types, release);
     await this.objects.facet.run(facets, release);
+
+    debug(`Spellchecked ${this.utils.spellChecker.count.toLocaleString()} words`);
 
   }
 

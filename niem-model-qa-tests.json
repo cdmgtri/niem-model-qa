@@ -983,7 +983,8 @@
     "exampleValid": "Type name 'WeekdayCodeSimpleType' is not valid if the type does not declare codes.",
     "exampleInvalid": "Type name 'WeekdayCodeType' is not valid with base type 'string'",
     "exceptionLabels": [
-      "nc:CodeType"
+      "nc:CodeType",
+      "stat:CodeType"
     ],
     "ran": false,
     "timeElapsedMilliseconds": 0
