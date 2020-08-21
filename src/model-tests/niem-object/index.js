@@ -95,7 +95,7 @@ class NIEMObjectTester {
       testClass = Object.getPrototypeOf(testClass);
     }
 
-    testFunctionNames = testFunctionNames.filter( name => name != "constructor" && ! name.startsWith("__") );
+    testFunctionNames = testFunctionNames.filter( name => name != "constructor" && ! name.startsWith("__") ).sort();
 
     if (field) {
       // Return unit tests filtered on the given field

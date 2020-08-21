@@ -169,7 +169,7 @@
       "dea:DrugCodeSimpleType",
       "fips:USCountyNumericCodeSimpleType",
       "hazmat:HazmatCodeSimpleType",
-      "ncic:VMOCodeSimpleType"
+      "usps:StreetSuffixCodeSimpleType"
     ],
     "ran": false,
     "timeElapsedMilliseconds": 0
@@ -182,7 +182,7 @@
     "field": "value",
     "scope": "all",
     "source": "model",
-    "severity": "error",
+    "severity": "warning",
     "spec": "",
     "version": "",
     "rule": "",
@@ -958,7 +958,7 @@
     "field": "name",
     "scope": "code simple types",
     "source": "model",
-    "severity": "error",
+    "severity": "warning",
     "spec": "NDR",
     "version": "4.0",
     "rule": "11-8",
@@ -1100,7 +1100,8 @@
       "jp3-52:AirspaceCoordinatingMeasureTypeAndUsageType",
       "jp3-52:AirspaceCoordinatingMeasureTypeCodeSimpleType",
       "jp3-52:AirspaceCoordinatingMeasureTypeCodeType",
-      "mo:UnitTypeCodeTextSimpleType"
+      "mo:UnitTypeCodeTextSimpleType",
+      "mo:UnitTypeCodeTextType"
     ],
     "ran": false,
     "timeElapsedMilliseconds": 0

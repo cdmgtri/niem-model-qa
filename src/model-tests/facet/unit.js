@@ -165,7 +165,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
     .filter( facet => facet.style == "enumeration" )
     .filter( facet => labelCounts[facet.label] > 1 );
 
-    return this.qa.tests.post(test, problemFacets, "value");
+    return this.qa.tests.post(test, problemFacets, "value", (facet) => "Definition: " + facet.definition);
 
   }
 

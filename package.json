@@ -6,7 +6,7 @@
   "scripts": {
     "dict:build": "node scripts/dictionary-build.js",
     "docs": "jsdoc index.js -r src -d docs -c jsdoc.json -R README.md -t node_modules/docdash",
-    "save:tests": "node scripts/saveTestsAsJSON.js",
+    "export:tests": "node scripts/export-tests.js",
     "test": "npm run metadata && jest",
     "test:cov": "jest --coverage",
     "test:release": "node scripts/run-qa.js"

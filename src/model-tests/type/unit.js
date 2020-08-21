@@ -338,12 +338,10 @@ class TypeUnitTests extends NIEMObjectUnitTests {
       }
 
       if (type.style == "union") {
-        // Check that a union CodeSimpleType has member CodeSimpleTypes
-        type.memberQNames.forEach( memberQName => {
-          if (!memberQName.endsWith("CodeSimpleType")) {
-            problemTypes.push(type);
-          }
-        })
+        // Check that a union CodeSimpleType has at least one member CodeSimpleType
+        if (!type.memberQNames.some( memberQName => memberQName.endsWith("CodeSimpleType") )) {
+          problemTypes.push(type);
+        }
       }
       else {
         // Check that the CodeSimpleType has facets
