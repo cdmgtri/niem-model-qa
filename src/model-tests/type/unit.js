@@ -41,6 +41,55 @@ class TypeUnitTests extends NIEMObjectUnitTests {
   }
 
   /**
+   * Check that object types that contain RoleOf elements extend structures:ObjectType
+   *
+   * @example "Type j:VictimType can contain nc:RoleOfPerson and extend structures:ObjectType"
+   * @example "Type j:VictimType should not both contain nc:RoleOfPerson and extend nc:PersonType"
+   *
+   * @param {Type[]} types
+   * @param {Release} release
+   */
+  async base_invalid_role(types, release) {
+
+    let test = this.qa.tests.start("type_base_invalid_role");
+
+    /** @type {Type[]} */
+    let problemTypes = [];
+
+    let roleProperties = await release.properties.find({groupQName: "nc:RoleOfAbstract"});
+    let rolePropertyQNames = roleProperties.map( property => property.qname );
+
+    // Find subProperties for RoleOf elements
+    let subProperties = await release.subProperties.find({keyword: "RoleOf"});
+    subProperties = subProperties.filter( subProperty => rolePropertyQNames.includes(subProperty.propertyQName) );
+
+    // Get unique list of role type names
+    let typeQNameSet = new Set(subProperties.map( subProperty => subProperty.typeQName) );
+
+    // Check the parent of each role type
+    for (let typeQName of typeQNameSet) {
+      let type = types.find( type => type.qname == typeQName );
+      if (type.baseQName != "structures:ObjectType") {
+        problemTypes.push(type);
+      }
+    }
+
+    /**
+     * @param {Type} type
+     */
+    let commentFunction = (type) => {
+      let roles = subProperties
+      .filter( subProperty => subProperty.typeQName == type.qname )
+      .map( subProperty => subProperty.propertyQName )
+      .join(", ");
+      return `extends ${type.baseQName} and contains ${roles}`;
+    }
+
+    return this.qa.tests.post(test, problemTypes, "baseQName", commentFunction);
+
+  }
+
+  /**
    * Check that simple types have a XML schema base type.
    *
    * @example "Simple type ext:HairColorCodeSimpleType can have base type xs:token."
@@ -117,6 +166,30 @@ class TypeUnitTests extends NIEMObjectUnitTests {
     }
 
     return this.qa.tests.post(test, problemTypes, "baseQName");
+  }
+
+  /**
+   * Check that augmentation type definitions follow a consistent pattern.
+   *
+   * @example "Definitions 'A data type for additional information about a person' and 'A data type for additional information about nc:PersonType' are valid for em:PersonAugmentationType."
+   * @example "Definitions 'A data type for additional information about a location' and 'A data type for additional information about nc:OrganizationType' are not valid for em:PersonAugmentationType."
+   *
+   * @param {Type[]} types
+   */
+  definition_augmentation(types) {
+
+    let test = this.qa.tests.start("type_definition_augmentation");
+
+    let augmentations = types.filter( type => type.name.endsWith("AugmentationType") );
+
+    let problemObjects = augmentations.filter( type => {
+      let nameTerms = type.terms.filter( term => term != "Augmentation" && term != "Type" ).join(" ");
+      let regex = new RegExp(`A data type for additional information about (?:an? )?${nameTerms}\.?`, "i");
+      return ! type.definition.match(regex);
+    });
+
+    return this.qa.tests.post(test, problemObjects, "definition", (type) => type.definition);
+
   }
 
   /**

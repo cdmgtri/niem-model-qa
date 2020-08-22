@@ -121,7 +121,7 @@ class NIEMModelQA {
    * @param {string} spreadsheetPath Path and file name of the test metadata spread.
    * @param {boolean} [reset=true] If path given, overwrite model tests (default); otherwise append tests
    */
-  static async saveTestsAsJSON(spreadsheetPath, reset=true) {
+  static async exportTests(spreadsheetPath, reset=true) {
 
     let qa = new NIEMModelQA();
     await qa.init();
