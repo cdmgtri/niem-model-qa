@@ -242,7 +242,7 @@ class Utils {
 
     let commentFunction = (object) => {
       return object[field]
-      .replace(nbsp, "[NBSP]")
+      .replace(/\u00A0/g, "[NBSP]")
       .replace(/ {3,}/g, "[SPACES]")
       .replace(/(?<!\.) {2,}/g, "[SPACES]")
       .replace(/^ | $/g, "[SPACE]")
