@@ -13,7 +13,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "facet_definition_formatting",
@@ -29,7 +29,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "facet_definition_nbsp",
@@ -51,7 +51,7 @@
       "iso_3166:CountrySubdivisionCodeSimpleType - enum MX-CMX"
     ],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "facet_definition_missing_code",
@@ -69,7 +69,7 @@
     "exampleInvalid": "Length facet '10' is not required to have a definition.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "facet_definition_missing_pattern",
@@ -87,7 +87,7 @@
     "exampleInvalid": "Length facet '10' is not required to have a definition.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "facet_kind_invalid",
@@ -103,7 +103,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "facet_type_complex",
@@ -121,7 +121,7 @@
     "exampleInvalid": "Code 'MON' cannot belong to complex object type 'nc:PersonType'.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "facet_type_repTerm_code",
@@ -139,7 +139,7 @@
     "exampleInvalid": "Code 'MON' cannot belong to a type named 'WeekdaySimpleType'.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "facet_type_unknown",
@@ -155,7 +155,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "facet_value_duplicate_code",
@@ -178,7 +178,7 @@
       "usps:StreetSuffixCodeSimpleType"
     ],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "facet_value_formatting",
@@ -194,7 +194,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "facet_value_missing",
@@ -210,7 +210,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "localTerm_definition_formatting",
@@ -225,7 +225,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "localTerm_literal_formatting",
@@ -240,7 +240,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "localTerm_term_formatting",
@@ -255,7 +255,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "localTerm_term_duplicate",
@@ -270,7 +270,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "localTerm_term_unused",
@@ -285,7 +285,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "namespace_definition_formatting",
@@ -301,7 +301,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "namespace_definition_spellcheck",
@@ -317,7 +317,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_definition_augmentation",
@@ -337,7 +337,7 @@
       "hs:ActivityPersonAssociationAugmentation"
     ],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_definition_augmentationPoint",
@@ -354,7 +354,7 @@
     "exampleValid": "Definitions 'An augmentation point for PersonType' and a'An augmentation point for nc:PersonType' are valid for nc:PersonAugmentationPoint",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_definition_formatting",
@@ -370,7 +370,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_definition_spellcheck",
@@ -388,7 +388,7 @@
     "exampleInvalid": "A FIPS state codes\" is not recommended if the term 'FIPS' is not defined as Local Terminology in that namespace.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_general_unused",
@@ -430,7 +430,7 @@
       "stat:PopulationUnit"
     ],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_group_invalid",
@@ -446,7 +446,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_group_unknown",
@@ -462,7 +462,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_name_augmentation",
@@ -483,7 +483,7 @@
       "geo:LocationGeometry"
     ],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_name_camelCase_attribute",
@@ -501,7 +501,7 @@
     "exampleInvalid": "Attribute name 'SequenceID' is not valid because it begins with an upper case letter.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_name_camelCase_element",
@@ -519,7 +519,7 @@
     "exampleInvalid": "Element name 'person' is not valid because it begins with a lower case letter.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_name_duplicate",
@@ -535,7 +535,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_name_invalidChar",
@@ -553,7 +553,7 @@
     "exampleInvalid": "Property name 'PersonIsCitizen?' does not use valid characters.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_name_missing",
@@ -569,7 +569,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_name_overlap",
@@ -585,7 +585,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_name_spellcheck",
@@ -603,7 +603,7 @@
     "exampleInvalid": "Property name 'nc:StateFIPSCode' is not valid if the nc namespace does not define 'FIPS' in its Local Terminology section.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_name_repTerm_augmentation",
@@ -621,7 +621,7 @@
     "exampleInvalid": "Property name 'ManagerAugmentation' is not valid for a property that substitutes for augmentation point element 'nc:PersonAugmentationPoint'.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_prefix_missing",
@@ -637,7 +637,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_prefix_unknown",
@@ -653,7 +653,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_style_abstract",
@@ -669,7 +669,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_style_substitution",
@@ -685,7 +685,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_type_abstract",
@@ -701,7 +701,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_type_attribute",
@@ -717,7 +717,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_type_element",
@@ -733,7 +733,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_type_missing",
@@ -749,7 +749,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "property_type_unknown",
@@ -765,7 +765,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_base_association",
@@ -781,7 +781,7 @@
     "rule": "10-21",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_base_augmentation",
@@ -797,7 +797,7 @@
     "rule": "10-35",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_base_csc",
@@ -815,7 +815,7 @@
     "exampleInvalid": "Simple content type HairColorCodeType cannot have a type like nc:PersonType (complex object type).",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_base_metadata",
@@ -831,7 +831,7 @@
     "rule": "10-39",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_base_role",
@@ -849,7 +849,7 @@
     "exampleInvalid": "Type j:VictimType should not both contain nc:RoleOfPerson and extend nc:PersonType",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_base_simple",
@@ -867,7 +867,7 @@
     "exampleInvalid": "Simple type ext:HairColorCodeSimpleType should not have base type ext:ColorCodeSimpleType.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_base_simpleContent",
@@ -885,7 +885,7 @@
     "exampleInvalid": "Type HairColorCodeSimpleType is not valid without a base type.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_base_union",
@@ -901,7 +901,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_base_unknown",
@@ -919,7 +919,7 @@
     "exampleInvalid": "Type PersonType cannot extend type structures:BogusType (this type does not exist).",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_definition_augmentation",
@@ -939,7 +939,7 @@
       "hs:ActivityInvolvedPersonAssociationAugmentationType"
     ],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_definition_formatting",
@@ -955,7 +955,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_definition_missing_complex",
@@ -971,7 +971,7 @@
     "rule": "9-26",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_definition_missing_simple",
@@ -987,7 +987,7 @@
     "rule": "9-12",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_definition_phrase_complex",
@@ -1005,7 +1005,7 @@
     "exampleInvalid": "Definition 'A human being' is not valid for type 'PersonType'.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_definition_phrase_simple",
@@ -1023,7 +1023,7 @@
     "exampleInvalid": "Definition 'United States state codes' is not valid for type usps:StateCodeSimpleType.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_definition_spellcheck",
@@ -1041,7 +1041,7 @@
     "exampleInvalid": "Definition 'A data type for FIPS state codes\" is not recommended if the term 'FIPS' is not defined as Local Terminology in that namespace.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_general_unused",
@@ -1083,7 +1083,7 @@
       "stat:PopulationUnit"
     ],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_name_camelCase",
@@ -1101,7 +1101,7 @@
     "exampleInvalid": "Type name 'personType' is not valid because it begins with a lower case letter.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_name_duplicate",
@@ -1119,7 +1119,7 @@
     "exampleInvalid": "Type name 'CaseType' cannot be defined twice in the justice namespace.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_name_inconsistent_codeType",
@@ -1140,7 +1140,7 @@
       "stat:CodeType"
     ],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_name_invalidChar",
@@ -1158,7 +1158,7 @@
     "exampleInvalid": "Type name \"ID#Type\" does not use valid characters.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_name_missing_complex",
@@ -1174,7 +1174,7 @@
     "rule": "9-25",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_name_missing_simple",
@@ -1190,7 +1190,7 @@
     "rule": "9-10",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_name_overlap",
@@ -1206,7 +1206,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_name_repTerm_association",
@@ -1224,7 +1224,7 @@
     "exampleInvalid": "Type name 'PersonLocationType' is not a valid association type name.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_name_repTerm_augmentation",
@@ -1242,7 +1242,7 @@
     "exampleInvalid": "Type name 'PersonType' is not a valid augmentation type name.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_name_repTerm_codeSimpleType",
@@ -1260,7 +1260,7 @@
     "exampleInvalid": "Type name 'WeekdayCodeSimpleType' is not valid if the type does not declare codes.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_name_repTerm_codeType",
@@ -1281,7 +1281,7 @@
       "stat:CodeType"
     ],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_name_repTerm_complex",
@@ -1299,7 +1299,7 @@
     "exampleInvalid": "Type name 'IDSimpleType' is not valid if the type is complex.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_name_repTerm_list",
@@ -1317,7 +1317,7 @@
     "exampleInvalid": "Type name 'DecimalValuesSimpleType' is not a valid list type name.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_name_repTerm_metadata",
@@ -1335,7 +1335,7 @@
     "exampleInvalid": "Type name 'SourceType' is not a valid metadata type name.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_name_repTerm_simple",
@@ -1353,7 +1353,7 @@
     "exampleInvalid": "Type name 'IDType' is not valid if the type is simple.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_name_repTerm_type",
@@ -1371,7 +1371,7 @@
     "exampleInvalid": "Type name 'Person' is not valid.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_name_reservedTerm_type",
@@ -1398,7 +1398,7 @@
       "mo:UnitTypeCodeTextType"
     ],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_name_spellcheck",
@@ -1417,7 +1417,7 @@
     "exceptionLabels": [],
     "notes": "NDR rule does not mention local terminology.",
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_prefix_missing",
@@ -1435,7 +1435,7 @@
     "exampleInvalid": "Type PersonType should not have a missing namespace prefix.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_prefix_unknown",
@@ -1453,7 +1453,7 @@
     "exampleInvalid": "Type PersonType cannot have namespace prefix 'unk' if there is no declaration of what 'unk' is.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_style_association",
@@ -1469,7 +1469,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_style_augmentation",
@@ -1485,7 +1485,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_style_metadata",
@@ -1501,7 +1501,7 @@
     "rule": "",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_style_missing",
@@ -1519,7 +1519,7 @@
     "exampleInvalid": "Type PersonType does not have a style.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   },
   {
     "id": "type_style_unknown",
@@ -1537,6 +1537,6 @@
     "exampleInvalid": "Type PersonType cannot have unknown style 'myCustomObject'.",
     "exceptionLabels": [],
     "ran": false,
-    "timeElapsedMilliseconds": 0
+    "timeElapsedMs": 0
   }
 ]

@@ -20,7 +20,7 @@ let PropertyTester = require("./model-tests/property/index");
 let TypeTester = require("./model-tests/type/index");
 let FacetTester = require("./model-tests/facet/index");
 
-let { Namespace, LocalTerm, Component, Facet } = require("niem-model");
+let { Namespace, LocalTerm, Component, Property, Type, SubProperty, Facet } = require("niem-model");
 
 /** @type {Array} */
 let JSONTests = require("../niem-model-qa-tests.json");
@@ -41,6 +41,28 @@ class NIEMModelQA {
      * @type {Test[]}
      */
     this._tests = [];
+
+    /** @private */
+    this._releaseData = {
+
+      /** @type {Namespace[]} */
+      namespaces: [],
+
+      /** @type {LocalTerm[]} */
+      localTerms: [],
+
+      /** @type {Property[]} */
+      properties: [],
+
+      /** @type {Type[]} */
+      types: [],
+
+      /** @type {SubProperty[]} */
+      subProperties: [],
+
+      /** @type {Facet[]} */
+      facets: []
+    };
 
     /** @type {Update[]} */
     this.updates = [];
@@ -96,24 +118,25 @@ class NIEMModelQA {
     this.ignoreExceptions = ignoreExceptions;
 
     // Load and sort data
-    let namespaces = await release.namespaces.find({}, Namespace.sortByPrefix);
-    let localTerms = await release.localTerms.find({}, LocalTerm.sortByPrefixTerm);
-    let properties = await release.properties.find({}, Component.sortByQName);
-    let types = await release.types.find({}, Component.sortByQName);
-    let facets = await release.facets.find({}, Facet.sortFacetsByStyleAdjustedValueDefinition);
+    this._releaseData.namespaces = await release.namespaces.find({}, Namespace.sortByPrefix);
+    this._releaseData.localTerms = await release.localTerms.find({}, LocalTerm.sortByPrefixTerm);
+    this._releaseData.properties = await release.properties.find({}, Component.sortByQName);
+    this._releaseData.types = await release.types.find({}, Component.sortByQName);
+    this._releaseData.subProperties = await release.subProperties.find();
+    this._releaseData.facets = await release.facets.find({}, Facet.sortFacetsByStyleAdjustedValueDefinition);
 
     // Filter data to remove non-conformant objects
-    let conformantNamespaces = namespaces.filter( namespace => namespace.conformanceRequired );
+    let conformantNamespaces = this._releaseData.namespaces.filter( namespace => namespace.conformanceRequired );
     let conformantPrefixes = conformantNamespaces.map( namespace => namespace.prefix );
-    properties = properties.filter( property => conformantPrefixes.includes(property.prefix) );
-    types = types.filter( type => type.prefix != "xs" && type.prefix != "structures" )
+    let properties = this._releaseData.properties.filter(property => conformantPrefixes.includes(property.prefix));
+    let types = this._releaseData.types.filter( type => type.prefix != "xs" && type.prefix != "structures" )
 
     // Run tests
     await this.objects.namespace.run(conformantNamespaces, release);
-    await this.objects.localTerm.run(localTerms, release);
+    await this.objects.localTerm.run(this._releaseData.localTerms, release);
     await this.objects.property.run(properties, release);
     await this.objects.type.run(types, release);
-    await this.objects.facet.run(facets, release);
+    await this.objects.facet.run(this._releaseData.facets, release);
 
     debug(`Spellchecked ${this.utils.spellChecker.count.toLocaleString()} words`);
     debug("Ran QA tests");

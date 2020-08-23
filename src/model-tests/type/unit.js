@@ -51,7 +51,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
     let cscTypes = types.filter( type => type.style == "CSC" && type.baseQName );
 
     for (let cscType of cscTypes) {
-      let baseType = await release.types.get(cscType.baseQName);
+      let baseType = this.qa._releaseData.types.find( type => type.qname == cscType.baseQName );
 
       if (baseType && baseType.isComplexContent) {
         problemTypes.push(cscType);
@@ -140,7 +140,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
     let simpleTypes = types.filter( type => type.style == "simple" && type.baseQName );
 
     for (let simpleType of simpleTypes) {
-      let baseType = await release.types.get(simpleType.baseQName);
+      let baseType = this.qa._releaseData.types.find( type => type.qname == simpleType.baseQName );
 
       if (baseType && baseType.prefix != "xs") {
         problemTypes.push(simpleType);
@@ -185,10 +185,9 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type PersonType cannot extend type structures:BogusType (this type does not exist)."
    *
    * @param {Type[]} types
-   * @param {Release} release
    * @returns {Promise<Test>}
    */
-  async base_unknown(types, release) {
+  async base_unknown(types) {
 
     let test = this.qa.tests.start("type_base_unknown");
 
@@ -198,11 +197,9 @@ class TypeUnitTests extends NIEMObjectUnitTests {
     // Get all types that have a base type
     let basedTypes = types.filter( type => type.baseQName );
 
-    for (let type of basedTypes) {
-      let baseType = await release.types.get(type.baseQName);
-
-      if (! baseType) {
-        problemTypes.push(type);
+    for (let basedType of basedTypes) {
+      if (! this.qa._releaseData.types.find( type => type.qname == basedType.qname )) {
+        problemTypes.push(basedType);
       }
     }
 
@@ -481,10 +478,8 @@ class TypeUnitTests extends NIEMObjectUnitTests {
 
     for (let type of codeSimpleTypes) {
 
-      if (!type.facets) {
-        // No facets getter on the type - return un-ran test
-        return test;
-      }
+      // No facets getter on the type - return un-ran test
+      if (!type.facets) return test;
 
       if (type.style == "union") {
         // Check that a union CodeSimpleType has at least one member CodeSimpleType
@@ -493,9 +488,10 @@ class TypeUnitTests extends NIEMObjectUnitTests {
         }
       }
       else {
-        // Check that the CodeSimpleType has facets
-        let facets = await type.facets.find();
-        if (facets.length == 0) problemTypes.push(type);
+        if (! this.qa._releaseData.facets.some( facet => facet.typeQName == type.qname )) {
+          // The CodeSimpleType did not have any facets
+          problemTypes.push(type);
+        }
       }
     }
 

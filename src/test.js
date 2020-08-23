@@ -43,7 +43,7 @@ class Test {
     this.exceptionLabels = [];
     this.notes = notes;
     this.ran = ran;
-    this.timeElapsedMilliseconds = 0;
+    this.timeElapsedMs = 0;
 
     if (exceptionIDs) {
       // Split comma-separated values
@@ -64,7 +64,7 @@ class Test {
    * @param {Test} test
    */
   append(test) {
-    this.timeElapsedMilliseconds += test.timeElapsedMilliseconds;
+    this.timeElapsedMs += test.timeElapsedMs;
     this.issues.push(...test.issues);
   }
 
@@ -80,7 +80,7 @@ class Test {
 
     // Close out test
     this.ran = true;
-    this.timeElapsedMilliseconds = this.timeElapsedMilliseconds + (Date.now() - this.timeStart);
+    this.timeElapsedMs = this.timeElapsedMs + (Date.now() - this.timeStart);
     issues.forEach( issue => issue.test = this );
 
     this.issues.push(...issues);
@@ -176,7 +176,7 @@ class Test {
   reset() {
     this.ran = false;
     this.timeStart = undefined;
-    this.timeElapsedMilliseconds = 0;
+    this.timeElapsedMs = 0;
     this.issues = [];
   }
 
@@ -199,7 +199,7 @@ class Test {
    * Test run time, in seconds
    */
   get timeElapsedSeconds() {
-    return +(this.timeElapsedMilliseconds / 1000).toFixed(1);
+    return +(this.timeElapsedMs / 1000).toFixed(1);
   }
 
 }

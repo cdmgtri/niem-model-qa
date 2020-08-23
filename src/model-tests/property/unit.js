@@ -100,9 +100,8 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * Exclude associations, metadata, and container properties, which are meant to be stand-alone.
    *
    * @param {Property[]} properties
-   * @param {Release} release
    */
-  async general_unused(properties, release) {
+  async general_unused(properties) {
 
     let test = this.qa.tests.start("property_general_unused");
 
@@ -117,10 +116,8 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
       && !property.groupQName
     });
 
-    let subProperties = await release.subProperties.find();
-
     for (let property of properties) {
-      if (! subProperties.some( subProperty => subProperty.propertyQName == property.qname)) {
+      if (! this.qa._releaseData.subProperties.some( subProperty => subProperty.propertyQName == property.qname)) {
         problems.push(property);
       }
     }
