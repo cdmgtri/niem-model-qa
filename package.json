@@ -9,7 +9,7 @@
     "export:tests": "node scripts/export-tests.js",
     "test": "npm run metadata && jest",
     "test:cov": "jest --coverage",
-    "test:release": "node scripts/run-qa.js"
+    "test:release": "node scripts/export-tests.js && node scripts/run-qa.js"
   },
   "keywords": [],
   "author": "",

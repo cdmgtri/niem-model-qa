@@ -9,20 +9,41 @@ let Test = require("../../test");
 class TypeUnitTests extends NIEMObjectUnitTests {
 
   /**
+   * Checks that association types extend a type that ends in "AssociationType"
+   * @param {Type[]} types
+   */
+  async base_association(types) {
+    let test = this.qa.tests.start("type_base_association");
+    let problems = types
+    .filter( type => type.style == "association" && type.prefix != "structures")
+    .filter( type => !type.baseQName || !type.baseQName.endsWith("AssociationType") );
+    return this.qa.tests.post(test, problems, "baseQName", (type) => type.baseQName);
+  }
+
+  /**
+   * Checks that augmentation types extend structures:AugmentationType
+   * @param {Type[]} types
+   */
+  async base_augmentation(types) {
+    let test = this.qa.tests.start("type_base_augmentation");
+    let problems = types.filter( type => type.style == "augmentation" && type.baseQName != "structures:AugmentationType");
+    return this.qa.tests.post(test, problems, "baseQName", (type) => type.baseQName);
+  }
+
+  /**
    * Check that complex types with simple content (CSC) have a CSC or a simple
    * base type.
    *
-   * @example "Simple content type HairColorCodeType can have a base type like HairColorCodeSimpleType (simple type)."
-   *
-   * @example "Simple content type HairColorCodeType cannot have a type like nc:PersonType (complex object type)."
+   * @example "Simple content type HairColorCodeType can have base type HairColorCodeSimpleType (simple type)."
+   * @example "Simple content type HairColorCodeType cannot have base type nc:PersonType (complex object type)."
    *
    * @param {Type[]} types
    * @param {Release} release
    * @returns {Promise<Test>}
    */
-  async base_invalid_csc(types, release) {
+  async base_csc(types, release) {
 
-    let test = this.qa.tests.start("type_base_invalid_csc");
+    let test = this.qa.tests.start("type_base_csc");
 
     /** @type {Type[]} */
     let problemTypes = [];
@@ -37,7 +58,17 @@ class TypeUnitTests extends NIEMObjectUnitTests {
       }
     }
 
-    return this.qa.tests.post(test, problemTypes, "baseQName");
+    return this.qa.tests.post(test, problemTypes, "baseQName", (type) => type.baseQName);
+  }
+
+  /**
+   * Checks that metadata types extend structures:MetadataType
+   * @param {Type[]} types
+   */
+  async base_metadata(types) {
+    let test = this.qa.tests.start("type_base_metadata");
+    let problems = types.filter( type => type.style == "metadata" && type.baseQName != "structures:MetadataType");
+    return this.qa.tests.post(test, problems, "baseQName", (type) => type.baseQName);
   }
 
   /**
@@ -49,9 +80,9 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @param {Type[]} types
    * @param {Release} release
    */
-  async base_invalid_role(types, release) {
+  async base_role(types, release) {
 
-    let test = this.qa.tests.start("type_base_invalid_role");
+    let test = this.qa.tests.start("type_base_role");
 
     /** @type {Type[]} */
     let problemTypes = [];
@@ -99,9 +130,9 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @param {Release} release
    * @returns {Promise<Test>}
    */
-  async base_invalid_simple(types, release) {
+  async base_simple(types, release) {
 
-    let test = this.qa.tests.start("type_base_invalid_simple");
+    let test = this.qa.tests.start("type_base_simple");
 
     /** @type {Type[]} */
     let problemTypes = [];
@@ -129,12 +160,22 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @param {Type[]} types
    * @returns {Promise<Test>}
    */
-  async base_missing_simpleContent(types) {
-    let test = this.qa.tests.start("type_base_missing_simpleContent");
+  async base_simpleContent(types) {
+    let test = this.qa.tests.start("type_base_simpleContent");
     let problemTypes = types.filter( type => {
       return type.isSimpleContent && type.style != "union" && ! type.baseQName;
     });
     return this.qa.tests.post(test, problemTypes, "baseQName");
+  }
+
+  /**
+   * Checks that union types do not have a base type
+   * @param {Type[]} types
+   */
+  async base_union(types) {
+    let test = this.qa.tests.start("type_base_union");
+    let problems = types.filter( type => type.style == "union" && type.baseQName );
+    return this.qa.tests.post(test, problems, "baseQName", (type) => type.baseQName);
   }
 
   /**
@@ -287,6 +328,29 @@ class TypeUnitTests extends NIEMObjectUnitTests {
   }
 
   /**
+   * Check for types that do not have a data property, are not extended, do not serve as a base type,
+   * and are not union types.
+   *
+   * @param {Type[]} types
+   * @param {Release} release
+   */
+  async general_unused(types, release) {
+
+    let test = this.qa.tests.start("type_general_unused");
+
+    let subProperties = await release.subProperties.find();
+
+    let problems = types.filter( type => {
+      return ! subProperties.some( subProperty => subProperty.typeQName == type.qname )
+      && !type.baseQName
+      && type.memberQNames.length == 0 ;
+    });
+
+    return this.qa.tests.post(test, problems, "");
+
+  }
+
+  /**
    * Check that a type name begins with an upper case letter.
    *
    * NDR exceptions:
@@ -323,7 +387,19 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    */
   async name_duplicate(types) {
     let test = this.qa.tests.start("type_name_duplicate");
-    return this.utils.name_duplicate__helper(test, types);
+    return this.utils.name_duplicate__helper(test, types, "qname");
+  }
+
+  /**
+   * Check for type names that are repeated in a release.
+   * Ignores augmentations and codes because those are expected to have some overlaps.
+   *
+   * @param {Type[]} types
+   * @returns {Promise<Test>}
+   */
+  async name_overlap(types) {
+    let test = this.qa.tests.start("type_name_overlap");
+    return this.utils.name_duplicate__helper(test, types, "name");
   }
 
   /**

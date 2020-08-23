@@ -15,11 +15,12 @@ const Update = require("./update");
 const Tests = require("./tests");
 
 let NamespaceTester = require("./model-tests/namespace/index");
+let LocalTermTester = require("./model-tests/localTerm/index");
 let PropertyTester = require("./model-tests/property/index");
 let TypeTester = require("./model-tests/type/index");
 let FacetTester = require("./model-tests/facet/index");
 
-let { Namespace, Component, Facet } = require("niem-model");
+let { Namespace, LocalTerm, Component, Facet } = require("niem-model");
 
 /** @type {Array} */
 let JSONTests = require("../niem-model-qa-tests.json");
@@ -56,6 +57,7 @@ class NIEMModelQA {
 
     this.objects = {
       namespace: new NamespaceTester(this),
+      localTerm: new LocalTermTester(this),
       property: new PropertyTester(this),
       type: new TypeTester(this),
       facet: new FacetTester(this)
@@ -95,6 +97,7 @@ class NIEMModelQA {
 
     // Load and sort data
     let namespaces = await release.namespaces.find({}, Namespace.sortByPrefix);
+    let localTerms = await release.localTerms.find({}, LocalTerm.sortByPrefixTerm);
     let properties = await release.properties.find({}, Component.sortByQName);
     let types = await release.types.find({}, Component.sortByQName);
     let facets = await release.facets.find({}, Facet.sortFacetsByStyleAdjustedValueDefinition);
@@ -107,11 +110,13 @@ class NIEMModelQA {
 
     // Run tests
     await this.objects.namespace.run(conformantNamespaces, release);
+    await this.objects.localTerm.run(localTerms, release);
     await this.objects.property.run(properties, release);
     await this.objects.type.run(types, release);
     await this.objects.facet.run(facets, release);
 
     debug(`Spellchecked ${this.utils.spellChecker.count.toLocaleString()} words`);
+    debug("Ran QA tests");
 
   }
 

@@ -46,8 +46,8 @@ class Test {
     this.timeElapsedMilliseconds = 0;
 
     if (exceptionIDs) {
-      // Clean up and split comma-separated values
-      this.exceptionLabels = exceptionIDs.trim().replace(/,$/, "").replace(/\s/g, "").split(",");
+      // Split comma-separated values
+      this.exceptionLabels = exceptionIDs.trim().replace(/,$/, "").split(", ");
     }
 
     /** @type {number} */

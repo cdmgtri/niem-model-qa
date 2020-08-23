@@ -95,6 +95,41 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
   }
 
   /**
+   * Check for properties that do not appear under a type and are not substitutions.
+   * Most will be intentional, but a few may have been overlooked.
+   * Exclude associations, metadata, and container properties, which are meant to be stand-alone.
+   *
+   * @param {Property[]} properties
+   * @param {Release} release
+   */
+  async general_unused(properties, release) {
+
+    let test = this.qa.tests.start("property_general_unused");
+
+    /** @type {Property[]} */
+    let problems = [];
+
+    // Filter out associations, containers, metadata and substitutions
+    properties = properties.filter( property => {
+      return  (property.typeQName ? property.name != property.typeName.replace(/Type$/, "") : true)
+      && !property.name.endsWith("Metadata")
+      && !property.name.endsWith("Association")
+      && !property.groupQName
+    });
+
+    let subProperties = await release.subProperties.find();
+
+    for (let property of properties) {
+      if (! subProperties.some( subProperty => subProperty.propertyQName == property.qname)) {
+        problems.push(property);
+      }
+    }
+
+    return this.qa.tests.post(test, problems, "");
+
+  }
+
+  /**
    * Check that augmentation property names correspond to their augmentation point.
    *
    * @example "Name 'PersonAugmentation' is valid for nc:PersonAugmentationPoint."
@@ -190,7 +225,19 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    */
   async name_duplicate(properties) {
     let test = this.qa.tests.start("property_name_duplicate");
-    return this.utils.name_duplicate__helper(test, properties);
+    return this.utils.name_duplicate__helper(test, properties, "qname");
+  }
+
+  /**
+   * Check for property names that are repeated in a release.
+   * Ignores augmentations and codes because those are expected to have some overlaps.
+   *
+   * @param {Property[]} properties
+   * @returns {Promise<Test>}
+   */
+  async name_overlap(properties) {
+    let test = this.qa.tests.start("property_name_overlap");
+    return this.utils.name_duplicate__helper(test, properties, "name");
   }
 
   /**
@@ -254,6 +301,36 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
   async prefix_unknown(properties, release) {
     let test = this.qa.tests.start("property_prefix_unknown");
     return this.utils.prefix_unknown__helper(test, properties, release);
+  }
+
+  /**
+   * Check that non-abstract elements have a complex data type.
+   * Note: Uses the shortcut that complex type names do not end with "SimpleType" or are in the xs namespace
+   *
+   * @param {Property[]} properties
+   */
+  async type_element(properties) {
+
+    let test = this.qa.tests.start("property_type_element");
+
+    let problems = properties
+    .filter( property => property.isElement && !property.isAbstract )
+    .filter( property => !property.typeQName || property.typeQName.endsWith("SimpleType") || property.typePrefix == "xs" );
+
+    return this.qa.tests.post(test, problems, "typeQName");
+
+  }
+
+
+  /**
+   * Check that non-abstract properties have types
+   *
+   * @param {Property[]} properties
+   */
+  async type_missing(properties) {
+    let test = this.qa.tests.start("property_type_missing");
+    let problems = properties.filter( property => !property.isAbstract && !property.typeQName );
+    return this.qa.tests.post(test, problems, "typeQName");
   }
 
 }

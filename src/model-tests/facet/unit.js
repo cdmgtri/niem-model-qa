@@ -9,6 +9,31 @@ let Test = require("../../test");
 class FacetUnitTests extends NIEMObjectUnitTests {
 
   /**
+   * Check that facet definitions use consistent formatting.
+   *
+   * @param {Facet[]} facets
+   * @returns {Promise<Test>}
+   */
+  async definition_formatting(facets) {
+    let test = this.qa.tests.start("facet_definition_formatting");
+    return this.utils.text_formatting_helper(test, facets, "definition", "exclude-nbsp");
+  }
+
+  /**
+   * Check that facet definitions do not contain non-breaking spaces.
+   *
+   * Note: This test is separate from the standard definition formatting check to
+   * allow for certain code types with a valid reason to be listed as exceptions (e.g., country codes)
+   *
+   * @param {Facet[]} facets
+   * @returns {Promise<Test>}
+   */
+  async definition_nbsp(facets) {
+    let test = this.qa.tests.start("facet_definition_nbsp");
+    return this.utils.text_formatting_helper(test, facets, "definition", "nbsp");
+  }
+
+  /**
    * Check that code facets have definitions.
    *
    * @example "Code facet 'MON' should have a definition (e.g., 'Monday')."
@@ -170,7 +195,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
   }
 
   /**
-   * Check for missing facet values.
+   * Check that facet values do not contain invalid characters
    *
    * @param {Facet[]} facets
    * @returns {Promise<Test>}

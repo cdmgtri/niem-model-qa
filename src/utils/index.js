@@ -84,30 +84,57 @@ class Utils {
 
   /**
    * Checks that a component name is not repeated in a namespace.
+   * Note: Case insensitive, so it will report elements and attributes with the same name.
+
    * @private
    * @param {Test} test
    * @param {Component[]} components
+   * @param {"qname"|"name"} nameField - Check for duplicate names within a single namespace or the full release
    */
-  async name_duplicate__helper(test, components) {
+  async name_duplicate__helper(test, components, nameField="qname") {
 
     /** @type {{String: number}} */
     let counts = {};
 
+    // Kinds of components to ignore due to expected overlap
+    let ignoreList = ["Augmentation", "AugmentationPoint", "Code", "Metadata"];
+
+    if (nameField == "name") {
+      // Do not compare augmentations and codes - these are expected to have some overlap
+      components = components.filter( component => {
+        let nameBase = component.name.replace(/Type$/, "").replace(/Simple$/, "");
+        return !ignoreList.some( term => nameBase.endsWith(term) );
+      });
+    }
+
     components.forEach( component => {
-      let currentCount = counts[component.qname] ? counts[component.qname] : 0;
-      counts[component.qname] = currentCount + 1;
+      // Record the count of the number of occurrences of each component name/qname
+      let nameValue = component[nameField].toLowerCase();
+      counts[nameValue] = (counts[nameValue] || 0) + 1;
     });
 
     /** @type {Component[]} */
     let problemComponents = [];
 
-    for (let qname in counts) {
-      if (counts[qname] > 1) {
-        problemComponents.push( ...components.filter( component => component.qname == qname ) );
+    for (let nameValue in counts) {
+      if (counts[nameValue] > 1) {
+        problemComponents.push(...components.filter(component => component[nameField].toLowerCase() == nameValue));
       }
     }
 
-    return this.qa.tests.post(test, problemComponents, "name");
+    /**
+     * @param {Component} component
+     */
+    let commentFunction = (component) => {
+      if (component.typeQName || component.isAbstract == true) {
+        return `Type: ${component.typeQName}\nDef: ${component.definition}`
+      }
+      if (component.baseQName) {
+        return `Base: ${component.baseQName}\nDef: ${component.definition}`
+      }
+    }
+
+    return this.qa.tests.post(test, problemComponents, nameField, commentFunction);
   }
 
   /**
@@ -186,25 +213,45 @@ class Utils {
    * @param {Test} test
    * @param {NIEMObject[]} objects
    * @param {string} field Object field to check the formatting of
+   * @param {"all"|"nbsp"|"exclude-nbsp"} checks - Specify which checks to run
    */
-  async text_formatting_helper(test, objects, field) {
+  async text_formatting_helper(test, objects, field, checks="all") {
 
     if (!field) throw new Error("Field name required");
 
     let checkableObjects = objects.filter( object => object[field] );
 
-    let problemObjects = checkableObjects
-    .filter( component => component[field] && component[field].match(/ {3,}|(?<!\.) {2,}|^ | $/) );
-
-    this.qa.tests.post(test, problemObjects, field, () => "Leading, trailing, or multiple spaces detected");
-
-
     // Non-breaking space
     let nbsp = "\u00A0";
 
-    problemObjects = checkableObjects.filter( object => object[field].match(nbsp) );
+    /** @type {NIEMObject[]} */
+    let problemObjects = [];
 
-    return this.qa.tests.post(test, problemObjects, field, (object) => "Non-breaking space detected: " + object[field].replace(nbsp, `-->${nbsp}<--`));
+    if (checks == "all" | checks == "exclude-nbsp") {
+      // Check for all invalid characters excluding non-breaking spaces
+      problemObjects.push(...checkableObjects.filter( object => {
+        return object[field].match(/ {3,}|(?<!\.) {2,}|^ | $|\t|\r|\n|\f/);
+      }));
+    }
+
+    if (checks == "all" || checks == "nbsp") {
+      // Check for non-breaking spaces
+      problemObjects.push(...checkableObjects.filter( object => object[field].match(nbsp) ));
+    }
+
+
+    let commentFunction = (object) => {
+      return object[field]
+      .replace(nbsp, "[NBSP]")
+      .replace(/ {3,}/g, "[SPACES]")
+      .replace(/(?<!\.) {2,}/g, "[SPACES]")
+      .replace(/^ | $/g, "[SPACE]")
+      .replace(/\t/g, "[TAB]")
+      .replace(/\r|\n/g, "[NEW LINE]")
+      .replace(/\f/g, "[FORM FEED]")
+    }
+
+    return this.qa.tests.post(test, problemObjects, field, commentFunction);
 
   }
 

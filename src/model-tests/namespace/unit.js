@@ -11,7 +11,7 @@ class NamespaceUnitTests extends NIEMObjectUnitTests {
    * - Two spaces are allowed after a period.  Other uses of multiple consecutive spaces are not allowed.
    * - Leading and trailing spaces are not allowed.
    *
-   * @param {Property[]} namespaces
+   * @param {Namespace[]} namespaces
    * @returns {Promise<Test>}
    */
   definition_formatting(namespaces) {
