@@ -175,7 +175,8 @@
       "dea:DrugCodeSimpleType",
       "fips:USCountyNumericCodeSimpleType",
       "hazmat:HazmatCodeSimpleType",
-      "usps:StreetSuffixCodeSimpleType"
+      "usps:StreetSuffixCodeSimpleType",
+      "can:StreetDirectionCodeSimpleType"
     ],
     "ran": false,
     "timeElapsedMs": 0
