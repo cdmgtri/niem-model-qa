@@ -812,6 +812,24 @@
     "timeElapsedMs": 0
   },
   {
+    "id": "subProperty_propertyQName_representation",
+    "description": "A representation property should only be contained within one type in the same namespace with a corresponding name",
+    "category": "Invalid value",
+    "component": "SubProperty",
+    "field": "property",
+    "scope": "roles",
+    "source": "model",
+    "severity": "error",
+    "spec": "",
+    "version": "",
+    "rule": "",
+    "exampleValid": "Property nc:DateRepresentation can appear under type nc:DateType",
+    "exampleInvalid": "Property nc:DateRepresentation should not appear under nc:ActivityType",
+    "exceptionLabels": [],
+    "ran": false,
+    "timeElapsedMs": 0
+  },
+  {
     "id": "type_base_association",
     "description": "Association types must extend another association type.",
     "category": "Invalid value",

@@ -19,6 +19,7 @@ let LocalTermTester = require("./model-tests/localTerm/index");
 let PropertyTester = require("./model-tests/property/index");
 let TypeTester = require("./model-tests/type/index");
 let FacetTester = require("./model-tests/facet/index");
+let SubPropertyTester = require("./model-tests/subProperty/index");
 
 let { Namespace, LocalTerm, Component, Property, Type, SubProperty, Facet } = require("niem-model");
 
@@ -82,7 +83,8 @@ class NIEMModelQA {
       localTerm: new LocalTermTester(this),
       property: new PropertyTester(this),
       type: new TypeTester(this),
-      facet: new FacetTester(this)
+      facet: new FacetTester(this),
+      subProperty: new SubPropertyTester(this)
     }
 
   }
@@ -137,6 +139,7 @@ class NIEMModelQA {
     await this.objects.property.run(properties, release);
     await this.objects.type.run(types, release);
     await this.objects.facet.run(this._releaseData.facets, release);
+    await this.objects.subProperty.run(this._releaseData.subProperties, release);
 
     debug(`Spellchecked ${this.utils.spellChecker.count.toLocaleString()} words`);
     debug("Ran QA tests");
