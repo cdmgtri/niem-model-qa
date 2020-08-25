@@ -374,6 +374,22 @@
     "timeElapsedMs": 0
   },
   {
+    "id": "property_definition_representation",
+    "description": "Representation pattern definitions should follow a consistent pattern.",
+    "category": "Invalid value",
+    "component": "Property",
+    "field": "definition",
+    "scope": "representations",
+    "source": "model",
+    "severity": "warning",
+    "spec": "",
+    "version": "",
+    "rule": "",
+    "exceptionLabels": [],
+    "ran": false,
+    "timeElapsedMs": 0
+  },
+  {
     "id": "property_definition_spellcheck",
     "description": "Property definitions should use words and terms that are either defined in the dictionary or as \"Local Terminology\".",
     "category": "Invalid value",
@@ -817,7 +833,7 @@
     "category": "Invalid value",
     "component": "SubProperty",
     "field": "property",
-    "scope": "roles",
+    "scope": "representations",
     "source": "model",
     "severity": "error",
     "spec": "",

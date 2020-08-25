@@ -40,7 +40,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
   /**
    * Check that augmentation point definitions follow a consistent pattern.
    *
-   * @example "Definitions 'An augmentation point for PersonType' and a'An augmentation point for nc:PersonType' are valid for nc:PersonAugmentationPoint"
+   * @example "Definitions 'An augmentation point for PersonType' and 'An augmentation point for nc:PersonType' are valid for nc:PersonAugmentationPoint"
    * @example ""
    *
    * @param {Property[]} properties
@@ -75,6 +75,23 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
   definition_formatting(properties) {
     let test = this.qa.tests.start("property_definition_formatting");
     return this.utils.text_formatting_helper(test, properties, "definition");
+  }
+
+  /**
+   * Check that representation pattern definitions follow a consistent pattern.
+   *
+   * @param {Property[]} properties
+   */
+  definition_representation(properties) {
+
+    let test = this.qa.tests.start("property_definition_representation");
+
+    let problems = properties
+    .filter( property => property.name.endsWith("Representation") )
+    .filter( property => ! property.definition.match(/^A data concept for a representation of a/) );
+
+    return this.qa.tests.post(test, problems, "definition", (property) => property.definition);
+
   }
 
   /**
