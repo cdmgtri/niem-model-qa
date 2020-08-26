@@ -173,7 +173,7 @@
     "exampleInvalid": "Type 'WeekdayCodeSimpleType' with codes 'MON', 'MON', 'MON', ...",
     "exceptionLabels": [
       "dea:DrugCodeSimpleType",
-      "fips:USCountyNumericCodeSimpleType",
+      "fips:USCounty3DigitCodeSimpleType",
       "hazmat:HazmatCodeSimpleType",
       "usps:StreetSuffixCodeSimpleType",
       "can:StreetDirectionCodeSimpleType"
