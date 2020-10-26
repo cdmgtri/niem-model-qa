@@ -318,6 +318,34 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
   }
 
   /**
+   * Properties with an "Amount" representation term should have type nc:AmountType.
+   * @param {Property[]} properties
+   */
+  async type_amount(properties) {
+    let test = this.qa.tests.start("property_type_amount");
+
+    let problems = properties
+    .filter( property => property.name.endsWith("Amount") && property.qname != "nc:Amount" )
+    .filter( property => property.typeQName != "nc:AmountType" );
+
+    return this.qa.tests.post(test, problems, "typeQName", () => "Amount elements should have data type 'nc:AmountType'.");
+  }
+
+  /**
+   * Properties with a "BinaryObject" representation term should have a binary simple-value data type.
+   * @param {Property[]} properties
+   */
+  async type_binaryObject(properties) {
+    let test = this.qa.tests.start("property_type_binaryObject");
+
+    let problems = properties
+    .filter( property => property.name.endsWith("BinaryObject") && property.qname != "nc:BinaryObject" )
+    .filter( property => property.typeQName != "niem-xs:hexBinary" && property.typeQName != "niem-xs:base64Binary");
+
+    return this.qa.tests.post(test, problems, "typeQName", () => "Binary elements should have a binary data type.");
+  }
+
+  /**
    * Check that non-abstract elements have a complex data type.
    * Note: Uses the shortcut that complex type names do not end with "SimpleType" or are in the xs namespace
    *
@@ -335,6 +363,33 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
 
   }
 
+  /**
+   * Properties with an "Indicator" representation term should have a boolean data type.
+   * @param {Property[]} properties
+   */
+  async type_indicator(properties) {
+    let test = this.qa.tests.start("property_type_indicator");
+
+    let problems = properties
+    .filter( property => property.name.endsWith("Indicator") )
+    .filter( property => ! property.typeQName.endsWith("xs:boolean") );
+
+    return this.qa.tests.post(test, problems, "typeQName", () => "Indicator elements should have a boolean data type.");
+  }
+
+  /**
+   * Properties with a "Percent" representation term should have a data type 'nc:PercentType'.
+   * @param {Property[]} properties
+   */
+  async type_percent(properties) {
+    let test = this.qa.tests.start("property_type_percent");
+
+    let problems = properties
+    .filter( property => property.name.endsWith("Percentt") )
+    .filter( property => property.typeQName != "nc:PercentType" );
+
+    return this.qa.tests.post(test, problems, "typeQName", () => "Percent elements should have data type 'nc:PercentType'.");
+  }
 
   /**
    * Check that non-abstract properties have types
