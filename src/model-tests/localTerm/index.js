@@ -1,7 +1,7 @@
 
 let NIEMObjectTester = require("../niem-object/index");
 let LocalTermUnitTests = require("./unit");
-let { Release, LocalTerm } = require("niem-model");
+let { ReleaseInstance, LocalTermInstance } = require("niem-model");
 
 class LocalTermTester extends NIEMObjectTester {
 
@@ -12,8 +12,8 @@ class LocalTermTester extends NIEMObjectTester {
     this.tests = new LocalTermUnitTests(qa);
 
     /**
-     * @param {LocalTerm[]} localTerms
-     * @param {Release} release
+     * @param {LocalTermInstance[]} localTerms
+     * @param {ReleaseInstance} release
      * @return {Promise<NIEMModelQA>}
      */
     this.run = (localTerms, release) => this.runTests(localTerms, release);
@@ -21,22 +21,22 @@ class LocalTermTester extends NIEMObjectTester {
     this.field = {
 
       /**
-       * @param {LocalTerm[]} localTerms
-       * @param {Release} release
+       * @param {LocalTermInstance[]} localTerms
+       * @param {ReleaseInstance} release
        * @returns {Promise<NIEMModelQA>}
        */
       definition: (localTerms, release) => this.runTests(localTerms, release, "definition"),
 
       /**
-       * @param {LocalTerm[]} localTerms
-       * @param {Release} release
+       * @param {LocalTermInstance[]} localTerms
+       * @param {ReleaseInstance} release
        * @returns {Promise<NIEMModelQA>}
        */
       literal: (localTerms, release) => this.runTests(localTerms, release, "literal"),
 
       /**
-       * @param {LocalTerm[]} localTerms
-       * @param {Release} release
+       * @param {LocalTermInstance[]} localTerms
+       * @param {ReleaseInstance} release
        * @returns {Promise<NIEMModelQA>}
        */
       term: (localTerms, release) => this.runTests(localTerms, release, "term"),

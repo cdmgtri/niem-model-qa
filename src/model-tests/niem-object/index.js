@@ -42,7 +42,7 @@ class NIEMObjectTester {
    * @private
    * @template T
    * @param {T[]} niemObjects
-   * @param {Release} release
+   * @param {ReleaseInstance} release
    * @param {String} [field] - Optional test filter for a given object field
    */
   async runTests(niemObjects, release, field) {
@@ -111,6 +111,6 @@ class NIEMObjectTester {
 
 module.exports = NIEMObjectTester;
 
-let { Release } = require("niem-model");
+let { Release, ReleaseInstance } = require("niem-model");
 let NIEMModelQA = require("../../index");
 let Test = require("../../test");

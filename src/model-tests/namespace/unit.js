@@ -1,6 +1,6 @@
 
 let NIEMObjectUnitTests = require("../niem-object/unit");
-let { Release, Namespace } = require("niem-model");
+let { ReleaseInstance, NamespaceInstance } = require("niem-model");
 let Test = require("../../test");
 
 class NamespaceUnitTests extends NIEMObjectUnitTests {
@@ -11,7 +11,7 @@ class NamespaceUnitTests extends NIEMObjectUnitTests {
    * - Two spaces are allowed after a period.  Other uses of multiple consecutive spaces are not allowed.
    * - Leading and trailing spaces are not allowed.
    *
-   * @param {Namespace[]} namespaces
+   * @param {NamespaceInstance[]} namespaces
    * @returns {Promise<Test>}
    */
   definition_formatting(namespaces) {
@@ -20,8 +20,8 @@ class NamespaceUnitTests extends NIEMObjectUnitTests {
   }
 
   /**
-   * @param {Namespace[]} namespaces
-   * @param {Release} release
+   * @param {NamespaceInstance[]} namespaces
+   * @param {ReleaseInstance} release
    */
   async definition_spellcheck(namespaces, release) {
     let test = this.qa.tests.start("namespace_definition_spellcheck");

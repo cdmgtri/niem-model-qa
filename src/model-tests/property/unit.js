@@ -1,6 +1,6 @@
 
 let NIEMObjectUnitTests = require("../niem-object/unit");
-let { Release, Property } = require("niem-model");
+let { ReleaseInstance, PropertyInstance } = require("niem-model");
 let Test = require("../../test");
 
 /**
@@ -14,7 +14,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "Definitions 'Additional information about a person' and 'Additional information about nc:PersonType' are valid for em:PersonAugmentation."
    * @example "Definitions 'Additional information about a location' and 'Additional information about nc:OrganizationType' are not valid for em:PersonAugmentation."
    *
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    */
   definition_augmentation(properties) {
 
@@ -43,7 +43,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "Definitions 'An augmentation point for PersonType' and 'An augmentation point for nc:PersonType' are valid for nc:PersonAugmentationPoint"
    * @example ""
    *
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    */
   definition_augmentationPoint(properties) {
 
@@ -69,7 +69,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * - Two spaces are allowed after a period.  Other uses of multiple consecutive spaces are not allowed.
    * - Leading and trailing spaces are not allowed.
    *
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    * @returns {Promise<Test>}
    */
   definition_formatting(properties) {
@@ -80,7 +80,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
   /**
    * Check that representation pattern definitions follow a consistent pattern.
    *
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    */
   definition_representation(properties) {
 
@@ -102,8 +102,8 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    *
    * @example "Definition 'A FIPS state codes' is not recommended if the term 'FIPS' is not defined as Local Terminology in that namespace."
    *
-   * @param {Property[]} properties
-   * @param {Release} release
+   * @param {PropertyInstance[]} properties
+   * @param {ReleaseInstance} release
    * @returns {Promise<Test>}
    */
   async definition_spellcheck(properties, release) {
@@ -116,13 +116,13 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * Most will be intentional, but a few may have been overlooked.
    * Exclude associations, metadata, and container properties, which are meant to be stand-alone.
    *
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    */
   async general_unused(properties) {
 
     let test = this.qa.tests.start("property_general_unused");
 
-    /** @type {Property[]} */
+    /** @type {PropertyInstance[]} */
     let problems = [];
 
     // Filter out associations, containers, metadata and substitutions
@@ -149,13 +149,13 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "Name 'PersonAugmentation' is valid for nc:PersonAugmentationPoint."
    * @example "Name 'ManagerAugmentation' is not valid for nc:PersonAugmentationPoint."
    *
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    */
   async name_augmentation(properties) {
 
     let test = this.qa.tests.start("property_name_augmentation");
 
-    /** @type {Property[]} */
+    /** @type {PropertyInstance[]} */
     let problemObjects = [];
 
     let augmentations = properties.filter( property => property.groupQName && property.groupName.endsWith("AugmentationPoint") );
@@ -175,7 +175,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "'PersonAugmentation' is a valid name for a property that substitutes for augmentation point element 'nc:PersonAugmentationPoint'."
    * @example "'ManagerAugmentation' is not a valid name for a property that substitutes for augmentation point element 'nc:PersonAugmentationPoint'."
    * "
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    */
   async name_repTerm_augmentation(properties) {
 
@@ -194,7 +194,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "Attribute name 'sequenceID' is valid because it begins with a lower case letter."
    * @example "Attribute name 'SequenceID' is not valid because it begins with an upper case letter."
    *
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    * @returns {Promise<Test>}
    */
   async name_camelCase_attribute(properties) {
@@ -214,7 +214,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "Element name 'Person' is valid because it begins with an upper case letter."
    * @example "Element name 'person' is not valid because it begins with a lower case letter."
    *
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    * @returns {Promise<Test>}
    */
   async name_camelCase_element(properties) {
@@ -234,7 +234,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "Elements 'hs:PersonAugmentation' and 'im:PersonAugmentation' are valid even though they have the same name because they are defined in different namespaces."
    * @example "Element 'PersonAugmentation' cannot be defined twice in the Human Services namespace."
    *
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    * @returns {Promise<Test>}
    */
   async name_duplicate(properties) {
@@ -246,7 +246,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * Check for property names that are repeated in a release.
    * Ignores augmentations and codes because those are expected to have some overlaps.
    *
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    * @returns {Promise<Test>}
    */
   async name_overlap(properties) {
@@ -260,7 +260,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "Property name 'Person' uses valid characters."
    * @example "Property name 'PersonIsCitizen?' does not use valid characters."
    *
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    * @returns {Promise<Test>}
    */
   async name_invalidChar(properties) {
@@ -270,7 +270,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Check that all properties have names.
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    * @returns {Promise<Test>}
    */
   async name_missing(properties) {
@@ -286,8 +286,8 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    *
    * @example "Property name 'nc:StateFIPSCode' is not valid if the nc namespace does not define 'FIPS' in its Local Terminology section."
    *
-   * @param {Property[]} properties
-   * @param {Release} release
+   * @param {PropertyInstance[]} properties
+   * @param {ReleaseInstance} release
    * @returns {Promise<Test>}
    */
   async name_spellcheck(properties, release) {
@@ -297,7 +297,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Check that properties have a namespace prefix.
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    * @returns {Promise<Test>}
    */
   async prefix_missing(properties) {
@@ -308,8 +308,8 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Check that properties have a namespace prefix that has been defined in the release.
-   * @param {Property[]} properties
-   * @param {Release} release
+   * @param {PropertyInstance[]} properties
+   * @param {ReleaseInstance} release
    * @returns {Promise<Test>}
    */
   async prefix_unknown(properties, release) {
@@ -319,7 +319,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Properties with an "Amount" representation term should have type nc:AmountType.
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    */
   async type_amount(properties) {
     let test = this.qa.tests.start("property_type_amount");
@@ -333,7 +333,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Properties with a "BinaryObject" representation term should have a binary simple-value data type.
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    */
   async type_binaryObject(properties) {
     let test = this.qa.tests.start("property_type_binaryObject");
@@ -349,7 +349,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * Check that non-abstract elements have a complex data type.
    * Note: Uses the shortcut that complex type names do not end with "SimpleType" or are in the xs namespace
    *
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    */
   async type_element(properties) {
 
@@ -365,7 +365,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Properties with an "Indicator" representation term should have a boolean data type.
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    */
   async type_indicator(properties) {
     let test = this.qa.tests.start("property_type_indicator");
@@ -379,7 +379,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Properties with a "Percent" representation term should have a data type 'nc:PercentType'.
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    */
   async type_percent(properties) {
     let test = this.qa.tests.start("property_type_percent");
@@ -394,7 +394,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
   /**
    * Check that non-abstract properties have types
    *
-   * @param {Property[]} properties
+   * @param {PropertyInstance[]} properties
    */
   async type_missing(properties) {
     let test = this.qa.tests.start("property_type_missing");

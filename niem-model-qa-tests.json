@@ -876,22 +876,6 @@
     "timeElapsedMs": 0
   },
   {
-    "id": "property_type_quantity",
-    "description": "Properties with a \"Quantity\" representation term should have data type \"nc:QuantityType\".",
-    "category": "Invalid value",
-    "component": "Property",
-    "field": "type",
-    "scope": "numerics",
-    "source": "model",
-    "severity": "warning",
-    "spec": "",
-    "version": "",
-    "rule": "",
-    "exceptionLabels": [],
-    "ran": false,
-    "timeElapsedMs": 0
-  },
-  {
     "id": "property_type_unknown",
     "description": "A property's data type must exist.",
     "category": "Bad reference",

@@ -1,11 +1,11 @@
 
 let NIEMObjectUnitTests = require("../niem-object/unit");
-let { Release, SubProperty } = require("niem-model");
+let { Release, SubPropertyInstance } = require("niem-model");
 
 class NamespaceUnitTests extends NIEMObjectUnitTests {
 
   /**
-   * @param {SubProperty[]} subProperties
+   * @param {SubPropertyInstance[]} subProperties
    */
   async propertyQName_representation(subProperties) {
     let test = this.qa.tests.start("subProperty_propertyQName_representation");

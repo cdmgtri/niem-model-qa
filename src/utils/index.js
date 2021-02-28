@@ -1,5 +1,5 @@
 
-let { Release, NIEMObject, Component, Namespace, Property, Type } = require("niem-model");
+let { Release, NIEMObject, Component, ComponentInstance, Namespace, Property, Type } = require("niem-model");
 
 let Test = require("../test");
 let Issue = require("../issue");
@@ -88,7 +88,7 @@ class Utils {
 
    * @private
    * @param {Test} test
-   * @param {Component[]} components
+   * @param {ComponentInstance[]} components
    * @param {"qname"|"name"} nameField - Check for duplicate names within a single namespace or the full release
    */
   async name_duplicate__helper(test, components, nameField="qname") {
@@ -113,7 +113,7 @@ class Utils {
       counts[nameValue] = (counts[nameValue] || 0) + 1;
     });
 
-    /** @type {Component[]} */
+    /** @type {ComponentInstance[]} */
     let problemComponents = [];
 
     for (let nameValue in counts) {
@@ -123,7 +123,7 @@ class Utils {
     }
 
     /**
-     * @param {Component} component
+     * @param {ComponentInstance} component
      */
     let commentFunction = (component) => {
       if (component.typeQName || component.isAbstract == true) {
@@ -140,7 +140,7 @@ class Utils {
   /**
    * @private
    * @param {Test} test
-   * @param {Component[]} components
+   * @param {ComponentInstance[]} components
    */
   name_invalidChar__helper(test, components) {
     let regex = /[^A-Za-z0-9_\-.]/;
@@ -153,7 +153,7 @@ class Utils {
   /**
    * @private
    * @param {Test} test
-   * @param {Component[]} components
+   * @param {ComponentInstance[]} components
    */
   name_missing__helper(test, components) {
     let problemComponents = components.filter( component => ! component.name );
@@ -261,7 +261,7 @@ class Utils {
    *
    * @private
    * @param {Test} test
-   * @param {Component[]} components
+   * @param {ComponentInstance[]} components
    * @param {Release} release
    */
   async name_spellcheck__helper(test, components, release) {
@@ -308,12 +308,12 @@ class Utils {
   /**
    * Check that types have a namespace prefix that has been defined in the release.
    * @param {Test} test
-   * @param {Component[]} components
+   * @param {ComponentInstance[]} components
    * @param {Release} release
    */
   async prefix_unknown__helper(test, components, release) {
 
-    /** @type {Component[]} */
+    /** @type {ComponentInstance[]} */
     let problemComponents = [];
 
     /** @type {String[]} */
