@@ -21,7 +21,7 @@ let TypeTester = require("./model-tests/type/index");
 let FacetTester = require("./model-tests/facet/index");
 let SubPropertyTester = require("./model-tests/subProperty/index");
 
-let { Namespace, LocalTerm, Component, Property, Type, SubProperty, Facet } = require("niem-model");
+let { Release, Namespace, LocalTerm, Component, Property, Type, SubProperty, Facet } = require("niem-model");
 
 /** @type {Array} */
 let JSONTests = require("../niem-model-qa-tests.json");
@@ -187,5 +187,3 @@ class NIEMModelQA {
 
 
 module.exports = NIEMModelQA;
-
-const { Release } = require("niem-model");
