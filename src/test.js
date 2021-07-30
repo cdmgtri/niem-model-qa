@@ -1,6 +1,6 @@
 
 let Issue = require("./issue");
-let NIEMSpecs = require("niem-specification-utils-js");
+let { NIEMSpecifications } = require("niem-specification-utils");
 
 class Test {
 
@@ -185,7 +185,9 @@ class Test {
    * @type {String}
    */
   get ruleURL() {
-    return NIEMSpecs.ruleURL(this.spec, this.version, this.rule);
+    let specs = new NIEMSpecifications();
+    let spec = specs.specification(this.spec + "-" + this.version);
+    return `${spec.url}#rule_${this.rule}`;
   }
 
   /**
