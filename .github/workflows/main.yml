@@ -1,0 +1,38 @@
+
+name: CI
+
+on: push
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install
+        run: npm install
+
+      - name: Run tests
+        run: npm run test:ci
+
+      - name: Post code coverage results to coveralls.io
+        uses: coverallsapp/github-action@1.1.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create gh-pages branch if it does not exist
+        uses: ChristopherDavenport/create-ghpages-ifnotexists@v1
+
+      - name: Generate docs
+        if: github.ref == 'refs/heads/dev'
+        run: |
+          npm run docs:clean
+          npm run docs
+
+      - name: Publish docs to gh-pages
+        if: github.ref == 'refs/heads/dev'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs

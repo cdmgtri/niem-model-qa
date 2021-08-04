@@ -1,5 +1,7 @@
 
-let { ReleaseInstance, Facet, FacetInstance } = require("niem-model");
+let { Facet, TypeDefs } = require("niem-model");
+let { ReleaseDef, FacetDef} = TypeDefs;
+
 let NIEMObjectUnitTests = require("../niem-object/unit");
 let Test = require("../../test");
 
@@ -11,7 +13,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
   /**
    * Check that facet definitions use consistent formatting.
    *
-   * @param {FacetInstance[]} facets
+   * @param {FacetDef[]} facets
    * @returns {Promise<Test>}
    */
   async definition_formatting(facets) {
@@ -25,7 +27,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    * Note: This test is separate from the standard definition formatting check to
    * allow for certain code types with a valid reason to be listed as exceptions (e.g., country codes)
    *
-   * @param {FacetInstance[]} facets
+   * @param {FacetDef[]} facets
    * @returns {Promise<Test>}
    */
   async definition_nbsp(facets) {
@@ -39,7 +41,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    * @example "Code facet 'MON' should have a definition (e.g., 'Monday')."
    * @example "Length facet '10' is not required to have a definition."
    *
-   * @param {FacetInstance[]} facets
+   * @param {FacetDef[]} facets
    * @returns {Promise<Test>}
    */
   async definition_missing_code(facets) {
@@ -59,7 +61,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    * @example "Pattern facets should have definitions"
    * @example "Length facet '10' is not required to have a definition."
    *
-   * @param {FacetInstance[]} facets
+   * @param {FacetDef[]} facets
    * @returns {Promise<Test>}
    */
   async definition_missing_pattern(facets) {
@@ -79,7 +81,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    * @example "Facet 'MON' can have kind 'enumeration'."
    * @example "Facet 'MON' cannot have kind 'code' or 'ENUM'."
    *
-   * @param {FacetInstance[]} facets
+   * @param {FacetDef[]} facets
    * @returns {Promise<Test>}
    */
   async style_invalid(facets) {
@@ -99,8 +101,8 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    * @example "Code 'MON' can belong to simple type 'WeekdayCodeSimpleType'."
    * @example "Code 'MON' cannot belong to complex object type 'nc:PersonType'."
    *
-   * @param {FacetInstance[]} facets
-   * @param {ReleaseInstance} release
+   * @param {FacetDef[]} facets
+   * @param {ReleaseDef} release
    * @returns {Promise<Test>}
    */
   async type_complex(facets, release) {
@@ -109,10 +111,10 @@ class FacetUnitTests extends NIEMObjectUnitTests {
 
     let uniqueTypeQNames = new Set( facets.map( facet => facet.typeQName) );
 
-    /** @type {String[]} */
+    /** @type {string[]} */
     let complexTypeQNames = [];
 
-    /** @type {FacetInstance[]} */
+    /** @type {FacetDef[]} */
     let problemFacets = [];
 
     // Look up each type once to see if it is complex
@@ -135,7 +137,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    * @example "Code 'MON' can belong to a type named 'WeekdayCodeSimpleType'."
    * @example "Code 'MON' cannot belong to a type named 'WeekdaySimpleType'."
    *
-   * @param {FacetInstance[]} facets
+   * @param {FacetDef[]} facets
    * @returns {Promise<Test>}
    */
   async type_repTerm_code(facets) {
@@ -152,8 +154,8 @@ class FacetUnitTests extends NIEMObjectUnitTests {
   /**
    * Check for missing or unknown types.
    *
-   * @param {FacetInstance[]} facets
-   * @param {ReleaseInstance} release
+   * @param {FacetDef[]} facets
+   * @param {ReleaseDef} release
    * @returns {Promise<Test>}
    */
   async type_unknown(facets, release) {
@@ -167,7 +169,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
    * @example "Type 'WeekdayCodeSimpleType' with codes 'MON', 'TUE', 'WED', ..."
    * @example "Type 'WeekdayCodeSimpleType' with codes 'MON', 'MON', 'MON', ..."
    *
-   * @param {FacetInstance[]} facets
+   * @param {FacetDef[]} facets
    * @returns {Promise<Test>}
    */
   async value_duplicate_code(facets) {
@@ -197,7 +199,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
   /**
    * Check that facet values do not contain invalid characters
    *
-   * @param {FacetInstance[]} facets
+   * @param {FacetDef[]} facets
    * @returns {Promise<Test>}
    */
   async value_formatting(facets) {
@@ -208,7 +210,7 @@ class FacetUnitTests extends NIEMObjectUnitTests {
   /**
    * Check for missing facet values.
    *
-   * @param {FacetInstance[]} facets
+   * @param {FacetDef[]} facets
    * @returns {Promise<Test>}
    */
   async value_missing(facets) {

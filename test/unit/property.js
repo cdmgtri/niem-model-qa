@@ -1,17 +1,18 @@
 
-let { NIEM, Release, Property } = require("niem-model");
+let { Property, TypeDefs } = require("niem-model");
+let { NIEMDef, ReleaseDef, PropertyDef } = TypeDefs;
 
-/** @type {Release} */
+/** @type {ReleaseDef} */
 let release;
 
-/** @type {Property[]} */
+/** @type {PropertyDef[]} */
 let fieldProperties = [];
 
 let FieldTest = require("./field");
 
 /**
  * @param {NIEMModelQA} qa
- * @param {NIEM} niem
+ * @param {NIEMDef} niem
  */
 function propertyTests(qa, niem) {
 
@@ -48,7 +49,7 @@ function propertyTests(qa, niem) {
         expect(issues[2].label).toBe("x:Name4");
         expect(issues[3].label).toBe("x:Name5");
         expect(issues[4].label).toBe("x:Name6");
-        expect(issues[4].comments).toBe("Non-breaking space detected: This definition has a non-breaking space: --> <--.");
+        expect(issues[4].comments).toBe("This definition has a non-breaking space: [NBSP].");
       });
 
       test("#definition_spellcheck", async () => {
@@ -81,9 +82,9 @@ function propertyTests(qa, niem) {
       test("#name_camelCase_attribute", async () => {
 
         let properties = [
-          Property.createAttribute(release, "ext", "SequenceID"), // invalid
-          Property.createAttribute(release, "ext", "unitCode"),
-          Property.createElement(release, "nc", "Person")
+          Property.createAttribute(release, "ext", "SequenceID", "", ""), // invalid
+          Property.createAttribute(release, "ext", "unitCode", "", ""),
+          Property.createElement(release, "nc", "Person", "", "", "")
         ];
 
         fieldProperties.push(...properties);
@@ -98,9 +99,9 @@ function propertyTests(qa, niem) {
       test("#name_camelCase_element", async () => {
 
         let properties = [
-          Property.createAttribute(release, "ext", "sequenceID"),
-          Property.createElement(release, "ext", "person"), // invalid
-          Property.createElement(release, "nc", "Person")
+          Property.createAttribute(release, "ext", "sequenceID", "", ""),
+          Property.createElement(release, "ext", "person", "", "", ""), // invalid
+          Property.createElement(release, "nc", "Person", "", "", "")
         ];
 
         fieldProperties.push(...properties);
@@ -185,7 +186,7 @@ function propertyTests(qa, niem) {
 
         fieldProperties.push(...properties);
 
-        let test = await qa.objects.property.tests.name_repTerm_aug(properties);
+        let test = await qa.objects.property.tests.name_repTerm_augmentation(properties);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues.length).toBe(1);
@@ -245,7 +246,7 @@ function propertyTests(qa, niem) {
 
         fieldProperties.push(...properties);
 
-        let test = await qa.objects.property.tests.prefix_missing(properties, release);
+        let test = await qa.objects.property.tests.prefix_missing(properties);
         let issues = test.issues;
 
         expect(test.failed).toBeTruthy();

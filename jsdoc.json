@@ -1,6 +1,28 @@
 {
-  "docdash": {
-    "sort": true,
-    "search": true
+  "source": {
+    "include": ["index.js", "src"],
+    "exclude": [
+      "src/typedefs"
+    ]
+  },
+  "opts": {
+    "access": ["public", "undefined"],
+    "destination": "docs",
+    "readme": "README.md",
+    "recurse": true,
+    "template": "node_modules/jsdoc-template"
+  },
+  "plugins": [
+    "plugins/markdown",
+    "node_modules/jsdoc-tsimport-plugin",
+    "node_modules/jsdoc-typeof-plugin"
+  ],
+  "templates": {
+    "referenceTitle": "NIEM Model QA",
+    "disableSort": false,
+    "collapse": true,
+    "default": {
+      "includeDate": false
+    }
   }
 }

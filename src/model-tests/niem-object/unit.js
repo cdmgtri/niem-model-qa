@@ -10,7 +10,6 @@ class NIEMObjectUnitTests {
   constructor(qa) {
     this.qa = qa;
 
-    /** @private */
     this.utils = qa.utils;
   }
 

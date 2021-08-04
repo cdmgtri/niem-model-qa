@@ -1,5 +1,6 @@
 
-let { ReleaseInstance, Type, TypeInstance } = require("niem-model");
+let { Type, TypeDefs } = require("niem-model");
+let { ReleaseDef, TypeDef } = TypeDefs;
 let NIEMObjectUnitTests = require("../niem-object/unit");
 let Test = require("../../test");
 
@@ -10,7 +11,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Checks that association types extend a type that ends in "AssociationType"
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    */
   async base_association(types) {
     let test = this.qa.tests.start("type_base_association");
@@ -22,7 +23,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Checks that augmentation types extend structures:AugmentationType
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    */
   async base_augmentation(types) {
     let test = this.qa.tests.start("type_base_augmentation");
@@ -37,21 +38,21 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Simple content type HairColorCodeType can have base type HairColorCodeSimpleType (simple type)."
    * @example "Simple content type HairColorCodeType cannot have base type nc:PersonType (complex object type)."
    *
-   * @param {TypeInstance[]} types
-   * @param {ReleaseInstance} release
+   * @param {TypeDef[]} types
+   * @param {ReleaseDef} release
    * @returns {Promise<Test>}
    */
   async base_csc(types, release) {
 
     let test = this.qa.tests.start("type_base_csc");
 
-    /** @type {TypeInstance[]} */
+    /** @type {TypeDef[]} */
     let problemTypes = [];
 
     let cscTypes = types.filter( type => type.style == "CSC" && type.baseQName );
 
     for (let cscType of cscTypes) {
-      let baseType = this.qa._releaseData.types.find( type => type.qname == cscType.baseQName );
+      let baseType = await release.types.get( cscType.baseQName );
 
       if (baseType && baseType.isComplexContent) {
         problemTypes.push(cscType);
@@ -63,7 +64,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Checks that metadata types extend structures:MetadataType
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    */
   async base_metadata(types) {
     let test = this.qa.tests.start("type_base_metadata");
@@ -77,14 +78,14 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type j:VictimType can contain nc:RoleOfPerson and extend structures:ObjectType"
    * @example "Type j:VictimType should not both contain nc:RoleOfPerson and extend nc:PersonType"
    *
-   * @param {TypeInstance[]} types
-   * @param {ReleaseInstance} release
+   * @param {TypeDef[]} types
+   * @param {ReleaseDef} release
    */
   async base_role(types, release) {
 
     let test = this.qa.tests.start("type_base_role");
 
-    /** @type {TypeInstance[]} */
+    /** @type {TypeDef[]} */
     let problemTypes = [];
 
     let roleProperties = await release.properties.find({groupQName: "nc:RoleOfAbstract"});
@@ -106,7 +107,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
     }
 
     /**
-     * @param {Type} type
+     * @param {TypeDef} type
      */
     let commentFunction = (type) => {
       let roles = subProperties
@@ -126,21 +127,21 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Simple type ext:HairColorCodeSimpleType can have base type xs:token."
    * @example "Simple type ext:HairColorCodeSimpleType should not have base type ext:ColorCodeSimpleType."
    *
-   * @param {TypeInstance[]} types
-   * @param {ReleaseInstance} release
+   * @param {TypeDef[]} types
+   * @param {ReleaseDef} release
    * @returns {Promise<Test>}
    */
   async base_simple(types, release) {
 
     let test = this.qa.tests.start("type_base_simple");
 
-    /** @type {TypeInstance[]} */
+    /** @type {TypeDef[]} */
     let problemTypes = [];
 
     let simpleTypes = types.filter( type => type.style == "simple" && type.baseQName );
 
     for (let simpleType of simpleTypes) {
-      let baseType = this.qa._releaseData.types.find( type => type.qname == simpleType.baseQName );
+      let baseType = await release.types.get( simpleType.baseQName );
 
       if (baseType && baseType.prefix != "xs") {
         problemTypes.push(simpleType);
@@ -157,7 +158,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type HairColorCodeSimpleType needs a base type like xs:string or xs:token."
    * @example "Type HairColorCodeSimpleType is not valid without a base type."
    *
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async base_simpleContent(types) {
@@ -170,7 +171,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Checks that union types do not have a base type
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    */
   async base_union(types) {
     let test = this.qa.tests.start("type_base_union");
@@ -184,21 +185,23 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type PersonType can extend type structures:ObjectType (this type exists)."
    * @example "Type PersonType cannot extend type structures:BogusType (this type does not exist)."
    *
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
+   * @param {ReleaseDef} release
    * @returns {Promise<Test>}
    */
-  async base_unknown(types) {
+  async base_unknown(types, release) {
 
     let test = this.qa.tests.start("type_base_unknown");
 
-    /** @type {TypeInstance[]} */
+    /** @type {TypeDef[]} */
     let problemTypes = [];
 
     // Get all types that have a base type
     let basedTypes = types.filter( type => type.baseQName );
 
     for (let basedType of basedTypes) {
-      if (! this.qa._releaseData.types.find( type => type.qname == basedType.qname )) {
+      let type = await release.types.get( basedType.qname );
+      if (! type) {
         problemTypes.push(basedType);
       }
     }
@@ -212,7 +215,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Definitions 'A data type for additional information about a person' and 'A data type for additional information about nc:PersonType' are valid for em:PersonAugmentationType."
    * @example "Definitions 'A data type for additional information about a location' and 'A data type for additional information about nc:OrganizationType' are not valid for em:PersonAugmentationType."
    *
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    */
   definition_augmentation(types) {
 
@@ -236,7 +239,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * - Two spaces are allowed after a period.  Other uses of multiple consecutive spaces are not allowed.
    * - Leading and trailing spaces are not allowed.
    *
-   * @param {Property[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   definition_formatting(types) {
@@ -246,7 +249,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Check that a complex type has a definition.
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async definition_missing_complex(types) {
@@ -257,7 +260,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Check that a simple type has a definition.
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async definition_missing_simple(types) {
@@ -272,7 +275,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Definition 'A data type for a human being' is valid for type 'PersonType'."
    * @example "Definition 'A human being' is not valid for type 'PersonType'."
    *
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async definition_phrase_complex(types) {
@@ -293,7 +296,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    *
    * @example "Definition 'United States state codes' is not valid for type usps:StateCodeSimpleType."
    *
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async definition_phrase_simple(types) {
@@ -315,8 +318,8 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    *
    * @example "Definition 'A data type for FIPS state codes' is not recommended if the term 'FIPS' is not defined as Local Terminology in that namespace."
    *
-   * @param {TypeInstance[]} types
-   * @param {ReleaseInstance} release
+   * @param {TypeDef[]} types
+   * @param {ReleaseDef} release
    * @returns {Promise<Test>}
    */
   async definition_spellcheck(types, release) {
@@ -328,8 +331,8 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * Check for types that do not have a data property, are not extended, do not serve as a base type,
    * and are not union types.
    *
-   * @param {TypeInstance[]} types
-   * @param {ReleaseInstance} release
+   * @param {TypeDef[]} types
+   * @param {ReleaseDef} release
    */
   async general_unused(types, release) {
 
@@ -358,7 +361,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    *
    * @example "Type name 'personType' is not valid because it begins with a lower case letter."
 
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async name_camelCase(types) {
@@ -379,7 +382,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Types 'justice:CaseType' and 'logistics:CaseType' are valid because even though they use the same name, they are defined in different namespaces."
    * @example "Type name 'CaseType' cannot be defined twice in the justice namespace."
    *
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async name_duplicate(types) {
@@ -391,7 +394,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * Check for type names that are repeated in a release.
    * Ignores augmentations and codes because those are expected to have some overlaps.
    *
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async name_overlap(types) {
@@ -407,7 +410,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    *
    * @example "Type name 'HairColorCodeType' is not recommended with base type 'EyeColorCodeSimpleType'."
    *
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async name_inconsistent_codeType(types) {
@@ -427,7 +430,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type name 'PersonType' uses valid characters."
    * @example "Type name 'ID#Type' does not use valid characters."
    *
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async name_invalidChar(types) {
@@ -437,7 +440,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Check that all complex types have names.
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async name_missing_complex(types) {
@@ -448,7 +451,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Check that all simple types have names.
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async name_missing_simple(types) {
@@ -464,16 +467,17 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    *
    * @example "Type name 'WeekdayCodeSimpleType' is not valid if the type does not declare codes."
    *
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
+   * @param {ReleaseDef} release
    * @returns {Promise<Test>}
    */
-  async name_repTerm_codeSimpleType(types) {
+  async name_repTerm_codeSimpleType(types, release) {
 
     let test = this.qa.tests.start("type_name_repTerm_codeSimpleType");
 
     let codeSimpleTypes = types.filter( type => type.name && type.name.endsWith("CodeSimpleType"));
 
-    /** @type {TypeInstance[]} */
+    /** @type {TypeDef[]} */
     let problemTypes = [];
 
     for (let type of codeSimpleTypes) {
@@ -488,7 +492,8 @@ class TypeUnitTests extends NIEMObjectUnitTests {
         }
       }
       else {
-        if (! this.qa._releaseData.facets.some( facet => facet.typeQName == type.qname )) {
+        let facets = await release.facets.find({typeQName: type.qname});
+        if (facets.length == 0) {
           // The CodeSimpleType did not have any facets
           problemTypes.push(type);
         }
@@ -506,7 +511,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    *
    * @example "Type name 'WeekdayCodeType' is not valid with base type 'string'"
    *
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async name_repTerm_codeType(types) {
@@ -526,7 +531,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type name 'IDSimpleType' is valid if the type is simple."
    * @example "Type name 'IDSimpleType' is not valid if the type is complex."
    *
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async name_repTerm_complex(types) {
@@ -548,7 +553,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type name 'IDSimpleType' is valid if the type is simple."
    * @example "Type name 'IDType' is not valid if the type is simple."
    *
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async name_repTerm_simple(types) {
@@ -572,7 +577,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type name 'PersonType' is valid."
    * @example "Type name 'Person' is not valid."
    *
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async name_repTerm_type(types) {
@@ -594,7 +599,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    *
    * @example "Type name 'IDTypeCodeType' is not valid because the term 'Type' is used in the middle of the name."
    *
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async name_reservedTerm_type(types) {
@@ -611,8 +616,8 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    *
    * @example "Type name 'ncic:VMOCodeType' is not valid if the ncic namespace does not defined 'VMO' in its Local Terminology section."
    *
-   * @param {TypeInstance[]} types
-   * @param {ReleaseInstance} release
+   * @param {TypeDef[]} types
+   * @param {ReleaseDef} release
    * @returns {Promise<Test>}
    */
   async name_spellcheck(types, release) {
@@ -622,7 +627,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Check that types have a namespace prefix.
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async prefix_missing(types) {
@@ -633,8 +638,8 @@ class TypeUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Check that types have a namespace prefix that has been defined in the release.
-   * @param {TypeInstance[]} types
-   * @param {ReleaseInstance} release
+   * @param {TypeDef[]} types
+   * @param {ReleaseDef} release
    * @returns {Promise<Test>}
    */
   async prefix_unknown(types, release) {
@@ -648,7 +653,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type PersonType has style 'object'."
    * @example "Type PersonType does not have a style."
    *
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async style_missing(types) {
@@ -663,7 +668,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
    * @example "Type PersonType has permitted style 'object'."
    * @example "Type PersonType cannot have unknown style 'myCustomObject'."
    *
-   * @param {TypeInstance[]} types
+   * @param {TypeDef[]} types
    * @returns {Promise<Test>}
    */
   async style_unknown(types) {
@@ -672,7 +677,7 @@ class TypeUnitTests extends NIEMObjectUnitTests {
 
     let uniqueStyles = new Set( types.map( type => type.style ) );
 
-    /** @type {String[]} */
+    /** @type {string[]} */
     let unknownStyles = [];
 
     uniqueStyles.forEach( style => {

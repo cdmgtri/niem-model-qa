@@ -1,14 +1,13 @@
 
 let NIEMObjectQA = require("../../src/model-tests/niem-object/index");
-let { Release, NIEMObject } = require("niem-model");
+let { ReleaseDef, NIEMObjectDef } = require("niem-model").TypeDefs;
 
 class fieldTest {
 
   /**
    * @param {NIEMObjectQA} objectQA
-   * @param {NIEMObject[]} objects
-   * @param {Release} release
-   * @param {String} fieldName
+   * @param {NIEMObjectDef[]} objects
+   * @param {ReleaseDef} release
    */
   constructor(objectQA, objects, release) {
     this.objectQA = objectQA;
@@ -20,7 +19,7 @@ class fieldTest {
   }
 
   /**
-   * @param {String} fieldName
+   * @param {string} fieldName
    */
   async run(fieldName) {
 

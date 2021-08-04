@@ -1,0 +1,28 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "tsc --watch",
+      "command": "tsc --watch --noEmit --allowJs --checkJs --downLevelIteration --moduleResolution node --resolveJsonModule --target es6 src/**/*.js",
+      "type": "shell",
+      "isBackground": true,
+      "problemMatcher": "$tsc-watch",
+      "presentation": {
+        "clear": true,
+        "focus": false,
+        "echo": true,
+        "panel": "shared",
+        "reveal": "always",
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+  ]
+}

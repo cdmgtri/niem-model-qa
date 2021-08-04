@@ -26,8 +26,9 @@ class NIEMObjectTester {
 
     /**
      * Run all tests in the test suite
+     * @abstract
      */
-    this.run;
+    this.run = {};
 
     /**
      * Run tests in the test suite filtered on a particular object field
@@ -39,11 +40,11 @@ class NIEMObjectTester {
   /**
    * Run all unit tests for the given field.
    *
-   * @private
+   * @protected
    * @template T
    * @param {T[]} niemObjects
-   * @param {ReleaseInstance} release
-   * @param {String} [field] - Optional test filter for a given object field
+   * @param {ReleaseDef} release
+   * @param {string} [field] - Optional test filter for a given object field
    */
   async runTests(niemObjects, release, field) {
 
@@ -69,8 +70,8 @@ class NIEMObjectTester {
     debug(`Ran ${this.constructor.name.replace("QA", "")} tests`);
 
     // Close out the progress tracker update
-    let passed = tests.filter(test => test.passed.length);
-    update.end(passed);
+    let passed = tests.filter(test => test.passed);
+    update.end(passed.length);
 
     qa.tests.add(tests);
     return qa;
@@ -80,7 +81,7 @@ class NIEMObjectTester {
   /**
    * Find all unit test names for the given field.
    * @private
-   * @param {String} [field] - Optional test filter for a given object field
+   * @param {string} [field] - Optional test filter for a given object field
    */
   fieldTestNames(field) {
 
@@ -111,6 +112,6 @@ class NIEMObjectTester {
 
 module.exports = NIEMObjectTester;
 
-let { Release, ReleaseInstance } = require("niem-model");
+let { ReleaseDef } = require("niem-model").TypeDefs;
 let NIEMModelQA = require("../../index");
 let Test = require("../../test");

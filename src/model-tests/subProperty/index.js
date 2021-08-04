@@ -1,7 +1,7 @@
 
 let NIEMObjectTester = require("../niem-object/index");
 let SubPropertyUnitTests = require("./unit");
-let { ReleaseInstance, SubPropertyInstance } = require("niem-model");
+let { ReleaseDef, SubPropertyDef } = require("niem-model").TypeDefs;
 
 class SubPropertyTester extends NIEMObjectTester {
 
@@ -12,8 +12,8 @@ class SubPropertyTester extends NIEMObjectTester {
     this.tests = new SubPropertyUnitTests(qa);
 
     /**
-     * @param {SubPropertyInstance[]} subProperties
-     * @param {ReleaseInstance} release
+     * @param {SubPropertyDef[]} subProperties
+     * @param {ReleaseDef} release
      * @return {Promise<NIEMModelQA>}
      */
     this.run = (subProperties, release) => this.runTests(subProperties, release);
@@ -21,8 +21,8 @@ class SubPropertyTester extends NIEMObjectTester {
     this.field = {
 
       /**
-       * @param {SubPropertyInstance[]} subProperties
-       * @param {ReleaseInstance} release
+       * @param {SubPropertyDef[]} subProperties
+       * @param {ReleaseDef} release
        * @returns {Promise<NIEMModelQA>}
        */
       propertyQName: (subProperties, release) => this.runTests(subProperties, release, "propertyQName")

@@ -1,30 +1,33 @@
 
 let Issue = require("./issue");
-let { NIEMSpecifications } = require("niem-specification-utils");
+
+let { NIEMSpecificationLibrary } = require("niem-specification-utils");
+
+let specLib = new NIEMSpecificationLibrary();
+
+specLib.load();
 
 class Test {
 
   /**
-   * @param {String} id - Test ID
-   * @param {String} description - Test description
-   * @param {String} category - Test category
-   * @param {String} component - Object of the test (e.g., Property, Type)
-   * @param {String} field - Object property being tested (e.g., name, definition)
-   * @param {String} scope - Subset of objects being tested (e.g., attributes)
-   * @param {String} source - Source or format being tested (e.g., model, IEPD, XSD)
-   * @param {Test.SeverityType} severity - Severity level of a failed test
-   * @param {"NDR"|"MPD"|"CL"} specLabel - NIEM specification ID
-   * @param {String} rule - NIEM specification rule number
-   * @param {String} validExample - An example that would pass the test
-   * @param {String} invalidExample - An example that would fail the test
-   * @param {String} exceptions - Free-text description of allowed exceptions
-   * @param {String} exceptionIDs - Comma-delimited list of ids for allowed exceptions
-   * @param {String} notes - Other details or comments about the test
-   * @param {Boolean} [ran=false] - True if a test ran; false otherwise
+   * @param {string} [id] - Test ID
+   * @param {string} [description] - Test description
+   * @param {string} [category] - Test category
+   * @param {string} [component] - Object of the test (e.g., Property, Type)
+   * @param {string} [field] - Object property being tested (e.g., name, definition)
+   * @param {string} [scope] - Subset of objects being tested (e.g., attributes)
+   * @param {string} [source] - Source or format being tested (e.g., model, IEPD, XSD)
+   * @param {Test.SeverityType} [severity] - Severity level of a failed test
+   * @param {string} [specID] - NIEM specification ID, e.g, "NDR-4.0"
+   * @param {string} [ruleNumber] - NIEM specification rule number
+   * @param {string} [validExample] - An example that would pass the test
+   * @param {string} [invalidExample] - An example that would fail the test
+   * @param {string} [exceptions] - Free-text description of allowed exceptions
+   * @param {string} [exceptionIDs] - Comma-delimited list of ids for allowed exceptions
+   * @param {string} [notes] - Other details or comments about the test
+   * @param {boolean} [ran=false] - True if a test ran; false otherwise
    */
-  constructor(id, description, category, component, field, scope, source, severity, specLabel="", rule="", validExample, invalidExample, exceptions, exceptionIDs="", notes, ran=false) {
-
-    let [spec, version] = specLabel.trim().split(" ");
+  constructor(id, description, category, component, field, scope, source, severity, specID="", ruleNumber="", validExample, invalidExample, exceptions, exceptionIDs="", notes, ran=false) {
 
     this.id = id;
     this.description = description;
@@ -34,9 +37,10 @@ class Test {
     this.scope = scope;
     this.source = source;
     this.severity = severity;
-    this.spec = spec;
-    this.version = version || "";
-    this.rule = rule;
+    this.specID = specID.replace(" ", "-");
+    this.specURL = "";
+    this.ruleNumber = ruleNumber;
+    this.ruleURL = "";
     this.exampleValid = validExample;
     this.exampleInvalid = invalidExample;
     this.exceptions = exceptions;
@@ -55,6 +59,11 @@ class Test {
 
     /** @type {Issue[]} */
     this.issues = [];
+
+    if (this.specID) {
+      let [suiteID, versionID] = this.specID.split("-");
+      this.ruleURL = specLib.ruleURL(suiteID, versionID, this.ruleNumber);
+    }
 
   }
 
@@ -119,7 +128,7 @@ class Test {
 
       /**
        * Test issues, optionally filtered by the given prefixes.
-       * @param {String[]} prefixes - Filters test issues on the given namespace prefix.
+       * @param {string[]} prefixes - Filters test issues on the given namespace prefix.
        * @return {Issue[]}
        */
       issues(prefixes=[]) {
@@ -130,7 +139,7 @@ class Test {
 
       /**
        * Unique array of namespace prefixes with issues.
-       * @type {String[]}
+       * @returns {string[]}
        */
       prefixes() {
         if (self.issues.length == 0) return [];
@@ -140,7 +149,7 @@ class Test {
 
       /**
        * True if the test ran and has no issues, optionally filtered by the given prefixes.
-       * @param {String[]} prefixes - Filters results for the given prefix.
+       * @param {string[]} prefixes - Filters results for the given prefix.
        * @returns {Boolean}
        */
       passed(prefixes) {
@@ -149,7 +158,7 @@ class Test {
 
       /**
        * True if the test ran and has issues, optionally filtered by the given prefixes.
-       * @param {String[]} prefixes - Filters results for the given prefix.
+       * @param {string[]} prefixes - Filters results for the given prefix.
        * @returns {Boolean}
        */
       failed(prefixes) {
@@ -158,7 +167,7 @@ class Test {
 
       /**
        * Test status based on if the test ran and has issues.
-       * @param {String[]} prefixes - Filters results for the given prefix.
+       * @param {string[]} prefixes - Filters results for the given prefix.
        * @returns {"pass"|"fail"|"not ran"}
        */
       status(prefixes) {
@@ -178,16 +187,6 @@ class Test {
     this.timeStart = undefined;
     this.timeElapsedMs = 0;
     this.issues = [];
-  }
-
-  /**
-   * URL for the specific specification rule.
-   * @type {String}
-   */
-  get ruleURL() {
-    let specs = new NIEMSpecifications();
-    let spec = specs.specification(this.spec + "-" + this.version);
-    return `${spec.url}#rule_${this.rule}`;
   }
 
   /**

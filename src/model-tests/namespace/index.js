@@ -1,7 +1,7 @@
 
 let NIEMObjectTester = require("../niem-object/index");
 let NamespaceUnitTests = require("./unit");
-let { ReleaseInstance, NamespaceInstance } = require("niem-model");
+let { ReleaseDef, NamespaceDef } = require("niem-model").TypeDefs;
 
 class NamespaceTester extends NIEMObjectTester {
 
@@ -12,8 +12,8 @@ class NamespaceTester extends NIEMObjectTester {
     this.tests = new NamespaceUnitTests(qa);
 
     /**
-     * @param {NamespaceInstance[]} namespaces
-     * @param {ReleaseInstance} release
+     * @param {NamespaceDef[]} namespaces
+     * @param {ReleaseDef} release
      * @return {Promise<NIEMModelQA>}
      */
     this.run = (namespaces, release) => this.runTests(namespaces, release);
@@ -21,8 +21,8 @@ class NamespaceTester extends NIEMObjectTester {
     this.field = {
 
       /**
-       * @param {NamespaceInstance[]} namespaces
-       * @param {ReleaseInstance} release
+       * @param {NamespaceDef[]} namespaces
+       * @param {ReleaseDef} release
        * @returns {Promise<NIEMModelQA>}
        */
       definition: (namespaces, release) => this.runTests(namespaces, release, "definition")

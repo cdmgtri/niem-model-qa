@@ -11,8 +11,8 @@ class TypeTester extends NIEMObjectTester {
     this.tests = new TypeUnitTests(qa);
 
     /**
-     * @param {TypeInstance[]} types
-     * @param {ReleaseInstance} release
+     * @param {TypeDef[]} types
+     * @param {ReleaseDef} release
      * @returns {Promise<NIEMModelQA>}
      */
     this.run = (types, release) => this.runTests(types, release);
@@ -20,39 +20,46 @@ class TypeTester extends NIEMObjectTester {
     this.field = {
 
       /**
-       * @param {TypeInstance[]} types
-       * @param {ReleaseInstance} release
+       * @param {TypeDef[]} types
+       * @param {ReleaseDef} release
        * @returns {Promise<NIEMModelQA>}
        */
       base: (types, release) => this.runTests(types, release, "base"),
 
       /**
-       * @param {TypeInstance[]} types
-       * @param {ReleaseInstance} release
+       * @param {TypeDef[]} types
+       * @param {ReleaseDef} release
        * @returns {Promise<NIEMModelQA>}
        */
       definition: (types, release) => this.runTests(types, release, "definition"),
 
       /**
-       * @param {TypeInstance[]} types
-       * @param {ReleaseInstance} release
+       * @param {TypeDef[]} types
+       * @param {ReleaseDef} release
        * @returns {Promise<NIEMModelQA>}
        */
       name: (types, release) => this.runTests(types, release, "name"),
 
       /**
-       * @param {TypeInstance[]} types
-       * @param {ReleaseInstance} release
+       * @param {TypeDef[]} types
+       * @param {ReleaseDef} release
        * @returns {Promise<NIEMModelQA>}
        */
       prefix: (types, release) => this.runTests(types, release, "prefix"),
 
       /**
-       * @param {TypeInstance[]} types
-       * @param {ReleaseInstance} release
+       * @param {TypeDef[]} types
+       * @param {ReleaseDef} release
        * @returns {Promise<NIEMModelQA>}
        */
       style: (types, release) => this.runTests(types, release, "style"),
+
+      /**
+       * @param {TypeDef[]} types
+       * @param {ReleaseDef} release
+       * @returns {Promise<NIEMModelQA>}
+       */
+      general: (types, release) => this.runTests(types, release, "general"),
 
     }
 
@@ -63,4 +70,4 @@ class TypeTester extends NIEMObjectTester {
 module.exports = TypeTester;
 
 let NIEMModelQA = require("../../index");
-let { ReleaseInstance, TypeInstance } = require("niem-model");
+let { ReleaseDef, TypeDef } = require("niem-model").TypeDefs;

@@ -1,11 +1,17 @@
 
 let xlsx = require("xlsx-populate");
 let { saveAs } = require("file-saver");
-let { Workbook } = xlsx;
+
+/**
+ * @private
+ * @type {import("xlsx-populate").Workbook}
+ */
+ let WorkbookDef;
 
 let Issue = require("./issue");
 
-let { Namespace } = require("niem-model");
+let { Namespace, TypeDefs } = require("niem-model");
+let { NamespaceDef } = TypeDefs;
 
 class Report {
 
@@ -20,8 +26,8 @@ class Report {
   /**
    * Test status overview (failed, warning, and info counts) per namespace.
    *
-   * @param {Namespace[]} namespaceList - List of namespaces to provide statuses for
-   * @param {String[]} prefixes - Optional issue filter
+   * @param {NamespaceDef[]} namespaceList - List of namespaces to provide statuses for
+   * @param {string[]} prefixes - Optional issue filter
    */
   report(namespaceList=[], prefixes=[]) {
     return {
@@ -34,7 +40,7 @@ class Report {
   }
 
   /**
-   * @param {String[]} prefixes
+   * @param {string[]} prefixes
    */
   summary(prefixes=[]) {
 
@@ -48,9 +54,9 @@ class Report {
       timestamp: (new Date()).toLocaleString(),
       status: this.qa.results.status(prefixes),
       runTime: this.qa.results.runTime,
-      issueErrorCount: this.qa.results.issues(prefixes, "error").length,
-      issueWarningCount: this.qa.results.issues(prefixes, "warning").length,
-      issueInfoCount: this.qa.results.issues(prefixes, "info").length,
+      issueErrorCount: this.qa.results.issues(prefixes, ["error"]).length,
+      issueWarningCount: this.qa.results.issues(prefixes, ["warning"]).length,
+      issueInfoCount: this.qa.results.issues(prefixes, ["info"]).length,
       filter
     }
   }
@@ -58,8 +64,8 @@ class Report {
   /**
    * Test status overview (failed, warning, and info counts) per namespace.
    *
-   * @param {Namespace[]} namespaceList - List of namespaces to provide statuses for
-   * @param {String[]} prefixes - Optional issue filter
+   * @param {NamespaceDef[]} namespaceList - List of namespaces to provide statuses for
+   * @param {string[]} prefixes - Optional issue filter
    */
   namespaceStatus(namespaceList=[], prefixes) {
 
@@ -90,7 +96,7 @@ class Report {
 
   /**
    * Returns all tests, filtering issue status and issue count by prefix if given
-   * @param {String[]} prefixes
+   * @param {string[]} prefixes
    */
   testStatus(prefixes=[]) {
     return this.qa._tests.map( test => {
@@ -101,8 +107,8 @@ class Report {
         status: test.namespaces.status(prefixes),
         count: test.namespaces.issues(prefixes).length,
         category: test.category,
-        specLabel: test.spec + " " + test.version,
-        rule: test.rule,
+        specLabel: test.specID,
+        rule: test.ruleNumber,
         ruleURL: test.ruleURL,
         time: test.timeElapsedSeconds,
         validExample: test.exampleValid,
@@ -117,7 +123,7 @@ class Report {
 
   /**
    * Returns all tests, filtering issue status and issue count by prefix if given
-   * @param {String[]} prefixes
+   * @param {string[]} prefixes
    */
   failedTests(prefixes=[]) {
 
@@ -144,7 +150,7 @@ class Report {
   /**
    * Returns all tests, filtering issue status and issue count by prefix if given
    * @private
-   * @param {String} prefix
+   * @param {string} prefix
    */
   failedTestReportPerNamespace(prefix) {
 
@@ -156,8 +162,8 @@ class Report {
         prefix,
         count: test.namespaces.issues([prefix]).length,
         category: test.category,
-        specLabel: test.spec + " " + test.version,
-        rule: test.rule,
+        specLabel: test.specID,
+        rule: test.ruleNumber,
         ruleURL: test.ruleURL,
         validExample: test.exampleValid,
         invalidExample: test.exampleInvalid,
@@ -173,7 +179,7 @@ class Report {
   /**
    * Array of test issues, with test info embedded directly into each issue object.
    *
-   * @param {String[]} prefixes - Prefix for issue filtering
+   * @param {string[]} prefixes - Prefix for issue filtering
    */
   issues(prefixes) {
 
@@ -189,7 +195,6 @@ class Report {
         problemValue: issue.problemValue,
         location: issue.location,
         line: issue.line,
-        position: issue.position,
         comments: issue.comments
       }
     });
@@ -198,9 +203,9 @@ class Report {
 
 
   /**
-   * @param {String} fileName
-   * @param {Namespace[]} testedNamespaces
-   * @param {String[]} prefixes - Prefixes for issue filtering
+   * @param {string} fileName
+   * @param {NamespaceDef[]} testedNamespaces
+   * @param {string[]} prefixes - Prefixes for issue filtering
    * @param {ResultsOptionsType} options
    */
   async saveAsDownload(fileName, testedNamespaces, prefixes, options) {
@@ -209,14 +214,14 @@ class Report {
     fileName = fileName.replace(/.xlsx$/, "") + ".xlsx";
 
     let blob = await this.reportBinary(testedNamespaces, prefixes, "blob", options);
-    saveAs(blob, fileName);
+    saveAs( /** @type {Blob} */ (blob), fileName);
   }
 
   /**
-   * @param {String} filePath
-   * @param {Namespace[]} testedNamespaces
-   * @param {String[]} prefixes - Prefix for issue filtering
-   * @param {ResultsOptionsType} options
+   * @param {string} filePath
+   * @param {NamespaceDef[]} [testedNamespaces]
+   * @param {string[]} [prefixes] - Prefix for issue filtering
+   * @param {ResultsOptionsType} [options]
    */
   async saveAsFile(filePath, testedNamespaces, prefixes, options) {
 
@@ -230,10 +235,10 @@ class Report {
 
   /**
    * @private
-   * @param {Namespace[]} testedNamespaces
-   * @param {String[]} prefixes - Prefixes to filter the results on
-   * @param {"buffer"|"blob"} format
-   * @param {ResultsOptionsType} options
+   * @param {NamespaceDef[]} [testedNamespaces]
+   * @param {string[]} [prefixes] - Prefixes to filter the results on
+   * @param {"buffer"|"blob"} [format]
+   * @param {ResultsOptionsType} [options]
    */
   async reportBinary(testedNamespaces=[], prefixes, format="buffer", options) {
 
@@ -262,8 +267,8 @@ class Report {
 
   /**
    * @private
-   * @param {Workbook} workbook
-   * @param {String[]} prefixes
+   * @param {WorkbookDef} workbook
+   * @param {string[]} prefixes
    */
   writeSummaryTab(workbook, prefixes=[]) {
 
@@ -288,14 +293,15 @@ class Report {
  * Loads the given data into the worksheet tab with the given name.
  *
  * @private
- * @param {Workbook} workbook
- * @param {String} tabName
+ * @param {WorkbookDef} workbook
+ * @param {string} tabName
  * @param {Object[]} data
  */
 function writeTab(workbook, tabName, data=[]) {
   if (data.length == 0) return;
   let sheet = workbook.sheet(tabName);
   let rows = objectsToRows(data);
+  // @ts-ignore
   sheet.cell("A2").value(rows);
 }
 
@@ -313,17 +319,18 @@ function objectsToRows(objects) {
 }
 
 /**
- * @param {Workbook} workbook
+ * @private
+ * @param {WorkbookDef} workbook
  * @param {Issue[]} issues
  */
 function hideSourceColumns(workbook, issues) {
   let sheet = workbook.sheet("Issues");
   if (! fieldHasValues(issues, "location")) sheet.column("G").hidden(true);
   if (! fieldHasValues(issues, "line")) sheet.column("H").hidden(true);
-  if (! fieldHasValues(issues, "position")) sheet.column("I").hidden(true);
 }
 
 /**
+ * @private
  * @param {Issue[]} issues
  * @param {string} field
  */
@@ -343,7 +350,7 @@ function fieldHasValues(issues, field) {
  * Runs on the 'Tests' and 'Failed tests by namespace' tabs.
  *
  * @private
- * @param {Workbook} workbook
+ * @param {WorkbookDef} workbook
  */
 function setRuleHyperlinks(workbook) {
   setRuleHyperlinks_Tab(workbook, "All Tests", "H", "I");
@@ -355,10 +362,10 @@ function setRuleHyperlinks(workbook) {
  * replaces the Rule value with a hyperlink, and hides the RuleURL column.
  *
  * @private
- * @param {Workbook} workbook
- * @param {String} tabName
- * @param {String} ruleColNum
- * @param {String} urlColNum
+ * @param {WorkbookDef} workbook
+ * @param {string} tabName
+ * @param {string} ruleColNum
+ * @param {string} urlColNum
  */
 function setRuleHyperlinks_Tab(workbook, tabName, ruleColNum, urlColNum) {
 
@@ -369,17 +376,19 @@ function setRuleHyperlinks_Tab(workbook, tabName, ruleColNum, urlColNum) {
 
     // Get rule cell, label, and URL
     let cell = sheet.cell(rowNum, ruleColNum);
-    let label = cell.value();
+    let label = /** @type {string} */ (cell.value());
     let url = sheet.cell(rowNum, urlColNum).value();
 
     // Skip hyperlink if no valid rule number
     if (! label || ! label.includes("-")) continue;
 
     // Update rule cell with Excel hyperlink
-    cell
-    .value("Rule " + label)
-    .style({ fontColor: "0563c1", underline: true })
-    .hyperlink(url);
+    if (url) {
+      cell
+      .value("Rule " + label)
+      .style({ fontColor: "0563c1", underline: true })
+      .hyperlink(url);
+    }
   }
 
   sheet.column(urlColNum).hidden(true);
@@ -387,23 +396,24 @@ function setRuleHyperlinks_Tab(workbook, tabName, ruleColNum, urlColNum) {
 }
 
 /**
- * @param {Workbook} workbook
- * @param {ResultsOptionsType} options
+ * @private
+ * @param {WorkbookDef} workbook
+ * @param {ResultsOptionsType} [options]
  */
-function setWorkbookOptions(workbook, options={}) {
+function setWorkbookOptions(workbook, options={sourceFormat: "spreadsheet"}) {
 
   if (options.sourceFormat == "spreadsheet" ) {
-    // Customize Location / Line / Position column headers
+    // Customize location and line column headers
     let sheet = workbook.sheet("Issues");
     sheet.cell("G1").value("Tab");
     sheet.cell("H1").value("Row");
-    sheet.cell("I1").value("Col");
   }
 
 }
 
 
 /**
+ * @private
  * @typedef {Object} ResultsOptionsType
  * @property {"spreadsheet"|"file"} sourceFormat
  */

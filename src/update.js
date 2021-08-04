@@ -7,8 +7,8 @@ class Update {
 
   /**
    * @param {"in progress"|"done"} status
-   * @param {String} label
-   * @param {String} description
+   * @param {string} label
+   * @param {string} description
    * @param {number} testCount
    */
   constructor(status, label, description, testCount) {

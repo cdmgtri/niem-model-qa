@@ -1,115 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
-    <meta charset="utf-8">
-    <title>TypeUnitTests - Documentation</title>
-    
-    
-    <script src="scripts/prettify/prettify.js"></script>
-    <script src="scripts/prettify/lang-css.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
-    <script src="scripts/nav.js" defer></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+      TypeUnitTests - Documentation
+  </title>
+
+  <link href="https://www.braintreepayments.com/images/favicon-ccda0b14.png" rel="icon" type="image/png">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+  <link type="text/css" rel="stylesheet" href="styles/custom.css">
+  
+  <link type="text/css" rel="stylesheet" href="styles/collapse.css">
+  
+
+  
+
+  <!-- start Mixpanel -->
+  <script type="text/javascript">(function(e,a){if(!a.__SV){var b=window;try{var c,l,i,j=b.location,g=j.hash;c=function(a,b){return(l=a.match(RegExp(b+"=([^&]*)")))?l[1]:null};g&&c(g,"state")&&(i=JSON.parse(decodeURIComponent(c(g,"state"))),"mpeditor"===i.action&&(b.sessionStorage.setItem("_mpcehash",g),history.replaceState(i.desiredHash||"",e.title,j.pathname+j.search)))}catch(m){}var k,h;window.mixpanel=a;a._i=[];a.init=function(b,c,f){function e(b,a){var c=a.split(".");2==c.length&&(b=b[c[0]],a=c[1]);b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,
+  0)))}}var d=a;"undefined"!==typeof f?d=a[f]=[]:f="mixpanel";d.people=d.people||[];d.toString=function(b){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);b||(a+=" (stub)");return a};d.people.toString=function(){return d.toString(1)+".people (stub)"};k="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+  for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
+  mixpanel.init("1919205b2da72e4da3b9b6639b444d59");</script>
+  <!-- end Mixpanel -->
 </head>
+
 <body>
+  <svg style="display: none;">
+    <defs>
+      <symbol id="linkIcon" fill="#706d77" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
+      </symbol>
+    </defs>
+  </svg>
 
-<input type="checkbox" id="nav-trigger" class="nav-trigger" />
-<label for="nav-trigger" class="navicon-button x">
-  <div class="navicon"></div>
-</label>
+  <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+  <label for="nav-trigger" class="navicon-button x">
+    <div class="navicon"></div>
+  </label>
 
-<label for="nav-trigger" class="overlay"></label>
+  <label for="nav-trigger" class="overlay"></label>
 
-<nav >
+  <div class="top-nav-wrapper">
+    <ul>
+      <li >
+        <a href="index.html">
+          
+            <svg fill="#6D6D6D" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+          
+          
+        </a>
+      </li>
+
+      
+
+    </ul>
+  </div>
+
+  <nav>
+    <h3 class="reference-title">
+      NIEM Model QA
+    </h3>
+
     
-    <input type="text" id="nav-search" placeholder="Search" />
+
+    <h3>Classes</h3><ul><li id="FacetUnitTests-nav"><a href="FacetUnitTests.html">FacetUnitTests</a><ul class='methods'><li data-type="method" id="FacetUnitTests-definition_formatting-nav"><a href="FacetUnitTests.html#definition_formatting">definition_formatting</a></li><li data-type="method" id="FacetUnitTests-definition_missing_code-nav"><a href="FacetUnitTests.html#definition_missing_code">definition_missing_code</a></li><li data-type="method" id="FacetUnitTests-definition_missing_pattern-nav"><a href="FacetUnitTests.html#definition_missing_pattern">definition_missing_pattern</a></li><li data-type="method" id="FacetUnitTests-definition_nbsp-nav"><a href="FacetUnitTests.html#definition_nbsp">definition_nbsp</a></li><li data-type="method" id="FacetUnitTests-style_invalid-nav"><a href="FacetUnitTests.html#style_invalid">style_invalid</a></li><li data-type="method" id="FacetUnitTests-type_complex-nav"><a href="FacetUnitTests.html#type_complex">type_complex</a></li><li data-type="method" id="FacetUnitTests-type_repTerm_code-nav"><a href="FacetUnitTests.html#type_repTerm_code">type_repTerm_code</a></li><li data-type="method" id="FacetUnitTests-type_unknown-nav"><a href="FacetUnitTests.html#type_unknown">type_unknown</a></li><li data-type="method" id="FacetUnitTests-value_duplicate_code-nav"><a href="FacetUnitTests.html#value_duplicate_code">value_duplicate_code</a></li><li data-type="method" id="FacetUnitTests-value_formatting-nav"><a href="FacetUnitTests.html#value_formatting">value_formatting</a></li><li data-type="method" id="FacetUnitTests-value_missing-nav"><a href="FacetUnitTests.html#value_missing">value_missing</a></li></ul></li><li id="Issue-nav"><a href="Issue.html">Issue</a></li><li id="NIEMModelQA-nav"><a href="NIEMModelQA.html">NIEMModelQA</a><ul class='methods'><li data-type="method" id="NIEMModelQA-exportTests-nav"><a href="NIEMModelQA.html#.exportTests">exportTests</a></li><li data-type="method" id="NIEMModelQA-init-nav"><a href="NIEMModelQA.html#init">init</a></li><li data-type="method" id="NIEMModelQA-run-nav"><a href="NIEMModelQA.html#run">run</a></li><li data-type="method" id="NIEMModelQA-startUpdate-nav"><a href="NIEMModelQA.html#startUpdate">startUpdate</a></li></ul></li><li id="PropertyUnitTests-nav"><a href="PropertyUnitTests.html">PropertyUnitTests</a><ul class='methods'><li data-type="method" id="PropertyUnitTests-definition_augmentation-nav"><a href="PropertyUnitTests.html#definition_augmentation">definition_augmentation</a></li><li data-type="method" id="PropertyUnitTests-definition_augmentationPoint-nav"><a href="PropertyUnitTests.html#definition_augmentationPoint">definition_augmentationPoint</a></li><li data-type="method" id="PropertyUnitTests-definition_formatting-nav"><a href="PropertyUnitTests.html#definition_formatting">definition_formatting</a></li><li data-type="method" id="PropertyUnitTests-definition_representation-nav"><a href="PropertyUnitTests.html#definition_representation">definition_representation</a></li><li data-type="method" id="PropertyUnitTests-definition_spellcheck-nav"><a href="PropertyUnitTests.html#definition_spellcheck">definition_spellcheck</a></li><li data-type="method" id="PropertyUnitTests-general_unused-nav"><a href="PropertyUnitTests.html#general_unused">general_unused</a></li><li data-type="method" id="PropertyUnitTests-name_augmentation-nav"><a href="PropertyUnitTests.html#name_augmentation">name_augmentation</a></li><li data-type="method" id="PropertyUnitTests-name_camelCase_attribute-nav"><a href="PropertyUnitTests.html#name_camelCase_attribute">name_camelCase_attribute</a></li><li data-type="method" id="PropertyUnitTests-name_camelCase_element-nav"><a href="PropertyUnitTests.html#name_camelCase_element">name_camelCase_element</a></li><li data-type="method" id="PropertyUnitTests-name_duplicate-nav"><a href="PropertyUnitTests.html#name_duplicate">name_duplicate</a></li><li data-type="method" id="PropertyUnitTests-name_invalidChar-nav"><a href="PropertyUnitTests.html#name_invalidChar">name_invalidChar</a></li><li data-type="method" id="PropertyUnitTests-name_missing-nav"><a href="PropertyUnitTests.html#name_missing">name_missing</a></li><li data-type="method" id="PropertyUnitTests-name_overlap-nav"><a href="PropertyUnitTests.html#name_overlap">name_overlap</a></li><li data-type="method" id="PropertyUnitTests-name_repTerm_augmentation-nav"><a href="PropertyUnitTests.html#name_repTerm_augmentation">name_repTerm_augmentation</a></li><li data-type="method" id="PropertyUnitTests-name_spellcheck-nav"><a href="PropertyUnitTests.html#name_spellcheck">name_spellcheck</a></li><li data-type="method" id="PropertyUnitTests-prefix_missing-nav"><a href="PropertyUnitTests.html#prefix_missing">prefix_missing</a></li><li data-type="method" id="PropertyUnitTests-prefix_unknown-nav"><a href="PropertyUnitTests.html#prefix_unknown">prefix_unknown</a></li><li data-type="method" id="PropertyUnitTests-type_amount-nav"><a href="PropertyUnitTests.html#type_amount">type_amount</a></li><li data-type="method" id="PropertyUnitTests-type_binaryObject-nav"><a href="PropertyUnitTests.html#type_binaryObject">type_binaryObject</a></li><li data-type="method" id="PropertyUnitTests-type_element-nav"><a href="PropertyUnitTests.html#type_element">type_element</a></li><li data-type="method" id="PropertyUnitTests-type_indicator-nav"><a href="PropertyUnitTests.html#type_indicator">type_indicator</a></li><li data-type="method" id="PropertyUnitTests-type_missing-nav"><a href="PropertyUnitTests.html#type_missing">type_missing</a></li><li data-type="method" id="PropertyUnitTests-type_percent-nav"><a href="PropertyUnitTests.html#type_percent">type_percent</a></li></ul></li><li id="QAResults-nav"><a href="QAResults.html">QAResults</a><ul class='methods'><li data-type="method" id="QAResults-failed-nav"><a href="QAResults.html#failed">failed</a></li><li data-type="method" id="QAResults-issues-nav"><a href="QAResults.html#issues">issues</a></li><li data-type="method" id="QAResults-passed-nav"><a href="QAResults.html#passed">passed</a></li><li data-type="method" id="QAResults-reload-nav"><a href="QAResults.html#reload">reload</a></li><li data-type="method" id="QAResults-save-nav"><a href="QAResults.html#save">save</a></li><li data-type="method" id="QAResults-status-nav"><a href="QAResults.html#status">status</a></li></ul></li><li id="Report-nav"><a href="Report.html">Report</a><ul class='methods'><li data-type="method" id="Report-failedTests-nav"><a href="Report.html#failedTests">failedTests</a></li><li data-type="method" id="Report-issues-nav"><a href="Report.html#issues">issues</a></li><li data-type="method" id="Report-namespaceStatus-nav"><a href="Report.html#namespaceStatus">namespaceStatus</a></li><li data-type="method" id="Report-report-nav"><a href="Report.html#report">report</a></li><li data-type="method" id="Report-saveAsDownload-nav"><a href="Report.html#saveAsDownload">saveAsDownload</a></li><li data-type="method" id="Report-saveAsFile-nav"><a href="Report.html#saveAsFile">saveAsFile</a></li><li data-type="method" id="Report-summary-nav"><a href="Report.html#summary">summary</a></li><li data-type="method" id="Report-testStatus-nav"><a href="Report.html#testStatus">testStatus</a></li></ul></li><li id="Terminal-nav"><a href="Terminal.html">Terminal</a><ul class='methods'><li data-type="method" id="Terminal-printStatus-nav"><a href="Terminal.html#printStatus">printStatus</a></li></ul></li><li id="Test-nav"><a href="Test.html">Test</a><ul class='methods'><li data-type="method" id="Test-append-nav"><a href="Test.html#append">append</a></li><li data-type="method" id="Test-log-nav"><a href="Test.html#log">log</a></li><li data-type="method" id="Test-reset-nav"><a href="Test.html#reset">reset</a></li><li data-type="method" id="Test-start-nav"><a href="Test.html#start">start</a></li></ul></li><li id="Tests-nav"><a href="Tests.html">Tests</a><ul class='methods'><li data-type="method" id="Tests-add-nav"><a href="Tests.html#add">add</a></li><li data-type="method" id="Tests-find-nav"><a href="Tests.html#find">find</a></li><li data-type="method" id="Tests-loadSpreadsheet-nav"><a href="Tests.html#loadSpreadsheet">loadSpreadsheet</a></li><li data-type="method" id="Tests-post-nav"><a href="Tests.html#post">post</a></li><li data-type="method" id="Tests-reset-nav"><a href="Tests.html#reset">reset</a></li><li data-type="method" id="Tests-save-nav"><a href="Tests.html#save">save</a></li><li data-type="method" id="Tests-start-nav"><a href="Tests.html#start">start</a></li></ul></li><li id="TypeUnitTests-nav"><a href="TypeUnitTests.html">TypeUnitTests</a><ul class='methods'><li data-type="method" id="TypeUnitTests-base_association-nav"><a href="TypeUnitTests.html#base_association">base_association</a></li><li data-type="method" id="TypeUnitTests-base_augmentation-nav"><a href="TypeUnitTests.html#base_augmentation">base_augmentation</a></li><li data-type="method" id="TypeUnitTests-base_csc-nav"><a href="TypeUnitTests.html#base_csc">base_csc</a></li><li data-type="method" id="TypeUnitTests-base_metadata-nav"><a href="TypeUnitTests.html#base_metadata">base_metadata</a></li><li data-type="method" id="TypeUnitTests-base_role-nav"><a href="TypeUnitTests.html#base_role">base_role</a></li><li data-type="method" id="TypeUnitTests-base_simple-nav"><a href="TypeUnitTests.html#base_simple">base_simple</a></li><li data-type="method" id="TypeUnitTests-base_simpleContent-nav"><a href="TypeUnitTests.html#base_simpleContent">base_simpleContent</a></li><li data-type="method" id="TypeUnitTests-base_union-nav"><a href="TypeUnitTests.html#base_union">base_union</a></li><li data-type="method" id="TypeUnitTests-base_unknown-nav"><a href="TypeUnitTests.html#base_unknown">base_unknown</a></li><li data-type="method" id="TypeUnitTests-definition_augmentation-nav"><a href="TypeUnitTests.html#definition_augmentation">definition_augmentation</a></li><li data-type="method" id="TypeUnitTests-definition_formatting-nav"><a href="TypeUnitTests.html#definition_formatting">definition_formatting</a></li><li data-type="method" id="TypeUnitTests-definition_missing_complex-nav"><a href="TypeUnitTests.html#definition_missing_complex">definition_missing_complex</a></li><li data-type="method" id="TypeUnitTests-definition_missing_simple-nav"><a href="TypeUnitTests.html#definition_missing_simple">definition_missing_simple</a></li><li data-type="method" id="TypeUnitTests-definition_phrase_complex-nav"><a href="TypeUnitTests.html#definition_phrase_complex">definition_phrase_complex</a></li><li data-type="method" id="TypeUnitTests-definition_phrase_simple-nav"><a href="TypeUnitTests.html#definition_phrase_simple">definition_phrase_simple</a></li><li data-type="method" id="TypeUnitTests-definition_spellcheck-nav"><a href="TypeUnitTests.html#definition_spellcheck">definition_spellcheck</a></li><li data-type="method" id="TypeUnitTests-general_unused-nav"><a href="TypeUnitTests.html#general_unused">general_unused</a></li><li data-type="method" id="TypeUnitTests-name_camelCase-nav"><a href="TypeUnitTests.html#name_camelCase">name_camelCase</a></li><li data-type="method" id="TypeUnitTests-name_duplicate-nav"><a href="TypeUnitTests.html#name_duplicate">name_duplicate</a></li><li data-type="method" id="TypeUnitTests-name_inconsistent_codeType-nav"><a href="TypeUnitTests.html#name_inconsistent_codeType">name_inconsistent_codeType</a></li><li data-type="method" id="TypeUnitTests-name_invalidChar-nav"><a href="TypeUnitTests.html#name_invalidChar">name_invalidChar</a></li><li data-type="method" id="TypeUnitTests-name_missing_complex-nav"><a href="TypeUnitTests.html#name_missing_complex">name_missing_complex</a></li><li data-type="method" id="TypeUnitTests-name_missing_simple-nav"><a href="TypeUnitTests.html#name_missing_simple">name_missing_simple</a></li><li data-type="method" id="TypeUnitTests-name_overlap-nav"><a href="TypeUnitTests.html#name_overlap">name_overlap</a></li><li data-type="method" id="TypeUnitTests-name_repTerm_codeSimpleType-nav"><a href="TypeUnitTests.html#name_repTerm_codeSimpleType">name_repTerm_codeSimpleType</a></li><li data-type="method" id="TypeUnitTests-name_repTerm_codeType-nav"><a href="TypeUnitTests.html#name_repTerm_codeType">name_repTerm_codeType</a></li><li data-type="method" id="TypeUnitTests-name_repTerm_complex-nav"><a href="TypeUnitTests.html#name_repTerm_complex">name_repTerm_complex</a></li><li data-type="method" id="TypeUnitTests-name_repTerm_simple-nav"><a href="TypeUnitTests.html#name_repTerm_simple">name_repTerm_simple</a></li><li data-type="method" id="TypeUnitTests-name_repTerm_type-nav"><a href="TypeUnitTests.html#name_repTerm_type">name_repTerm_type</a></li><li data-type="method" id="TypeUnitTests-name_reservedTerm_type-nav"><a href="TypeUnitTests.html#name_reservedTerm_type">name_reservedTerm_type</a></li><li data-type="method" id="TypeUnitTests-name_spellcheck-nav"><a href="TypeUnitTests.html#name_spellcheck">name_spellcheck</a></li><li data-type="method" id="TypeUnitTests-prefix_missing-nav"><a href="TypeUnitTests.html#prefix_missing">prefix_missing</a></li><li data-type="method" id="TypeUnitTests-prefix_unknown-nav"><a href="TypeUnitTests.html#prefix_unknown">prefix_unknown</a></li><li data-type="method" id="TypeUnitTests-style_missing-nav"><a href="TypeUnitTests.html#style_missing">style_missing</a></li><li data-type="method" id="TypeUnitTests-style_unknown-nav"><a href="TypeUnitTests.html#style_unknown">style_unknown</a></li></ul></li><li id="Update-nav"><a href="Update.html">Update</a><ul class='methods'><li data-type="method" id="Update-end-nav"><a href="Update.html#end">end</a></li><li data-type="method" id="Update-log-nav"><a href="Update.html#log">log</a></li></ul></li><li id="Utils-nav"><a href="Utils.html">Utils</a><ul class='methods'><li data-type="method" id="Utils-component_unknown__helper-nav"><a href="Utils.html#component_unknown__helper">component_unknown__helper</a></li><li data-type="method" id="Utils-definition_spellcheck__helper-nav"><a href="Utils.html#definition_spellcheck__helper">definition_spellcheck__helper</a></li><li data-type="method" id="Utils-name_duplicate__helper-nav"><a href="Utils.html#name_duplicate__helper">name_duplicate__helper</a></li><li data-type="method" id="Utils-name_invalidChar__helper-nav"><a href="Utils.html#name_invalidChar__helper">name_invalidChar__helper</a></li><li data-type="method" id="Utils-name_missing__helper-nav"><a href="Utils.html#name_missing__helper">name_missing__helper</a></li><li data-type="method" id="Utils-name_spellcheck__helper-nav"><a href="Utils.html#name_spellcheck__helper">name_spellcheck__helper</a></li><li data-type="method" id="Utils-prefix_unknown__helper-nav"><a href="Utils.html#prefix_unknown__helper">prefix_unknown__helper</a></li><li data-type="method" id="Utils-property_unknown__helper-nav"><a href="Utils.html#property_unknown__helper">property_unknown__helper</a></li><li data-type="method" id="Utils-text_formatting_helper-nav"><a href="Utils.html#text_formatting_helper">text_formatting_helper</a></li><li data-type="method" id="Utils-type_unknown__helper-nav"><a href="Utils.html#type_unknown__helper">type_unknown__helper</a></li></ul></li></ul><h3 id="global-nav">Global</h3><ul><li><a href="global.html#failed">failed</a></li><li><a href="global.html#failedErrors">failedErrors</a></li><li><a href="global.html#failedInfo">failedInfo</a></li><li><a href="global.html#failedWarnings">failedWarnings</a></li><li><a href="global.html#issues">issues</a></li><li><a href="global.html#notRan">notRan</a></li><li><a href="global.html#passed">passed</a></li><li><a href="global.html#prefixes">prefixes</a></li><li><a href="global.html#ran">ran</a></li><li><a href="global.html#status">status</a></li></ul>
+  </nav>
+
+  <div id="main">
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="FacetUnitTests.html">FacetUnitTests</a><ul class='methods'><li data-type='method'><a href="FacetUnitTests.html#definition_missing_code">definition_missing_code</a></li><li data-type='method'><a href="FacetUnitTests.html#definition_missing_pattern">definition_missing_pattern</a></li><li data-type='method'><a href="FacetUnitTests.html#style_invalid">style_invalid</a></li><li data-type='method'><a href="FacetUnitTests.html#type_complex">type_complex</a></li><li data-type='method'><a href="FacetUnitTests.html#type_repTerm_code">type_repTerm_code</a></li><li data-type='method'><a href="FacetUnitTests.html#type_unknown">type_unknown</a></li><li data-type='method'><a href="FacetUnitTests.html#value_duplicate_code">value_duplicate_code</a></li><li data-type='method'><a href="FacetUnitTests.html#value_formatting">value_formatting</a></li><li data-type='method'><a href="FacetUnitTests.html#value_missing">value_missing</a></li></ul></li><li><a href="Issue.html">Issue</a></li><li><a href="NIEMModelQA.html">NIEMModelQA</a><ul class='methods'><li data-type='method'><a href="NIEMModelQA.html#.saveTestsAsJSON">saveTestsAsJSON</a></li><li data-type='method'><a href="NIEMModelQA.html#init">init</a></li><li data-type='method'><a href="NIEMModelQA.html#run">run</a></li><li data-type='method'><a href="NIEMModelQA.html#startUpdate">startUpdate</a></li></ul></li><li><a href="PropertyUnitTests.html">PropertyUnitTests</a><ul class='methods'><li data-type='method'><a href="PropertyUnitTests.html#definition_formatting">definition_formatting</a></li><li data-type='method'><a href="PropertyUnitTests.html#definition_spellcheck">definition_spellcheck</a></li><li data-type='method'><a href="PropertyUnitTests.html#name_camelCase_attribute">name_camelCase_attribute</a></li><li data-type='method'><a href="PropertyUnitTests.html#name_camelCase_element">name_camelCase_element</a></li><li data-type='method'><a href="PropertyUnitTests.html#name_duplicate">name_duplicate</a></li><li data-type='method'><a href="PropertyUnitTests.html#name_invalidChar">name_invalidChar</a></li><li data-type='method'><a href="PropertyUnitTests.html#name_missing">name_missing</a></li><li data-type='method'><a href="PropertyUnitTests.html#name_repTerm_aug">name_repTerm_aug</a></li><li data-type='method'><a href="PropertyUnitTests.html#name_spellcheck">name_spellcheck</a></li><li data-type='method'><a href="PropertyUnitTests.html#prefix_missing">prefix_missing</a></li><li data-type='method'><a href="PropertyUnitTests.html#prefix_unknown">prefix_unknown</a></li></ul></li><li><a href="QAResults.html">QAResults</a><ul class='methods'><li data-type='method'><a href="QAResults.html#failed">failed</a></li><li data-type='method'><a href="QAResults.html#issues">issues</a></li><li data-type='method'><a href="QAResults.html#passed">passed</a></li><li data-type='method'><a href="QAResults.html#reload">reload</a></li><li data-type='method'><a href="QAResults.html#save">save</a></li><li data-type='method'><a href="QAResults.html#status">status</a></li></ul></li><li><a href="Report.html">Report</a><ul class='methods'><li data-type='method'><a href="Report.html#failedTests">failedTests</a></li><li data-type='method'><a href="Report.html#issues">issues</a></li><li data-type='method'><a href="Report.html#namespaceStatus">namespaceStatus</a></li><li data-type='method'><a href="Report.html#report">report</a></li><li data-type='method'><a href="Report.html#saveAsDownload">saveAsDownload</a></li><li data-type='method'><a href="Report.html#saveAsFile">saveAsFile</a></li><li data-type='method'><a href="Report.html#summary">summary</a></li><li data-type='method'><a href="Report.html#testStatus">testStatus</a></li></ul></li><li><a href="Terminal.html">Terminal</a><ul class='methods'><li data-type='method'><a href="Terminal.html#printStatus">printStatus</a></li></ul></li><li><a href="Test.html">Test</a><ul class='methods'><li data-type='method'><a href="Test.html#log">log</a></li><li data-type='method'><a href="Test.html#reset">reset</a></li><li data-type='method'><a href="Test.html#start">start</a></li></ul></li><li><a href="Tests.html">Tests</a><ul class='methods'><li data-type='method'><a href="Tests.html#add">add</a></li><li data-type='method'><a href="Tests.html#find">find</a></li><li data-type='method'><a href="Tests.html#loadSpreadsheet">loadSpreadsheet</a></li><li data-type='method'><a href="Tests.html#post">post</a></li><li data-type='method'><a href="Tests.html#reset">reset</a></li><li data-type='method'><a href="Tests.html#save">save</a></li><li data-type='method'><a href="Tests.html#start">start</a></li></ul></li><li><a href="TypeUnitTests.html">TypeUnitTests</a><ul class='methods'><li data-type='method'><a href="TypeUnitTests.html#base_invalid_csc">base_invalid_csc</a></li><li data-type='method'><a href="TypeUnitTests.html#base_invalid_simple">base_invalid_simple</a></li><li data-type='method'><a href="TypeUnitTests.html#base_missing_simpleContent">base_missing_simpleContent</a></li><li data-type='method'><a href="TypeUnitTests.html#base_unknown">base_unknown</a></li><li data-type='method'><a href="TypeUnitTests.html#definition_formatting">definition_formatting</a></li><li data-type='method'><a href="TypeUnitTests.html#definition_missing_complex">definition_missing_complex</a></li><li data-type='method'><a href="TypeUnitTests.html#definition_missing_simple">definition_missing_simple</a></li><li data-type='method'><a href="TypeUnitTests.html#definition_phrase_complex">definition_phrase_complex</a></li><li data-type='method'><a href="TypeUnitTests.html#definition_phrase_simple">definition_phrase_simple</a></li><li data-type='method'><a href="TypeUnitTests.html#definition_spellcheck">definition_spellcheck</a></li><li data-type='method'><a href="TypeUnitTests.html#name_camelCase">name_camelCase</a></li><li data-type='method'><a href="TypeUnitTests.html#name_duplicate">name_duplicate</a></li><li data-type='method'><a href="TypeUnitTests.html#name_inconsistent_codeType">name_inconsistent_codeType</a></li><li data-type='method'><a href="TypeUnitTests.html#name_invalidChar">name_invalidChar</a></li><li data-type='method'><a href="TypeUnitTests.html#name_missing_complex">name_missing_complex</a></li><li data-type='method'><a href="TypeUnitTests.html#name_missing_simple">name_missing_simple</a></li><li data-type='method'><a href="TypeUnitTests.html#name_repTerm_codeSimpleType">name_repTerm_codeSimpleType</a></li><li data-type='method'><a href="TypeUnitTests.html#name_repTerm_codeType">name_repTerm_codeType</a></li><li data-type='method'><a href="TypeUnitTests.html#name_repTerm_complex">name_repTerm_complex</a></li><li data-type='method'><a href="TypeUnitTests.html#name_repTerm_simple">name_repTerm_simple</a></li><li data-type='method'><a href="TypeUnitTests.html#name_repTerm_type">name_repTerm_type</a></li><li data-type='method'><a href="TypeUnitTests.html#name_reservedTerm_type">name_reservedTerm_type</a></li><li data-type='method'><a href="TypeUnitTests.html#name_spellcheck">name_spellcheck</a></li><li data-type='method'><a href="TypeUnitTests.html#prefix_missing">prefix_missing</a></li><li data-type='method'><a href="TypeUnitTests.html#prefix_unknown">prefix_unknown</a></li><li data-type='method'><a href="TypeUnitTests.html#style_missing">style_missing</a></li><li data-type='method'><a href="TypeUnitTests.html#style_unknown">style_unknown</a></li></ul></li><li><a href="Update.html">Update</a><ul class='methods'><li data-type='method'><a href="Update.html#end">end</a></li><li data-type='method'><a href="Update.html#log">log</a></li></ul></li><li><a href="Utils.html">Utils</a><ul class='methods'><li data-type='method'><a href="Utils.html#component_unknown__helper">component_unknown__helper</a></li><li data-type='method'><a href="Utils.html#prefix_unknown__helper">prefix_unknown__helper</a></li><li data-type='method'><a href="Utils.html#property_unknown__helper">property_unknown__helper</a></li><li data-type='method'><a href="Utils.html#type_unknown__helper">type_unknown__helper</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#customDictionary">customDictionary</a></li><li><a href="global.html#failed">failed</a></li><li><a href="global.html#failedErrors">failedErrors</a></li><li><a href="global.html#failedInfo">failedInfo</a></li><li><a href="global.html#failedWarnings">failedWarnings</a></li><li><a href="global.html#fieldHasValues">fieldHasValues</a></li><li><a href="global.html#getNameTerms">getNameTerms</a></li><li><a href="global.html#hideSourceColumns">hideSourceColumns</a></li><li><a href="global.html#issues">issues</a></li><li><a href="global.html#JSONTests">JSONTests</a></li><li><a href="global.html#loadDictionary">loadDictionary</a></li><li><a href="global.html#notRan">notRan</a></li><li><a href="global.html#passed">passed</a></li><li><a href="global.html#prefixes">prefixes</a></li><li><a href="global.html#processDefinition">processDefinition</a></li><li><a href="global.html#ran">ran</a></li><li><a href="global.html#setWorkbookOptions">setWorkbookOptions</a></li><li><a href="global.html#severityStatusLine">severityStatusLine</a></li><li><a href="global.html#status">status</a></li><li><a href="global.html#summary">summary</a></li><li><a href="global.html#testStatusLine">testStatusLine</a></li><li><a href="global.html#testStatusLines">testStatusLines</a></li></ul>
-</nav>
-
-<div id="main">
-    
-    <h1 class="page-title">TypeUnitTests</h1>
+      <h1 class="page-title">
+        TypeUnitTests
+      </h1>
     
 
     
-
-
-
 
 <section>
-
-<header>
+  <header>
     
-        <h2>
+      <h2>
+        
         TypeUnitTests
-        </h2>
         
-            <div class="class-description usertext">Type unit tests</div>
-        
-    
-</header>
+      </h2>
 
-<article>
+      
+        <div class="class-description">
+          <p>Type unit tests</p>
+        </div>
+      
     
-        <div class="container-overview">
-        
-            
+  </header>
 
-    
+  <article>
+    <div class="container-overview">
+      
+        
+
+
+  
     <h2>Constructor</h2>
-    
+  
 
-    <h4 class="name" id="TypeUnitTests"><span class="type-signature"></span>new TypeUnitTests<span class="signature">()</span><span class="type-signature"></span></h4>
+  <span class='name-container'>
+    <a class="link-icon" href="#TypeUnitTests">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="TypeUnitTests">
+      <span class="type-signature"></span>new TypeUnitTests<span class="signature">()</span><span class="type-signature"></span>
+    </h4>
+  </span>
 
-    
+  
+
+
+
+
+
+
+
+
 
 
 
 
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line9">line 9</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line10">line 10</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
@@ -125,34 +196,13 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-        </div>
-    
+      
+    </div>
 
     
 
     
 
-    
-    
     
 
      
@@ -162,68 +212,32 @@
     
 
     
-        <h3 class="subsection-title">Methods</h3>
+      <h3 class="subsection-title">Methods</h3>
 
+      
         
-            
-
-    
-
-    <h4 class="name" id="base_invalid_csc"><span class="type-signature">(async) </span>base_invalid_csc<span class="signature">(types, release)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
 
 
+  
 
+  <span class='name-container'>
+    <a class="link-icon" href="#base_association">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="base_association">
+      <span class="type-signature">(async) </span>base_association<span class="signature">(types)</span><span class="type-signature"></span>
+    </h4>
+  </span>
 
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line23">line 23</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
+  
 
 
 
-
-
-<div class="description usertext">
-    Check that complex types with simple content (CSC) have a CSC or a simple
-base type.
-</div>
+  <div class="description">
+    <p>Checks that association types extend a type that ends in &quot;AssociationType&quot;</p>
+  </div>
 
 
 
@@ -231,183 +245,112 @@ base type.
 
 
 
-
-
-    <h5>Examples</h5>
-    
-    <pre class="prettyprint"><code>"Simple content type HairColorCodeType can have a base type like HairColorCodeSimpleType (simple type)."</code></pre>
-
-    <pre class="prettyprint"><code>"Simple content type HairColorCodeType cannot have a type like nc:PersonType (complex object type)."</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
     
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
 
-        <tr>
+        <td class="type">
+          
             
-                <td class="name"><code>types</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
 
     
 
-        <tr>
-            
-                <td class="name"><code>release</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Release</span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="base_invalid_simple"><span class="type-signature">(async) </span>base_invalid_simple<span class="signature">(types, release)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line53">line 53</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line16">line 16</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that simple types have a XML schema base type.
-</div>
 
 
 
@@ -417,182 +360,143 @@ base type.
 
 
 
-    <h5>Examples</h5>
-    
-    <pre class="prettyprint"><code>"Simple type ext:HairColorCodeSimpleType can have base type xs:token."</code></pre>
-
-    <pre class="prettyprint"><code>"Simple type ext:HairColorCodeSimpleType should not have base type ext:ColorCodeSimpleType."</code></pre>
+      
+        
 
 
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#base_augmentation">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="base_augmentation">
+      <span class="type-signature">(async) </span>base_augmentation<span class="signature">(types)</span><span class="type-signature"></span>
+    </h4>
+  </span>
+
+  
 
 
-    <h5>Parameters:</h5>
-    
+
+  <div class="description">
+    <p>Checks that augmentation types extend structures:AugmentationType</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
     
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
 
-        <tr>
+        <td class="type">
+          
             
-                <td class="name"><code>types</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
 
     
 
-        <tr>
-            
-                <td class="name"><code>release</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Release</span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="base_missing_simpleContent"><span class="type-signature">(async) </span>base_missing_simpleContent<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line83">line 83</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line28">line 28</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that simple content types have a base.
-Exception: Simple union types have member types instead of a base.
-</div>
 
 
 
@@ -602,158 +506,173 @@ Exception: Simple union types have member types instead of a base.
 
 
 
-    <h5>Examples</h5>
-    
-    <pre class="prettyprint"><code>"Type HairColorCodeSimpleType needs a base type like xs:string or xs:token."</code></pre>
-
-    <pre class="prettyprint"><code>"Type HairColorCodeSimpleType is not valid without a base type."</code></pre>
+      
+        
 
 
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#base_csc">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="base_csc">
+      <span class="type-signature">(async) </span>base_csc<span class="signature">(types, release)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
 
 
-    <h5>Parameters:</h5>
-    
+
+  <div class="description">
+    <p>Check that complex types with simple content (CSC) have a CSC or a simple
+base type.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+      <tr>
+        
+          <td class="name"><code>release</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      ReleaseDef
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="base_unknown"><span class="type-signature">(async) </span>base_unknown<span class="signature">(types, release)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line101">line 101</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line45">line 45</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that type bases exist.
-</div>
 
 
 
@@ -762,185 +681,161 @@ Exception: Simple union types have member types instead of a base.
 
 
 
-
-    <h5>Examples</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#base_csc-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="base_csc-examples">Examples</h5>
     
-    <pre class="prettyprint"><code>"Type PersonType can extend type structures:ObjectType (this type exists)."</code></pre>
 
-    <pre class="prettyprint"><code>"Type PersonType cannot extend type structures:BogusType (this type does not exist)."</code></pre>
-
+  <pre class="prettyprint"><code>"Simple content type HairColorCodeType can have base type HairColorCodeSimpleType (simple type)."</code></pre>
 
 
+  <pre class="prettyprint"><code>"Simple content type HairColorCodeType cannot have base type nc:PersonType (complex object type)."</code></pre>
 
-    <h5>Parameters:</h5>
-    
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#base_metadata">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="base_metadata">
+      <span class="type-signature">(async) </span>base_metadata<span class="signature">(types)</span><span class="type-signature"></span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Checks that metadata types extend structures:MetadataType</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
     
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
 
-        <tr>
+        <td class="type">
+          
             
-                <td class="name"><code>types</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
 
     
 
-        <tr>
-            
-                <td class="name"><code>release</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Release</span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="definition_formatting"><span class="type-signature"></span>definition_formatting<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line131">line 131</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line69">line 69</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check type definition use consistent formatting.
-
-- Two spaces are allowed after a period.  Other uses of multiple consecutive spaces are not allowed.
-- Leading and trailing spaces are not allowed.
-</div>
 
 
 
@@ -950,151 +845,172 @@ Exception: Simple union types have member types instead of a base.
 
 
 
+      
+        
 
 
-    <h5>Parameters:</h5>
-    
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#base_role">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="base_role">
+      <span class="type-signature">(async) </span>base_role<span class="signature">(types, release)</span><span class="type-signature"></span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that object types that contain RoleOf elements extend structures:ObjectType</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Property></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+      <tr>
+        
+          <td class="name"><code>release</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      ReleaseDef
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="definition_missing_complex"><span class="type-signature">(async) </span>definition_missing_complex<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line141">line 141</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line84">line 84</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that a complex type has a definition.
-</div>
 
 
 
@@ -1103,152 +1019,190 @@ Exception: Simple union types have member types instead of a base.
 
 
 
-
-
-
-    <h5>Parameters:</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#base_role-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="base_role-examples">Examples</h5>
     
+
+  <pre class="prettyprint"><code>"Type j:VictimType can contain nc:RoleOfPerson and extend structures:ObjectType"</code></pre>
+
+
+  <pre class="prettyprint"><code>"Type j:VictimType should not both contain nc:RoleOfPerson and extend nc:PersonType"</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#base_simple">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="base_simple">
+      <span class="type-signature">(async) </span>base_simple<span class="signature">(types, release)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that simple types have a XML schema base type.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+      <tr>
+        
+          <td class="name"><code>release</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      ReleaseDef
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="definition_missing_simple"><span class="type-signature">(async) </span>definition_missing_simple<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line152">line 152</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line134">line 134</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that a simple type has a definition.
-</div>
 
 
 
@@ -1257,152 +1211,162 @@ Exception: Simple union types have member types instead of a base.
 
 
 
-
-
-
-    <h5>Parameters:</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#base_simple-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="base_simple-examples">Examples</h5>
     
+
+  <pre class="prettyprint"><code>"Simple type ext:HairColorCodeSimpleType can have base type xs:token."</code></pre>
+
+
+  <pre class="prettyprint"><code>"Simple type ext:HairColorCodeSimpleType should not have base type ext:ColorCodeSimpleType."</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#base_simpleContent">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="base_simpleContent">
+      <span class="type-signature">(async) </span>base_simpleContent<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that simple content types have a base.
+Exception: Simple union types have member types instead of a base.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="definition_phrase_complex"><span class="type-signature">(async) </span>definition_phrase_complex<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line167">line 167</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line164">line 164</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that a complex type definition begins with the opening phrase 'A data type '.
-</div>
 
 
 
@@ -1411,159 +1375,161 @@ Exception: Simple union types have member types instead of a base.
 
 
 
-
-    <h5>Examples</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#base_simpleContent-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="base_simpleContent-examples">Examples</h5>
     
-    <pre class="prettyprint"><code>"Definition 'A data type for a human being' is valid for type 'PersonType'."</code></pre>
 
-    <pre class="prettyprint"><code>"Definition 'A human being' is not valid for type 'PersonType'."</code></pre>
-
+  <pre class="prettyprint"><code>"Type HairColorCodeSimpleType needs a base type like xs:string or xs:token."</code></pre>
 
 
+  <pre class="prettyprint"><code>"Type HairColorCodeSimpleType is not valid without a base type."</code></pre>
 
-    <h5>Parameters:</h5>
-    
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#base_union">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="base_union">
+      <span class="type-signature">(async) </span>base_union<span class="signature">(types)</span><span class="type-signature"></span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Checks that union types do not have a base type</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="definition_phrase_simple"><span class="type-signature">(async) </span>definition_phrase_simple<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line188">line 188</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line176">line 176</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that a simple type definition begins with the opening phrase 'A data type '.
-</div>
 
 
 
@@ -1573,159 +1539,172 @@ Exception: Simple union types have member types instead of a base.
 
 
 
-    <h5>Examples</h5>
-    
-    <pre class="prettyprint"><code>"Definition 'A data type for United States state codes' is valid for type usps:StateCodeSimpleType."</code></pre>
-
-    <pre class="prettyprint"><code>"Definition 'United States state codes' is not valid for type usps:StateCodeSimpleType."</code></pre>
+      
+        
 
 
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#base_unknown">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="base_unknown">
+      <span class="type-signature">(async) </span>base_unknown<span class="signature">(types, release)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
 
 
-    <h5>Parameters:</h5>
-    
+
+  <div class="description">
+    <p>Check that type bases exist.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+      <tr>
+        
+          <td class="name"><code>release</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      ReleaseDef
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="definition_spellcheck"><span class="type-signature">(async) </span>definition_spellcheck<span class="signature">(types, release)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line211">line 211</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line192">line 192</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that words in a type definition are either in the dictionary or defined
-as Local Terminology.
-</div>
 
 
 
@@ -1734,186 +1713,161 @@ as Local Terminology.
 
 
 
-
-    <h5>Examples</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#base_unknown-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="base_unknown-examples">Examples</h5>
     
-    <pre class="prettyprint"><code>"Definition 'A data type for FIPS state codes' is valid if the term 'FIPS' is defined as Local Terminology in that namespace."</code></pre>
 
-    <pre class="prettyprint"><code>"Definition 'A data type for FIPS state codes' is not recommended if the term 'FIPS' is not defined as Local Terminology in that namespace."</code></pre>
-
+  <pre class="prettyprint"><code>"Type PersonType can extend type structures:ObjectType (this type exists)."</code></pre>
 
 
+  <pre class="prettyprint"><code>"Type PersonType cannot extend type structures:BogusType (this type does not exist)."</code></pre>
 
-    <h5>Parameters:</h5>
-    
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#definition_augmentation">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="definition_augmentation">
+      <span class="type-signature"></span>definition_augmentation<span class="signature">(types)</span><span class="type-signature"></span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that augmentation type definitions follow a consistent pattern.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
     
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
 
-        <tr>
+        <td class="type">
+          
             
-                <td class="name"><code>types</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
 
     
 
-        <tr>
-            
-                <td class="name"><code>release</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Release</span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="name_camelCase"><span class="type-signature">(async) </span>name_camelCase<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line230">line 230</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line220">line 220</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that a type name begins with an upper case letter.
-
-NDR exceptions:
-- XML schema types (xs:string)
-- Proxy XML schema types (niem-xs:string)
-</div>
 
 
 
@@ -1922,159 +1876,165 @@ NDR exceptions:
 
 
 
-
-    <h5>Examples</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#definition_augmentation-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="definition_augmentation-examples">Examples</h5>
     
-    <pre class="prettyprint"><code>"Type name 'PersonType' is valid because it begins with an upper case letter."</code></pre>
 
-    <pre class="prettyprint"><code>"Type name 'personType' is not valid because it begins with a lower case letter."</code></pre>
-
+  <pre class="prettyprint"><code>"Definitions 'A data type for additional information about a person' and 'A data type for additional information about nc:PersonType' are valid for em:PersonAugmentationType."</code></pre>
 
 
+  <pre class="prettyprint"><code>"Definitions 'A data type for additional information about a location' and 'A data type for additional information about nc:OrganizationType' are not valid for em:PersonAugmentationType."</code></pre>
 
-    <h5>Parameters:</h5>
-    
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#definition_formatting">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="definition_formatting">
+      <span class="type-signature"></span>definition_formatting<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check type definition use consistent formatting.</p>
+<ul>
+<li>Two spaces are allowed after a period.  Other uses of multiple consecutive spaces are not allowed.</li>
+<li>Leading and trailing spaces are not allowed.</li>
+</ul>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="name_duplicate"><span class="type-signature">(async) </span>name_duplicate<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line251">line 251</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line245">line 245</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that type names are not repeated in a namespace.
-</div>
 
 
 
@@ -2084,159 +2044,143 @@ NDR exceptions:
 
 
 
-    <h5>Examples</h5>
-    
-    <pre class="prettyprint"><code>"Types 'justice:CaseType' and 'logistics:CaseType' are valid because even though they use the same name, they are defined in different namespaces."</code></pre>
-
-    <pre class="prettyprint"><code>"Type name 'CaseType' cannot be defined twice in the justice namespace."</code></pre>
+      
+        
 
 
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#definition_missing_complex">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="definition_missing_complex">
+      <span class="type-signature">(async) </span>definition_missing_complex<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
 
 
-    <h5>Parameters:</h5>
-    
+
+  <div class="description">
+    <p>Check that a complex type has a definition.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="name_inconsistent_codeType"><span class="type-signature">(async) </span>name_inconsistent_codeType<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line267">line 267</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line255">line 255</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that a type using representation term "CodeType" follows the same
-naming pattern as its simple base type.
-</div>
 
 
 
@@ -2246,158 +2190,143 @@ naming pattern as its simple base type.
 
 
 
-    <h5>Examples</h5>
-    
-    <pre class="prettyprint"><code>"Type name 'HairColorCodeType' is valid with base type 'HairColorCodeSimpleType'."</code></pre>
-
-    <pre class="prettyprint"><code>"Type name 'HairColorCodeType' is not recommended with base type 'EyeColorCodeSimpleType'."</code></pre>
+      
+        
 
 
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#definition_missing_simple">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="definition_missing_simple">
+      <span class="type-signature">(async) </span>definition_missing_simple<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
 
 
-    <h5>Parameters:</h5>
-    
+
+  <div class="description">
+    <p>Check that a simple type has a definition.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="name_invalidChar"><span class="type-signature">(async) </span>name_invalidChar<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line287">line 287</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line266">line 266</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that all type names use valid characters.
-</div>
 
 
 
@@ -2407,158 +2336,143 @@ naming pattern as its simple base type.
 
 
 
-    <h5>Examples</h5>
-    
-    <pre class="prettyprint"><code>"Type name 'PersonType' uses valid characters."</code></pre>
-
-    <pre class="prettyprint"><code>"Type name 'ID#Type' does not use valid characters."</code></pre>
+      
+        
 
 
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#definition_phrase_complex">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="definition_phrase_complex">
+      <span class="type-signature">(async) </span>definition_phrase_complex<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
 
 
-    <h5>Parameters:</h5>
-    
+
+  <div class="description">
+    <p>Check that a complex type definition begins with the opening phrase 'A data type '.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="name_missing_complex"><span class="type-signature">(async) </span>name_missing_complex<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line297">line 297</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line281">line 281</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that all complex types have names.
-</div>
 
 
 
@@ -2567,152 +2481,161 @@ naming pattern as its simple base type.
 
 
 
-
-
-
-    <h5>Parameters:</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#definition_phrase_complex-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="definition_phrase_complex-examples">Examples</h5>
     
+
+  <pre class="prettyprint"><code>"Definition 'A data type for a human being' is valid for type 'PersonType'."</code></pre>
+
+
+  <pre class="prettyprint"><code>"Definition 'A human being' is not valid for type 'PersonType'."</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#definition_phrase_simple">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="definition_phrase_simple">
+      <span class="type-signature">(async) </span>definition_phrase_simple<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that a simple type definition begins with the opening phrase 'A data type '.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="name_missing_simple"><span class="type-signature">(async) </span>name_missing_simple<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line308">line 308</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line302">line 302</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that all simple types have names.
-</div>
 
 
 
@@ -2721,152 +2644,191 @@ naming pattern as its simple base type.
 
 
 
-
-
-
-    <h5>Parameters:</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#definition_phrase_simple-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="definition_phrase_simple-examples">Examples</h5>
     
+
+  <pre class="prettyprint"><code>"Definition 'A data type for United States state codes' is valid for type usps:StateCodeSimpleType."</code></pre>
+
+
+  <pre class="prettyprint"><code>"Definition 'United States state codes' is not valid for type usps:StateCodeSimpleType."</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#definition_spellcheck">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="definition_spellcheck">
+      <span class="type-signature">(async) </span>definition_spellcheck<span class="signature">(types, release)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that words in a type definition are either in the dictionary or defined
+as Local Terminology.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+      <tr>
+        
+          <td class="name"><code>release</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      ReleaseDef
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="name_repTerm_codeSimpleType"><span class="type-signature">(async) </span>name_repTerm_codeSimpleType<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line324">line 324</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line325">line 325</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that a type with representation term "CodeSimpleType" declares codes.
-</div>
 
 
 
@@ -2875,160 +2837,191 @@ naming pattern as its simple base type.
 
 
 
-
-    <h5>Examples</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#definition_spellcheck-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="definition_spellcheck-examples">Examples</h5>
     
-    <pre class="prettyprint"><code>"Type name 'WeekdayCodeSimpleType' is valid if the type declares codes."</code></pre>
 
-    <pre class="prettyprint"><code>"Type name 'WeekdayCodeSimpleType' is not valid if the type does not declare codes."</code></pre>
-
+  <pre class="prettyprint"><code>"Definition 'A data type for FIPS state codes' is valid if the term 'FIPS' is defined as Local Terminology in that namespace."</code></pre>
 
 
+  <pre class="prettyprint"><code>"Definition 'A data type for FIPS state codes' is not recommended if the term 'FIPS' is not defined as Local Terminology in that namespace."</code></pre>
 
-    <h5>Parameters:</h5>
-    
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#general_unused">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="general_unused">
+      <span class="type-signature">(async) </span>general_unused<span class="signature">(types, release)</span><span class="type-signature"></span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check for types that do not have a data property, are not extended, do not serve as a base type,
+and are not union types.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+      <tr>
+        
+          <td class="name"><code>release</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      ReleaseDef
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="name_repTerm_codeType"><span class="type-signature">(async) </span>name_repTerm_codeType<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line369">line 369</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line337">line 337</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that a type using representation term "CodeType" has a base type
-with representation term "CodeSimpleType".
-</div>
 
 
 
@@ -3038,158 +3031,148 @@ with representation term "CodeSimpleType".
 
 
 
-    <h5>Examples</h5>
-    
-    <pre class="prettyprint"><code>"Type name 'WeekdayCodeSimpleType' is not valid if the type does not declare codes."</code></pre>
-
-    <pre class="prettyprint"><code>"Type name 'WeekdayCodeType' is not valid with base type 'string'"</code></pre>
+      
+        
 
 
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#name_camelCase">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="name_camelCase">
+      <span class="type-signature">(async) </span>name_camelCase<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
 
 
-    <h5>Parameters:</h5>
-    
+
+  <div class="description">
+    <p>Check that a type name begins with an upper case letter.</p>
+<p>NDR exceptions:</p>
+<ul>
+<li>XML schema types (xs:string)</li>
+<li>Proxy XML schema types (niem-xs:string)</li>
+</ul>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="name_repTerm_complex"><span class="type-signature">(async) </span>name_repTerm_complex<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line389">line 389</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line367">line 367</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that complex type names do not end with "SimpleType"
-</div>
 
 
 
@@ -3198,161 +3181,161 @@ with representation term "CodeSimpleType".
 
 
 
-
-    <h5>Examples</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#name_camelCase-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="name_camelCase-examples">Examples</h5>
     
-    <pre class="prettyprint"><code>"Type name 'IDSimpleType' is valid if the type is simple."</code></pre>
 
-    <pre class="prettyprint"><code>"Type name 'IDSimpleType' is not valid if the type is complex."</code></pre>
-
+  <pre class="prettyprint"><code>"Type name 'PersonType' is valid because it begins with an upper case letter."</code></pre>
 
 
+  <pre class="prettyprint"><code>"Type name 'personType' is not valid because it begins with a lower case letter."</code></pre>
 
-    <h5>Parameters:</h5>
-    
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#name_duplicate">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="name_duplicate">
+      <span class="type-signature">(async) </span>name_duplicate<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that type names are not repeated in a namespace.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="name_repTerm_simple"><span class="type-signature">(async) </span>name_repTerm_simple<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line411">line 411</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line388">line 388</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that simple type names end with "SimpleType"
-
-NDR exceptions: XML schema types (xs:string)
-</div>
 
 
 
@@ -3361,163 +3344,162 @@ NDR exceptions: XML schema types (xs:string)
 
 
 
-
-    <h5>Examples</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#name_duplicate-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="name_duplicate-examples">Examples</h5>
     
-    <pre class="prettyprint"><code>"Type name 'IDSimpleType' is valid if the type is simple."</code></pre>
 
-    <pre class="prettyprint"><code>"Type name 'IDType' is not valid if the type is simple."</code></pre>
-
+  <pre class="prettyprint"><code>"Types 'justice:CaseType' and 'logistics:CaseType' are valid because even though they use the same name, they are defined in different namespaces."</code></pre>
 
 
+  <pre class="prettyprint"><code>"Type name 'CaseType' cannot be defined twice in the justice namespace."</code></pre>
 
-    <h5>Parameters:</h5>
-    
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#name_inconsistent_codeType">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="name_inconsistent_codeType">
+      <span class="type-signature">(async) </span>name_inconsistent_codeType<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that a type using representation term &quot;CodeType&quot; follows the same
+naming pattern as its simple base type.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="name_repTerm_type"><span class="type-signature">(async) </span>name_repTerm_type<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line435">line 435</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line416">line 416</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that all type names end with the term "Type"
-
-NDR exceptions:
-- XML schema types (xs:string)
-- Proxy XML schema types (niem-xs:string)
-</div>
 
 
 
@@ -3526,160 +3508,161 @@ NDR exceptions:
 
 
 
-
-    <h5>Examples</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#name_inconsistent_codeType-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="name_inconsistent_codeType-examples">Examples</h5>
     
-    <pre class="prettyprint"><code>"Type name 'PersonType' is valid."</code></pre>
 
-    <pre class="prettyprint"><code>"Type name 'Person' is not valid."</code></pre>
-
+  <pre class="prettyprint"><code>"Type name 'HairColorCodeType' is valid with base type 'HairColorCodeSimpleType'."</code></pre>
 
 
+  <pre class="prettyprint"><code>"Type name 'HairColorCodeType' is not recommended with base type 'EyeColorCodeSimpleType'."</code></pre>
 
-    <h5>Parameters:</h5>
-    
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#name_invalidChar">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="name_invalidChar">
+      <span class="type-signature">(async) </span>name_invalidChar<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that all type names use valid characters.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="name_reservedTerm_type"><span class="type-signature">(async) </span>name_reservedTerm_type<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line457">line 457</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line436">line 436</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that all type names do not use the term "Type" other than as the
-final representation term.
-</div>
 
 
 
@@ -3688,160 +3671,161 @@ final representation term.
 
 
 
-
-    <h5>Examples</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#name_invalidChar-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="name_invalidChar-examples">Examples</h5>
     
-    <pre class="prettyprint"><code>"Type name 'IDCategoryCodeType' is valid because the term 'Type' only appears at the end of the name."</code></pre>
 
-    <pre class="prettyprint"><code>"Type name 'IDTypeCodeType' is not valid because the term 'Type' is used in the middle of the name."</code></pre>
-
+  <pre class="prettyprint"><code>"Type name 'PersonType' uses valid characters."</code></pre>
 
 
+  <pre class="prettyprint"><code>"Type name 'ID#Type' does not use valid characters."</code></pre>
 
-    <h5>Parameters:</h5>
-    
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#name_missing_complex">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="name_missing_complex">
+      <span class="type-signature">(async) </span>name_missing_complex<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that all complex types have names.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="name_spellcheck"><span class="type-signature">(async) </span>name_spellcheck<span class="signature">(types, release)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line475">line 475</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line446">line 446</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that type name terms are either in the dictionary or defined in
-Local Terminology.
-</div>
 
 
 
@@ -3851,181 +3835,143 @@ Local Terminology.
 
 
 
-    <h5>Examples</h5>
-    
-    <pre class="prettyprint"><code>"Type name 'ncic:VMOCodeType' is valid if the ncic namespace defines the meaning of 'VMO' in its Local Terminology section."</code></pre>
-
-    <pre class="prettyprint"><code>"Type name 'ncic:VMOCodeType' is not valid if the ncic namespace does not defined 'VMO' in its Local Terminology section."</code></pre>
+      
+        
 
 
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#name_missing_simple">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="name_missing_simple">
+      <span class="type-signature">(async) </span>name_missing_simple<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
 
 
-    <h5>Parameters:</h5>
-    
+
+  <div class="description">
+    <p>Check that all simple types have names.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
     
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
 
-        <tr>
+        <td class="type">
+          
             
-                <td class="name"><code>types</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
 
     
 
-        <tr>
-            
-                <td class="name"><code>release</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Release</span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="prefix_missing"><span class="type-signature">(async) </span>prefix_missing<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line485">line 485</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line457">line 457</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that types have a namespace prefix.
-</div>
 
 
 
@@ -4035,151 +3981,144 @@ Local Terminology.
 
 
 
+      
+        
 
 
-    <h5>Parameters:</h5>
-    
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#name_overlap">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="name_overlap">
+      <span class="type-signature">(async) </span>name_overlap<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check for type names that are repeated in a release.
+Ignores augmentations and codes because those are expected to have some overlaps.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="prefix_unknown"><span class="type-signature">(async) </span>prefix_unknown<span class="signature">(types, release)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line497">line 497</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line400">line 400</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that types have a namespace prefix that has been defined in the release.
-</div>
 
 
 
@@ -4189,174 +4128,172 @@ Local Terminology.
 
 
 
+      
+        
 
 
-    <h5>Parameters:</h5>
-    
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#name_repTerm_codeSimpleType">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="name_repTerm_codeSimpleType">
+      <span class="type-signature">(async) </span>name_repTerm_codeSimpleType<span class="signature">(types, release)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that a type with representation term &quot;CodeSimpleType&quot; declares codes.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
     
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
 
-        <tr>
+        <td class="type">
+          
             
-                <td class="name"><code>types</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
 
     
 
-        <tr>
-            
-                <td class="name"><code>release</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Release</span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+      <tr>
+        
+          <td class="name"><code>release</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      ReleaseDef
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="style_missing"><span class="type-signature">(async) </span>style_missing<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line511">line 511</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line474">line 474</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that types have a style.
-</div>
 
 
 
@@ -4365,159 +4302,162 @@ Local Terminology.
 
 
 
-
-    <h5>Examples</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#name_repTerm_codeSimpleType-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="name_repTerm_codeSimpleType-examples">Examples</h5>
     
-    <pre class="prettyprint"><code>"Type PersonType has style 'object'."</code></pre>
 
-    <pre class="prettyprint"><code>"Type PersonType does not have a style."</code></pre>
-
+  <pre class="prettyprint"><code>"Type name 'WeekdayCodeSimpleType' is valid if the type declares codes."</code></pre>
 
 
+  <pre class="prettyprint"><code>"Type name 'WeekdayCodeSimpleType' is not valid if the type does not declare codes."</code></pre>
 
-    <h5>Parameters:</h5>
-    
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#name_repTerm_codeType">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="name_repTerm_codeType">
+      <span class="type-signature">(async) </span>name_repTerm_codeType<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that a type using representation term &quot;CodeType&quot; has a base type
+with representation term &quot;CodeSimpleType&quot;.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="style_unknown"><span class="type-signature">(async) </span>style_unknown<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line526">line 526</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line517">line 517</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description usertext">
-    Check that types have a known style.
-</div>
 
 
 
@@ -4526,130 +4466,1547 @@ Local Terminology.
 
 
 
-
-    <h5>Examples</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#name_repTerm_codeType-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="name_repTerm_codeType-examples">Examples</h5>
     
-    <pre class="prettyprint"><code>"Type PersonType has permitted style 'object'."</code></pre>
 
-    <pre class="prettyprint"><code>"Type PersonType cannot have unknown style 'myCustomObject'."</code></pre>
-
+  <pre class="prettyprint"><code>"Type name 'WeekdayCodeSimpleType' is not valid if the type does not declare codes."</code></pre>
 
 
+  <pre class="prettyprint"><code>"Type name 'WeekdayCodeType' is not valid with base type 'string'"</code></pre>
 
-    <h5>Parameters:</h5>
-    
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#name_repTerm_complex">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="name_repTerm_complex">
+      <span class="type-signature">(async) </span>name_repTerm_complex<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that complex type names do not end with &quot;SimpleType&quot;</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
 
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>types</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Type></span>
+          
+        </td>
 
+        
 
-            
-            </td>
+        
 
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
+<dl class="details">
 
+  
 
+  
 
+  
 
+  
 
+  
 
+  
 
+  
 
+  
 
+  
 
+  
 
-<h5>Returns:</h5>
+  
 
-        
+  
 
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;<a href="Test.html">Test</a>></span>
-
-
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line537">line 537</a>
+        </li>
+      </ul>
     </dd>
+  
+
+  
+
+  
+
+  
 </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#name_repTerm_complex-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="name_repTerm_complex-examples">Examples</h5>
+    
+
+  <pre class="prettyprint"><code>"Type name 'IDSimpleType' is valid if the type is simple."</code></pre>
+
+
+  <pre class="prettyprint"><code>"Type name 'IDSimpleType' is not valid if the type is complex."</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#name_repTerm_simple">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="name_repTerm_simple">
+      <span class="type-signature">(async) </span>name_repTerm_simple<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that simple type names end with &quot;SimpleType&quot;</p>
+<p>NDR exceptions: XML schema types (xs:string)</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
     
 
 
+          
+        </td>
 
         
+
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line559">line 559</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#name_repTerm_simple-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="name_repTerm_simple-examples">Examples</h5>
+    
+
+  <pre class="prettyprint"><code>"Type name 'IDSimpleType' is valid if the type is simple."</code></pre>
+
+
+  <pre class="prettyprint"><code>"Type name 'IDType' is not valid if the type is simple."</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#name_repTerm_type">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="name_repTerm_type">
+      <span class="type-signature">(async) </span>name_repTerm_type<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that all type names end with the term &quot;Type&quot;</p>
+<p>NDR exceptions:</p>
+<ul>
+<li>XML schema types (xs:string)</li>
+<li>Proxy XML schema types (niem-xs:string)</li>
+</ul>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line583">line 583</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#name_repTerm_type-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="name_repTerm_type-examples">Examples</h5>
+    
+
+  <pre class="prettyprint"><code>"Type name 'PersonType' is valid."</code></pre>
+
+
+  <pre class="prettyprint"><code>"Type name 'Person' is not valid."</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#name_reservedTerm_type">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="name_reservedTerm_type">
+      <span class="type-signature">(async) </span>name_reservedTerm_type<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that all type names do not use the term &quot;Type&quot; other than as the
+final representation term.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line605">line 605</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#name_reservedTerm_type-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="name_reservedTerm_type-examples">Examples</h5>
+    
+
+  <pre class="prettyprint"><code>"Type name 'IDCategoryCodeType' is valid because the term 'Type' only appears at the end of the name."</code></pre>
+
+
+  <pre class="prettyprint"><code>"Type name 'IDTypeCodeType' is not valid because the term 'Type' is used in the middle of the name."</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#name_spellcheck">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="name_spellcheck">
+      <span class="type-signature">(async) </span>name_spellcheck<span class="signature">(types, release)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that type name terms are either in the dictionary or defined in
+Local Terminology.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+      <tr>
+        
+          <td class="name"><code>release</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      ReleaseDef
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line623">line 623</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#name_spellcheck-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="name_spellcheck-examples">Examples</h5>
+    
+
+  <pre class="prettyprint"><code>"Type name 'ncic:VMOCodeType' is valid if the ncic namespace defines the meaning of 'VMO' in its Local Terminology section."</code></pre>
+
+
+  <pre class="prettyprint"><code>"Type name 'ncic:VMOCodeType' is not valid if the ncic namespace does not defined 'VMO' in its Local Terminology section."</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#prefix_missing">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="prefix_missing">
+      <span class="type-signature">(async) </span>prefix_missing<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that types have a namespace prefix.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line633">line 633</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#prefix_unknown">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="prefix_unknown">
+      <span class="type-signature">(async) </span>prefix_unknown<span class="signature">(types, release)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that types have a namespace prefix that has been defined in the release.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+      <tr>
+        
+          <td class="name"><code>release</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      ReleaseDef
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line645">line 645</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#style_missing">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="style_missing">
+      <span class="type-signature">(async) </span>style_missing<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that types have a style.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line659">line 659</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#style_missing-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="style_missing-examples">Examples</h5>
+    
+
+  <pre class="prettyprint"><code>"Type PersonType has style 'object'."</code></pre>
+
+
+  <pre class="prettyprint"><code>"Type PersonType does not have a style."</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#style_unknown">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="style_unknown">
+      <span class="type-signature">(async) </span>style_unknown<span class="signature">(types)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Test.html">Test</a>>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Check that types have a known style.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>types</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;TypeDef>
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="model-tests_type_unit.js.html">model-tests/type/unit.js</a>, <a href="model-tests_type_unit.js.html#line674">line 674</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#style_unknown-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="style_unknown-examples">Examples</h5>
+    
+
+  <pre class="prettyprint"><code>"Type PersonType has permitted style 'object'."</code></pre>
+
+
+  <pre class="prettyprint"><code>"Type PersonType cannot have unknown style 'myCustomObject'."</code></pre>
+
+
+  </div>
+
+
+      
     
 
     
 
     
-</article>
-
+  </article>
 </section>
 
 
 
 
-    
-    
-</div>
+  </div>
 
-<br class="clear">
+  <br class="clear">
 
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.5</a> on Thu Jul 30 2020 16:43:44 GMT-0400 (Eastern Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
-</footer>
+  <footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a>
+  </footer>
 
-<script>prettyPrint();</script>
-<script src="scripts/polyfill.js"></script>
-<script src="scripts/linenumber.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/pagelocation.js"></script>
 
-<script src="scripts/search.js" defer></script>
-
-
+  
 
 </body>
 </html>

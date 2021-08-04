@@ -1,8 +1,17 @@
 
-let { Release, NIEMObject, Component, ComponentInstance, Namespace, Property, Type } = require("niem-model");
+let { TypeDefs } = require("niem-model");
+let { ReleaseDef, ComponentDef, NIEMObjectDef } = TypeDefs;
 
 let Test = require("../test");
 let Issue = require("../issue");
+
+/** @private */
+let NamespaceOrComponent = {
+  ...NIEMObjectDef,
+  prefix: "",
+  definition: "",
+  label: ""
+}
 
 class Utils {
 
@@ -21,9 +30,9 @@ class Utils {
    * Checks that the qualified property field of the object exists in the release.
    *
    * @param {Test} test
-   * @param {NIEMObject[]} objects
-   * @param {Release} release
-   * @param {String} [qnameField="propertyQName"] Qualified property field to check
+   * @param {NIEMObjectDef[]} objects
+   * @param {ReleaseDef} release
+   * @param {string} [qnameField="propertyQName"] Qualified property field to check
    */
   async property_unknown__helper(test, objects, release, qnameField="propertyQName") {
 
@@ -35,9 +44,9 @@ class Utils {
    * Checks that the qualified type field of the object exists in the release.
    *
    * @param {Test} test
-   * @param {NIEMObject[]} objects
-   * @param {Release} release
-   * @param {String} [qnameField="typeQName"] Qualified type field to check
+   * @param {NIEMObjectDef[]} objects
+   * @param {ReleaseDef} release
+   * @param {string} [qnameField="typeQName"] Qualified type field to check
    */
   async type_unknown__helper(test, objects, release, qnameField="typeQName") {
 
@@ -50,22 +59,22 @@ class Utils {
    * Checks that the qualified component field of the object exists in the release.
    *
    * @param {Test} test
-   * @param {NIEMObject[]} objects
-   * @param {Release} release
+   * @param {NIEMObjectDef[]} objects
+   * @param {ReleaseDef} release
    * @param {"types"|"properties"} sourceField - Release object to search for component
-   * @param {String} [qnameField="typeQName"] Qualified component field to check
+   * @param {string} [qnameField="typeQName"] Qualified component field to check
    */
   async component_unknown__helper(test, objects, release, sourceField, qnameField) {
 
     test.start();
 
-    /** @type {NIEMObject[]} */
+    /** @type {NIEMObjectDef[]} */
     let problemObjects = [];
 
-    /** @type {String[]} */
-    let uniqueQNames = new Set( objects.map( object => object[qnameField]) );
+    /** @type {string[]} */
+    let uniqueQNames = [...new Set( objects.map( object => object[qnameField]) )];
 
-    /** @type {String[]} */
+    /** @type {string[]} */
     let undefinedQNames = [];
 
     // Only look up unique qnames; add to undefinedQNames array if not found
@@ -86,14 +95,13 @@ class Utils {
    * Checks that a component name is not repeated in a namespace.
    * Note: Case insensitive, so it will report elements and attributes with the same name.
 
-   * @private
    * @param {Test} test
-   * @param {ComponentInstance[]} components
+   * @param {ComponentDef[]} components
    * @param {"qname"|"name"} nameField - Check for duplicate names within a single namespace or the full release
    */
   async name_duplicate__helper(test, components, nameField="qname") {
 
-    /** @type {{String: number}} */
+    /** @type {Object<string, number>} */
     let counts = {};
 
     // Kinds of components to ignore due to expected overlap
@@ -101,7 +109,9 @@ class Utils {
 
     if (nameField == "name") {
       // Do not compare augmentations and codes - these are expected to have some overlap
-      components = components.filter( component => {
+      components = components
+      .filter( component => component.name )
+      .filter( component => {
         let nameBase = component.name.replace(/Type$/, "").replace(/Simple$/, "");
         return !ignoreList.some( term => nameBase.endsWith(term) );
       });
@@ -113,7 +123,7 @@ class Utils {
       counts[nameValue] = (counts[nameValue] || 0) + 1;
     });
 
-    /** @type {ComponentInstance[]} */
+    /** @type {ComponentDef[]} */
     let problemComponents = [];
 
     for (let nameValue in counts) {
@@ -123,14 +133,14 @@ class Utils {
     }
 
     /**
-     * @param {ComponentInstance} component
+     * @param {ComponentDef} component
      */
     let commentFunction = (component) => {
-      if (component.typeQName || component.isAbstract == true) {
-        return `Type: ${component.typeQName}\nDef: ${component.definition}`
+      if (component["typeQName"] || component["isAbstract"] == true) {
+        return `Type: ${component["typeQName"]}\nDef: ${component.definition}`
       }
-      if (component.baseQName) {
-        return `Base: ${component.baseQName}\nDef: ${component.definition}`
+      if (component["baseQName"]) {
+        return `Base: ${component["baseQName"]}\nDef: ${component.definition}`
       }
     }
 
@@ -138,9 +148,8 @@ class Utils {
   }
 
   /**
-   * @private
    * @param {Test} test
-   * @param {ComponentInstance[]} components
+   * @param {ComponentDef[]} components
    */
   name_invalidChar__helper(test, components) {
     let regex = /[^A-Za-z0-9_\-.]/;
@@ -151,9 +160,8 @@ class Utils {
   }
 
   /**
-   * @private
    * @param {Test} test
-   * @param {ComponentInstance[]} components
+   * @param {ComponentDef[]} components
    */
   name_missing__helper(test, components) {
     let problemComponents = components.filter( component => ! component.name );
@@ -164,10 +172,9 @@ class Utils {
    * Check the spelling of each term in a component name.  Check Local Terminology
    * if not found in dictionary.
    *
-   * @private
    * @param {Test} test
-   * @param {Namespace[]|Property[]|Type[]} objects - Objects with a prefix and definition
-   * @param {Release} release
+   * @param {Array<NamespaceOrComponent>} objects - Namespaces, properties, or types
+   * @param {ReleaseDef} release
    */
   async definition_spellcheck__helper(test, objects, release) {
 
@@ -184,13 +191,11 @@ class Utils {
       let objectsInNamespace = objects.filter( object => object.prefix == prefix && object.definition );
 
       for (let object of objectsInNamespace) {
-        // if (object.definition.includes("extnsion")) debugger;
-
         let unknownSpellings = await this.spellChecker.checkDefinition(object.definition, terms);
 
         for (let unknownSpelling of unknownSpellings) {
           // Log each unknown spelling as a new issue
-          let issue = new Issue(object.prefix, object.label, object.input_location, object.input_line, object.source_position, unknownSpelling, object.definition);
+          let issue = new Issue(object.prefix, object.label, object.input_location, object.input_line, unknownSpelling, object.definition);
           issues.push(issue);
         }
       }
@@ -209,9 +214,8 @@ class Utils {
    * - Leading space
    * - Trailing space
    *
-   * @private
    * @param {Test} test
-   * @param {NIEMObject[]} objects
+   * @param {NIEMObjectDef[]} objects
    * @param {string} field Object field to check the formatting of
    * @param {"all"|"nbsp"|"exclude-nbsp"} checks - Specify which checks to run
    */
@@ -224,10 +228,10 @@ class Utils {
     // Non-breaking space
     let nbsp = "\u00A0";
 
-    /** @type {NIEMObject[]} */
+    /** @type {NIEMObjectDef[]} */
     let problemObjects = [];
 
-    if (checks == "all" | checks == "exclude-nbsp") {
+    if (checks == "all" || checks == "exclude-nbsp") {
       // Check for all invalid characters excluding non-breaking spaces
       problemObjects.push(...checkableObjects.filter( object => {
         return object[field].match(/ {3,}|(?<!\.) {2,}|^ | $|\t|\r|\n|\f/);
@@ -259,10 +263,9 @@ class Utils {
    * Check the spelling of each term in a component name.  Check Local Terminology
    * if not found in dictionary.
    *
-   * @private
    * @param {Test} test
-   * @param {ComponentInstance[]} components
-   * @param {Release} release
+   * @param {ComponentDef[]} components
+   * @param {ReleaseDef} release
    */
   async name_spellcheck__helper(test, components, release) {
 
@@ -293,7 +296,7 @@ class Utils {
             let localTerm = await release.localTerms.get(component.prefix, nameTerm);
 
             if (!localTerm) {
-              let issue = new Issue(component.prefix, component.label, component.source_location, component.source_line, component.source_position, nameTerm, component.qname);
+              let issue = new Issue(component.prefix, component.label, component.input_location, component.input_line, nameTerm, component.qname);
 
               issues.push(issue);
             }
@@ -308,15 +311,15 @@ class Utils {
   /**
    * Check that types have a namespace prefix that has been defined in the release.
    * @param {Test} test
-   * @param {ComponentInstance[]} components
-   * @param {Release} release
+   * @param {ComponentDef[]} components
+   * @param {ReleaseDef} release
    */
   async prefix_unknown__helper(test, components, release) {
 
-    /** @type {ComponentInstance[]} */
+    /** @type {ComponentDef[]} */
     let problemComponents = [];
 
-    /** @type {String[]} */
+    /** @type {string[]} */
     let undefinedPrefixes = [];
 
     let uniquePrefixes = new Set( components.map( component => component.prefix) );
@@ -346,6 +349,7 @@ class Utils {
 
 
 /**
+ * @private
  * @param {string} name
  * @param {string[]} specialTerms
  */

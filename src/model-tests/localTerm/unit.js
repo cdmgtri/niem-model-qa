@@ -1,6 +1,6 @@
 
 let NIEMObjectUnitTests = require("../niem-object/unit");
-let { Release, LocalTerm } = require("niem-model");
+let { LocalTermDef } = require("niem-model").TypeDefs;
 let Test = require("../../test");
 
 class LocalTermUnitTests extends NIEMObjectUnitTests {
@@ -8,7 +8,7 @@ class LocalTermUnitTests extends NIEMObjectUnitTests {
   /**
    * Check local term definitions use consistent formatting.
    *
-   * @param {LocalTerm[]} localTerms
+   * @param {LocalTermDef[]} localTerms
    */
   definition_formatting(localTerms) {
     let test = this.qa.tests.start("localTerm_definition_formatting");
@@ -18,7 +18,7 @@ class LocalTermUnitTests extends NIEMObjectUnitTests {
   /**
    * Check local term literals use consistent formatting.
    *
-   * @param {LocalTerm[]} localTerms
+   * @param {LocalTermDef[]} localTerms
    */
   literal_formatting(localTerms) {
     let test = this.qa.tests.start("localTerm_literal_formatting");
@@ -28,7 +28,7 @@ class LocalTermUnitTests extends NIEMObjectUnitTests {
   /**
    * Check local terminology terms use consistent formatting.
    *
-   * @param {LocalTerm[]} localTerms
+   * @param {LocalTermDef[]} localTerms
    */
   term_formatting(localTerms) {
     let test = this.qa.tests.start("localTerm_term_formatting");
@@ -38,13 +38,13 @@ class LocalTermUnitTests extends NIEMObjectUnitTests {
   /**
    * Checks for duplicate local terms in a namespace.
    *
-   * @param {LocalTerm[]} localTerms
+   * @param {LocalTermDef[]} localTerms
    */
   term_duplicate(localTerms) {
 
     let test = this.qa.tests.start("localTerm_term_duplicate");
 
-    /** @type {LocalTerm[]} */
+    /** @type {LocalTermDef[]} */
     let problems = [];
 
     for (let currentLocalTerm of localTerms) {
@@ -63,7 +63,7 @@ class LocalTermUnitTests extends NIEMObjectUnitTests {
   // /**
   //  * Checks for local terms that are not used in the given namespace
   //  *
-  //  * @param {LocalTerm[]} localTerms
+  //  * @param {LocalTermDef[]} localTerms
   //  * @param {Release} release
   //  */
   // term_unused(localTerms, release) {

@@ -1,17 +1,18 @@
 
-let { NIEM, Release, Facet } = require("niem-model");
+let { Facet, TypeDefs } = require("niem-model");
+let { NIEMDef, ReleaseDef, FacetDef } = TypeDefs;
 
-/** @type {Release} */
+/** @type {ReleaseDef} */
 let release;
 
-/** @type {Facet[]} */
+/** @type {FacetDef[]} */
 let fieldFacets = [];
 
 let FieldTest = require("./field");
 
 /**
  * @param {NIEMModelQA} qa
- * @param {NIEM} niem
+ * @param {NIEMDef} niem
  */
 function facetTests(qa, niem) {
 
@@ -44,6 +45,7 @@ function facetTests(qa, niem) {
         fieldFacets.push(...facets);
         await release.facets.addMultiple(facets);
 
+        // @ts-ignore
         let test = await qa.objects.facet.tests.definition_formatting_specialChars(facets);
         let issues = test.issues;
 
@@ -102,7 +104,9 @@ function facetTests(qa, niem) {
 
         let facets = [
           new Facet("ext:WeekdayCodeSimpleType", "WED", "", "enumeration"),
+          // @ts-ignore
           new Facet("ext:WeekdayCodeSimpleType", "THU", "", "ENUM"), // invalid
+          // @ts-ignore
           new Facet("ext:WeekdayCodeSimpleType", "FRI", "", "code"), // invalid
           new Facet("ext:WeekdayCodeSimpleType", "SAT"), // 'enumeration' added as default
           new Facet("ext:LengthSimpleType", "10", "", "maxLength")
@@ -151,7 +155,7 @@ function facetTests(qa, niem) {
 
         fieldFacets.push(...facets);
 
-        let test = await qa.objects.facet.tests.type_repTerm_code(facets, release);
+        let test = await qa.objects.facet.tests.type_repTerm_code(facets);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ext:WeekdaySimpleType - enum TUE");
@@ -199,7 +203,7 @@ function facetTests(qa, niem) {
 
         fieldFacets.push(...facets);
 
-        let test = await qa.objects.facet.tests.value_duplicate_code(facets, release);
+        let test = await qa.objects.facet.tests.value_duplicate_code(facets);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ext:WeekdayCodeSimpleType - enum MON");

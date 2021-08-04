@@ -1,6 +1,6 @@
 
 let NIEMObjectUnitTests = require("../niem-object/unit");
-let { ReleaseInstance, PropertyInstance } = require("niem-model");
+let { ReleaseDef, PropertyDef } = require("niem-model").TypeDefs;
 let Test = require("../../test");
 
 /**
@@ -14,13 +14,13 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "Definitions 'Additional information about a person' and 'Additional information about nc:PersonType' are valid for em:PersonAugmentation."
    * @example "Definitions 'Additional information about a location' and 'Additional information about nc:OrganizationType' are not valid for em:PersonAugmentation."
    *
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    */
   definition_augmentation(properties) {
 
     let test = this.qa.tests.start("property_definition_augmentation");
 
-    let augmentations = properties.filter( property => property.name.endsWith("Augmentation") );
+    let augmentations = properties.filter( property => property.name?.endsWith("Augmentation") );
 
     let problemObjects = augmentations
     .filter( property => {
@@ -43,13 +43,13 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "Definitions 'An augmentation point for PersonType' and 'An augmentation point for nc:PersonType' are valid for nc:PersonAugmentationPoint"
    * @example ""
    *
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    */
   definition_augmentationPoint(properties) {
 
     let test = this.qa.tests.start("property_definition_augmentationPoint");
 
-    let augmentationPoints = properties.filter( property => property.name.endsWith("AugmentationPoint") );
+    let augmentationPoints = properties.filter( property => property.name?.endsWith("AugmentationPoint") );
 
     let problemObjects = augmentationPoints
     .filter( property => {
@@ -69,7 +69,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * - Two spaces are allowed after a period.  Other uses of multiple consecutive spaces are not allowed.
    * - Leading and trailing spaces are not allowed.
    *
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    * @returns {Promise<Test>}
    */
   definition_formatting(properties) {
@@ -80,14 +80,14 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
   /**
    * Check that representation pattern definitions follow a consistent pattern.
    *
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    */
   definition_representation(properties) {
 
     let test = this.qa.tests.start("property_definition_representation");
 
     let problems = properties
-    .filter( property => property.name.endsWith("Representation") )
+    .filter( property => property.name?.endsWith("Representation") )
     .filter( property => ! property.definition.match(/^A data concept for a representation of a/) );
 
     return this.qa.tests.post(test, problems, "definition", (property) => property.definition);
@@ -102,8 +102,8 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    *
    * @example "Definition 'A FIPS state codes' is not recommended if the term 'FIPS' is not defined as Local Terminology in that namespace."
    *
-   * @param {PropertyInstance[]} properties
-   * @param {ReleaseInstance} release
+   * @param {PropertyDef[]} properties
+   * @param {ReleaseDef} release
    * @returns {Promise<Test>}
    */
   async definition_spellcheck(properties, release) {
@@ -116,17 +116,19 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * Most will be intentional, but a few may have been overlooked.
    * Exclude associations, metadata, and container properties, which are meant to be stand-alone.
    *
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    */
   async general_unused(properties) {
 
     let test = this.qa.tests.start("property_general_unused");
 
-    /** @type {PropertyInstance[]} */
+    /** @type {PropertyDef[]} */
     let problems = [];
 
     // Filter out associations, containers, metadata and substitutions
-    properties = properties.filter( property => {
+    properties = properties
+    .filter( property => property.name )
+    .filter( property => {
       return  (property.typeQName ? property.name != property.typeName.replace(/Type$/, "") : true)
       && !property.name.endsWith("Metadata")
       && !property.name.endsWith("Association")
@@ -149,13 +151,13 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "Name 'PersonAugmentation' is valid for nc:PersonAugmentationPoint."
    * @example "Name 'ManagerAugmentation' is not valid for nc:PersonAugmentationPoint."
    *
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    */
   async name_augmentation(properties) {
 
     let test = this.qa.tests.start("property_name_augmentation");
 
-    /** @type {PropertyInstance[]} */
+    /** @type {PropertyDef[]} */
     let problemObjects = [];
 
     let augmentations = properties.filter( property => property.groupQName && property.groupName.endsWith("AugmentationPoint") );
@@ -175,7 +177,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "'PersonAugmentation' is a valid name for a property that substitutes for augmentation point element 'nc:PersonAugmentationPoint'."
    * @example "'ManagerAugmentation' is not a valid name for a property that substitutes for augmentation point element 'nc:PersonAugmentationPoint'."
    * "
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    */
   async name_repTerm_augmentation(properties) {
 
@@ -194,7 +196,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "Attribute name 'sequenceID' is valid because it begins with a lower case letter."
    * @example "Attribute name 'SequenceID' is not valid because it begins with an upper case letter."
    *
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    * @returns {Promise<Test>}
    */
   async name_camelCase_attribute(properties) {
@@ -214,7 +216,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "Element name 'Person' is valid because it begins with an upper case letter."
    * @example "Element name 'person' is not valid because it begins with a lower case letter."
    *
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    * @returns {Promise<Test>}
    */
   async name_camelCase_element(properties) {
@@ -234,7 +236,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "Elements 'hs:PersonAugmentation' and 'im:PersonAugmentation' are valid even though they have the same name because they are defined in different namespaces."
    * @example "Element 'PersonAugmentation' cannot be defined twice in the Human Services namespace."
    *
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    * @returns {Promise<Test>}
    */
   async name_duplicate(properties) {
@@ -246,7 +248,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * Check for property names that are repeated in a release.
    * Ignores augmentations and codes because those are expected to have some overlaps.
    *
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    * @returns {Promise<Test>}
    */
   async name_overlap(properties) {
@@ -260,7 +262,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * @example "Property name 'Person' uses valid characters."
    * @example "Property name 'PersonIsCitizen?' does not use valid characters."
    *
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    * @returns {Promise<Test>}
    */
   async name_invalidChar(properties) {
@@ -270,7 +272,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Check that all properties have names.
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    * @returns {Promise<Test>}
    */
   async name_missing(properties) {
@@ -286,8 +288,8 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    *
    * @example "Property name 'nc:StateFIPSCode' is not valid if the nc namespace does not define 'FIPS' in its Local Terminology section."
    *
-   * @param {PropertyInstance[]} properties
-   * @param {ReleaseInstance} release
+   * @param {PropertyDef[]} properties
+   * @param {ReleaseDef} release
    * @returns {Promise<Test>}
    */
   async name_spellcheck(properties, release) {
@@ -297,7 +299,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Check that properties have a namespace prefix.
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    * @returns {Promise<Test>}
    */
   async prefix_missing(properties) {
@@ -308,8 +310,8 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Check that properties have a namespace prefix that has been defined in the release.
-   * @param {PropertyInstance[]} properties
-   * @param {ReleaseInstance} release
+   * @param {PropertyDef[]} properties
+   * @param {ReleaseDef} release
    * @returns {Promise<Test>}
    */
   async prefix_unknown(properties, release) {
@@ -319,13 +321,13 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Properties with an "Amount" representation term should have type nc:AmountType.
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    */
   async type_amount(properties) {
     let test = this.qa.tests.start("property_type_amount");
 
     let problems = properties
-    .filter( property => property.name.endsWith("Amount") && property.qname != "nc:Amount" )
+    .filter( property => property.name?.endsWith("Amount") && property.qname != "nc:Amount" )
     .filter( property => property.typeQName != "nc:AmountType" );
 
     return this.qa.tests.post(test, problems, "typeQName", () => "Amount elements should have data type 'nc:AmountType'.");
@@ -333,13 +335,13 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Properties with a "BinaryObject" representation term should have a binary simple-value data type.
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    */
   async type_binaryObject(properties) {
     let test = this.qa.tests.start("property_type_binaryObject");
 
     let problems = properties
-    .filter( property => property.name.endsWith("BinaryObject") && property.qname != "nc:BinaryObject" )
+    .filter( property => property.name?.endsWith("BinaryObject") && property.qname != "nc:BinaryObject" )
     .filter( property => property.typeQName != "niem-xs:hexBinary" && property.typeQName != "niem-xs:base64Binary");
 
     return this.qa.tests.post(test, problems, "typeQName", () => "Binary elements should have a binary data type.");
@@ -349,7 +351,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
    * Check that non-abstract elements have a complex data type.
    * Note: Uses the shortcut that complex type names do not end with "SimpleType" or are in the xs namespace
    *
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    */
   async type_element(properties) {
 
@@ -365,13 +367,13 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Properties with an "Indicator" representation term should have a boolean data type.
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    */
   async type_indicator(properties) {
     let test = this.qa.tests.start("property_type_indicator");
 
     let problems = properties
-    .filter( property => property.name.endsWith("Indicator") )
+    .filter( property => property.name?.endsWith("Indicator") )
     .filter( property => ! property.typeQName.endsWith("xs:boolean") );
 
     return this.qa.tests.post(test, problems, "typeQName", () => "Indicator elements should have a boolean data type.");
@@ -379,13 +381,13 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
 
   /**
    * Properties with a "Percent" representation term should have a data type 'nc:PercentType'.
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    */
   async type_percent(properties) {
     let test = this.qa.tests.start("property_type_percent");
 
     let problems = properties
-    .filter( property => property.name.endsWith("Percentt") )
+    .filter( property => property.name?.endsWith("Percent") )
     .filter( property => property.typeQName != "nc:PercentType" );
 
     return this.qa.tests.post(test, problems, "typeQName", () => "Percent elements should have data type 'nc:PercentType'.");
@@ -394,7 +396,7 @@ class PropertyUnitTests extends NIEMObjectUnitTests {
   /**
    * Check that non-abstract properties have types
    *
-   * @param {PropertyInstance[]} properties
+   * @param {PropertyDef[]} properties
    */
   async type_missing(properties) {
     let test = this.qa.tests.start("property_type_missing");

@@ -1,65 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
-    <meta charset="utf-8">
-    <title>Home - Documentation</title>
-    
-    
-    <script src="scripts/prettify/prettify.js"></script>
-    <script src="scripts/prettify/lang-css.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
-    <script src="scripts/nav.js" defer></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+      Home - Documentation
+  </title>
+
+  <link href="https://www.braintreepayments.com/images/favicon-ccda0b14.png" rel="icon" type="image/png">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+  <link type="text/css" rel="stylesheet" href="styles/custom.css">
+  
+  <link type="text/css" rel="stylesheet" href="styles/collapse.css">
+  
+
+  
+
+  <!-- start Mixpanel -->
+  <script type="text/javascript">(function(e,a){if(!a.__SV){var b=window;try{var c,l,i,j=b.location,g=j.hash;c=function(a,b){return(l=a.match(RegExp(b+"=([^&]*)")))?l[1]:null};g&&c(g,"state")&&(i=JSON.parse(decodeURIComponent(c(g,"state"))),"mpeditor"===i.action&&(b.sessionStorage.setItem("_mpcehash",g),history.replaceState(i.desiredHash||"",e.title,j.pathname+j.search)))}catch(m){}var k,h;window.mixpanel=a;a._i=[];a.init=function(b,c,f){function e(b,a){var c=a.split(".");2==c.length&&(b=b[c[0]],a=c[1]);b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,
+  0)))}}var d=a;"undefined"!==typeof f?d=a[f]=[]:f="mixpanel";d.people=d.people||[];d.toString=function(b){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);b||(a+=" (stub)");return a};d.people.toString=function(){return d.toString(1)+".people (stub)"};k="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+  for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
+  mixpanel.init("1919205b2da72e4da3b9b6639b444d59");</script>
+  <!-- end Mixpanel -->
 </head>
+
 <body>
+  <svg style="display: none;">
+    <defs>
+      <symbol id="linkIcon" fill="#706d77" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
+      </symbol>
+    </defs>
+  </svg>
 
-<input type="checkbox" id="nav-trigger" class="nav-trigger" />
-<label for="nav-trigger" class="navicon-button x">
-  <div class="navicon"></div>
-</label>
+  <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+  <label for="nav-trigger" class="navicon-button x">
+    <div class="navicon"></div>
+  </label>
 
-<label for="nav-trigger" class="overlay"></label>
+  <label for="nav-trigger" class="overlay"></label>
 
-<nav >
+  <div class="top-nav-wrapper">
+    <ul>
+      <li  class="active" >
+        <a href="index.html">
+          
+          
+            <svg fill="#0095dd" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+          
+        </a>
+      </li>
+
+      
+
+    </ul>
+  </div>
+
+  <nav>
+    <h3 class="reference-title">
+      NIEM Model QA
+    </h3>
+
     
-    <input type="text" id="nav-search" placeholder="Search" />
-    
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="FacetUnitTests.html">FacetUnitTests</a><ul class='methods'><li data-type='method'><a href="FacetUnitTests.html#definition_missing_code">definition_missing_code</a></li><li data-type='method'><a href="FacetUnitTests.html#definition_missing_pattern">definition_missing_pattern</a></li><li data-type='method'><a href="FacetUnitTests.html#style_invalid">style_invalid</a></li><li data-type='method'><a href="FacetUnitTests.html#type_complex">type_complex</a></li><li data-type='method'><a href="FacetUnitTests.html#type_repTerm_code">type_repTerm_code</a></li><li data-type='method'><a href="FacetUnitTests.html#type_unknown">type_unknown</a></li><li data-type='method'><a href="FacetUnitTests.html#value_duplicate_code">value_duplicate_code</a></li><li data-type='method'><a href="FacetUnitTests.html#value_formatting">value_formatting</a></li><li data-type='method'><a href="FacetUnitTests.html#value_missing">value_missing</a></li></ul></li><li><a href="Issue.html">Issue</a></li><li><a href="NIEMModelQA.html">NIEMModelQA</a><ul class='methods'><li data-type='method'><a href="NIEMModelQA.html#.saveTestsAsJSON">saveTestsAsJSON</a></li><li data-type='method'><a href="NIEMModelQA.html#init">init</a></li><li data-type='method'><a href="NIEMModelQA.html#run">run</a></li><li data-type='method'><a href="NIEMModelQA.html#startUpdate">startUpdate</a></li></ul></li><li><a href="PropertyUnitTests.html">PropertyUnitTests</a><ul class='methods'><li data-type='method'><a href="PropertyUnitTests.html#definition_formatting">definition_formatting</a></li><li data-type='method'><a href="PropertyUnitTests.html#definition_spellcheck">definition_spellcheck</a></li><li data-type='method'><a href="PropertyUnitTests.html#name_camelCase_attribute">name_camelCase_attribute</a></li><li data-type='method'><a href="PropertyUnitTests.html#name_camelCase_element">name_camelCase_element</a></li><li data-type='method'><a href="PropertyUnitTests.html#name_duplicate">name_duplicate</a></li><li data-type='method'><a href="PropertyUnitTests.html#name_invalidChar">name_invalidChar</a></li><li data-type='method'><a href="PropertyUnitTests.html#name_missing">name_missing</a></li><li data-type='method'><a href="PropertyUnitTests.html#name_repTerm_aug">name_repTerm_aug</a></li><li data-type='method'><a href="PropertyUnitTests.html#name_spellcheck">name_spellcheck</a></li><li data-type='method'><a href="PropertyUnitTests.html#prefix_missing">prefix_missing</a></li><li data-type='method'><a href="PropertyUnitTests.html#prefix_unknown">prefix_unknown</a></li></ul></li><li><a href="QAResults.html">QAResults</a><ul class='methods'><li data-type='method'><a href="QAResults.html#failed">failed</a></li><li data-type='method'><a href="QAResults.html#issues">issues</a></li><li data-type='method'><a href="QAResults.html#passed">passed</a></li><li data-type='method'><a href="QAResults.html#reload">reload</a></li><li data-type='method'><a href="QAResults.html#save">save</a></li><li data-type='method'><a href="QAResults.html#status">status</a></li></ul></li><li><a href="Report.html">Report</a><ul class='methods'><li data-type='method'><a href="Report.html#failedTests">failedTests</a></li><li data-type='method'><a href="Report.html#issues">issues</a></li><li data-type='method'><a href="Report.html#namespaceStatus">namespaceStatus</a></li><li data-type='method'><a href="Report.html#report">report</a></li><li data-type='method'><a href="Report.html#saveAsDownload">saveAsDownload</a></li><li data-type='method'><a href="Report.html#saveAsFile">saveAsFile</a></li><li data-type='method'><a href="Report.html#summary">summary</a></li><li data-type='method'><a href="Report.html#testStatus">testStatus</a></li></ul></li><li><a href="Terminal.html">Terminal</a><ul class='methods'><li data-type='method'><a href="Terminal.html#printStatus">printStatus</a></li></ul></li><li><a href="Test.html">Test</a><ul class='methods'><li data-type='method'><a href="Test.html#log">log</a></li><li data-type='method'><a href="Test.html#reset">reset</a></li><li data-type='method'><a href="Test.html#start">start</a></li></ul></li><li><a href="Tests.html">Tests</a><ul class='methods'><li data-type='method'><a href="Tests.html#add">add</a></li><li data-type='method'><a href="Tests.html#find">find</a></li><li data-type='method'><a href="Tests.html#loadSpreadsheet">loadSpreadsheet</a></li><li data-type='method'><a href="Tests.html#post">post</a></li><li data-type='method'><a href="Tests.html#reset">reset</a></li><li data-type='method'><a href="Tests.html#save">save</a></li><li data-type='method'><a href="Tests.html#start">start</a></li></ul></li><li><a href="TypeUnitTests.html">TypeUnitTests</a><ul class='methods'><li data-type='method'><a href="TypeUnitTests.html#base_invalid_csc">base_invalid_csc</a></li><li data-type='method'><a href="TypeUnitTests.html#base_invalid_simple">base_invalid_simple</a></li><li data-type='method'><a href="TypeUnitTests.html#base_missing_simpleContent">base_missing_simpleContent</a></li><li data-type='method'><a href="TypeUnitTests.html#base_unknown">base_unknown</a></li><li data-type='method'><a href="TypeUnitTests.html#definition_formatting">definition_formatting</a></li><li data-type='method'><a href="TypeUnitTests.html#definition_missing_complex">definition_missing_complex</a></li><li data-type='method'><a href="TypeUnitTests.html#definition_missing_simple">definition_missing_simple</a></li><li data-type='method'><a href="TypeUnitTests.html#definition_phrase_complex">definition_phrase_complex</a></li><li data-type='method'><a href="TypeUnitTests.html#definition_phrase_simple">definition_phrase_simple</a></li><li data-type='method'><a href="TypeUnitTests.html#definition_spellcheck">definition_spellcheck</a></li><li data-type='method'><a href="TypeUnitTests.html#name_camelCase">name_camelCase</a></li><li data-type='method'><a href="TypeUnitTests.html#name_duplicate">name_duplicate</a></li><li data-type='method'><a href="TypeUnitTests.html#name_inconsistent_codeType">name_inconsistent_codeType</a></li><li data-type='method'><a href="TypeUnitTests.html#name_invalidChar">name_invalidChar</a></li><li data-type='method'><a href="TypeUnitTests.html#name_missing_complex">name_missing_complex</a></li><li data-type='method'><a href="TypeUnitTests.html#name_missing_simple">name_missing_simple</a></li><li data-type='method'><a href="TypeUnitTests.html#name_repTerm_codeSimpleType">name_repTerm_codeSimpleType</a></li><li data-type='method'><a href="TypeUnitTests.html#name_repTerm_codeType">name_repTerm_codeType</a></li><li data-type='method'><a href="TypeUnitTests.html#name_repTerm_complex">name_repTerm_complex</a></li><li data-type='method'><a href="TypeUnitTests.html#name_repTerm_simple">name_repTerm_simple</a></li><li data-type='method'><a href="TypeUnitTests.html#name_repTerm_type">name_repTerm_type</a></li><li data-type='method'><a href="TypeUnitTests.html#name_reservedTerm_type">name_reservedTerm_type</a></li><li data-type='method'><a href="TypeUnitTests.html#name_spellcheck">name_spellcheck</a></li><li data-type='method'><a href="TypeUnitTests.html#prefix_missing">prefix_missing</a></li><li data-type='method'><a href="TypeUnitTests.html#prefix_unknown">prefix_unknown</a></li><li data-type='method'><a href="TypeUnitTests.html#style_missing">style_missing</a></li><li data-type='method'><a href="TypeUnitTests.html#style_unknown">style_unknown</a></li></ul></li><li><a href="Update.html">Update</a><ul class='methods'><li data-type='method'><a href="Update.html#end">end</a></li><li data-type='method'><a href="Update.html#log">log</a></li></ul></li><li><a href="Utils.html">Utils</a><ul class='methods'><li data-type='method'><a href="Utils.html#component_unknown__helper">component_unknown__helper</a></li><li data-type='method'><a href="Utils.html#prefix_unknown__helper">prefix_unknown__helper</a></li><li data-type='method'><a href="Utils.html#property_unknown__helper">property_unknown__helper</a></li><li data-type='method'><a href="Utils.html#type_unknown__helper">type_unknown__helper</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#customDictionary">customDictionary</a></li><li><a href="global.html#failed">failed</a></li><li><a href="global.html#failedErrors">failedErrors</a></li><li><a href="global.html#failedInfo">failedInfo</a></li><li><a href="global.html#failedWarnings">failedWarnings</a></li><li><a href="global.html#fieldHasValues">fieldHasValues</a></li><li><a href="global.html#getNameTerms">getNameTerms</a></li><li><a href="global.html#hideSourceColumns">hideSourceColumns</a></li><li><a href="global.html#issues">issues</a></li><li><a href="global.html#JSONTests">JSONTests</a></li><li><a href="global.html#loadDictionary">loadDictionary</a></li><li><a href="global.html#notRan">notRan</a></li><li><a href="global.html#passed">passed</a></li><li><a href="global.html#prefixes">prefixes</a></li><li><a href="global.html#processDefinition">processDefinition</a></li><li><a href="global.html#ran">ran</a></li><li><a href="global.html#setWorkbookOptions">setWorkbookOptions</a></li><li><a href="global.html#severityStatusLine">severityStatusLine</a></li><li><a href="global.html#status">status</a></li><li><a href="global.html#summary">summary</a></li><li><a href="global.html#testStatusLine">testStatusLine</a></li><li><a href="global.html#testStatusLines">testStatusLines</a></li></ul>
-</nav>
 
-<div id="main">
-    
+    <h3>Classes</h3><ul><li id="FacetUnitTests-nav"><a href="FacetUnitTests.html">FacetUnitTests</a><ul class='methods'><li data-type="method" id="FacetUnitTests-definition_formatting-nav"><a href="FacetUnitTests.html#definition_formatting">definition_formatting</a></li><li data-type="method" id="FacetUnitTests-definition_missing_code-nav"><a href="FacetUnitTests.html#definition_missing_code">definition_missing_code</a></li><li data-type="method" id="FacetUnitTests-definition_missing_pattern-nav"><a href="FacetUnitTests.html#definition_missing_pattern">definition_missing_pattern</a></li><li data-type="method" id="FacetUnitTests-definition_nbsp-nav"><a href="FacetUnitTests.html#definition_nbsp">definition_nbsp</a></li><li data-type="method" id="FacetUnitTests-style_invalid-nav"><a href="FacetUnitTests.html#style_invalid">style_invalid</a></li><li data-type="method" id="FacetUnitTests-type_complex-nav"><a href="FacetUnitTests.html#type_complex">type_complex</a></li><li data-type="method" id="FacetUnitTests-type_repTerm_code-nav"><a href="FacetUnitTests.html#type_repTerm_code">type_repTerm_code</a></li><li data-type="method" id="FacetUnitTests-type_unknown-nav"><a href="FacetUnitTests.html#type_unknown">type_unknown</a></li><li data-type="method" id="FacetUnitTests-value_duplicate_code-nav"><a href="FacetUnitTests.html#value_duplicate_code">value_duplicate_code</a></li><li data-type="method" id="FacetUnitTests-value_formatting-nav"><a href="FacetUnitTests.html#value_formatting">value_formatting</a></li><li data-type="method" id="FacetUnitTests-value_missing-nav"><a href="FacetUnitTests.html#value_missing">value_missing</a></li></ul></li><li id="Issue-nav"><a href="Issue.html">Issue</a></li><li id="NIEMModelQA-nav"><a href="NIEMModelQA.html">NIEMModelQA</a><ul class='methods'><li data-type="method" id="NIEMModelQA-exportTests-nav"><a href="NIEMModelQA.html#.exportTests">exportTests</a></li><li data-type="method" id="NIEMModelQA-init-nav"><a href="NIEMModelQA.html#init">init</a></li><li data-type="method" id="NIEMModelQA-run-nav"><a href="NIEMModelQA.html#run">run</a></li><li data-type="method" id="NIEMModelQA-startUpdate-nav"><a href="NIEMModelQA.html#startUpdate">startUpdate</a></li></ul></li><li id="PropertyUnitTests-nav"><a href="PropertyUnitTests.html">PropertyUnitTests</a><ul class='methods'><li data-type="method" id="PropertyUnitTests-definition_augmentation-nav"><a href="PropertyUnitTests.html#definition_augmentation">definition_augmentation</a></li><li data-type="method" id="PropertyUnitTests-definition_augmentationPoint-nav"><a href="PropertyUnitTests.html#definition_augmentationPoint">definition_augmentationPoint</a></li><li data-type="method" id="PropertyUnitTests-definition_formatting-nav"><a href="PropertyUnitTests.html#definition_formatting">definition_formatting</a></li><li data-type="method" id="PropertyUnitTests-definition_representation-nav"><a href="PropertyUnitTests.html#definition_representation">definition_representation</a></li><li data-type="method" id="PropertyUnitTests-definition_spellcheck-nav"><a href="PropertyUnitTests.html#definition_spellcheck">definition_spellcheck</a></li><li data-type="method" id="PropertyUnitTests-general_unused-nav"><a href="PropertyUnitTests.html#general_unused">general_unused</a></li><li data-type="method" id="PropertyUnitTests-name_augmentation-nav"><a href="PropertyUnitTests.html#name_augmentation">name_augmentation</a></li><li data-type="method" id="PropertyUnitTests-name_camelCase_attribute-nav"><a href="PropertyUnitTests.html#name_camelCase_attribute">name_camelCase_attribute</a></li><li data-type="method" id="PropertyUnitTests-name_camelCase_element-nav"><a href="PropertyUnitTests.html#name_camelCase_element">name_camelCase_element</a></li><li data-type="method" id="PropertyUnitTests-name_duplicate-nav"><a href="PropertyUnitTests.html#name_duplicate">name_duplicate</a></li><li data-type="method" id="PropertyUnitTests-name_invalidChar-nav"><a href="PropertyUnitTests.html#name_invalidChar">name_invalidChar</a></li><li data-type="method" id="PropertyUnitTests-name_missing-nav"><a href="PropertyUnitTests.html#name_missing">name_missing</a></li><li data-type="method" id="PropertyUnitTests-name_overlap-nav"><a href="PropertyUnitTests.html#name_overlap">name_overlap</a></li><li data-type="method" id="PropertyUnitTests-name_repTerm_augmentation-nav"><a href="PropertyUnitTests.html#name_repTerm_augmentation">name_repTerm_augmentation</a></li><li data-type="method" id="PropertyUnitTests-name_spellcheck-nav"><a href="PropertyUnitTests.html#name_spellcheck">name_spellcheck</a></li><li data-type="method" id="PropertyUnitTests-prefix_missing-nav"><a href="PropertyUnitTests.html#prefix_missing">prefix_missing</a></li><li data-type="method" id="PropertyUnitTests-prefix_unknown-nav"><a href="PropertyUnitTests.html#prefix_unknown">prefix_unknown</a></li><li data-type="method" id="PropertyUnitTests-type_amount-nav"><a href="PropertyUnitTests.html#type_amount">type_amount</a></li><li data-type="method" id="PropertyUnitTests-type_binaryObject-nav"><a href="PropertyUnitTests.html#type_binaryObject">type_binaryObject</a></li><li data-type="method" id="PropertyUnitTests-type_element-nav"><a href="PropertyUnitTests.html#type_element">type_element</a></li><li data-type="method" id="PropertyUnitTests-type_indicator-nav"><a href="PropertyUnitTests.html#type_indicator">type_indicator</a></li><li data-type="method" id="PropertyUnitTests-type_missing-nav"><a href="PropertyUnitTests.html#type_missing">type_missing</a></li><li data-type="method" id="PropertyUnitTests-type_percent-nav"><a href="PropertyUnitTests.html#type_percent">type_percent</a></li></ul></li><li id="QAResults-nav"><a href="QAResults.html">QAResults</a><ul class='methods'><li data-type="method" id="QAResults-failed-nav"><a href="QAResults.html#failed">failed</a></li><li data-type="method" id="QAResults-issues-nav"><a href="QAResults.html#issues">issues</a></li><li data-type="method" id="QAResults-passed-nav"><a href="QAResults.html#passed">passed</a></li><li data-type="method" id="QAResults-reload-nav"><a href="QAResults.html#reload">reload</a></li><li data-type="method" id="QAResults-save-nav"><a href="QAResults.html#save">save</a></li><li data-type="method" id="QAResults-status-nav"><a href="QAResults.html#status">status</a></li></ul></li><li id="Report-nav"><a href="Report.html">Report</a><ul class='methods'><li data-type="method" id="Report-failedTests-nav"><a href="Report.html#failedTests">failedTests</a></li><li data-type="method" id="Report-issues-nav"><a href="Report.html#issues">issues</a></li><li data-type="method" id="Report-namespaceStatus-nav"><a href="Report.html#namespaceStatus">namespaceStatus</a></li><li data-type="method" id="Report-report-nav"><a href="Report.html#report">report</a></li><li data-type="method" id="Report-saveAsDownload-nav"><a href="Report.html#saveAsDownload">saveAsDownload</a></li><li data-type="method" id="Report-saveAsFile-nav"><a href="Report.html#saveAsFile">saveAsFile</a></li><li data-type="method" id="Report-summary-nav"><a href="Report.html#summary">summary</a></li><li data-type="method" id="Report-testStatus-nav"><a href="Report.html#testStatus">testStatus</a></li></ul></li><li id="Terminal-nav"><a href="Terminal.html">Terminal</a><ul class='methods'><li data-type="method" id="Terminal-printStatus-nav"><a href="Terminal.html#printStatus">printStatus</a></li></ul></li><li id="Test-nav"><a href="Test.html">Test</a><ul class='methods'><li data-type="method" id="Test-append-nav"><a href="Test.html#append">append</a></li><li data-type="method" id="Test-log-nav"><a href="Test.html#log">log</a></li><li data-type="method" id="Test-reset-nav"><a href="Test.html#reset">reset</a></li><li data-type="method" id="Test-start-nav"><a href="Test.html#start">start</a></li></ul></li><li id="Tests-nav"><a href="Tests.html">Tests</a><ul class='methods'><li data-type="method" id="Tests-add-nav"><a href="Tests.html#add">add</a></li><li data-type="method" id="Tests-find-nav"><a href="Tests.html#find">find</a></li><li data-type="method" id="Tests-loadSpreadsheet-nav"><a href="Tests.html#loadSpreadsheet">loadSpreadsheet</a></li><li data-type="method" id="Tests-post-nav"><a href="Tests.html#post">post</a></li><li data-type="method" id="Tests-reset-nav"><a href="Tests.html#reset">reset</a></li><li data-type="method" id="Tests-save-nav"><a href="Tests.html#save">save</a></li><li data-type="method" id="Tests-start-nav"><a href="Tests.html#start">start</a></li></ul></li><li id="TypeUnitTests-nav"><a href="TypeUnitTests.html">TypeUnitTests</a><ul class='methods'><li data-type="method" id="TypeUnitTests-base_association-nav"><a href="TypeUnitTests.html#base_association">base_association</a></li><li data-type="method" id="TypeUnitTests-base_augmentation-nav"><a href="TypeUnitTests.html#base_augmentation">base_augmentation</a></li><li data-type="method" id="TypeUnitTests-base_csc-nav"><a href="TypeUnitTests.html#base_csc">base_csc</a></li><li data-type="method" id="TypeUnitTests-base_metadata-nav"><a href="TypeUnitTests.html#base_metadata">base_metadata</a></li><li data-type="method" id="TypeUnitTests-base_role-nav"><a href="TypeUnitTests.html#base_role">base_role</a></li><li data-type="method" id="TypeUnitTests-base_simple-nav"><a href="TypeUnitTests.html#base_simple">base_simple</a></li><li data-type="method" id="TypeUnitTests-base_simpleContent-nav"><a href="TypeUnitTests.html#base_simpleContent">base_simpleContent</a></li><li data-type="method" id="TypeUnitTests-base_union-nav"><a href="TypeUnitTests.html#base_union">base_union</a></li><li data-type="method" id="TypeUnitTests-base_unknown-nav"><a href="TypeUnitTests.html#base_unknown">base_unknown</a></li><li data-type="method" id="TypeUnitTests-definition_augmentation-nav"><a href="TypeUnitTests.html#definition_augmentation">definition_augmentation</a></li><li data-type="method" id="TypeUnitTests-definition_formatting-nav"><a href="TypeUnitTests.html#definition_formatting">definition_formatting</a></li><li data-type="method" id="TypeUnitTests-definition_missing_complex-nav"><a href="TypeUnitTests.html#definition_missing_complex">definition_missing_complex</a></li><li data-type="method" id="TypeUnitTests-definition_missing_simple-nav"><a href="TypeUnitTests.html#definition_missing_simple">definition_missing_simple</a></li><li data-type="method" id="TypeUnitTests-definition_phrase_complex-nav"><a href="TypeUnitTests.html#definition_phrase_complex">definition_phrase_complex</a></li><li data-type="method" id="TypeUnitTests-definition_phrase_simple-nav"><a href="TypeUnitTests.html#definition_phrase_simple">definition_phrase_simple</a></li><li data-type="method" id="TypeUnitTests-definition_spellcheck-nav"><a href="TypeUnitTests.html#definition_spellcheck">definition_spellcheck</a></li><li data-type="method" id="TypeUnitTests-general_unused-nav"><a href="TypeUnitTests.html#general_unused">general_unused</a></li><li data-type="method" id="TypeUnitTests-name_camelCase-nav"><a href="TypeUnitTests.html#name_camelCase">name_camelCase</a></li><li data-type="method" id="TypeUnitTests-name_duplicate-nav"><a href="TypeUnitTests.html#name_duplicate">name_duplicate</a></li><li data-type="method" id="TypeUnitTests-name_inconsistent_codeType-nav"><a href="TypeUnitTests.html#name_inconsistent_codeType">name_inconsistent_codeType</a></li><li data-type="method" id="TypeUnitTests-name_invalidChar-nav"><a href="TypeUnitTests.html#name_invalidChar">name_invalidChar</a></li><li data-type="method" id="TypeUnitTests-name_missing_complex-nav"><a href="TypeUnitTests.html#name_missing_complex">name_missing_complex</a></li><li data-type="method" id="TypeUnitTests-name_missing_simple-nav"><a href="TypeUnitTests.html#name_missing_simple">name_missing_simple</a></li><li data-type="method" id="TypeUnitTests-name_overlap-nav"><a href="TypeUnitTests.html#name_overlap">name_overlap</a></li><li data-type="method" id="TypeUnitTests-name_repTerm_codeSimpleType-nav"><a href="TypeUnitTests.html#name_repTerm_codeSimpleType">name_repTerm_codeSimpleType</a></li><li data-type="method" id="TypeUnitTests-name_repTerm_codeType-nav"><a href="TypeUnitTests.html#name_repTerm_codeType">name_repTerm_codeType</a></li><li data-type="method" id="TypeUnitTests-name_repTerm_complex-nav"><a href="TypeUnitTests.html#name_repTerm_complex">name_repTerm_complex</a></li><li data-type="method" id="TypeUnitTests-name_repTerm_simple-nav"><a href="TypeUnitTests.html#name_repTerm_simple">name_repTerm_simple</a></li><li data-type="method" id="TypeUnitTests-name_repTerm_type-nav"><a href="TypeUnitTests.html#name_repTerm_type">name_repTerm_type</a></li><li data-type="method" id="TypeUnitTests-name_reservedTerm_type-nav"><a href="TypeUnitTests.html#name_reservedTerm_type">name_reservedTerm_type</a></li><li data-type="method" id="TypeUnitTests-name_spellcheck-nav"><a href="TypeUnitTests.html#name_spellcheck">name_spellcheck</a></li><li data-type="method" id="TypeUnitTests-prefix_missing-nav"><a href="TypeUnitTests.html#prefix_missing">prefix_missing</a></li><li data-type="method" id="TypeUnitTests-prefix_unknown-nav"><a href="TypeUnitTests.html#prefix_unknown">prefix_unknown</a></li><li data-type="method" id="TypeUnitTests-style_missing-nav"><a href="TypeUnitTests.html#style_missing">style_missing</a></li><li data-type="method" id="TypeUnitTests-style_unknown-nav"><a href="TypeUnitTests.html#style_unknown">style_unknown</a></li></ul></li><li id="Update-nav"><a href="Update.html">Update</a><ul class='methods'><li data-type="method" id="Update-end-nav"><a href="Update.html#end">end</a></li><li data-type="method" id="Update-log-nav"><a href="Update.html#log">log</a></li></ul></li><li id="Utils-nav"><a href="Utils.html">Utils</a><ul class='methods'><li data-type="method" id="Utils-component_unknown__helper-nav"><a href="Utils.html#component_unknown__helper">component_unknown__helper</a></li><li data-type="method" id="Utils-definition_spellcheck__helper-nav"><a href="Utils.html#definition_spellcheck__helper">definition_spellcheck__helper</a></li><li data-type="method" id="Utils-name_duplicate__helper-nav"><a href="Utils.html#name_duplicate__helper">name_duplicate__helper</a></li><li data-type="method" id="Utils-name_invalidChar__helper-nav"><a href="Utils.html#name_invalidChar__helper">name_invalidChar__helper</a></li><li data-type="method" id="Utils-name_missing__helper-nav"><a href="Utils.html#name_missing__helper">name_missing__helper</a></li><li data-type="method" id="Utils-name_spellcheck__helper-nav"><a href="Utils.html#name_spellcheck__helper">name_spellcheck__helper</a></li><li data-type="method" id="Utils-prefix_unknown__helper-nav"><a href="Utils.html#prefix_unknown__helper">prefix_unknown__helper</a></li><li data-type="method" id="Utils-property_unknown__helper-nav"><a href="Utils.html#property_unknown__helper">property_unknown__helper</a></li><li data-type="method" id="Utils-text_formatting_helper-nav"><a href="Utils.html#text_formatting_helper">text_formatting_helper</a></li><li data-type="method" id="Utils-type_unknown__helper-nav"><a href="Utils.html#type_unknown__helper">type_unknown__helper</a></li></ul></li></ul><h3 id="global-nav">Global</h3><ul><li><a href="global.html#failed">failed</a></li><li><a href="global.html#failedErrors">failedErrors</a></li><li><a href="global.html#failedInfo">failedInfo</a></li><li><a href="global.html#failedWarnings">failedWarnings</a></li><li><a href="global.html#issues">issues</a></li><li><a href="global.html#notRan">notRan</a></li><li><a href="global.html#passed">passed</a></li><li><a href="global.html#prefixes">prefixes</a></li><li><a href="global.html#ran">ran</a></li><li><a href="global.html#status">status</a></li></ul>
+  </nav>
 
+  <div id="main">
     
 
-
-
     
-
-
-    <section class="package">
-        <h3> </h3>		
-    </section>
-
-
-
-
-
-
+      
 
 
 
     
 
+      
 
 
-    <section class="readme usertext">
-        <article><h1>NIEM Model QA</h1>
+  <section class="readme">
+    <article>
+      <h1>NIEM Model QA</h1>
 <p><a href="https://travis-ci.org/cdmgtri/niem-model-qa"><img src="https://travis-ci.org/cdmgtri/niem-model-qa.svg" alt="Build Status"></a>
 <a href="https://coveralls.io/github/cdmgtri/niem-model-qa"><img src="https://coveralls.io/repos/github/cdmgtri/niem-model-qa/badge.svg" alt="Coverage Status"></a></p>
 <p>Provides QA checks for NIEM data, based on NIEM NDR rules and modeling best practices.</p>
@@ -111,31 +146,26 @@ await qa.testSuite.saveAsDownload(&quot;test-results&quot;);
 <li>[ ] Merge QA and TestSuite classes</li>
 <li>[ ] Async init spell checkers from relevant function</li>
 <li>[ ] Extract command line code to separate class</li>
-</ul></article>
-    </section>
-
-
-
-
+</ul>
+    </article>
+  </section>
 
 
     
-    
-</div>
-
-<br class="clear">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.5</a> on Thu Jul 30 2020 16:43:44 GMT-0400 (Eastern Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
-</footer>
-
-<script>prettyPrint();</script>
-<script src="scripts/polyfill.js"></script>
-<script src="scripts/linenumber.js"></script>
-
-<script src="scripts/search.js" defer></script>
 
 
+  </div>
+
+  <br class="clear">
+
+  <footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a>
+  </footer>
+
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/pagelocation.js"></script>
+
+  
 
 </body>
 </html>

@@ -1,17 +1,18 @@
 
-let { NIEM, Release, Type } = require("niem-model");
+let { Type, TypeDefs } = require("niem-model");
+let { NIEMDef, ReleaseDef, TypeDef } = TypeDefs;
 
-/** @type {Release} */
+/** @type {ReleaseDef} */
 let release;
 
-/** @type {Type[]} */
+/** @type {TypeDef[]} */
 let fieldTypes = [];
 
 let FieldTest = require("./field");
 
 /**
  * @param {NIEMModelQA} qa
- * @param {NIEM} niem
+ * @param {NIEMDef} niem
  */
 function typeTests(qa, niem) {
 
@@ -23,7 +24,7 @@ function typeTests(qa, niem) {
 
     describe("Type unit tests", () => {
 
-      test("#base_invalid_csc", async () => {
+      test("#base_csc", async () => {
 
         let types = [
           (await release.types.add("ext", "IDType", "An ID", "object", "ext:BogusType")),
@@ -41,7 +42,7 @@ function typeTests(qa, niem) {
         await release.types.add("niem-xs", "token", null, "CSC");
         await release.types.add("nc", "PersonType", null, "object");
 
-        let test = await qa.objects.type.tests.base_invalid_csc(types, release);
+        let test = await qa.objects.type.tests.base_csc(types, release);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ncic:HairColorCodeType");
@@ -49,7 +50,7 @@ function typeTests(qa, niem) {
         expect(test.issues.length).toBe(1);
       });
 
-      test("#base_invalid_simple", async () => {
+      test("#base_simple", async () => {
 
         let types = [
           new Type("ext", "IDType", "An ID", "object", "ext:BogusType"),
@@ -64,7 +65,7 @@ function typeTests(qa, niem) {
 
         await release.types.add("ncic", "EyeColorCodeSimpleType", null, "simple");
 
-        let test = await qa.objects.type.tests.base_invalid_simple(types, release);
+        let test = await qa.objects.type.tests.base_simple(types, release);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].label).toBe("ncic:HairColorCodeSimpleType");
@@ -72,7 +73,7 @@ function typeTests(qa, niem) {
         expect(test.issues.length).toBe(1);
       });
 
-      test("#base_missing_simpleContent", async () => {
+      test("#base_simpleContent", async () => {
 
         let types = [
           new Type("ext", "IDType", "An ID", "object"),
@@ -83,7 +84,7 @@ function typeTests(qa, niem) {
 
         fieldTypes.push(...types);
 
-        let test = await qa.objects.type.tests.base_missing_simpleContent(types);
+        let test = await qa.objects.type.tests.base_simpleContent(types);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues.length).toBe(2);
@@ -405,13 +406,13 @@ function typeTests(qa, niem) {
           (await release.types.add("ext", "StringType", null, "CSC", "xs:string"))
         ];
 
-        await types[0].facets.add("MON");
-        await types[0].facets.add("TUE");
-        await types[0].facets.add("WED");
+        await types[0].facets.add("MON", "");
+        await types[0].facets.add("TUE", "");
+        await types[0].facets.add("WED", "");
 
         fieldTypes.push(...types);
 
-        let test = await qa.objects.type.tests.name_repTerm_codeSimpleType(types);
+        let test = await qa.objects.type.tests.name_repTerm_codeSimpleType(types, release);
 
         expect(test.failed).toBeTruthy();
         expect(test.issues[0].problemValue).toBe("MonthCodeSimpleType");
@@ -525,6 +526,7 @@ function typeTests(qa, niem) {
         let types = [
           new Type("ext", "IDTypeCodeType", null, "CSC"),
           new Type("nc", "LocationType", null, "object"),
+          // @ts-ignore
           new Type("nc", "LocationType", null, "bogus"), // invalid
           new Type("nc", "ActivityType", null) // invalid
         ];
@@ -551,29 +553,16 @@ function typeTests(qa, niem) {
         fieldTest = new FieldTest(qa.objects.type, fieldTypes, release);
       });
 
-      test("#base", async () => {
-        await fieldTest.run("base");
-      });
-
-      test("#definition", async () => {
-        await fieldTest.run("definition");
-      });
-
-      test("#name", async () => {
-        await fieldTest.run("name");
-      });
-
-      test("#prefix", async () => {
-        await fieldTest.run("prefix");
-      });
-
-      test("#style", async () => {
-        await fieldTest.run("style");
+      test("#individual fields", async () => {
+        let fields = Object.getOwnPropertyNames( qa.objects.type.field );
+        for (let field of fields) {
+          await fieldTest.run(field);
+        }
       });
 
       test("#all fields", async () => {
-        let results = await qa.objects.type.run(fieldTypes, release);
-        expect(fieldTest.fieldTestCount).toBe(results.tests.length);
+        let typeQA = await qa.objects.type.run(fieldTypes, release);
+        expect(fieldTest.fieldTestCount).toBe(typeQA.tests.length);
       });
 
     });

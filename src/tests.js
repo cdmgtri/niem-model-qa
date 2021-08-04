@@ -3,6 +3,8 @@ let Test = require("./test");
 let Issue = require("./issue");
 let SpreadsheetUtils = require("./utils/xlsx");
 
+let { NIEMObjectDef } = require("niem-model").TypeDefs
+
 class Tests {
 
   /**
@@ -38,7 +40,7 @@ class Tests {
   /**
    * Returns a test from the test suite with the given ID.
 
-   * @param {String} testID
+   * @param {string} testID
    */
   find(testID) {
     return this.qa._tests.find(test => test.id == testID);
@@ -49,7 +51,7 @@ class Tests {
   }
 
   /**
-   * @param {String} filePath
+   * @param {string} filePath
    * @param {boolean} reset Overwrite existing tests if true
    */
   async loadSpreadsheet(filePath, reset=true) {
@@ -82,8 +84,8 @@ class Tests {
    * Logs issues for the test.
    *
    * @param {Test} test
-   * @param {NIEMObject[]} problemObjects
-   * @param {String} problemField
+   * @param {NIEMObjectDef[]} problemObjects
+   * @param {string} problemField
    * @param {Function} commentFunction - For each problem object, returns the corresponding comment string
    * @param {Boolean} [reset=false] True to replace current results; false (default) to append
    */
@@ -102,7 +104,7 @@ class Tests {
       let isException = test.exceptionLabels.includes(object.label);
 
       if (isException == false || (isException == true && this.qa.ignoreExceptions == false)) {
-        let issue = new Issue(object.authoritativePrefix, label, object.input_location, object.input_line, object.input_position, problemValue, comment, test);
+        let issue = new Issue(object["authoritativePrefix"], label, object.input_location, object.input_line, problemValue, comment, test);
         issues.push(issue);
       }
 

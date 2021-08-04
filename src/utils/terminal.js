@@ -1,7 +1,23 @@
 
 const chalk = require("chalk");
-const NIEMModelQA = require("./index");
+const NIEMModelQA = require("../index");
 const Test = require("../test");
+
+/**
+ * @private
+ * @typedef {Object} Details
+ * @property {Test[]} tests
+ * @property {string} symbol
+ * @property {Function} chalkFunction
+ * @property {string} heading
+ * @property {number} [issues]
+ */
+/**
+ * @private
+ * @type {Details}
+ */
+let DetailsType;
+
 
 class Terminal {
 
@@ -13,7 +29,7 @@ class Terminal {
   }
   /**
    * Print QA status to the console.
-   * @param {String[]} prefixes
+   * @param {string[]} [prefixes]
    */
   printStatus(prefixes) {
 
@@ -55,20 +71,11 @@ class Terminal {
 /**
  * Summary of QA results and formatting info for the terminal display
  *
+ * @private
  * @param {NIEMModelQA} qa
- * @param {String[]} prefixes
+ * @param {string[]} prefixes
  */
 function summary(qa, prefixes) {
-
-  /**
-   * @typedef Details
-   * @property {Test[]} tests
-   * @property {string} symbol
-   * @property {Function} chalkFunction
-   * @property {string} heading
-   * @property {number} issues
-   */
-  let DetailsType;
 
   let headerPadding = 10;
 
@@ -85,21 +92,21 @@ function summary(qa, prefixes) {
       symbol: chalk.red("\u2716 "),
       chalkFunction: chalk.red,
       heading: "Errors:".padEnd(headerPadding, " "),
-      issues: qa.results.issues(prefixes, "error").length
+      issues: qa.results.issues(prefixes, ["error"]).length
     },
     warnings: {
       tests: qa.results.tests.failedWarnings(prefixes),
       symbol: chalk.yellow("? "),
       chalkFunction: chalk.yellow,
       heading: "Warnings:".padEnd(headerPadding, " "),
-      issues: qa.results.issues(prefixes, "warning").length
+      issues: qa.results.issues(prefixes, ["warning"]).length
     },
     info: {
       tests: qa.results.tests.failedInfo(prefixes),
       symbol: chalk.gray("\u2722 "),
       chalkFunction: chalk.gray,
       heading: "Info:".padEnd(headerPadding, " "),
-      issues: qa.results.issues(prefixes, "info").length
+      issues: qa.results.issues(prefixes, ["info"]).length
     }
   }
 
@@ -109,8 +116,9 @@ function summary(qa, prefixes) {
 
 
 /**
+ * @private
  * @param {Test} test
- * @param {Details} details
+ * @param {DetailsType} details
  */
 function testStatusLine(test, details) {
   let issueCount = "";
@@ -121,6 +129,7 @@ function testStatusLine(test, details) {
 }
 
 /**
+ * @private
  * @param {Details} details
  */
 function testStatusLines(details) {
@@ -131,6 +140,7 @@ function testStatusLines(details) {
 }
 
 /**
+ * @private
  * @param {Details} details
  */
 function severityStatusLine(details) {

@@ -1,4 +1,6 @@
 
+let QATypeDefs = require("./src/typedefs");
+
 module.exports = {
   NIEMModelQA: require("./src/index"),
 
@@ -7,6 +9,8 @@ module.exports = {
   Results: require("./src/results"),
   Test: require("./src/test"),
   Tests: require("./src/tests"),
+
+  QATypeDefs,
 
   SpellChecker: require("./src/utils/spellChecker"),
   Terminal: require("./src/utils/terminal"),

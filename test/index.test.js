@@ -1,5 +1,6 @@
 
-let { NIEM, Release } = require("niem-model");
+let { NIEM, TypeDefs } = require("niem-model");
+let { ReleaseDef } = TypeDefs;
 
 let NIEMModelQA = require("../src/index");
 let unitTests = require("./unit/index");
@@ -7,11 +8,11 @@ let unitTests = require("./unit/index");
 let qa = new NIEMModelQA();
 let niem = new NIEM();
 
-/** @type {Release} */
+/** @type {ReleaseDef} */
 let release;
 
 beforeAll( async () => {
-  await qa.init();
+  await qa.init(release);
   await qa.tests.loadSpreadsheet("niem-model-qa-tests.xlsx");
   release = await niem.releases.add("user", "model", "1.0");
 });

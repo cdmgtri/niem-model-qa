@@ -16,14 +16,14 @@ class QAResults {
    * Prefixes of namespaces with one or more QA issues.
    */
   get issuePrefixes() {
-    /** @type {String[]} */
+    /** @type {string[]} */
     let prefixes = this.qa._tests.reduce( (prefixes, test) => [...prefixes, ...test.namespaces.prefixes()], [] );
     return [...(new Set(prefixes))];
   }
 
   /**
-   * @param {String[]} prefixes - Filter issues by prefix
-   * @param {Test.SeverityType[]} severities - Filter issues by test severity
+   * @param {string[]} [prefixes] - Filter issues by prefix
+   * @param {Test.SeverityType[]} [severities] - Filter issues by test severity
    * @returns {Issue[]}
    */
   issues(prefixes, severities) {
@@ -33,17 +33,19 @@ class QAResults {
   }
 
   /**
-   * @param {String[]} prefixes
+   * @param {string[]} [prefixes]
+   * @param {Test.SeverityType[]} [severities] - Filter issues by test severity
    */
-  passed(prefixes) {
-    return this.tests.failed(prefixes).length == 0 && this.tests.ran.length > 0;
+  passed(prefixes, severities) {
+    return this.tests.failed(prefixes, severities).length == 0 && this.tests.ran.length > 0;
   }
 
   /**
-   * @param {String[]} prefixes
+   * @param {string[]} [prefixes]
+   * @param {Test.SeverityType[]} [severities] - Filter issues by test severity
    */
-  failed(prefixes) {
-    return this.tests.failed(prefixes).length > 0;
+  failed(prefixes, severities) {
+    return this.tests.failed(prefixes, severities).length > 0;
   }
 
   /**
@@ -95,7 +97,7 @@ class QAResults {
   }
 
   /**
-   * @param {String[]} prefixes
+   * @param {string[]} [prefixes]
    */
   status(prefixes) {
     if (this.passed(prefixes)) return "pass";
@@ -103,6 +105,9 @@ class QAResults {
     return "not ran";
   }
 
+  /**
+   *
+   */
   get tests() {
 
     let qa = this.qa;
@@ -127,7 +132,7 @@ class QAResults {
 
       /**
        * Tests that have passed, with results optionally filtered by the given namespace prefixes.
-       * @param {String[]} prefixes
+       * @param {string[]} prefixes
        */
       passed: (prefixes) => {
         return qa.results.tests.ran.filter( test => test.namespaces.passed(prefixes) );
@@ -135,8 +140,8 @@ class QAResults {
 
       /**
        * Tests that have failed, with results optionally filtered by the given namespace prefixes.
-       * @param {String[]} prefixes - Optional filter on issue prefix
-       * @param {Test.SeverityType[]} severities - Optional filter on test severity
+       * @param {string[]} [prefixes] - Optional filter on issue prefix
+       * @param {Test.SeverityType[]} [severities] - Optional filter on test severity
        */
       failed: (prefixes, severities) => {
         let failedTests = qa.results.tests.ran.filter( test => test.namespaces.failed(prefixes) );
@@ -149,21 +154,21 @@ class QAResults {
       },
 
       /**
-       * @param {String[]} prefixes
+       * @param {string[]} prefixes
        */
       failedErrors: (prefixes) => {
         return qa.results.tests.failed(prefixes, ["error"]);
       },
 
       /**
-       * @param {String[]} prefixes
+       * @param {string[]} prefixes
        */
       failedWarnings: (prefixes) => {
         return qa.results.tests.failed(prefixes, ["warning"]);
       },
 
       /**
-       * @param {String[]} prefixes
+       * @param {string[]} prefixes
        */
       failedInfo: (prefixes) => {
         return qa.results.tests.failed(prefixes, ["info"]);

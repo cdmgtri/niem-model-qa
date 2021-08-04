@@ -11,8 +11,8 @@ class PropertyTester extends NIEMObjectTester {
     this.tests = new PropertyUnitTests(qa);
 
     /**
-     * @param {PropertyInstance[]} properties
-     * @param {ReleaseInstance} release
+     * @param {PropertyDef[]} properties
+     * @param {ReleaseDef} release
      * @returns {Promise<NIEMModelQA>}
      */
     this.run = (properties, release) => this.runTests(properties, release);
@@ -20,25 +20,39 @@ class PropertyTester extends NIEMObjectTester {
     this.field = {
 
       /**
-       * @param {PropertyInstance[]} properties
-       * @param {ReleaseInstance} release
+       * @param {PropertyDef[]} properties
+       * @param {ReleaseDef} release
        * @returns {Promise<NIEMModelQA>}
        */
       definition: (properties, release) => this.runTests(properties, release, "definition"),
 
       /**
-       * @param {PropertyInstance[]} properties
-       * @param {ReleaseInstance} release
+       * @param {PropertyDef[]} properties
+       * @param {ReleaseDef} release
        * @returns {Promise<NIEMModelQA>}
        */
       name: (properties, release) => this.runTests(properties, release, "name"),
 
       /**
-       * @param {PropertyInstance[]} properties
-       * @param {ReleaseInstance} release
+       * @param {PropertyDef[]} properties
+       * @param {ReleaseDef} release
        * @returns {Promise<NIEMModelQA>}
        */
       prefix: (properties, release) => this.runTests(properties, release, "prefix"),
+
+      /**
+       * @param {PropertyDef[]} properties
+       * @param {ReleaseDef} release
+       * @returns {Promise<NIEMModelQA>}
+       */
+      type: (properties, release) => this.runTests(properties, release, "type"),
+
+      /**
+       * @param {PropertyDef[]} properties
+       * @param {ReleaseDef} release
+       * @returns {Promise<NIEMModelQA>}
+       */
+      general: (properties, release) => this.runTests(properties, release, "general"),
 
     };
 
@@ -49,4 +63,4 @@ class PropertyTester extends NIEMObjectTester {
 module.exports = PropertyTester;
 
 let NIEMModelQA = require("../../index");
-let { ReleaseInstance, PropertyInstance } = require("niem-model");
+let { ReleaseDef, PropertyDef } = require("niem-model").TypeDefs;

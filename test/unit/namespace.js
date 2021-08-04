@@ -1,18 +1,19 @@
 
-let { NIEM, Release, Namespace } = require("niem-model");
+let { Namespace, TypeDefs } = require("niem-model");
+let { NIEMDef, ReleaseDef, NamespaceDef } = TypeDefs;
 let NIEMModelQA = require("../../src/index");
 
-/** @type {Release} */
+/** @type {ReleaseDef} */
 let release;
 
-/** @type {Namespace[]} */
+/** @type {NamespaceDef[]} */
 let fieldNamespaces = [];
 
 let FieldTest = require("./field");
 
 /**
  * @param {NIEMModelQA} qa
- * @param {NIEM} niem
+ * @param {NIEMDef} niem
  */
 function namespaceTests(qa, niem) {
 
@@ -29,10 +30,10 @@ function namespaceTests(qa, niem) {
         let namespaces = [
           new Namespace("ext1", "core", "", "", "ABC abc Abc namespace"),
           new Namespace("ext2", "domain", "", "", "Justice"),
-          new Namespace("ext3", "", "", "", "An extnsion namespace"),  // invalid
-          new Namespace("ext4", "", "", "", "A namespace from http://www.example.com"),
-          new Namespace("ext5", "", "", "", "A namespace from https://www.example.com"),
-          new Namespace("ext6", "", "", "", "A namespace from https://www.example.com extnsion") // invalid
+          new Namespace("ext3", null, "", "", "An extnsion namespace"),  // invalid
+          new Namespace("ext4", null, "", "", "A namespace from http://www.example.com"),
+          new Namespace("ext5", null, "", "", "A namespace from https://www.example.com"),
+          new Namespace("ext6", null, "", "", "A namespace from https://www.example.com extnsion") // invalid
         ];
 
         await release.localTerms.add("ext1", "ABC", "Alpha Bravo Charlie");
@@ -42,19 +43,13 @@ function namespaceTests(qa, niem) {
         let test = await qa.objects.namespace.tests.definition_spellcheck(namespaces, release);
         let issues = test.issues;
 
-        expect(issues.length).toBe(4);
+        expect(issues.length).toBe(2);
 
-        expect(issues[0].label).toBe("ext1");
-        expect(issues[0].problemValue).toBe("abc");
+        expect(issues[0].label).toBe("ext3");
+        expect(issues[0].problemValue).toBe("extnsion");
 
-        expect(issues[1].label).toBe("ext1");
-        expect(issues[1].problemValue).toBe("Abc");
-
-        expect(issues[2].label).toBe("ext3");
-        expect(issues[2].problemValue).toBe("extnsion");
-
-        expect(issues[3].label).toBe("ext6");
-        expect(issues[3].problemValue).toBe("extnsion");
+        expect(issues[1].label).toBe("ext6");
+        expect(issues[1].problemValue).toBe("extnsion");
 
       });
 

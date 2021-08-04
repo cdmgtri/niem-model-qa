@@ -1,7 +1,11 @@
 
 let xlsx = require("xlsx-populate");
 
-let { Workbook } = xlsx;
+/**
+ * @private
+ * @type {import("xlsx-populate").Workbook}
+ */
+let WorkbookDef;
 
 class SpreadsheetUtils {
 
@@ -15,8 +19,8 @@ class SpreadsheetUtils {
   /**
    * Converts a worksheet into an array of row objects
    *
-   * @param {Workbook} workbook
-   * @param {integer} sheetIndex
+   * @param {WorkbookDef} workbook
+   * @param {number} sheetIndex
    * @param {boolean} removeHeaderRow
    */
   static async getRows(workbook, sheetIndex, removeHeaderRow=false) {

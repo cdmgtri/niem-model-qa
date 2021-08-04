@@ -21,9 +21,13 @@ let TypeTester = require("./model-tests/type/index");
 let FacetTester = require("./model-tests/facet/index");
 let SubPropertyTester = require("./model-tests/subProperty/index");
 
-let { Release, Namespace, LocalTerm, Component, Property, Type, SubProperty, Facet } = require("niem-model");
+let { Namespace, LocalTerm, Component, Facet, TypeDefs } = require("niem-model");
+let { ReleaseDef, NamespaceDef, LocalTermDef, PropertyDef, TypeDef, SubPropertyDef, FacetDef } = TypeDefs;
 
-/** @type {Array} */
+/**
+ * @private
+ * @type {Array}
+ */
 let JSONTests = require("../niem-model-qa-tests.json");
 
 /**
@@ -38,30 +42,28 @@ class NIEMModelQA {
   constructor() {
 
     /**
-     * @private
      * @type {Test[]}
      */
     this._tests = [];
 
-    /** @private */
     this._releaseData = {
 
-      /** @type {Namespace[]} */
+      /** @type {NamespaceDef[]} */
       namespaces: [],
 
-      /** @type {LocalTerm[]} */
+      /** @type {LocalTermDef[]} */
       localTerms: [],
 
-      /** @type {Property[]} */
+      /** @type {PropertyDef[]} */
       properties: [],
 
-      /** @type {Type[]} */
+      /** @type {TypeDef[]} */
       types: [],
 
-      /** @type {SubProperty[]} */
+      /** @type {SubPropertyDef[]} */
       subProperties: [],
 
-      /** @type {Facet[]} */
+      /** @type {FacetDef[]} */
       facets: []
     };
 
@@ -90,7 +92,7 @@ class NIEMModelQA {
   }
 
   /**
-   * @param {Release} release
+   * @param {ReleaseDef} release
    */
   async init(release) {
     // Convert ModelQA tests saved as JSON data into test objects and load
@@ -105,7 +107,7 @@ class NIEMModelQA {
   /**
    * Runs all tests
    *
-   * @param {Release} release
+   * @param {ReleaseDef} release
    * @param {boolean} [reset=true] True (default) to reset any existing test results
    * @param {boolean} [ignoreExceptions=false] True (default) to ignore exceptions; false return all results
    */
@@ -149,13 +151,14 @@ class NIEMModelQA {
   /**
    * Convert a test metadata spreadsheet to JSON.  Defaults to model tests if no path given.
    *
+   * @param {ReleaseDef} release
    * @param {string} spreadsheetPath Path and file name of the test metadata spread.
    * @param {boolean} [reset=true] If path given, overwrite model tests (default); otherwise append tests
    */
-  static async exportTests(spreadsheetPath, reset=true) {
+  static async exportTests(release, spreadsheetPath, reset=true) {
 
     let qa = new NIEMModelQA();
-    await qa.init();
+    await qa.init(release);
 
     if (spreadsheetPath) {
       await qa.tests.loadSpreadsheet(spreadsheetPath, reset);
@@ -173,8 +176,8 @@ class NIEMModelQA {
   /**
    * Adds a new update to the progress tracker.
    *
-   * @param {String} label
-   * @param {String} description
+   * @param {string} label
+   * @param {string} description
    * @param {number} testCount
    */
   startUpdate(label, description, testCount) {

@@ -1,9 +1,12 @@
 
 let HunspellSpellchecker = require("hunspell-spellchecker");
 
-let { Release } = require("niem-model");
+let { ReleaseDef } = require("niem-model").TypeDefs;
 
-/** @type {{allow: string[], exclude: string[], special: string[]}} */
+/**
+ * @private
+ * @type {{allow: string[], exclude: string[], special: string[]}}
+ */
 let customDictionary = require("../../customDictionary.json");
 
 
@@ -86,7 +89,7 @@ class SpellChecker {
    * @param {string} definition
    * @param {string[]} terms
    *
-   * @returns {Promise<Array.<{word: string, suggestions: string[], positions: Array.<{from: number, to: number, length: number}>}>>}
+   * @returns {Promise<String[]>}
    */
   async checkDefinition(definition, terms) {
 
@@ -108,7 +111,7 @@ class SpellChecker {
   /**
    * Adds type names and namespace prefixes to the list of allowable words.
    * This permits definitions to include things like "An augmentation point for type nc:PersonType"
-   * @param {Release} release
+   * @param {ReleaseDef} release
    */
   async init(release) {
 
@@ -134,6 +137,7 @@ class SpellChecker {
 
 
 /**
+ * @private
  * @param {string} definition
  */
 function processDefinition(definition) {
@@ -144,7 +148,7 @@ function processDefinition(definition) {
   results = results.replace(/\(\S*\)/g, "")
 
   // Remove urls from the definition
-  results = results.replace(/https?.*( |\.|$)/g, "")
+  results = results.replace(/https?\S*/g, "")
 
   // Replace everything that isn't a word character with a space
   results = results.replace(/[\W]/g, " ")
