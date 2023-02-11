@@ -35,7 +35,7 @@
     "jest": "^27.4.7",
     "jsdoc": "^3.6.10",
     "jsdoc-template": "github:cdmgtri/jsdoc-template",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.20"
   },
   "optionalDependencies": {
     "fsevents": "^2.3.2"
